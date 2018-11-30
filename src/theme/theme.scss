@@ -1,11 +1,11 @@
 @import "variables";
 
-@import "components/typography";
-@import "components/colors";
+@import "./components/typography";
+@import "./components/colors";
 
 body {
   font-family: Nunito, Arial, sans-serif;
-  font-size: 1.6rem;
+  font-size: $font-tiny;
 }
 
 // Custom scrollbar
@@ -21,4 +21,9 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0,0,0,.4);
+}
+
+:root {
+  --primary: #41ABAF;
+  --secondary: #499DD3;
 }

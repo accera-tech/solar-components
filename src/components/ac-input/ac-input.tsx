@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Prop, Element } from '@stencil/core';
 
 @Component({
   tag: 'ac-input',
@@ -6,6 +6,8 @@ import { Component, Prop } from '@stencil/core';
   shadow: true
 })
 export class AcInput {
+  @Element() host: HTMLDivElement;
+
   @Prop() label: string;
 
   render() {

@@ -12,6 +12,17 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface AcButton {
+    'text': string;
+    'tooltip': string;
+    'type': string;
+  }
+  interface AcButtonAttributes extends StencilHTMLAttributes {
+    'text'?: string;
+    'tooltip'?: string;
+    'type'?: string;
+  }
+
   interface AcInput {
     'label': string;
   }
@@ -22,13 +33,21 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'AcButton': Components.AcButton;
     'AcInput': Components.AcInput;
   }
 
   interface StencilIntrinsicElements {
+    'ac-button': Components.AcButtonAttributes;
     'ac-input': Components.AcInputAttributes;
   }
 
+
+  interface HTMLAcButtonElement extends Components.AcButton, HTMLStencilElement {}
+  var HTMLAcButtonElement: {
+    prototype: HTMLAcButtonElement;
+    new (): HTMLAcButtonElement;
+  };
 
   interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
   var HTMLAcInputElement: {
@@ -37,10 +56,12 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'ac-button': HTMLAcButtonElement
     'ac-input': HTMLAcInputElement
   }
 
   interface ElementTagNameMap {
+    'ac-button': HTMLAcButtonElement;
     'ac-input': HTMLAcInputElement;
   }
 
