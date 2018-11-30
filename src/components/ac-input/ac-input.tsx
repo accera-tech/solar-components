@@ -1,4 +1,4 @@
-import { Component, Prop, Element } from '@stencil/core';
+import { Component, Prop, Element, State } from '@stencil/core';
 
 @Component({
   tag: 'ac-input',
@@ -10,12 +10,25 @@ export class AcInput {
 
   @Prop() label: string;
 
+  @State() hasFocus: boolean;
+
+  handleFocus() {
+    this.hasFocus = true;
+  }
+
+  handleBlur() {
+    this.hasFocus = false;
+  }
+
   render() {
 
     return (
       <div class="input-container">
-        <label>{this.label}</label>
-        <input placeholder={this.label} />
+        <label class={this.hasFocus ? 'floating' : ''}>{this.label}</label>
+        <input type="text"
+               onFocus={() => this.handleFocus()}
+               onBlur={() => this.handleBlur()}
+        />
       </div>
     );
   }

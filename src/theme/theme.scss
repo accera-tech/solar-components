@@ -3,9 +3,9 @@
 @import "./components/typography";
 @import "./components/colors";
 
-body {
+* {
   font-family: Nunito, Arial, sans-serif;
-  font-size: $font-tiny;
+  font-size: $font-small;
 }
 
 // Custom scrollbar

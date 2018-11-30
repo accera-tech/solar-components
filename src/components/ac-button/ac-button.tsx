@@ -12,6 +12,7 @@ export class AcButton {
   @Prop() type: string;
   @Prop() tooltip: string;
 
+  @Prop({ mutable: true, reflectToAttr: true})
   hostData() {
     return {
       attribute: 'navigation',
