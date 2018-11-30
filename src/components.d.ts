@@ -8,6 +8,9 @@
 import '@stencil/core';
 
 
+import {
+  EventEmitter,
+} from '@stencil/core';
 
 
 export namespace Components {
@@ -27,9 +30,16 @@ export namespace Components {
 
   interface AcInput {
     'label': string;
+    'type': any;
+    'value': any;
   }
   interface AcInputAttributes extends StencilHTMLAttributes {
     'label'?: string;
+    'onOnBlur'?: (event: CustomEvent<void>) => void;
+    'onOnFocus'?: (event: CustomEvent<void>) => void;
+    'onOnInput'?: (event: CustomEvent<KeyboardEvent>) => void;
+    'type'?: any;
+    'value'?: any;
   }
 }
 
