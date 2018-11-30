@@ -1,0 +1,38 @@
+@import "../variables";
+
+$colors: (
+  turquoise: $turquoise,
+  blue: $blue,
+  lemon: $lemon,
+  dark-blue: $dark-blue,
+  orange: $orange,
+  dark-yellow: $dark-yellow,
+  gray: $gray,
+);
+
+@each $colorName, $colorGroup in $colors {
+  .#{$colorName} {
+    color: map_get($colorGroup, "normal");
+    * {
+      color: map_get($colorGroup, "normal");;
+    }
+    path, polygon {
+      fill: map_get($colorGroup, "normal");;
+    }
+  }
+  @each $brightName, $color in $colorGroup {
+    @if $brightName == normal {
+      .bg-#{$colorName} {
+        background-color: $color !important;
+        color: $black !important;
+      }
+    } @else {
+      $isDark: $brightName == "dark" or $brightName == "darker";
+
+      .bg-#{$colorName}-#{$brightName} {
+        background-color: $color !important;
+        color: if($isDark, $white, $black) !important;
+      }
+    }
+  }
+}

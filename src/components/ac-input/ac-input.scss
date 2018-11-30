@@ -1,0 +1,9 @@
+@import "../../theme/variables";
+
+:host {
+  .input-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
