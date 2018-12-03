@@ -9,23 +9,27 @@ export class AcButton {
   @Element() host: HTMLButtonElement;
 
   @Prop() text: string;
-  @Prop() type: string;
+  @Prop() type: string = 'button';
   @Prop() tooltip: string;
+  @Prop() theme: string;
 
-  @Prop({ mutable: true, reflectToAttr: true})
   hostData() {
     return {
-      attribute: 'navigation',
-      tooltip: this.tooltip,
-      type: this.type,
-      class: 'ac-button'
+      attribute: 'button',
+      title: this.tooltip,
+      dataType: this.type,
+      class: {
+        'ac-button': true,
+        'ac-button--primary': this.theme === 'primary',
+        'ac-button--secondary': this.theme === 'secondary'
+      }
     };
   }
 
   render() {
 
     return (
-      <span class="ac-button">{this.text}</span>
+      <span class="ac-button__text">{this.text}</span>
     );
   }
 }

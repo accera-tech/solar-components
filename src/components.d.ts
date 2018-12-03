@@ -13,14 +13,14 @@ import '@stencil/core';
 export namespace Components {
 
   interface AcButton {
-    'hostData': any;
     'text': string;
+    'theme': string;
     'tooltip': string;
     'type': string;
   }
   interface AcButtonAttributes extends StencilHTMLAttributes {
-    'hostData'?: any;
     'text'?: string;
+    'theme'?: string;
     'tooltip'?: string;
     'type'?: string;
   }
