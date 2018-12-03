@@ -13,16 +13,13 @@ export class AcButton {
   @Prop() tooltip: string;
   @Prop() theme: string;
 
+
   hostData() {
     return {
       attribute: 'button',
       title: this.tooltip,
       dataType: this.type,
-      class: {
-        'ac-button': true,
-        'ac-button--primary': this.theme === 'primary',
-        'ac-button--secondary': this.theme === 'secondary'
-      }
+      class: `ac-button ac-button--${this.theme}`
     };
   }
 
