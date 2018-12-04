@@ -1,0 +1,55 @@
+@import "../../../theme/variables";
+
+:host(.ac-input--focus) {
+  border-color: $primary;
+}
+
+:host {
+  display: flex;
+  border: 2px solid map_get($gray, "light");
+  border-radius: 4px;
+  transition: border-color $default-transition;
+
+  .ac-input__input-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+
+    label.ac-input__label {
+      position: absolute;
+      top: 18px;
+      left: 16px;
+      transition: font-size $default-transition, top $default-transition;
+      user-select: none;
+
+      &.ac-input__label--floating {
+        font-size: $font-tiny;
+        top: 6px;
+      }
+    }
+
+    input {
+      width: 100%;
+      height: 52px;
+      padding: 24px 16px 8px;
+      box-sizing: border-box;
+      border: none;
+      font-size: $font-small;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  ::slotted([slot]) {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    max-width: 44px;
+    min-width: 44px;
+    margin: $spacer-tiny / 2;
+  }
+}
+

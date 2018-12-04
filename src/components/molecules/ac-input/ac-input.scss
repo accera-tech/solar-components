@@ -1,0 +1,12 @@
+@import "../../../theme/variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .ac-input__helper-text {
+    display: block;
+    margin-top: $spacer-tiny;
+    font-size: $font-tiny;
+  }
+}

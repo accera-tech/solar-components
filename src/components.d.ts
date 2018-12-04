@@ -9,36 +9,83 @@ import '@stencil/core';
 
 
 import {
+  Event,
   EventEmitter,
 } from '@stencil/core';
+import {
+  AcPanelOption,
+} from './components/molecules/ac-select/ac-select';
 
 
 export namespace Components {
 
   interface AcButton {
-    'text': string;
+    'iconOnly': boolean;
+    'size': string;
     'theme': string;
     'tooltip': string;
     'type': string;
   }
   interface AcButtonAttributes extends StencilHTMLAttributes {
-    'text'?: string;
+    'iconOnly'?: boolean;
+    'size'?: string;
     'theme'?: string;
     'tooltip'?: string;
     'type'?: string;
   }
 
-  interface AcInput {
+  interface AcFaIcon {
+    'icon': any;
+    'size': number;
+  }
+  interface AcFaIconAttributes extends StencilHTMLAttributes {
+    'icon'?: any;
+    'size'?: number;
+  }
+
+  interface AcInputBase {
     'label': string;
-    'type': any;
+    'type': string;
+    'value': any;
+  }
+  interface AcInputBaseAttributes extends StencilHTMLAttributes {
+    'label'?: string;
+    'onChange'?: (event: CustomEvent<Event>) => void;
+    'onOnBlur'?: (event: CustomEvent<FocusEvent>) => void;
+    'onOnFocus'?: (event: CustomEvent<FocusEvent>) => void;
+    'type'?: string;
+    'value'?: any;
+  }
+
+  interface AcInput {
+    'helperText': string;
+    'label': string;
+    'type': string;
     'value': any;
   }
   interface AcInputAttributes extends StencilHTMLAttributes {
+    'helperText'?: string;
     'label'?: string;
-    'onOnBlur'?: (event: CustomEvent<void>) => void;
-    'onOnFocus'?: (event: CustomEvent<void>) => void;
+    'onOnBlur'?: (event: CustomEvent<FocusEvent>) => void;
+    'onOnFocus'?: (event: CustomEvent<FocusEvent>) => void;
     'onOnInput'?: (event: CustomEvent<KeyboardEvent>) => void;
-    'type'?: any;
+    'type'?: string;
+    'value'?: any;
+  }
+
+  interface AcSelect {
+    'helperText': string;
+    'label': string;
+    'options': AcPanelOption[];
+    'value': any;
+  }
+  interface AcSelectAttributes extends StencilHTMLAttributes {
+    'helperText'?: string;
+    'label'?: string;
+    'onOnBlur'?: (event: CustomEvent<FocusEvent>) => void;
+    'onOnFocus'?: (event: CustomEvent<FocusEvent>) => void;
+    'onOnInput'?: (event: CustomEvent<KeyboardEvent>) => void;
+    'options'?: AcPanelOption[];
     'value'?: any;
   }
 }
@@ -46,12 +93,18 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'AcButton': Components.AcButton;
+    'AcFaIcon': Components.AcFaIcon;
+    'AcInputBase': Components.AcInputBase;
     'AcInput': Components.AcInput;
+    'AcSelect': Components.AcSelect;
   }
 
   interface StencilIntrinsicElements {
     'ac-button': Components.AcButtonAttributes;
+    'ac-fa-icon': Components.AcFaIconAttributes;
+    'ac-input-base': Components.AcInputBaseAttributes;
     'ac-input': Components.AcInputAttributes;
+    'ac-select': Components.AcSelectAttributes;
   }
 
 
@@ -61,20 +114,44 @@ declare global {
     new (): HTMLAcButtonElement;
   };
 
+  interface HTMLAcFaIconElement extends Components.AcFaIcon, HTMLStencilElement {}
+  var HTMLAcFaIconElement: {
+    prototype: HTMLAcFaIconElement;
+    new (): HTMLAcFaIconElement;
+  };
+
+  interface HTMLAcInputBaseElement extends Components.AcInputBase, HTMLStencilElement {}
+  var HTMLAcInputBaseElement: {
+    prototype: HTMLAcInputBaseElement;
+    new (): HTMLAcInputBaseElement;
+  };
+
   interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
   var HTMLAcInputElement: {
     prototype: HTMLAcInputElement;
     new (): HTMLAcInputElement;
   };
 
+  interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
+  var HTMLAcSelectElement: {
+    prototype: HTMLAcSelectElement;
+    new (): HTMLAcSelectElement;
+  };
+
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
+    'ac-fa-icon': HTMLAcFaIconElement
+    'ac-input-base': HTMLAcInputBaseElement
     'ac-input': HTMLAcInputElement
+    'ac-select': HTMLAcSelectElement
   }
 
   interface ElementTagNameMap {
     'ac-button': HTMLAcButtonElement;
+    'ac-fa-icon': HTMLAcFaIconElement;
+    'ac-input-base': HTMLAcInputBaseElement;
     'ac-input': HTMLAcInputElement;
+    'ac-select': HTMLAcSelectElement;
   }
 
 

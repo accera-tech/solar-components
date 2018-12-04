@@ -1,0 +1,89 @@
+@import "../../../theme/variables";
+
+/**
+* generate buttons variations
+*/
+@mixin button-variations($selector: '', $bg: #FFF, $font: #fff) {
+  :host(#{$selector}) button {
+      background-color: $bg;
+      color: $font;
+      fill: $font;
+  }
+
+  :host(#{$selector}:hover) button {
+      background-color: darken($bg, 10%);
+  }
+
+  :host(#{$selector}:focus) button {
+      box-shadow: 0 0 0 4px rgba($bg, 0.6);
+  }
+
+  @if( $selector == 'ac-button' ) {
+    :host(#{$selector}:active) button {
+      box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
+                  0 0 0 4px rgba(#e6e6e6, 0.6);
+    }
+  }
+  @else {
+    :host(#{$selector}:active) button {
+      box-shadow: inset 0 0 0 0 rgba(0,0,0,.2),
+                  0 0 0 4px rgba($bg, 0.6);
+    }
+  }
+}
+
+:host {
+  display: inline-flex;
+
+  button {
+    height: 44px;
+    min-width: 44px;
+    padding: $spacer-tiny $spacer-small;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: $font-small;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1;
+    transition: box-shadow $slow-transition, outline $slow-transition;
+    box-shadow: inset 0 -2px 0 0px rgba(0, 0, 0, .2);
+    cursor: pointer;
+    user-select: none;
+    -webkit-appearance: none;
+    outline: none;
+
+    .ac-button__text {
+      padding: 0 10px;
+    }
+  }
+}
+
+:host(.ac-button--small) button {
+  height: 36px;
+  min-width: 36px;
+  padding: 11px;
+}
+
+:host(.ac-button--big) button {
+  height: 50px;
+  min-width: 50px;
+}
+
+:host(.ac-button--icon-only) button {
+  .ac-button__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+  padding: 0;
+}
+
+@include button-variations('ac-button', $white, $black);
+@include button-variations('.ac-button--primary', $primary);
+@include button-variations('.ac-button--secondary', $secondary);

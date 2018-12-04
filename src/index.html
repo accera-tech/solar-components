@@ -4,17 +4,39 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <link rel="stylesheet" href="/build/solar.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  <link rel="stylesheet" href="/build/solar.css" />
   <script src="/build/solar.js"></script>
 
 </head>
 <body>
 
-  <ac-input label="Senha" type="password"></ac-input>
+  <section>
+    <h1>Forms</h1>
+    <h2>Input Base</h2>
+    <ac-input-base label="Senha" type="password" value="test">
+      <ac-button slot="item-start"></ac-button>
+      <ac-button slot="item-end"></ac-button>
+    </ac-input-base>
 
-  <ac-button text="Concluir" tooltip="Clique para concluir" theme="primary"></ac-button>
-  <ac-button text="Concluir" tooltip="Clique para concluir" theme="secondary"></ac-button>
-  <ac-button text="Concluir" tooltip="Clique para concluir"></ac-button>
+    <h2>Password Input</h2>
+    <ac-input label="Senha" type="password" helper-text="Texto de ajuda">
+      <i class="fas fa-lock" slot="item-start"></i>
+    </ac-input>
+
+    <h2>Select</h2>
+    <ac-select label="Selecione"></ac-select>
+  </section>
+
+  <section>
+    <h1>Buttons</h1>
+    <ac-button tooltip="Clique para concluir" theme="primary">Concluir</ac-button>
+    <ac-button tooltip="Clique para concluir" theme="secondary">Concluir</ac-button>
+    <ac-button tooltip="Clique para concluir">Concluir</ac-button>
+  </section>
 
 </body>
+<script>
+  const select = document.querySelector('ac-select');
+  select.options = [{ title: 'Test Option' }];
+</script>
 </html>

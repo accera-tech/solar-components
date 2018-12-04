@@ -1,1 +1,5 @@
-$default-transition: ease-in-out .1s
+$default-transition: ease-in-out .1s;
+$slow-transition: ease-in-out .2s;
+
+// Shadows
+$z1-shadow: 0 8px 16px rgba(0, 0, 0, .08);
