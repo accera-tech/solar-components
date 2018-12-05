@@ -11,34 +11,3 @@
     font-size: $font-tiny;
   }
 }
-
-ac-panel {
-  top: 100%;
-
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border: 1px solid map_get($gray, "light");
-  border-radius: 4px;
-  background: $white;
-  box-shadow: $z1-shadow;
-
-  ul.ac-panel__list {
-    list-style: none;
-    padding: 8px 0;
-
-    li.ac-panel__list-item {
-      position: relative;
-      padding: 4px 16px;
-      color: map_get($gray,"darker");
-      cursor: pointer;
-      user-select: none;
-
-      &:hover {
-        color: $primary;
-        background-color: rgba($primary, 0.04);
-      }
-    }
-  }
-}

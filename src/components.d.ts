@@ -9,83 +9,261 @@ import '@stencil/core';
 
 
 import {
-  Event,
-  EventEmitter,
-} from '@stencil/core';
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
 import {
-  AcPanelOption,
-} from './components/molecules/ac-select/ac-select';
+  AcPanelItem,
+} from './components/atoms/ac-panel/ac-panel';
+import {
+  AcPanelItem as AcPanelItem2,
+} from './components/atoms/ac-panel/ac-panel';
 
 
 export namespace Components {
 
   interface AcButton {
+    /**
+    * The HTML5 native disable prop.
+    */
+    'disabled'?: boolean;
+    /**
+    * Fill mode: * flat - No borders and no raising * solid - Default raised button * clear - No background and no borders
+    */
+    'fill': 'clear' | 'solid' | 'flat';
+    /**
+    * An optional link to open when click on it. Turns the button into a anchor element.
+    */
+    'href'?: string;
+    /**
+    * Icon only mode, with a square button, centered icon.
+    */
     'iconOnly': boolean;
-    'size': string;
-    'theme': string;
-    'tooltip': string;
-    'type': string;
+    /**
+    * The size of the button: * small - height: 36px * big - height: 50px * default - 44px
+    */
+    'size'?: 'small' | 'big';
+    /**
+    * The HTML5 native anchor target to handle the href property.
+    */
+    'target'?: '_blank' | '_self' | '_parent' | '_top' | string;
+    /**
+    * The theme color. The default is white.
+    */
+    'theme'?: string;
+    /**
+    * The native HTML5 title attribute.
+    */
+    'tooltip'?: string;
+    /**
+    * The HTML5 button type. See https://mdn.io/button
+    */
+    'type': 'button' | 'submit' | 'reset';
   }
   interface AcButtonAttributes extends StencilHTMLAttributes {
+    /**
+    * The HTML5 native disable prop.
+    */
+    'disabled'?: boolean;
+    /**
+    * Fill mode: * flat - No borders and no raising * solid - Default raised button * clear - No background and no borders
+    */
+    'fill'?: 'clear' | 'solid' | 'flat';
+    /**
+    * An optional link to open when click on it. Turns the button into a anchor element.
+    */
+    'href'?: string;
+    /**
+    * Icon only mode, with a square button, centered icon.
+    */
     'iconOnly'?: boolean;
-    'size'?: string;
+    /**
+    * The size of the button: * small - height: 36px * big - height: 50px * default - 44px
+    */
+    'size'?: 'small' | 'big';
+    /**
+    * The HTML5 native anchor target to handle the href property.
+    */
+    'target'?: '_blank' | '_self' | '_parent' | '_top' | string;
+    /**
+    * The theme color. The default is white.
+    */
     'theme'?: string;
+    /**
+    * The native HTML5 title attribute.
+    */
     'tooltip'?: string;
-    'type'?: string;
+    /**
+    * The HTML5 button type. See https://mdn.io/button
+    */
+    'type'?: 'button' | 'submit' | 'reset';
   }
 
   interface AcFaIcon {
-    'icon': any;
+    /**
+    * The icon imported from @fortawesome/free-solid-svg-icons.
+    */
+    'icon': IconDefinition;
+    /**
+    * The size of the icon in px.
+    */
     'size': number;
   }
   interface AcFaIconAttributes extends StencilHTMLAttributes {
-    'icon'?: any;
+    /**
+    * The icon imported from @fortawesome/free-solid-svg-icons.
+    */
+    'icon'?: IconDefinition;
+    /**
+    * The size of the icon in px.
+    */
     'size'?: number;
   }
 
   interface AcInputBase {
+    /**
+    * The label text of the this input group.
+    */
     'label': string;
+    /**
+    * Enable readonly.
+    */
+    'readonly': boolean;
+    /**
+    * The type of the internal input.
+    */
     'type': string;
+    /**
+    * The value of the internal input.
+    */
     'value': any;
   }
   interface AcInputBaseAttributes extends StencilHTMLAttributes {
+    /**
+    * The label text of the this input group.
+    */
     'label'?: string;
-    'onChange'?: (event: CustomEvent<Event>) => void;
-    'onOnBlur'?: (event: CustomEvent<FocusEvent>) => void;
-    'onOnFocus'?: (event: CustomEvent<FocusEvent>) => void;
+    /**
+    * Fired when the value of the internal input changes.
+    */
+    'onChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * Enable readonly.
+    */
+    'readonly'?: boolean;
+    /**
+    * The type of the internal input.
+    */
     'type'?: string;
+    /**
+    * The value of the internal input.
+    */
     'value'?: any;
   }
 
+  interface AcPanel {
+    /**
+    * An array of items to display in this panel.
+    */
+    'items'?: AcPanelItem[];
+  }
+  interface AcPanelAttributes extends StencilHTMLAttributes {
+    /**
+    * An array of items to display in this panel.
+    */
+    'items'?: AcPanelItem[];
+    /**
+    * Fired when the user clicks over a item.
+    */
+    'onSelect'?: (event: CustomEvent<{ index: number, item: AcPanelItem }>) => void;
+  }
+
   interface AcInput {
+    /**
+    * The helper text to guide the user.
+    */
     'helperText': string;
+    /**
+    * The label text of the this input group.
+    */
     'label': string;
+    /**
+    * The type of the internal input.
+    */
     'type': string;
+    /**
+    * The value of the internal input.
+    */
     'value': any;
   }
   interface AcInputAttributes extends StencilHTMLAttributes {
+    /**
+    * The helper text to guide the user.
+    */
     'helperText'?: string;
+    /**
+    * The label text of the this input group.
+    */
     'label'?: string;
-    'onOnBlur'?: (event: CustomEvent<FocusEvent>) => void;
-    'onOnFocus'?: (event: CustomEvent<FocusEvent>) => void;
-    'onOnInput'?: (event: CustomEvent<KeyboardEvent>) => void;
+    /**
+    * Fired when the value of the internal input changes.
+    */
+    'onChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The type of the internal input.
+    */
     'type'?: string;
+    /**
+    * The value of the internal input.
+    */
     'value'?: any;
   }
 
   interface AcSelect {
+    /**
+    * The helper text to guide the user.
+    */
     'helperText': string;
+    /**
+    * The label text of the this input group.
+    */
     'label': string;
-    'options': AcPanelOption[];
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple': boolean;
+    /**
+    * The options that will be displayed in the panel.
+    */
+    'options': AcPanelItem[];
+    /**
+    * The value of the internal input.
+    */
     'value': any;
   }
   interface AcSelectAttributes extends StencilHTMLAttributes {
+    /**
+    * The helper text to guide the user.
+    */
     'helperText'?: string;
+    /**
+    * The label text of the this input group.
+    */
     'label'?: string;
-    'onOnBlur'?: (event: CustomEvent<FocusEvent>) => void;
-    'onOnFocus'?: (event: CustomEvent<FocusEvent>) => void;
-    'onOnInput'?: (event: CustomEvent<KeyboardEvent>) => void;
-    'options'?: AcPanelOption[];
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple'?: boolean;
+    /**
+    * Fired when the user select/deselect an option.
+    */
+    'onChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The options that will be displayed in the panel.
+    */
+    'options'?: AcPanelItem[];
+    /**
+    * The value of the internal input.
+    */
     'value'?: any;
   }
 }
@@ -95,6 +273,7 @@ declare global {
     'AcButton': Components.AcButton;
     'AcFaIcon': Components.AcFaIcon;
     'AcInputBase': Components.AcInputBase;
+    'AcPanel': Components.AcPanel;
     'AcInput': Components.AcInput;
     'AcSelect': Components.AcSelect;
   }
@@ -103,6 +282,7 @@ declare global {
     'ac-button': Components.AcButtonAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
+    'ac-panel': Components.AcPanelAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-select': Components.AcSelectAttributes;
   }
@@ -126,6 +306,12 @@ declare global {
     new (): HTMLAcInputBaseElement;
   };
 
+  interface HTMLAcPanelElement extends Components.AcPanel, HTMLStencilElement {}
+  var HTMLAcPanelElement: {
+    prototype: HTMLAcPanelElement;
+    new (): HTMLAcPanelElement;
+  };
+
   interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
   var HTMLAcInputElement: {
     prototype: HTMLAcInputElement;
@@ -142,6 +328,7 @@ declare global {
     'ac-button': HTMLAcButtonElement
     'ac-fa-icon': HTMLAcFaIconElement
     'ac-input-base': HTMLAcInputBaseElement
+    'ac-panel': HTMLAcPanelElement
     'ac-input': HTMLAcInputElement
     'ac-select': HTMLAcSelectElement
   }
@@ -150,6 +337,7 @@ declare global {
     'ac-button': HTMLAcButtonElement;
     'ac-fa-icon': HTMLAcFaIconElement;
     'ac-input-base': HTMLAcInputBaseElement;
+    'ac-panel': HTMLAcPanelElement;
     'ac-input': HTMLAcInputElement;
     'ac-select': HTMLAcSelectElement;
   }

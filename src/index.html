@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
+<!DOCTYPE html><html dir="ltr" lang="en"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  <link rel="stylesheet" href="/build/solar.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  <link rel="stylesheet" href="/build/solar.css">
   <script src="/build/solar.js"></script>
 
 </head>
@@ -13,30 +11,51 @@
   <section>
     <h1>Forms</h1>
     <h2>Input Base</h2>
-    <ac-input-base label="Senha" type="password" value="test">
+    <ac-input-base label="Example" value="Value">
       <ac-button slot="item-start"></ac-button>
       <ac-button slot="item-end"></ac-button>
     </ac-input-base>
 
+    <h2>A text input</h2>
+    <ac-input label="Name" type="text" helper-text="Set your name here">
+      <i class="fas fa-user" slot="item-start"></i>
+    </ac-input>
+
     <h2>Password Input</h2>
-    <ac-input label="Senha" type="password" helper-text="Texto de ajuda">
+    <ac-input label="Password" type="password" helper-text="It needs to have 8 characters">
       <i class="fas fa-lock" slot="item-start"></i>
     </ac-input>
 
-    <h2>Select</h2>
-    <ac-select label="Selecione"></ac-select>
+    <h2>Single Select</h2>
+    <ac-select label="Artist"></ac-select>
+
+    <h2>Select Multiple</h2>
+    <ac-select label="Beatles" multiple></ac-select>
+
+    <h2>Select With Html Options</h2>
+    <ac-select label="Band">
+      <option value="0">TNT</option>
+      <option value="2">Queen</option>
+      <option value="3">Metallica</option>
+      <option value="4" selected>AC/DC</option>
+    </ac-select>
   </section>
 
   <section>
     <h1>Buttons</h1>
-    <ac-button tooltip="Clique para concluir" theme="primary">Concluir</ac-button>
-    <ac-button tooltip="Clique para concluir" theme="secondary">Concluir</ac-button>
-    <ac-button tooltip="Clique para concluir">Concluir</ac-button>
+    <ac-button tooltip="A default button">Default</ac-button>
+    <ac-button tooltip="This is a flat button" theme="primary" fill="flat">Flat</ac-button>
+    <ac-button tooltip="This is a clear button" theme="secondary" fill="clear">Clear</ac-button>
+    <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
   </section>
 
-</body>
+
 <script>
   const select = document.querySelector('ac-select');
-  select.options = [{ title: 'Test Option' }];
+  select.options = [{ title: 'Bob Dylan', value: 0 }, { title: 'Bob Marley', value: 1 }];
+
+  const selectMultiple = document.querySelector('ac-select[multiple]');
+  selectMultiple.options = [{ title: 'Ringo Star', value: 0 }, { title: 'Paul McCartney', value: 1 }, { title: 'John Lennon', value: 2 }, { title: 'George Harrison', value: 3 }];
 </script>
-</html>
+
+</body></html>

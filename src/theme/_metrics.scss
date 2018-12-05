@@ -11,3 +11,11 @@ $font-small: 16px;
 $font-medium: 20px;
 $font-large: 24px;
 $font-huge: 28px;
+
+// Z indexes
+$z-default: 0;
+$z-side-menu: 1;
+$z-header: 2;
+$z-fab: 3;
+$z-modal: 4;
+$z-panel: 5;
