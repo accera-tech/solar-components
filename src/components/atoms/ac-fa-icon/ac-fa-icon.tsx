@@ -1,15 +1,20 @@
 import { Component, Prop } from '@stencil/core';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   tag: 'ac-fa-icon',
   shadow: true
 })
 export class AcFaIcon {
-  @Prop() icon: any;
-  @Prop() size = 16;
+  /**
+   * The icon imported from @fortawesome/free-solid-svg-icons.
+   */
+  @Prop() icon: IconDefinition;
 
-  // @Watch('icon')
-  // animate(newProp, lastProp) {}
+  /**
+   * The size of the icon in px.
+   */
+  @Prop() size = 16;
 
   render() {
     const { icon } = this.icon;
