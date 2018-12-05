@@ -4,30 +4,64 @@
 * generate buttons variations
 */
 @mixin button-variations($selector: '', $bg: #FFF, $font: #fff) {
-  :host(#{$selector}) button {
+  :host(#{$selector}) {
+    button, a {
       background-color: $bg;
       color: $font;
       fill: $font;
+    }
   }
 
-  :host(#{$selector}:hover) button {
+  :host(#{$selector}:hover) {
+    button, a {
       background-color: darken($bg, 10%);
+    }
   }
 
-  :host(#{$selector}:focus) button {
+  :host(#{$selector}:focus) {
+    button, a {
       box-shadow: 0 0 0 4px rgba($bg, 0.6);
+    }
   }
 
   @if( $selector == 'ac-button' ) {
-    :host(#{$selector}:active) button {
-      box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
-                  0 0 0 4px rgba(#e6e6e6, 0.6);
+    :host(#{$selector}:active) {
+      button, a {
+        box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
+        0 0 0 4px rgba(#e6e6e6, 0.6);
+      }
+    }
+
+    :host(#{$selector}.ac-button--clear) {
+      button, a {
+        color: $font;
+      }
+    }
+
+    :host(#{$selector}.ac-button--clear:hover) {
+      button, a {
+        background-color: rgba($font, 0.02);
+      }
     }
   }
   @else {
-    :host(#{$selector}:active) button {
-      box-shadow: inset 0 0 0 0 rgba(0,0,0,.2),
-                  0 0 0 4px rgba($bg, 0.6);
+    :host(#{$selector}:active) {
+      button, a {
+        box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
+        0 0 0 4px rgba($bg, 0.6);
+      }
+    }
+
+    :host(#{$selector}.ac-button--clear) {
+      button, a {
+        color: $bg;
+      }
+    }
+
+    :host(#{$selector}.ac-button--clear:hover) {
+      button, a {
+        background-color: rgba($bg, 0.1);
+      }
     }
   }
 }
@@ -35,22 +69,21 @@
 :host {
   display: inline-flex;
 
-  button {
+  button, a {
     height: 44px;
     min-width: 44px;
     padding: $spacer-tiny $spacer-small;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 4px;
     font-family: inherit;
     font-size: $font-small;
     font-weight: 700;
     text-align: center;
+    text-decoration: none;
     line-height: 1;
     transition: box-shadow $slow-transition, outline $slow-transition;
-    box-shadow: inset 0 -2px 0 0px rgba(0, 0, 0, .2);
     cursor: pointer;
     user-select: none;
     -webkit-appearance: none;
@@ -62,28 +95,55 @@
   }
 }
 
-:host(.ac-button--small) button {
-  height: 36px;
-  min-width: 36px;
-  padding: 11px;
-}
-
-:host(.ac-button--big) button {
-  height: 50px;
-  min-width: 50px;
-}
-
-:host(.ac-button--icon-only) button {
-  .ac-button__text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 0;
-  }
-  padding: 0;
-}
-
 @include button-variations('ac-button', $white, $black);
 @include button-variations('.ac-button--primary', $primary);
 @include button-variations('.ac-button--secondary', $secondary);
+
+:host(.ac-button--small) {
+  button, a {
+    height: 36px;
+    min-width: 36px;
+    font-size: $font-tiny;
+    padding: 11px;
+  }
+}
+
+:host(.ac-button--big) {
+  button, a {
+    height: 50px;
+    min-width: 50px;
+  }
+}
+
+:host(.ac-button--icon-only) {
+  button, a {
+    .ac-button__text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 0;
+    }
+    padding: 0;
+  }
+}
+
+:host(.ac-button--solid) {
+  button, a {
+    box-shadow: inset 0 -2px 0 0px rgba(0, 0, 0, .2);
+    border: 1px solid rgba(0, 0, 0, .1);
+  }
+}
+
+:host(.ac-button--clear) {
+  button, a {
+    background: transparent;
+    border: 0;
+  }
+}
+
+:host(.ac-button--flat) {
+  button, a {
+    border: 0;
+  }
+}
