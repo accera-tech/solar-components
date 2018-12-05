@@ -11,48 +11,61 @@ import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 export class AcInput implements ComponentInterface {
   acInputBase: AcInputBase;
 
-  @Element() host: HTMLElement;
+  @Element() host: HTMLAcInputElement;
 
+  /**
+   * The label text of the this input group.
+   */
   @Prop() label: string;
+
+  /**
+   * The value of the internal input.
+   */
   @Prop({ mutable: true }) value: any;
+
+  /**
+   * The type of the internal input.
+   */
   @Prop() type: string;
+
+  /**
+   * The helper text to guide the user.
+   */
   @Prop() helperText: string;
 
-  @Event() onInput: EventEmitter<KeyboardEvent>;
-  @Event() onFocus: EventEmitter<FocusEvent>;
-  @Event() onBlur: EventEmitter<FocusEvent>;
+  /**
+   * Fired when the value of the internal input changes.
+   */
+  @Event({ bubbles: true }) change: EventEmitter<any>;
 
-  @State() showPassword: boolean;
+  @State() isShowingPassword: boolean;
 
   @Bind
-  togglePassword() {
-    this.showPassword = !this.showPassword;
+  private togglePassword() {
+    this.isShowingPassword = !this.isShowingPassword;
   }
 
   @Bind
-  private handleInput(ev) {
-    this.onInput.emit(ev);
+  private handleChange() {
     this.value = this.acInputBase.value;
+    this.change.emit(this.value);
   }
 
   render() {
-    const icon = this.showPassword ? faEyeSlash : faEye;
+    const icon = this.isShowingPassword ? faEyeSlash : faEye;
     return [
       <ac-input-base
         ref={acInputBase => {
-          // @ts-ignore
-          this.acInputBase = acInputBase;
+          this.acInputBase = acInputBase as any;
         }}
         label={this.label}
         value={this.value}
-        type={this.showPassword ? 'text' : this.type}
-        onInput={this.handleInput}
-        onFocus={this.onFocus.emit}
-        onBlur={this.onBlur.emit}
+        type={this.isShowingPassword ? 'text' : this.type}
+        onChange={this.handleChange}
       >
         <slot name="item-start" slot="item-start" />
         {this.type === 'password'
-          ? <ac-button slot="item-end" theme="primary" onClick={this.togglePassword} icon-only>
+          ? <ac-button slot="item-end" theme="primary" onClick={this.togglePassword} icon-only fill="flat">
               <ac-fa-icon icon={icon} />
             </ac-button>
           : null}

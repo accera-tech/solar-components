@@ -1,9 +1,5 @@
 @import "../../../theme/variables";
 
-:host(.ac-input--focus) {
-  border-color: $primary;
-}
-
 :host {
   display: flex;
   border: 2px solid map_get($gray, "light");
@@ -21,11 +17,6 @@
       left: 16px;
       transition: font-size $default-transition, top $default-transition;
       user-select: none;
-
-      &.ac-input__label--floating {
-        font-size: $font-tiny;
-        top: 6px;
-      }
     }
 
     input {
@@ -53,3 +44,13 @@
   }
 }
 
+:host(.ac-input--focus) {
+  border-color: $primary;
+}
+
+:host(.ac-input--focus, .ac-input--filled) {
+  label.ac-input__label {
+    font-size: $font-tiny;
+    top: 6px;
+  }
+}
