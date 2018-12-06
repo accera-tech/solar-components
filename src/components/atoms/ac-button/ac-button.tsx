@@ -65,7 +65,6 @@ export class AcButton implements ComponentInterface {
   hostData() {
     return {
       attribute: 'button',
-      title: this.tooltip,
       'data-type': this.type,
       class: {
         [`ac-button--${this.theme}`]: this.theme !== undefined,
