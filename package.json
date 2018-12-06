@@ -1,7 +1,7 @@
 {
-  "name": "my-component",
-  "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "name": "@accera/solar-components",
+  "version": "0.0.2-beta",
+  "description": "Web Components Implementation of Solar Design System",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
   "types": "dist/types/components.d.ts",
@@ -10,7 +10,9 @@
     "dist/"
   ],
   "scripts": {
-    "build": "stencil build",
+    "build": "stencil build --docs",
+    "publish-latest": "npm run build && npm publish --tag latest",
+    "publish-beta": "npm run build && npm publish --tag beta",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
@@ -27,10 +29,10 @@
     "type": "git",
     "url": "git+https://github.com/ionic-team/stencil-component-starter.git"
   },
-  "author": "Ionic Team",
+  "author": "Accera Tech",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ionic-team/stencil"
+    "url": "https://github.com/accera-tech/solar-components/issues"
   },
-  "homepage": "https://github.com/ionic-team/stencil"
+  "homepage": "https://github.com/accera-tech/solar-components"
 }

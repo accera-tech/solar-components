@@ -98,6 +98,9 @@ export namespace Components {
     'type'?: 'button' | 'submit' | 'reset';
   }
 
+  interface AcCheck {}
+  interface AcCheckAttributes extends StencilHTMLAttributes {}
+
   interface AcFaIcon {
     /**
     * The icon imported from @fortawesome/free-solid-svg-icons.
@@ -271,6 +274,7 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'AcButton': Components.AcButton;
+    'AcCheck': Components.AcCheck;
     'AcFaIcon': Components.AcFaIcon;
     'AcInputBase': Components.AcInputBase;
     'AcPanel': Components.AcPanel;
@@ -280,6 +284,7 @@ declare global {
 
   interface StencilIntrinsicElements {
     'ac-button': Components.AcButtonAttributes;
+    'ac-check': Components.AcCheckAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-panel': Components.AcPanelAttributes;
@@ -292,6 +297,12 @@ declare global {
   var HTMLAcButtonElement: {
     prototype: HTMLAcButtonElement;
     new (): HTMLAcButtonElement;
+  };
+
+  interface HTMLAcCheckElement extends Components.AcCheck, HTMLStencilElement {}
+  var HTMLAcCheckElement: {
+    prototype: HTMLAcCheckElement;
+    new (): HTMLAcCheckElement;
   };
 
   interface HTMLAcFaIconElement extends Components.AcFaIcon, HTMLStencilElement {}
@@ -326,6 +337,7 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
+    'ac-check': HTMLAcCheckElement
     'ac-fa-icon': HTMLAcFaIconElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-panel': HTMLAcPanelElement
@@ -335,6 +347,7 @@ declare global {
 
   interface ElementTagNameMap {
     'ac-button': HTMLAcButtonElement;
+    'ac-check': HTMLAcCheckElement;
     'ac-fa-icon': HTMLAcFaIconElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-panel': HTMLAcPanelElement;
