@@ -1,0 +1,29 @@
+// Converts a color to a comma separated rgb.
+// --------------------------------------------------------------------------------------------
+@function color-to-rgb-list($color) {
+  @return #{red($color)},#{green($color)},#{blue($color)};
+}
+
+// Gets the specific color's css variable from the name and variation. Alpha/rgb are optional.
+// --------------------------------------------------------------------------------------------
+// Example usage:
+// var-color(primary, normal) => var(--color-primary, #3880ff)
+// var-color(secondary, contrast) => var(--color-secondary-contrast, #FFFFFF)
+// var-color(primary, normal, 0.5) => rgba(var(--color-primary-rgb, 56, 128, 255), 0.5)
+// --------------------------------------------------------------------------------------------
+@function var-color($name, $variation, $alpha: null) {
+  $values: map-get($theme, $name);
+  $value: map-get($values, $variation);
+  $variable: --color-#{$name}-#{$variation};
+
+  @if ($variation == base) {
+    $variable: --color-#{$name};
+  }
+
+  @if ($alpha) {
+    $value: color-to-rgb-list($value);
+    @return rgba(var(#{$variable}-rgb, $value), $alpha);
+  }
+
+  @return var(#{$variable}, $value);
+}

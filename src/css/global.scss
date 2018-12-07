@@ -1,0 +1,41 @@
+@import "../theme/variables";
+
+@import "./typography";
+@import "./tooltip";
+
+* {
+  font-family: Nunito, Arial, sans-serif;
+  font-size: $font-small;
+}
+
+:root {
+  // Tradeforce theme
+  //--color-primary-normal: #{$orange};
+  //--color-primary-normal-rgb: #{color-to-rgb-list($orange)};
+  //--color-primary-dark: #{darken($orange, 10%)};
+  //--color-primary-dark-rgb: #{color-to-rgb-list(darken($orange, 10%))};
+  //--color-primary-light: #{lighten($orange, 10%)};
+  //--color-primary-light-rgb: #{color-to-rgb-list(lighten($orange, 10%))};
+  //
+  //--color-secondary-normal: #{$blue};
+  //--color-secondary-normal-rgb: #{color-to-rgb-list($blue)};
+  //--color-secondary-dark: #{darken($blue, 10%)};
+  //--color-secondary-dark-rgb: #{color-to-rgb-list(darken($blue, 10%))};
+  //--color-secondary-light: #{lighten($blue, 10%)};
+  //--color-secondary-light-rgb: #{color-to-rgb-list(lighten($blue, 10%))};
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: $spacer-tiny;
+  height: $spacer-tiny;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,.4);
+}

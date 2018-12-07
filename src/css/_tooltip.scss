@@ -1,21 +1,23 @@
+@import "../theme/variables";
+
 /* tooltip */
 [tooltip] {
   position: relative;
   outline: none;
 
   &:before,
-  &:after{
+  &:after {
     display: block;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25 ease;
+    transition: all ease 0.25s;
 
   }
 
-  &:before{
+  &:before {
     content: attr(tooltip);
     bottom: 120%;
     padding: 8px;
@@ -26,7 +28,7 @@
     max-width: 300px;
   }
 
-  &:after{
+  &:after {
     content: "";
     width: $spacer-tiny;
     height: $spacer-tiny;
@@ -35,9 +37,9 @@
     top: -14px;
   }
 
-  &:hover{
+  &:hover {
     &:before,
-    &:after{
+    &:after {
       opacity: 1;
       visibility: visible;
     }

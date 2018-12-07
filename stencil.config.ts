@@ -3,7 +3,7 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'solar',
-  globalStyle: 'src/theme/theme.scss',
+  globalStyle: 'src/css/global.scss',
   outputTargets:[
     {
       type: 'dist'
@@ -15,5 +15,5 @@ export const config: Config = {
   ],
   plugins: [
     sass()
-  ]
+  ],
 };

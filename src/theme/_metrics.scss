@@ -19,3 +19,14 @@ $z-header: 2;
 $z-fab: 3;
 $z-modal: 4;
 $z-panel: 5;
+
+// Screen Sizes
+// The minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries
+$screen-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+)

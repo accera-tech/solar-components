@@ -2,7 +2,7 @@
 
 :host {
   display: flex;
-  border: 2px solid map_get($gray, "light");
+  border: 2px solid lighten($gray, 10%);
   border-radius: 4px;
   transition: border-color $default-transition;
 
@@ -45,7 +45,7 @@
 }
 
 :host(.ac-input--focus) {
-  border-color: $primary;
+  border-color: var-color("primary", "normal");
 }
 
 :host(.ac-input--focus, .ac-input--filled) {

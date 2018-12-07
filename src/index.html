@@ -1,10 +1,11 @@
-<!DOCTYPE html><html dir="ltr" lang="en"><head>
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  <link rel="stylesheet" href="/build/solar.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/build/solar.css">
   <script src="/build/solar.js"></script>
-
 </head>
 <body>
 
@@ -46,6 +47,9 @@
     <ac-button tooltip="A default button">Default</ac-button>
     <ac-button tooltip="This is a flat button" theme="primary" fill="flat">Flat</ac-button>
     <ac-button tooltip="This is a clear button" theme="secondary" fill="clear">Clear</ac-button>
+    <ac-button tooltip="This is a clear button" theme="success" fill="clear">Clear</ac-button>
+    <ac-button tooltip="This is a clear button" theme="info" fill="clear">Clear</ac-button>
+    <ac-button tooltip="This is a clear button" disabled>Disabled</ac-button>
     <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
   </section>
 
@@ -63,7 +67,7 @@
   });
 
   const selectMultiple = document.querySelector('#selectMultiple');
-  selectMultiple.options = [{ title: 'Ringo Star', value: 0 }, { title: 'Paul McCartney', value: 1 }, { title: 'John Lennon', value: 2 }, { title: 'George Harrison', value: 3 }];
+  selectMultiple.options = [{ title: 'Ringo Star', value: 0 }, { title: 'Paul McCartney', value: 1 }, { title: 'John Lennon', value: 2 }, { title: 'George Harrison', value: 3, selected: true }];
   selectMultiple.addEventListener('change', ({ detail }) => {
     console.log('Multiple Select Change', detail);
   });

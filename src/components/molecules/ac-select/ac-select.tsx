@@ -61,6 +61,8 @@ export class AcSelect implements ComponentInterface {
   componentDidLoad() {
     if (!this.options) {
       this.loadOptionsFromHTML();
+    } else {
+      this.handleOptionsUpdate();
     }
   }
 

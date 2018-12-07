@@ -1,0 +1,58 @@
+@import "./colors";
+
+$theme: (
+  primary: (
+    normal:           $turquoise, // --color-primary-normal
+    contrast:         $white, // --color-primary-contrast
+    dark:             darken($turquoise, 10%), // --color-primary-dark
+    light:            lighten($turquoise, 10%) // --color-primary-light
+  ),
+  secondary: (
+    normal:           $orange, // --color-secondary-normal
+    contrast:         $white, // --color-secondary-contrast
+    dark:             darken($orange, 10%), // --color-secondary-dark
+    light:            lighten($orange, 10%) // --color-secondary-light
+  ),
+  info: (
+    normal:           $info, // --color-info-normal
+    contrast:         $white, // --color-info-contrast
+    dark:             darken($info, 10%), // --color-info-dark
+    light:            lighten($info, 10%) // --color-info-light
+  ),
+  success: (
+    normal:           $success, // --color-success-normal
+    contrast:         $white, // --color-success-contrast
+    dark:             darken($success, 10%), // --color-success-dark
+    light:            lighten($success, 10%) // --color-success-light
+  ),
+  warning: (
+    normal:           $warning, // --color-warning-normal
+    contrast:         $white, // --color-warning-contrast
+    dark:             darken($warning, 10%), // --color-warning-dark
+    light:            lighten($warning, 10%) // --color-warning-light
+  ),
+  alert: (
+    normal:           $alert, // --color-alert-normal
+    contrast:         $white, // --color-alert-contrast
+    dark:             darken($alert, 10%), // --color-alert-dark
+    light:            lighten($alert, 10%) // --color-alert-light
+  ),
+  "disabled": (
+    normal:             $gray, // --color-disabled-base
+    contrast:         darken($gray, 20%), // --color-disabled-contrast
+    dark:             darken($gray, 10%), // --color-disabled-dark
+    light:            lighten($gray, 10%) // --color-disabled-light
+  ),
+  "white": (
+    normal:           $white, // --color-white-base
+    contrast:         $black, // --color-white-contrast
+    dark:             darken($white, 10%), // --color-white-dark
+    light:            $white // --color-white-light
+  ),
+  "black": (
+    normal:             $black, // --color-black-base
+    contrast:         $white, // --color-black-contrast
+    dark:             darken($black, 10%), // --color-black-dark
+    light:            lighten($black, 10%) // --color-black-light
+  )
+);
