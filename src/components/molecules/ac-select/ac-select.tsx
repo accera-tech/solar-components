@@ -62,20 +62,19 @@ export class AcSelect implements ComponentInterface {
     if (!this.options) {
       this.loadOptionsFromHTML();
     } else {
-      this.handleOptionsUpdate();
+      this.optionsDidUpdate();
     }
   }
 
   @Listen('body:click')
-  checkAndClose(ev: MouseEvent) {
-    // @ts-ignore
+  whenClickOutside(ev) {
     if (ev.target.closest('ac-select') !== this.host && this.isShowingPanel) {
       this.togglePanel();
     }
   }
 
   @Watch('options')
-  handleOptionsUpdate() {
+  optionsDidUpdate() {
     const selectedOptions = this.options.filter(o => o.selected); // Get all selected
 
     // Used to format the selectedText
@@ -147,8 +146,8 @@ export class AcSelect implements ComponentInterface {
         readonly
       >
         <slot name="item-start" slot="item-start" />
-        <ac-button slot="item-end" theme="primary" fill="flat" icon-only onClick={this.togglePanel}>
-          <ac-fa-icon icon={icon} />
+        <ac-button slot="item-end" theme="light" fill="flat" icon-only onClick={this.togglePanel}>
+          <ac-fa-icon icon={icon} size={12} />
         </ac-button>
       </ac-input-base>,
       <span class="ac-input__helper-text">

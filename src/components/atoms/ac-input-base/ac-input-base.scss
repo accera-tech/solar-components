@@ -2,7 +2,8 @@
 
 :host {
   display: flex;
-  border: 2px solid lighten($gray, 10%);
+  background-color: white;
+  border: 2px solid #E1E1E1;
   border-radius: 4px;
   transition: border-color $default-transition;
 
@@ -15,8 +16,10 @@
       position: absolute;
       top: 18px;
       left: 16px;
+      color: #A0A0A0;
       transition: font-size $default-transition, top $default-transition;
       user-select: none;
+      font-size: $font-small;
     }
 
     input {
@@ -24,6 +27,7 @@
       height: 52px;
       padding: 24px 16px 8px;
       box-sizing: border-box;
+      background-color: transparent;
       border: none;
       font-size: $font-small;
 
@@ -44,8 +48,12 @@
   }
 }
 
+// By Theme
 :host(.ac-input--focus) {
   border-color: var-color("primary", "normal");
+  label.ac-input__label {
+    color: var-color("primary", "normal");
+  }
 }
 
 :host(.ac-input--focus, .ac-input--filled) {

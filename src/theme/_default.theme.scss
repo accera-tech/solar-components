@@ -37,20 +37,26 @@ $theme: (
     dark:             darken($alert, 10%), // --color-alert-dark
     light:            lighten($alert, 10%) // --color-alert-light
   ),
-  "disabled": (
-    normal:             $gray, // --color-disabled-base
-    contrast:         darken($gray, 20%), // --color-disabled-contrast
-    dark:             darken($gray, 10%), // --color-disabled-dark
-    light:            lighten($gray, 10%) // --color-disabled-light
-  ),
   "white": (
     normal:           $white, // --color-white-base
     contrast:         $black, // --color-white-contrast
     dark:             darken($white, 10%), // --color-white-dark
     light:            $white // --color-white-light
   ),
+  "light": (
+    normal:           $light-gray, // --color-light-base
+    contrast:         darken($light-gray, 30%), // --color-light-contrast
+    dark:             darken($light-gray, 10%), // --color-light-dark
+    light:            lighten($light-gray, 10%) // --color-light-light
+  ),
+  "disabled": (
+    normal:           $gray, // --color-disabled-base
+    contrast:         darken($gray, 20%), // --color-disabled-contrast
+    dark:             darken($gray, 10%), // --color-disabled-dark
+    light:            lighten($gray, 10%) // --color-disabled-light
+  ),
   "black": (
-    normal:             $black, // --color-black-base
+    normal:           $black, // --color-black-base
     contrast:         $white, // --color-black-contrast
     dark:             darken($black, 10%), // --color-black-dark
     light:            lighten($black, 10%) // --color-black-light

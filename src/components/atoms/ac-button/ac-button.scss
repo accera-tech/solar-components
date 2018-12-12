@@ -4,60 +4,51 @@
 * generate buttons variations
 */
 @mixin button-variations($selector, $color-name) {
+  // Solid
   :host(#{$selector}) {
     button, a {
       background-color: var-color($color-name, "normal");
       color: var-color($color-name, "contrast");
       fill: var-color($color-name, "contrast");
 
-      &:focus {
-        box-shadow: 0 0 0 4px #{var-color($color-name, "normal",  0.6)};
-      }
-
       @if ($selector == "ac-button") {
         &:active {
           box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
           0 0 0 4px rgba(#e6e6e6, 0.6);
+        }
+        &:hover {
+          background-color: var-color($color-name, "contrast", 0.1);
         }
       } @else {
         &:active {
           box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
           0 0 0 4px var-color($color-name, "normal", 0.6);
         }
-      }
-    }
-  }
-
-  @if ($selector == "ac-button") {
-    :host(#{$selector}.ac-button--clear) {
-      button, a {
-        color: var-color($color-name, "normal");
         &:hover {
-          background-color: var-color($color-name, "contrast", 0.02);
-        }
-      }
-    }
-  } @else {
-    :host(#{$selector}.ac-button--clear) {
-      button, a {
-        color: var-color($color-name, "normal");
-        &:hover {
-          background-color: var-color($color-name, "normal", 0.1);
+          background-color: var-color($color-name, "dark");
         }
       }
     }
   }
 
+  // Clear & Outline
+  :host(#{$selector}.ac-button--clear), :host(#{$selector}.ac-button--outline) {
+    button, a {
+      color: var-color($color-name, "normal");
+      fill: var-color($color-name, "normal");
+      background: transparent;
+      &:hover {
+        background-color: var-color($color-name, "normal", 0.2);
+      }
+      &:active {
+        box-shadow: 0 0 0 4px var-color($color-name, "normal", 0.6);
+      }
+    }
+  }
 
-  :host(#{$selector}:hover) {
-    @if ($selector == "ac-button") {
-      button, a {
-        background-color: var-color($color-name, "normal", 0.02);
-      }
-    } @else {
-      button, a {
-        background-color: var-color($color-name, "dark");
-      }
+  :host(#{$selector}.ac-button--outline) {
+    button, a {
+      border: 2px solid var-color($color-name, "normal");
     }
   }
 }
@@ -91,15 +82,16 @@
   }
 }
 
-@include button-variations("ac-button", "white");
-@include button-variations(".ac-button--black", "black");
 @include button-variations(".ac-button--primary", "primary");
 @include button-variations(".ac-button--secondary", "secondary");
 @include button-variations(".ac-button--info", "info");
 @include button-variations(".ac-button--success", "success");
 @include button-variations(".ac-button--warning", "warning");
 @include button-variations(".ac-button--alert", "alert");
+@include button-variations("ac-button", "white");
+@include button-variations(".ac-button--light", "light");
 @include button-variations(".ac-button--disabled", "disabled");
+@include button-variations(".ac-button--black", "black");
 
 :host(.ac-button--small) {
   button, a {
@@ -153,5 +145,10 @@
 :host(.ac-button--disabled) {
   button, a {
     pointer-events: none;
+  }
+}
+:host(.ac-button--disabled:hover) {
+  button, a {
+    background-color: var-color("disabled", "dark");
   }
 }

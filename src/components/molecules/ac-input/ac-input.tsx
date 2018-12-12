@@ -65,7 +65,7 @@ export class AcInput implements ComponentInterface {
       >
         <slot name="item-start" slot="item-start" />
         {this.type === 'password'
-          ? <ac-button slot="item-end" theme="primary" onClick={this.togglePassword} icon-only fill="flat">
+          ? <ac-button slot="item-end" theme="secondary" onClick={this.togglePassword} icon-only fill="flat">
               <ac-fa-icon icon={icon} />
             </ac-button>
           : null}
