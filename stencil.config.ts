@@ -13,6 +13,7 @@ export const config: Config = {
       serviceWorker: null
     }
   ],
+  copy: [ { src: 'theme', dest: '../dist/theme' } ],
   plugins: [
     sass()
   ],
