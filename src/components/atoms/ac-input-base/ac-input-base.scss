@@ -1,5 +1,17 @@
 @import "../../../theme/variables";
 
+/**
+* generate buttons variations
+*/
+@mixin input-variations($selector, $color-name) {
+  :host(#{$selector}.ac-input--focus) {
+    border-color: var-color($color-name, "normal");
+    label.ac-input__label {
+      color: var-color($color-name, "normal");
+    }
+  }
+}
+
 :host {
   display: flex;
   background-color: white;
@@ -48,17 +60,18 @@
   }
 }
 
-// By Theme
-:host(.ac-input--focus) {
-  border-color: var-color("primary", "normal");
-  label.ac-input__label {
-    color: var-color("primary", "normal");
-  }
-}
-
 :host(.ac-input--focus, .ac-input--filled) {
   label.ac-input__label {
     font-size: $font-tiny;
     top: 6px;
   }
 }
+
+:host(.ac-input--alert) {
+  border-color: var-color("alert", "normal");
+  label.ac-input__label {
+    color: var-color("alert", "normal");
+  }
+}
+
+@include input-variations("ac-input-base", "primary");

@@ -49,10 +49,10 @@
     <ac-button tooltip="This is a clear button" theme="secondary" fill="clear">Clear</ac-button>
     <ac-button tooltip="This is a clear button" theme="success" fill="clear">Clear</ac-button>
     <ac-button tooltip="This is a clear button" theme="info" fill="clear">Clear</ac-button>
+    <ac-button tooltip="This is a clear button" theme="black" fill="outline">Outline</ac-button>
     <ac-button tooltip="This is a clear button" disabled>Disabled</ac-button>
     <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
   </section>
-
 
 <script>
   const inputExample = document.querySelector('#inputExample');
@@ -71,6 +71,9 @@
   selectMultiple.addEventListener('change', ({ detail }) => {
     console.log('Multiple Select Change', detail);
   });
+
+  const passwordInput = document.querySelector('#passwordInput');
+  passwordInput.validateFn = (value) => value.length >= 8 ? null : 'The password must have 8 characters';
 </script>
 
 </body></html>

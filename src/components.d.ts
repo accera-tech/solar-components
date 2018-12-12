@@ -15,6 +15,9 @@ import {
   AcPanelItem,
 } from './components/atoms/ac-panel/ac-panel';
 import {
+  ValidatorFunction,
+} from './helpers/form-field-logic';
+import {
   AcPanelItem as AcPanelItem2,
 } from './components/atoms/ac-panel/ac-panel';
 
@@ -181,6 +184,7 @@ export namespace Components {
   }
 
   interface AcInput {
+    'formField': any;
     /**
     * The helper text to guide the user.
     */
@@ -193,12 +197,14 @@ export namespace Components {
     * The type of the internal input.
     */
     'type': string;
+    'validateFn': ValidatorFunction | ValidatorFunction[];
     /**
     * The value of the internal input.
     */
     'value': any;
   }
   interface AcInputAttributes extends StencilHTMLAttributes {
+    'formField'?: any;
     /**
     * The helper text to guide the user.
     */
@@ -215,6 +221,7 @@ export namespace Components {
     * The type of the internal input.
     */
     'type'?: string;
+    'validateFn'?: ValidatorFunction | ValidatorFunction[];
     /**
     * The value of the internal input.
     */

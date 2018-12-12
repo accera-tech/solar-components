@@ -9,20 +9,19 @@
 }
 
 :root {
-  // Tradeforce theme
-  //--color-primary-normal: #{$orange};
-  //--color-primary-normal-rgb: #{color-to-rgb-list($orange)};
-  //--color-primary-dark: #{darken($orange, 10%)};
-  //--color-primary-dark-rgb: #{color-to-rgb-list(darken($orange, 10%))};
-  //--color-primary-light: #{lighten($orange, 10%)};
-  //--color-primary-light-rgb: #{color-to-rgb-list(lighten($orange, 10%))};
-  //
-  //--color-secondary-normal: #{$blue};
-  //--color-secondary-normal-rgb: #{color-to-rgb-list($blue)};
-  //--color-secondary-dark: #{darken($blue, 10%)};
-  //--color-secondary-dark-rgb: #{color-to-rgb-list(darken($blue, 10%))};
-  //--color-secondary-light: #{lighten($blue, 10%)};
-  //--color-secondary-light-rgb: #{color-to-rgb-list(lighten($blue, 10%))};
+  --color-primary-normal: #{$vibrant-orange};
+  --color-primary-normal-rgb: #{color-to-rgb-list($vibrant-orange)};
+  --color-primary-dark: #{darken($vibrant-orange, 10%)};
+  --color-primary-dark-rgb: #{color-to-rgb-list(darken($vibrant-orange, 10%))};
+  --color-primary-light: #{lighten($vibrant-orange, 10%)};
+  --color-primary-light-rgb: #{color-to-rgb-list(lighten($vibrant-orange, 10%))};
+
+  --color-secondary-normal: #{$vibrant-blue};
+  --color-secondary-normal-rgb: #{color-to-rgb-list($vibrant-blue)};
+  --color-secondary-dark: #{darken($vibrant-blue, 10%)};
+  --color-secondary-dark-rgb: #{color-to-rgb-list(darken($vibrant-blue, 10%))};
+  --color-secondary-light: #{lighten($vibrant-blue, 10%)};
+  --color-secondary-light-rgb: #{color-to-rgb-list(lighten($vibrant-blue, 10%))};
 }
 
 // Custom scrollbar

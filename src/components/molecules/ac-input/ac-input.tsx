@@ -1,15 +1,15 @@
 import { Component, Prop, Element, Event, EventEmitter, ComponentInterface, State } from '@stencil/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FormField, FormFieldLogic, ValidatorFunction } from '../../../helpers/form-field-logic';
 import { Bind } from '../../../helpers';
-import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 
 @Component({
   tag: 'ac-input',
   styleUrl: 'ac-input.scss',
   shadow: true
 })
-export class AcInput implements ComponentInterface {
-  acInputBase: AcInputBase;
+export class AcInput implements ComponentInterface, FormField {
+  acInputBase: HTMLAcInputBaseElement;
 
   @Element() host: HTMLAcInputElement;
 
@@ -33,6 +33,10 @@ export class AcInput implements ComponentInterface {
    */
   @Prop() helperText: string;
 
+  @Prop({ mutable: false, reflectToAttr: false }) formField = new FormFieldLogic(this);
+  @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
+  @State() errorMessage: string;
+
   /**
    * Fired when the value of the internal input changes.
    */
@@ -49,6 +53,18 @@ export class AcInput implements ComponentInterface {
   private handleChange() {
     this.value = this.acInputBase.value;
     this.change.emit(this.value);
+
+    this.formField.setDirty();
+    this.formField.validate()
+      .then(err => {
+        this.acInputBase.classList.add(err ? 'ac-input--alert' : 'ac-input--success');
+        this.acInputBase.classList.remove(err ? 'ac-input--success' : 'ac-input--alert');
+      });
+  }
+
+  @Bind
+  private handleFocus() {
+    this.formField.setTouched();
   }
 
   render() {
@@ -62,6 +78,7 @@ export class AcInput implements ComponentInterface {
         value={this.value}
         type={this.isShowingPassword ? 'text' : this.type}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
       >
         <slot name="item-start" slot="item-start" />
         {this.type === 'password'
@@ -71,7 +88,7 @@ export class AcInput implements ComponentInterface {
           : null}
       </ac-input-base>,
       <span class="ac-input__helper-text">
-        {this.helperText}
+        {this.errorMessage || this.helperText}
       </span>
     ];
   }
