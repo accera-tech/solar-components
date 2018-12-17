@@ -1,6 +1,9 @@
 import { Component, Prop } from '@stencil/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
+/**
+ * Accera's full-featured FontAwesome SVG Icon webcomponent.
+ */
 @Component({
   tag: 'ac-fa-icon',
   shadow: true
