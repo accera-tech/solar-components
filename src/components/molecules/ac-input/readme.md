@@ -9,9 +9,12 @@
 
 | Property     | Attribute     | Description                             | Type                                                                                                 |
 | ------------ | ------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `disabled`   | `disabled`    | The disabled mode                       | `boolean`                                                                                            |
 | `formField`  | --            |                                         | `FormFieldLogic`                                                                                     |
 | `helperText` | `helper-text` | The helper text to guide the user.      | `string`                                                                                             |
 | `label`      | `label`       | The label text of the this input group. | `string`                                                                                             |
+| `name`       | `name`        | The HTML input field's name.            | `string`                                                                                             |
+| `required`   | `required`    | Set this field as required              | `boolean`                                                                                            |
 | `type`       | `type`        | The type of the internal input.         | `string`                                                                                             |
 | `validateFn` | --            |                                         | `(value: any) => Promise<ValidationError> \| (value: any) => ValidationError \| ValidatorFunction[]` |
 | `value`      | --            | The value of the internal input.        | `any`                                                                                                |
