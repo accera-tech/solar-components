@@ -3,6 +3,9 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FormField, FormFieldLogic, ValidatorFunction } from '../../../helpers/form-field-logic';
 import { Bind } from '../../../helpers';
 
+/**
+ * Accera's full-featured Input Field webcomponent.
+ */
 @Component({
   tag: 'ac-input',
   styleUrl: 'ac-input.scss',
@@ -10,6 +13,10 @@ import { Bind } from '../../../helpers';
 })
 export class AcInput implements ComponentInterface, FormField {
   acInputBase: HTMLAcInputBaseElement;
+
+  @Prop({ mutable: false, reflectToAttr: false }) formField: FormFieldLogic = new FormFieldLogic(this);
+  @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
+  @State() errorMessage: string;
 
   @Element() host: HTMLAcInputElement;
 
@@ -33,9 +40,20 @@ export class AcInput implements ComponentInterface, FormField {
    */
   @Prop() helperText: string;
 
-  @Prop({ mutable: false, reflectToAttr: false }) formField = new FormFieldLogic(this);
-  @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
-  @State() errorMessage: string;
+  /**
+   * The HTML input field's name.
+   */
+  @Prop() name: string;
+
+  /**
+   * The disabled mode
+   */
+  @Prop() disabled: boolean;
+
+  /**
+   * Set this field as required
+   */
+  @Prop() required: boolean;
 
   /**
    * Fired when the value of the internal input changes.
@@ -75,8 +93,11 @@ export class AcInput implements ComponentInterface, FormField {
           this.acInputBase = acInputBase as any;
         }}
         label={this.label}
-        value={this.value}
+        name={this.name}
         type={this.isShowingPassword ? 'text' : this.type}
+        value={this.value}
+        disabled={this.disabled}
+        required={this.required}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
       >
@@ -85,7 +106,7 @@ export class AcInput implements ComponentInterface, FormField {
           ? <ac-button slot="item-end" theme="secondary" onClick={this.togglePassword} icon-only fill="flat">
               <ac-fa-icon icon={icon} />
             </ac-button>
-          : null}
+          : <slot name="item-end" slot="item-end" />}
       </ac-input-base>,
       <span class="ac-input__helper-text">
         {this.errorMessage || this.helperText}
