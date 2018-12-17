@@ -1,5 +1,9 @@
 @import "../theme/variables";
 
+* {
+  font-family: Nunito, Arial, sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6, p, small {
   line-height: calc(100% + #{$spacer-tiny});
   margin: 0 0 1em 0;
@@ -38,7 +42,6 @@ small {
   font-size: $font-tiny;
   padding: 0;
 }
-
 strong, b {
   color: $black;
 }
