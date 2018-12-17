@@ -2,39 +2,4 @@
 
 @import "./typography";
 @import "./tooltip";
-
-* {
-  font-family: Nunito, Arial, sans-serif;
-  font-size: $font-small;
-}
-
-:root {
-  --color-primary-normal: #{$vibrant-orange};
-  --color-primary-normal-rgb: #{color-to-rgb-list($vibrant-orange)};
-  --color-primary-dark: #{darken($vibrant-orange, 10%)};
-  --color-primary-dark-rgb: #{color-to-rgb-list(darken($vibrant-orange, 10%))};
-  --color-primary-light: #{lighten($vibrant-orange, 10%)};
-  --color-primary-light-rgb: #{color-to-rgb-list(lighten($vibrant-orange, 10%))};
-
-  --color-secondary-normal: #{$vibrant-blue};
-  --color-secondary-normal-rgb: #{color-to-rgb-list($vibrant-blue)};
-  --color-secondary-dark: #{darken($vibrant-blue, 10%)};
-  --color-secondary-dark-rgb: #{color-to-rgb-list(darken($vibrant-blue, 10%))};
-  --color-secondary-light: #{lighten($vibrant-blue, 10%)};
-  --color-secondary-light-rgb: #{color-to-rgb-list(lighten($vibrant-blue, 10%))};
-}
-
-// Custom scrollbar
-::-webkit-scrollbar {
-  width: $spacer-tiny;
-  height: $spacer-tiny;
-}
-::-webkit-scrollbar-track {
-  background: rgba(0,0,0,.2);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,.3);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,.4);
-}
+@import "./scrollbar";
