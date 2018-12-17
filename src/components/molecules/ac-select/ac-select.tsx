@@ -14,6 +14,9 @@ import { Bind } from '../../../helpers';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
 
+/**
+ * Accera's full-featured select webcomponent.
+ */
 @Component({
   tag: 'ac-select',
   styleUrl: 'ac-select.scss',
@@ -49,6 +52,11 @@ export class AcSelect implements ComponentInterface {
    * The options that will be displayed in the panel.
    */
   @Prop({ mutable: true }) options: AcPanelItem[];
+
+  /**
+   * Set the disabled mode.
+   */
+  @Prop() disabled: boolean;
 
   /**
    * Fired when the user select/deselect an option.
@@ -140,13 +148,21 @@ export class AcSelect implements ComponentInterface {
           this.acInputBase = acInputBase as any;
         }}
         label={this.label}
+        type='text'
         value={this.selectedText}
         onFocus={this.togglePanel}
-        type='text'
+        disabled={this.disabled}
         readonly
       >
         <slot name="item-start" slot="item-start" />
-        <ac-button slot="item-end" theme="light" fill="flat" icon-only onClick={this.togglePanel}>
+        <ac-button
+          slot="item-end"
+          theme={this.isShowingPanel ? 'primary' : 'light'}
+          fill="flat"
+          disabled={this.disabled}
+          onClick={this.togglePanel}
+          icon-only
+        >
           <ac-fa-icon icon={icon} size={12} />
         </ac-button>
       </ac-input-base>,
