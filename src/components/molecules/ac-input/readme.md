@@ -7,12 +7,14 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                             | Type     |
-| ------------ | ------------- | --------------------------------------- | -------- |
-| `helperText` | `helper-text` | The helper text to guide the user.      | `string` |
-| `label`      | `label`       | The label text of the this input group. | `string` |
-| `type`       | `type`        | The type of the internal input.         | `string` |
-| `value`      | --            | The value of the internal input.        | `any`    |
+| Property     | Attribute     | Description                             | Type                                                                                                 |
+| ------------ | ------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `formField`  | --            |                                         | `FormFieldLogic`                                                                                     |
+| `helperText` | `helper-text` | The helper text to guide the user.      | `string`                                                                                             |
+| `label`      | `label`       | The label text of the this input group. | `string`                                                                                             |
+| `type`       | `type`        | The type of the internal input.         | `string`                                                                                             |
+| `validateFn` | --            |                                         | `(value: any) => Promise<ValidationError> \| (value: any) => ValidationError \| ValidatorFunction[]` |
+| `value`      | --            | The value of the internal input.        | `any`                                                                                                |
 
 
 ## Events

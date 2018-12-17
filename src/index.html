@@ -17,6 +17,9 @@
       <ac-button slot="item-end"></ac-button>
     </ac-input-base>
 
+    <h3>Disabled Input</h3>
+    <ac-input-base label="Disabled example" disabled></ac-input-base>
+
     <h2>A text input</h2>
     <ac-input id="textInput" label="Name" type="text" helper-text="Set your name here">
       <i class="fas fa-user" slot="item-start"></i>
@@ -27,17 +30,24 @@
       <i class="fas fa-lock" slot="item-start"></i>
     </ac-input>
 
-    <h2>Single Select</h2>
+    <h2>Select Box</h2>
+    <h3>Single Select</h3>
     <ac-select id="selectExample" label="Artist"></ac-select>
 
-    <h2>Select Multiple</h2>
+    <h3>Select Multiple</h3>
     <ac-select id="selectMultiple" label="Beatles" multiple></ac-select>
 
-    <h2>Select With Html Options</h2>
+    <h3>Select With Html Options</h3>
     <ac-select label="Band">
       <option value="0">TNT</option>
       <option value="2">Queen</option>
       <option value="3">Metallica</option>
+      <option value="4" selected>AC/DC</option>
+    </ac-select>
+
+    <h3>Disabled State</h3>
+    <ac-select label="Band" disabled>
+      <option value="0">TNT</option>
       <option value="4" selected>AC/DC</option>
     </ac-select>
   </section>
@@ -49,9 +59,17 @@
     <ac-button tooltip="This is a clear button" theme="secondary" fill="clear">Clear</ac-button>
     <ac-button tooltip="This is a clear button" theme="success" fill="clear">Clear</ac-button>
     <ac-button tooltip="This is a clear button" theme="info" fill="clear">Clear</ac-button>
+    <ac-button tooltip="This is a clear button" theme="info" fill="flat" disabled>Clear</ac-button>
     <ac-button tooltip="This is a clear button" theme="black" fill="outline">Outline</ac-button>
     <ac-button tooltip="This is a clear button" disabled>Disabled</ac-button>
     <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
+  </section>
+
+  <section>
+    <h1>Checkbox</h1>
+    <ac-check name="chk1" label="Test" label-left></ac-check>
+    <ac-check name="chk1" label="Test" disabled></ac-check>
+    <ac-check name="chk1" label="Test" helper-text="A brief description of this checkbox"></ac-check>
   </section>
 
 <script>

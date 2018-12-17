@@ -1,0 +1,135 @@
+@import "../../../theme/variables";
+
+
+// General Checkbox Style
+// --------------------------------------------------
+
+:host {
+  display: flex;
+  width: 100%;
+
+  .ac-check__label-container {
+    padding-left: 8px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  label.ac-check__label {
+    font-size: 14px;
+    color: $black;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0;
+  }
+
+  input.ac-check__native {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background: $white;
+      border: 2px solid lighten($gray, 10%);
+      border-radius: 4px;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 5px;
+      width: 11px;
+      height: 9px;
+      z-index: 1;
+      border: 2px solid $white;
+      border-top-style: none;
+      border-right-style: none;
+      transition: all $default-transition;
+    }
+  }
+
+  .ac-check__helper-text {
+    display: block;
+    margin-top: $spacer-tiny;
+    font-size: $font-tiny;
+    color: darken($gray, 20%);
+  }
+}
+
+
+// Checked mode
+// checked
+// --------------------------------------------------
+
+:host(.ac-check--checked) {
+  label.ac-check__label {
+    color: var-color("primary", "normal");
+  }
+
+  input.ac-check__native {
+    &:before {
+      transform: rotate(-45deg);
+      height: .5rem;
+    }
+    &:after {
+      background: var-color("primary", "normal");
+      border-color: var-color("primary", "normal");
+    }
+  }
+}
+
+
+// Disabled mode
+// disabled
+// --------------------------------------------------
+
+:host(.ac-check--disabled) {
+  cursor: not-allowed;
+
+  .ac-check__label-container {
+    pointer-events: none;
+  }
+  label.ac-check__label {
+    color: $gray;
+  }
+  input.ac-check__native {
+    pointer-events: none;
+    &:after {
+      background: lighten($gray, 20%);
+    }
+  }
+}
+:host(.ac-check--disabled.ac-check--checked) {
+  label.ac-check__label {
+    color: gray;
+  }
+  input.ac-check__native {
+    &:after {
+      background: $gray;
+      border-color: $gray;
+    }
+  }
+}
+
+
+// Label in left mode
+// label-left
+// --------------------------------------------------
+
+:host(.ac-check--label-left) {
+  flex-direction: row-reverse;
+
+  .ac-check__label-container {
+    padding-right: 8px;
+  }
+}

@@ -15,6 +15,7 @@ import {
   AcPanelItem,
 } from './components/atoms/ac-panel/ac-panel';
 import {
+  FormFieldLogic,
   ValidatorFunction,
 } from './helpers/form-field-logic';
 import {
@@ -30,7 +31,7 @@ export namespace Components {
     */
     'disabled'?: boolean;
     /**
-    * Fill mode: * flat - No borders and no raising * solid - Default raised button * clear - No background and no borders
+    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
     'fill': 'clear' | 'solid' | 'flat';
     /**
@@ -50,11 +51,11 @@ export namespace Components {
     */
     'target'?: '_blank' | '_self' | '_parent' | '_top' | string;
     /**
-    * The theme color. The default is white.
+    * The theme color defined in the color palette. The default is white.
     */
     'theme'?: string;
     /**
-    * The native HTML5 title attribute.
+    * When hover this button, present a tootip text.
     */
     'tooltip'?: string;
     /**
@@ -68,7 +69,7 @@ export namespace Components {
     */
     'disabled'?: boolean;
     /**
-    * Fill mode: * flat - No borders and no raising * solid - Default raised button * clear - No background and no borders
+    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
     'fill'?: 'clear' | 'solid' | 'flat';
     /**
@@ -88,11 +89,11 @@ export namespace Components {
     */
     'target'?: '_blank' | '_self' | '_parent' | '_top' | string;
     /**
-    * The theme color. The default is white.
+    * The theme color defined in the color palette. The default is white.
     */
     'theme'?: string;
     /**
-    * The native HTML5 title attribute.
+    * When hover this button, present a tootip text.
     */
     'tooltip'?: string;
     /**
@@ -101,8 +102,58 @@ export namespace Components {
     'type'?: 'button' | 'submit' | 'reset';
   }
 
-  interface AcCheck {}
-  interface AcCheckAttributes extends StencilHTMLAttributes {}
+  interface AcCheck {
+    /**
+    * The actual checked state.
+    */
+    'checked': boolean;
+    /**
+    * The native disabled mode.
+    */
+    'disabled': boolean;
+    /**
+    * The helper text to guide the user.
+    */
+    'helperText': string;
+    /**
+    * The textual label of this field.
+    */
+    'label': string;
+    /**
+    * Set the label to the left of checkbox.
+    */
+    'labelLeft': boolean;
+    /**
+    * The HTML field name.
+    */
+    'name': string;
+  }
+  interface AcCheckAttributes extends StencilHTMLAttributes {
+    /**
+    * The actual checked state.
+    */
+    'checked'?: boolean;
+    /**
+    * The native disabled mode.
+    */
+    'disabled'?: boolean;
+    /**
+    * The helper text to guide the user.
+    */
+    'helperText'?: string;
+    /**
+    * The textual label of this field.
+    */
+    'label'?: string;
+    /**
+    * Set the label to the left of checkbox.
+    */
+    'labelLeft'?: boolean;
+    /**
+    * The HTML field name.
+    */
+    'name'?: string;
+  }
 
   interface AcFaIcon {
     /**
@@ -127,13 +178,25 @@ export namespace Components {
 
   interface AcInputBase {
     /**
+    * The HTML disabled mode.
+    */
+    'disabled': boolean;
+    /**
     * The label text of the this input group.
     */
     'label': string;
     /**
+    * The native HTML field name.
+    */
+    'name': string;
+    /**
     * Enable readonly.
     */
     'readonly': boolean;
+    /**
+    * The native HTML required mode.
+    */
+    'required': boolean;
     /**
     * The type of the internal input.
     */
@@ -145,9 +208,17 @@ export namespace Components {
   }
   interface AcInputBaseAttributes extends StencilHTMLAttributes {
     /**
+    * The HTML disabled mode.
+    */
+    'disabled'?: boolean;
+    /**
     * The label text of the this input group.
     */
     'label'?: string;
+    /**
+    * The native HTML field name.
+    */
+    'name'?: string;
     /**
     * Fired when the value of the internal input changes.
     */
@@ -156,6 +227,10 @@ export namespace Components {
     * Enable readonly.
     */
     'readonly'?: boolean;
+    /**
+    * The native HTML required mode.
+    */
+    'required'?: boolean;
     /**
     * The type of the internal input.
     */
@@ -184,7 +259,11 @@ export namespace Components {
   }
 
   interface AcInput {
-    'formField': any;
+    /**
+    * The disabled mode
+    */
+    'disabled': boolean;
+    'formField': FormFieldLogic;
     /**
     * The helper text to guide the user.
     */
@@ -193,6 +272,14 @@ export namespace Components {
     * The label text of the this input group.
     */
     'label': string;
+    /**
+    * The HTML input field's name.
+    */
+    'name': string;
+    /**
+    * Set this field as required
+    */
+    'required': boolean;
     /**
     * The type of the internal input.
     */
@@ -204,7 +291,11 @@ export namespace Components {
     'value': any;
   }
   interface AcInputAttributes extends StencilHTMLAttributes {
-    'formField'?: any;
+    /**
+    * The disabled mode
+    */
+    'disabled'?: boolean;
+    'formField'?: FormFieldLogic;
     /**
     * The helper text to guide the user.
     */
@@ -214,9 +305,17 @@ export namespace Components {
     */
     'label'?: string;
     /**
+    * The HTML input field's name.
+    */
+    'name'?: string;
+    /**
     * Fired when the value of the internal input changes.
     */
     'onChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * Set this field as required
+    */
+    'required'?: boolean;
     /**
     * The type of the internal input.
     */
@@ -229,6 +328,10 @@ export namespace Components {
   }
 
   interface AcSelect {
+    /**
+    * Set the disabled mode.
+    */
+    'disabled': boolean;
     /**
     * The helper text to guide the user.
     */
@@ -251,6 +354,10 @@ export namespace Components {
     'value': any;
   }
   interface AcSelectAttributes extends StencilHTMLAttributes {
+    /**
+    * Set the disabled mode.
+    */
+    'disabled'?: boolean;
     /**
     * The helper text to guide the user.
     */
