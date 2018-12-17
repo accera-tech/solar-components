@@ -1,5 +1,9 @@
 @import "../../../theme/variables";
 
+
+// General Combo Select Style
+// --------------------------------------------------
+
 :host {
   position: relative;
   display: flex;
@@ -9,5 +13,6 @@
     display: block;
     margin-top: $spacer-tiny;
     font-size: $font-tiny;
+    color: darken($gray, 20%);
   }
 }

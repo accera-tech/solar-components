@@ -1,12 +1,15 @@
 @import "../../../theme/variables";
 
 /**
-* generate buttons variations
-*/
+ * Generate button variations by color palette.
+ */
 @mixin button-variations($selector, $color-name) {
-  // Solid
+  // Solid Style (default)
+  // fill="solid"
+  // --------------------------------------------------
+
   :host(#{$selector}) {
-    button, a {
+    .ac-button__native {
       background-color: var-color($color-name, "normal");
       color: var-color($color-name, "contrast");
       fill: var-color($color-name, "contrast");
@@ -31,9 +34,13 @@
     }
   }
 
-  // Clear & Outline
+
+  // Clear Style
+  // fill="clear"
+  // --------------------------------------------------
+
   :host(#{$selector}.ac-button--clear), :host(#{$selector}.ac-button--outline) {
-    button, a {
+    .ac-button__native {
       color: var-color($color-name, "normal");
       fill: var-color($color-name, "normal");
       background: transparent;
@@ -46,17 +53,26 @@
     }
   }
 
+
+  // Outline Style
+  // fill="outline"
+  // --------------------------------------------------
+
   :host(#{$selector}.ac-button--outline) {
-    button, a {
+    .ac-button__native {
       border: 2px solid var-color($color-name, "normal");
     }
   }
 }
 
+
+// General Button Style
+// --------------------------------------------------
+
 :host {
   display: inline-flex;
 
-  button, a {
+  .ac-button__native {
     height: 44px;
     min-width: 44px;
     padding: $spacer-tiny $spacer-small;
@@ -70,7 +86,7 @@
     text-align: center;
     text-decoration: none;
     line-height: 1;
-    transition: box-shadow $slow-transition, outline $slow-transition;
+    transition: box-shadow $slow-transition, outline $slow-transition, background-color $slow-transition, color $slow-transition;
     cursor: pointer;
     user-select: none;
     -webkit-appearance: none;
@@ -93,8 +109,13 @@
 @include button-variations(".ac-button--disabled", "disabled");
 @include button-variations(".ac-button--black", "black");
 
+
+// Small Size
+// size="small"
+// --------------------------------------------------
+
 :host(.ac-button--small) {
-  button, a {
+  .ac-button__native {
     height: 36px;
     min-width: 36px;
     font-size: $font-tiny;
@@ -102,15 +123,25 @@
   }
 }
 
+
+// Big Size
+// size="big"
+// --------------------------------------------------
+
 :host(.ac-button--big) {
-  button, a {
+  .ac-button__native {
     height: 50px;
     min-width: 50px;
   }
 }
 
+
+// Icon Only mode
+// icon-only
+// --------------------------------------------------
+
 :host(.ac-button--icon-only) {
-  button, a {
+  .ac-button__native {
     .ac-button__text {
       display: flex;
       justify-content: center;
@@ -122,33 +153,49 @@
   }
 }
 
+
+// General Solid Style
+// fill="solid"
+// --------------------------------------------------
+
 :host(.ac-button--solid) {
-  button, a {
+  .ac-button__native {
     box-shadow: inset 0 -2px 0 0px rgba(0, 0, 0, .2);
     border: 1px solid rgba(0, 0, 0, .1);
   }
 }
 
+
+// General Clear Style
+// fill="clear"
+// --------------------------------------------------
+
 :host(.ac-button--clear) {
-  button, a {
+  .ac-button__native {
     background: transparent;
     border: 0;
   }
 }
 
+
+// General Flat Style
+// fill="flat"
+// --------------------------------------------------
+
 :host(.ac-button--flat) {
-  button, a {
+  .ac-button__native {
     border: 0;
   }
 }
 
+
+// Disabled mode
+// disable
+// --------------------------------------------------
+
 :host(.ac-button--disabled) {
-  button, a {
-    pointer-events: none;
-  }
-}
-:host(.ac-button--disabled:hover) {
-  button, a {
-    background-color: var-color("disabled", "dark");
+  pointer-events: none;
+  .ac-button__native {
+    cursor: not-allowed;
   }
 }

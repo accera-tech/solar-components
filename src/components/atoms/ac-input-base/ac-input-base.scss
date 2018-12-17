@@ -12,10 +12,14 @@
   }
 }
 
+
+// General Input Base Style
+// --------------------------------------------------
+
 :host {
   display: flex;
   background-color: white;
-  border: 2px solid #E1E1E1;
+  border: 2px solid lighten($gray, 10%);
   border-radius: 4px;
   transition: border-color $default-transition;
 
@@ -28,13 +32,14 @@
       position: absolute;
       top: 18px;
       left: 16px;
-      color: #A0A0A0;
+      color: $gray;
       transition: font-size $default-transition, top $default-transition;
       user-select: none;
+      pointer-events: none;
       font-size: $font-small;
     }
 
-    input {
+    input.ac-input__native {
       width: 100%;
       height: 52px;
       padding: 24px 16px 8px;
@@ -60,6 +65,10 @@
   }
 }
 
+
+// Input filled by a value or in Focus mode
+// --------------------------------------------------
+
 :host(.ac-input--focus, .ac-input--filled) {
   label.ac-input__label {
     font-size: $font-tiny;
@@ -67,10 +76,30 @@
   }
 }
 
+
+// Alert/Error mode
+// --------------------------------------------------
+
 :host(.ac-input--alert) {
   border-color: var-color("alert", "normal");
+  background-color: white;
   label.ac-input__label {
     color: var-color("alert", "normal");
+  }
+}
+
+
+// Disabled mode
+// --------------------------------------------------
+
+:host(.ac-input--disabled) {
+  background-color: lighten($gray, 20%);
+  input.ac-input__native {
+    cursor: not-allowed;
+  }
+
+  label.ac-input__label {
+    color: darken($gray, 10%);
   }
 }
 

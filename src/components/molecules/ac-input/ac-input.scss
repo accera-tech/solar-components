@@ -1,5 +1,9 @@
 @import "../../../theme/variables";
 
+
+// General Input Style
+// --------------------------------------------------
+
 :host {
   display: flex;
   flex-direction: column;
@@ -8,5 +12,6 @@
     display: block;
     margin-top: $spacer-tiny;
     font-size: $font-tiny;
+    color: darken($gray, 20%);
   }
 }
