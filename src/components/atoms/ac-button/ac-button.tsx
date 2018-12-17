@@ -1,5 +1,8 @@
 import { Component, Prop, Element, ComponentInterface } from '@stencil/core';
 
+/**
+ * Accera's full-featured button webcomponent.
+ */
 @Component({
   tag: 'ac-button',
   styleUrl: 'ac-button.scss',
@@ -15,12 +18,12 @@ export class AcButton implements ComponentInterface {
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
 
   /**
-   * The native HTML5 title attribute.
+   * When hover this button, present a tootip text.
    */
   @Prop() tooltip?: string;
 
   /**
-   * The theme color. The default is white.
+   * The theme color defined in the color palette. The default is white.
    */
   @Prop() theme?: string;
 
@@ -35,7 +38,7 @@ export class AcButton implements ComponentInterface {
   /**
    * Fill mode:
    * * flat - No borders and no raising
-   * * solid - Default raised button
+   * * solid - Raised button, default
    * * clear - No background and no borders
    */
   @Prop() fill: 'clear' | 'solid' | 'flat' = 'solid';
@@ -65,13 +68,12 @@ export class AcButton implements ComponentInterface {
   hostData() {
     return {
       attribute: 'button',
-      'data-type': this.type,
       class: {
         [`ac-button--${this.theme}`]: this.theme !== undefined,
         [`ac-button--${this.size}`]: this.size !== undefined,
         [`ac-button--${this.fill}`]: this.fill !== undefined,
-        [`ac-button--icon-only`]: this.iconOnly,
-        [`ac-button--disabled`]: this.disabled
+        'ac-button--icon-only': this.iconOnly,
+        'ac-button--disabled': this.disabled
       }
     };
   }
@@ -86,6 +88,7 @@ export class AcButton implements ComponentInterface {
       <TagType
         {...attrs}
         disabled={this.disabled}
+        class="ac-button__native"
       >
         <slot name="icon-start" />
         <span class="ac-button__text">
