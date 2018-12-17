@@ -73,6 +73,15 @@ export interface FormField {
   // @Prop
   formField: FormFieldLogic;
 
+  // @Prop
+  name: string;
+
+  // @Prop
+  required: boolean;
+
+  // @Prop
+  disabled: boolean;
+
   // @State
   errorMessage?: string;
 }
