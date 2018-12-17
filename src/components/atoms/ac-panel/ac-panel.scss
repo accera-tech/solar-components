@@ -1,9 +1,12 @@
 @import "../../../theme/variables";
 
-:host {
-  top: 100%;
 
+// General Panel Style
+// --------------------------------------------------
+
+:host {
   position: absolute;
+  top: 100%;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -20,6 +23,7 @@
     li.ac-panel__list-item {
       position: relative;
       padding: 4px 16px;
+      font-size: $font-small;
       color: darken($gray, 20%);
       cursor: pointer;
       user-select: none;

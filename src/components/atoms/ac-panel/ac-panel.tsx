@@ -1,5 +1,8 @@
 import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
+/**
+ * Accera's Panel webcomponent used as a menu.
+ */
 @Component({
   tag: 'ac-panel',
   styleUrl: 'ac-panel.scss',
