@@ -60,19 +60,18 @@ export class AcCheck {
   render() {
 
     return [
-      <input
-        id={this.name}
-        class="ac-check__native"
-        type="checkbox"
-        name={this.name}
-        onChange={this.handleChange}
-        disabled={this.disabled}
-      />,
-      this.label &&
-      <div class="ac-check__label-container" onClick={this.handleChange}>
-        <label class="ac-check__label">{ this.label }</label>
-        { this.helperText && <span class="ac-check__helper-text">{ this.helperText }</span> }
+      <div class="ac-check__container">
+        <input
+          id={this.name}
+          class="ac-check__native"
+          type="checkbox"
+          name={this.name}
+          onChange={this.handleChange}
+          disabled={this.disabled}
+        />
+        { this.label && <label class="ac-check__label" onClick={this.handleChange}>{this.label}</label> }
       </div>,
+      this.helperText && <span class="ac-check__helper-text" onClick={this.handleChange}>{ this.helperText }</span>
     ]
   }
 }
