@@ -129,10 +129,11 @@ export class AcSelect implements ComponentInterface {
     this.options = [ ...this.options ];
 
     this.change.emit(this.value);
+    this.isShowingPanel = this.multiple;
   }
 
   setSelectedStateInDOM(index: number, state: boolean) {
-    if (this.childOptions) {
+    if (this.childOptions && this.childOptions.length > 0) {
       this.childOptions.item(index).selected = state;
       if (state) this.childOptions.item(index).setAttribute('selected', '');
       else this.childOptions.item(index).removeAttribute('selected');
@@ -169,7 +170,7 @@ export class AcSelect implements ComponentInterface {
       <span class="ac-input__helper-text">
         {this.helperText}
       </span>,
-      this.isShowingPanel && <ac-panel items={this.options} onSelect={this.handleSelect} />
+      this.isShowingPanel && <ac-panel class="ac-select__panel" items={this.options} onSelect={this.handleSelect} />
     ];
   }
 }
