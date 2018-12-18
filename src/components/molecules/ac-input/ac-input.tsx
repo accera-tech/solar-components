@@ -103,8 +103,8 @@ export class AcInput implements ComponentInterface, FormField {
       >
         <slot name="item-start" slot="item-start" />
         {this.type === 'password'
-          ? <ac-button slot="item-end" theme="secondary" onClick={this.togglePassword} icon-only fill="flat">
-              <ac-fa-icon icon={icon} />
+          ? <ac-button slot="item-end" onClick={this.togglePassword} icon-only>
+              <ac-fa-icon icon={icon} size={14} />
             </ac-button>
           : <slot name="item-end" slot="item-end" />}
       </ac-input-base>,
