@@ -23,7 +23,9 @@
   "devDependencies": {
     "@stencil/core": "~0.15.1",
     "@stencil/sass": "^0.1.1",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   },
   "repository": {
     "type": "git",
