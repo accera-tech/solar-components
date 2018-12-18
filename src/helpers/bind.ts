@@ -1,4 +1,7 @@
-// @ts-ignore
+/**
+ * Binds a method to it instance.
+ */
+//@ts-ignore
 export function Bind(target: any, name: string, descriptor: PropertyDescriptor) {
   return {
     get() {
