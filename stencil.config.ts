@@ -3,17 +3,20 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'solar',
-  globalStyle: 'src/css/global.scss',
+  globalStyle: 'src/global/css/main.scss',
   outputTargets:[
     {
-      type: 'dist'
+      type: 'dist',
     },
     {
       type: 'www',
       serviceWorker: null
     }
   ],
-  copy: [ { src: 'theme', dest: '../dist/theme' } ],
+  copy: [
+    { src: 'theme', dest: '../scss' },
+    { src: 'global/js/react', dest: '../react' }
+  ],
   plugins: [
     sass()
   ],
