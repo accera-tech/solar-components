@@ -1,3 +1,5 @@
+import { isRequired } from './validators/isRequired';
+
 export class FormFieldLogic {
   private component: FormField;
 
@@ -19,24 +21,35 @@ export class FormFieldLogic {
     this.isTouched = true;
   }
 
-  setValid(valid: boolean) {
-    this.component.host.classList.add(valid ? 'field--valid' : 'field--invalid');
-    this.component.host.classList.remove(valid ? 'field--invalid' : 'field--valid');
+  setValid() {
+    this.component.host.classList.add('field--valid');
+    this.component.host.classList.remove('field--invalid');
 
-    this.isValid = valid;
+    this.isValid = true;
+  }
+
+  setInvalid() {
+    this.component.host.classList.add('field--invalid');
+    this.component.host.classList.remove('field--valid');
+
+    this.isValid = false;
   }
 
   async validate(): Promise<ValidationError> {
     const { validateFn } = this.component;
     if (!validateFn) {
-      this.component.errorMessage = null;
-      return this.setValid(true);
+      this.component.error = null;
+      return;
     }
 
     // Converting to Array
     let validateFns;
     if (validateFn instanceof Array) validateFns = validateFn;
     else validateFns = [ validateFn ];
+
+    if (this.component.required) {
+      validateFns.unshift(isRequired(this.component.required));
+    }
 
     // Running all validator functions
     for (const fn of validateFns) {
@@ -46,19 +59,17 @@ export class FormFieldLogic {
       else res = exec;
 
       if (res) {
-        this.component.errorMessage = res.message || res;
-        this.setValid(false);
-        return res;
+        this.component.error = res.message || res;
+        return res.message ? res : { message: res };
       }
     }
 
-    this.component.errorMessage = null;
-    return this.setValid(true);
+    this.component.error = null;
   }
 }
 
-export type ValidatorFunction = ((value) => ValidationError) | ((value) => Promise<ValidationError>);
-export type ValidationError = { message: string } | string | void;
+export type ValidatorFunction = ((value) => ValidationError | string) | ((value) => Promise<ValidationError | string>);
+export type ValidationError = { message: string } | void;
 
 export interface FormField {
   // @Element
@@ -82,6 +93,9 @@ export interface FormField {
   // @Prop
   disabled: boolean;
 
-  // @State
-  errorMessage?: string;
+  // @Prop
+  error?: string;
+
+  // @Watch('error')
+  errorDidUpdate: (error: string) => void;
 }

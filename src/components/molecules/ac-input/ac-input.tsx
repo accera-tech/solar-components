@@ -1,4 +1,4 @@
-import { Component, Prop, Element, Event, EventEmitter, ComponentInterface, State } from '@stencil/core';
+import { Component, Prop, Element, Event, EventEmitter, ComponentInterface, State, Watch } from '@stencil/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FormField, FormFieldLogic, ValidatorFunction } from '../../../helpers/form-field-logic';
 import { Bind } from '../../../helpers';
@@ -15,8 +15,6 @@ export class AcInput implements ComponentInterface, FormField {
   acInputBase: HTMLAcInputBaseElement;
 
   @Prop({ mutable: false, reflectToAttr: false }) formField: FormFieldLogic = new FormFieldLogic(this);
-  @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
-  @State() errorMessage: string;
 
   @Element() host: HTMLAcInputElement;
 
@@ -40,6 +38,8 @@ export class AcInput implements ComponentInterface, FormField {
    */
   @Prop() helperText: string;
 
+  @Prop({ mutable: true }) error: string;
+
   /**
    * The HTML input field's name.
    */
@@ -60,7 +60,22 @@ export class AcInput implements ComponentInterface, FormField {
    */
   @Event({ bubbles: true }) change: EventEmitter<any>;
 
+  @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
+
   @State() isShowingPassword: boolean;
+
+  componentDidLoad() {
+    this.errorDidUpdate(this.error);
+  }
+
+  @Watch('error')
+  errorDidUpdate(error) {
+    this.acInputBase.classList.add(error ? 'ac-input--alert' : 'ac-input--success');
+    this.acInputBase.classList.remove(error ? 'ac-input--success' : 'ac-input--alert');
+
+    if (error) this.formField.setInvalid();
+    else this.formField.setValid();
+  }
 
   @Bind
   private togglePassword() {
@@ -74,15 +89,12 @@ export class AcInput implements ComponentInterface, FormField {
 
     this.formField.setDirty();
     this.formField.validate()
-      .then(err => {
-        this.acInputBase.classList.add(err ? 'ac-input--alert' : 'ac-input--success');
-        this.acInputBase.classList.remove(err ? 'ac-input--success' : 'ac-input--alert');
-      });
   }
 
   @Bind
-  private handleFocus() {
+  private handleBlur() {
     this.formField.setTouched();
+    this.formField.validate()
   }
 
   render() {
@@ -99,7 +111,7 @@ export class AcInput implements ComponentInterface, FormField {
         disabled={this.disabled}
         required={this.required}
         onChange={this.handleChange}
-        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
       >
         <slot name="item-start" slot="item-start" />
         {this.type === 'password'
@@ -109,7 +121,7 @@ export class AcInput implements ComponentInterface, FormField {
           : <slot name="item-end" slot="item-end" />}
       </ac-input-base>,
       <span class="ac-input__helper-text">
-        {this.errorMessage || this.helperText}
+        {this.error || this.helperText}
       </span>
     ];
   }

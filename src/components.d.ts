@@ -263,6 +263,7 @@ export namespace Components {
     * The disabled mode
     */
     'disabled': boolean;
+    'error': string;
     'formField': FormFieldLogic;
     /**
     * The helper text to guide the user.
@@ -295,6 +296,7 @@ export namespace Components {
     * The disabled mode
     */
     'disabled'?: boolean;
+    'error'?: string;
     'formField'?: FormFieldLogic;
     /**
     * The helper text to guide the user.

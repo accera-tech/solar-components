@@ -15,3 +15,9 @@
     color: darken($gray, 20%);
   }
 }
+
+:host(.field--invalid) {
+  .ac-input__helper-text {
+    color: $alert;
+  }
+}
