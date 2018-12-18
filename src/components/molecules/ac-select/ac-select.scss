@@ -15,4 +15,9 @@
     font-size: $font-tiny;
     color: darken($gray, 20%);
   }
+
+  .ac-select__panel {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
 }
