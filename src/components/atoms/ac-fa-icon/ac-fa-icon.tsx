@@ -6,6 +6,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
  */
 @Component({
   tag: 'ac-fa-icon',
+  styleUrl: 'ac-fa-icon.scss',
   shadow: true
 })
 export class AcFaIcon {
@@ -18,6 +19,20 @@ export class AcFaIcon {
    * The size of the icon in px.
    */
   @Prop() size = 16;
+
+  /**
+   * Set an animation defined in the ac-fa-icon.scss
+   */
+  @Prop() anim: string;
+
+  hostData() {
+    return {
+      attribute: 'svg',
+      class: {
+        [`icon--anim-${this.anim}`]: this.anim
+      }
+    }
+  }
 
   render() {
     const { icon } = this.icon;
