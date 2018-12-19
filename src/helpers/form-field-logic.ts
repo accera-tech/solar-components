@@ -89,15 +89,11 @@ export class FormFieldLogic {
    */
   async validate(): Promise<ValidationError> {
     const { validateFn } = this.component;
-    if (!validateFn) {
-      this.component.error = null;
-      return;
-    }
 
     // Converting to Array
-    let validateFns;
+    let validateFns = [];
     if (validateFn instanceof Array) validateFns = validateFn;
-    else validateFns = [ validateFn ];
+    else if (validateFn) validateFns = [ validateFn ];
 
     if (this.component.required) {
       validateFns.unshift(isRequired(this.component.required));
@@ -168,7 +164,7 @@ export interface FormField {
    * If this field component is required.
    * @Prop
    */
-  required: boolean;
+  required: string | boolean;
 
   /**
    * If this field is in the disabled state.

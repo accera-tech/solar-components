@@ -286,7 +286,7 @@ export namespace Components {
     /**
     * Set this field as required
     */
-    'required': boolean;
+    'required': string | boolean;
     /**
     * The type of the internal input.
     */
@@ -332,7 +332,7 @@ export namespace Components {
     /**
     * Set this field as required
     */
-    'required'?: boolean;
+    'required'?: string | boolean;
     /**
     * The type of the internal input.
     */

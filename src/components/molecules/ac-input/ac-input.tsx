@@ -53,7 +53,7 @@ export class AcInput implements ComponentInterface, FormField {
   /**
    * Set this field as required
    */
-  @Prop() required: boolean;
+  @Prop() required: string | boolean;
 
   /**
    * Fired when the value of the internal input changes.
@@ -109,7 +109,7 @@ export class AcInput implements ComponentInterface, FormField {
         type={this.isShowingPassword ? 'text' : this.type}
         value={this.value}
         disabled={this.disabled}
-        required={this.required}
+        required={!!this.required}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
       >
