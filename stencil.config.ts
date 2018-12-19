@@ -14,8 +14,8 @@ export const config: Config = {
     }
   ],
   copy: [
-    { src: 'theme', dest: '../scss' },
-    { src: 'global/js/react', dest: '../react' }
+    { src: 'theme', dest: 'scss' },
+    { src: 'global/js/react', dest: 'react' }
   ],
   plugins: [
     sass()

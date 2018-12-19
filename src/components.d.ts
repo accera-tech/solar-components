@@ -263,7 +263,13 @@ export namespace Components {
     * The disabled mode
     */
     'disabled': boolean;
+    /**
+    * The actual error message.
+    */
     'error': string;
+    /**
+    * The form field logic.
+    */
     'formField': FormFieldLogic;
     /**
     * The helper text to guide the user.
@@ -285,6 +291,9 @@ export namespace Components {
     * The type of the internal input.
     */
     'type': string;
+    /**
+    * The validators that ensure the field validity.
+    */
     'validateFn': ValidatorFunction | ValidatorFunction[];
     /**
     * The value of the internal input.
@@ -296,7 +305,13 @@ export namespace Components {
     * The disabled mode
     */
     'disabled'?: boolean;
+    /**
+    * The actual error message.
+    */
     'error'?: string;
+    /**
+    * The form field logic.
+    */
     'formField'?: FormFieldLogic;
     /**
     * The helper text to guide the user.
@@ -322,6 +337,9 @@ export namespace Components {
     * The type of the internal input.
     */
     'type'?: string;
+    /**
+    * The validators that ensure the field validity.
+    */
     'validateFn'?: ValidatorFunction | ValidatorFunction[];
     /**
     * The value of the internal input.

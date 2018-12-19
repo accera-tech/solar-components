@@ -1,1 +1,1 @@
-export { WebComponent } from './WebComponent';
+export { SolarComponent } from './SolarComponent';
