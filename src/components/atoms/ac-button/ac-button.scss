@@ -63,6 +63,14 @@
       border: 2px solid var-color($color-name, "normal");
     }
   }
+
+
+  :host(#{$selector}.ac-button--loading) {
+    .ac-button__native {
+      background-color: var-color($color-name, "lighter");
+      border-color: var-color($color-name, "light");
+    }
+  }
 }
 
 
@@ -71,6 +79,7 @@
 
 :host {
   display: inline-flex;
+  -webkit-appearance: none;
 
   .ac-button__native {
     height: 44px;
