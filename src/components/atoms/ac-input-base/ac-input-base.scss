@@ -30,13 +30,14 @@
 
     label.ac-input__label {
       position: absolute;
-      top: 15px;
+      top: 50%;
       left: 16px;
       color: $gray;
       transition: font-size $default-transition, top $default-transition;
       user-select: none;
       pointer-events: none;
       font-size: $font-small;
+      transform: translateY(-50%);
     }
 
     input.ac-input__native {
@@ -72,7 +73,7 @@
 :host(.ac-input--focus, .ac-input--filled) {
   label.ac-input__label {
     font-size: $font-tiny;
-    top: 6px;
+    top: 25%;
   }
 }
 
