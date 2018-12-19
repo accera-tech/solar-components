@@ -59,6 +59,11 @@ export class AcSelect implements ComponentInterface {
   @Prop() disabled: boolean;
 
   /**
+   * Set the loading mode, showing a loading icon.
+   */
+  @Prop() loading: boolean;
+
+  /**
    * Fired when the user select/deselect an option.
    */
   @Event() change: EventEmitter<any>;
@@ -110,7 +115,7 @@ export class AcSelect implements ComponentInterface {
 
   @Bind
   private togglePanel() {
-    this.isShowingPanel = !this.isShowingPanel;
+    this.isShowingPanel = !this.loading && !this.isShowingPanel;
   }
 
   @Bind
@@ -161,6 +166,7 @@ export class AcSelect implements ComponentInterface {
           theme={this.isShowingPanel ? 'primary' : 'light'}
           fill="flat"
           disabled={this.disabled}
+          loading={this.loading}
           onClick={this.togglePanel}
           icon-only
         >

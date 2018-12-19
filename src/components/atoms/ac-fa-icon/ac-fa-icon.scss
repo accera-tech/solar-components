@@ -1,0 +1,14 @@
+:host(.icon--anim-spin) {
+  svg {
+    animation: anim-spin 2s infinite linear;
+  }
+}
+
+@keyframes anim-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}

@@ -18,6 +18,46 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Auto Generated Below -->
 
 
@@ -25,6 +65,7 @@
 
 | Property | Attribute | Description                                               | Type             |
 | -------- | --------- | --------------------------------------------------------- | ---------------- |
+| `anim`   | `anim`    | Set an animation defined in the ac-fa-icon.scss           | `string`         |
 | `icon`   | --        | The icon imported from @fortawesome/free-solid-svg-icons. | `IconDefinition` |
 | `size`   | `size`    | The size of the icon in px.                               | `number`         |
 

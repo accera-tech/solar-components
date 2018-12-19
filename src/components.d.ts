@@ -43,6 +43,10 @@ export namespace Components {
     */
     'iconOnly': boolean;
     /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading': boolean;
+    /**
     * The size of the button: * small - height: 36px * big - height: 50px * default - 44px
     */
     'size'?: 'small' | 'big';
@@ -80,6 +84,10 @@ export namespace Components {
     * Icon only mode, with a square button, centered icon.
     */
     'iconOnly'?: boolean;
+    /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading'?: boolean;
     /**
     * The size of the button: * small - height: 36px * big - height: 50px * default - 44px
     */
@@ -157,6 +165,10 @@ export namespace Components {
 
   interface AcFaIcon {
     /**
+    * Set an animation defined in the ac-fa-icon.scss
+    */
+    'anim': string;
+    /**
     * The icon imported from @fortawesome/free-solid-svg-icons.
     */
     'icon': IconDefinition;
@@ -166,6 +178,10 @@ export namespace Components {
     'size': number;
   }
   interface AcFaIconAttributes extends StencilHTMLAttributes {
+    /**
+    * Set an animation defined in the ac-fa-icon.scss
+    */
+    'anim'?: string;
     /**
     * The icon imported from @fortawesome/free-solid-svg-icons.
     */
@@ -361,6 +377,10 @@ export namespace Components {
     */
     'label': string;
     /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading': boolean;
+    /**
     * If true, the component will handle multiple selected items.
     */
     'multiple': boolean;
@@ -386,6 +406,10 @@ export namespace Components {
     * The label text of the this input group.
     */
     'label'?: string;
+    /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading'?: boolean;
     /**
     * If true, the component will handle multiple selected items.
     */
