@@ -79,7 +79,8 @@ export class AcButton implements ComponentInterface {
         [`ac-button--${this.size}`]: this.size !== undefined,
         [`ac-button--${this.fill}`]: this.fill !== undefined,
         'ac-button--icon-only': this.iconOnly,
-        'ac-button--disabled': this.disabled
+        'ac-button--disabled': this.disabled,
+        'ac-button--loading' : this.loading
       }
     };
   }
@@ -98,7 +99,7 @@ export class AcButton implements ComponentInterface {
       >
         { /** If is a textual button and its loading, shows a loading icon in the icon-start slot **/ }
         { !this.iconOnly && this.loading
-          ? <ac-fa-icon icon={faSpinner} size={12} anim="spin" />
+          ? <ac-fa-icon icon={faSpinner} size={14} anim="spin" />
           : <slot name="icon-start" /> }
         <span class="ac-button__text">
           { this.iconOnly && this.loading && <ac-fa-icon icon={faSpinner} size={12} anim="spin" /> }
