@@ -14,3 +14,30 @@ $warning: #FFC82C;
 $alert: #FF4949;
 $white: #FFFFFF;
 $black: #282828;
+
+// UI Label
+$ui_label__color: #646464;
+$ui_label--disabled__color: #C8C8C8;
+
+// UI HelperText
+$ui_helper-text__color: #A0A0A0;
+
+// UI Button
+$ui_button--disabled__background: #E1E1E1;
+$ui_button--disabled__color: #C8C8C8;
+
+// UI Input
+$ui_input__border-color: #E1E1E1;
+$ui_input__color: #282828;
+$ui_input--disabled__background-color: #F5F5F5;
+$ui_input--disabled__color: #646464;
+
+// UI Check
+$ui_check__border-color: #C8C8C8;
+$ui_check--hover__border-color: #A0A0A0;
+$ui_check--disabled__border-color: #E1E1E1;
+$ui_check--disabled__background-color: #F5F5F5;
+
+// UI Panel
+$ui_panel__border-color: #E1E1E1;
+

@@ -19,7 +19,7 @@
 :host {
   display: flex;
   background-color: white;
-  border: 2px solid lighten($gray, 10%);
+  border: 2px solid $ui_input__border-color;
   border-radius: 4px;
   min-height: 52px;
 
@@ -32,7 +32,7 @@
       position: absolute;
       top: 50%;
       left: 16px;
-      color: $gray;
+      color: $ui_label__color;
       transition: font-size $default-transition, top $default-transition;
       user-select: none;
       pointer-events: none;
@@ -47,6 +47,7 @@
       box-sizing: border-box;
       background-color: transparent;
       border: none;
+      color: $ui_input__color;
       font-size: $font-small;
 
       &:focus {
@@ -94,13 +95,14 @@
 // --------------------------------------------------
 
 :host(.ac-input--disabled) {
-  background-color: lighten($gray, 20%);
+  background-color: $ui_input--disabled__background-color;
   input.ac-input__native {
     cursor: not-allowed;
+    color: $ui_input--disabled__color;
   }
 
   label.ac-input__label {
-    color: darken($gray, 10%);
+    color: $ui_label--disabled__color;
   }
 }
 

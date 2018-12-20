@@ -15,10 +15,8 @@
     label.ac-check__label {
       margin: 0;
       padding-left: 8px;
-      font-size: 14px;
-      color: $black;
-      font-weight: bold;
-      line-height: 20px;
+      font-size: 16px;
+      color: $ui_label__color;
       user-select: none;
       cursor: pointer;
     }
@@ -26,8 +24,8 @@
 
   input.ac-check__native {
     position: relative;
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     -webkit-appearance: none;
     -moz-appearance: none;
     margin: 0;
@@ -38,20 +36,20 @@
       content: "";
       position: absolute;
       left: 0;
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       background: $white;
-      border: 2px solid lighten($gray, 10%);
+      border: 2px solid $ui_check__border-color;
+      box-sizing: border-box;
       border-radius: 4px;
     }
 
     &:before {
       content: "";
       position: absolute;
-      top: 6px;
-      left: 5px;
-      width: 11px;
-      height: 9px;
+      top: 3px;
+      left: 3px;
+      width: 8px;
       z-index: 1;
       border: 2px solid transparent;
       border-top-style: none;
@@ -61,12 +59,12 @@
   }
 
   .ac-check__helper-text {
-    padding-left: 32px;
+    padding-left: 24px;
 
     display: block;
     margin-top: $spacer-tiny;
     font-size: $font-tiny;
-    color: darken($gray, 20%);
+    color: $ui_helper-text__color;
     user-select: none;
   }
 }
@@ -84,8 +82,8 @@
   input.ac-check__native {
     &:before {
       transform: rotate(-45deg);
-      border-color: white;
-      height: .5rem;
+      border-color: $white;
+      height: 5px;
     }
     &:after {
       background: var-color("primary", "normal");
@@ -107,17 +105,18 @@
     pointer-events: none;
   }
   label.ac-check__label {
-    color: $gray;
+    color: $ui_label--disabled__color;
   }
   input.ac-check__native {
     &:after {
-      background: lighten($gray, 20%);
+      background: $ui-check--disabled__background-color;
+      border-color: $ui-check--disabled__border-color;
     }
   }
 }
 :host(.ac-check--disabled.ac-check--checked) {
   label.ac-check__label {
-    color: gray;
+    color: $ui_label--disabled__color;
   }
   input.ac-check__native {
     &:after {
@@ -142,7 +141,7 @@
   }
   .ac-check__helper-text {
     padding-left: 0;
-    padding-right: 32px;
+    padding-right: 24px;
     text-align: right;
   }
 }
