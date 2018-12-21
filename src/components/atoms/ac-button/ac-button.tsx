@@ -1,5 +1,7 @@
 import { Component, Prop, Element, ComponentInterface } from '@stencil/core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Bind } from '../../../helpers';
+import { hasShadowDom } from '../../../helpers/dom';
 
 /**
  * Accera's full-featured button webcomponent.
@@ -71,6 +73,17 @@ export class AcButton implements ComponentInterface {
   @Prop() loading: boolean;
 
 
+  @Bind
+  private handleClick() {
+    if (this.type === 'submit' && hasShadowDom(this.host)) {
+      // WEBCOMPONENTS PECULIARITY:
+      // Shadow dom doesn't dispatch events to outside.
+      // So we need to dispatch submit events by the hand.
+      const form: HTMLFormElement = this.host.closest('form');
+      if (form) form.dispatchEvent(new Event('submit'));
+    }
+  }
+
   hostData() {
     return {
       attribute: 'button',
@@ -96,6 +109,7 @@ export class AcButton implements ComponentInterface {
         {...attrs}
         disabled={this.disabled}
         class="ac-button__native"
+        onClick={this.handleClick}
       >
         { /** If is a textual button and its loading, shows a loading icon in the icon-start slot **/ }
         { !this.iconOnly && this.loading

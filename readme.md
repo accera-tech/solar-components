@@ -126,3 +126,9 @@ You can also use the variables defined in this lib in your SCSS:
 ```scss
 @import "node_modules/@accera/solar-components/dist/theme/variables";
 ```
+
+## Contributing
+
+Consider follow these documentations to contribute in this repo:
+- [Stenciljs Styleguide](https://stenciljs.com/docs/style-guide)
+- [Atomic Design](http://atomicdesign.bradfrost.com/)

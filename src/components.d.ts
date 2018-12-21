@@ -16,8 +16,10 @@ import {
 } from './components/atoms/ac-panel/ac-panel';
 import {
   FormFieldLogic,
+} from './helpers/forms';
+import {
   ValidatorFunction,
-} from './helpers/form-field-logic';
+} from './helpers/forms/validation';
 import {
   AcPanelItem as AcPanelItem2,
 } from './components/atoms/ac-panel/ac-panel';
@@ -308,7 +310,7 @@ export namespace Components {
     */
     'type': string;
     /**
-    * The validators that ensure the field validity.
+    * The validations that this field need. This validations is checked on: - Blur event - Form submit event
     */
     'validateFn': ValidatorFunction | ValidatorFunction[];
     /**
@@ -354,7 +356,7 @@ export namespace Components {
     */
     'type'?: string;
     /**
-    * The validators that ensure the field validity.
+    * The validations that this field need. This validations is checked on: - Blur event - Form submit event
     */
     'validateFn'?: ValidatorFunction | ValidatorFunction[];
     /**
