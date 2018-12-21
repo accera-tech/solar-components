@@ -78,7 +78,7 @@ export class FormFieldLogic {
     this.component.host.classList.add('field--dirty');
     this.isDirty = true;
 
-    if (this.formAttached) this.formAttached.form.setUnsaved();
+    if (this.formAttached) this.formAttached.form.setUnchecked();
   }
 
   /**

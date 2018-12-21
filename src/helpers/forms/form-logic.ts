@@ -14,7 +14,7 @@ export class FormLogic {
   /**
    * True if the user has changed any field from the form.
    */
-  isUnsaved: boolean;
+  isUnchecked: boolean;
 
   /**
    * Attach a listener to 'submit' to the form,
@@ -34,23 +34,13 @@ export class FormLogic {
   handleSubmit(ev: Event) {
     ev.preventDefault();
     const currentValidation = !!this.isValid;
-    this.pristinify();
-    
-    if (!currentValidation || this.isUnsaved) {
+
+    if (!currentValidation || this.isUnchecked) {
       ev.stopImmediatePropagation();
-      this.validate().then(errs => {
-        const nonUndefinedErrs = errs.filter(err => err);
-        if (nonUndefinedErrs.length > 0) {
-          // @TODO: Dispatch a custom event that emits the errors.
-          this.setInvalid();
-        } else {
-          this.setValid();
+      this.checkValidity()
+        .then(() => {
           this.form.dispatchEvent(ev);
-          // @TODO: Discover a way to dispatch the submit action in the right way.
-          // If this form is a inline HTML form, dispatch the native submit too.
-          // this.form.submit();
-        }
-      });
+        })
     }
   }
 
@@ -73,31 +63,39 @@ export class FormLogic {
   }
 
   /**
-   * Set the form in the unsaved state.
+   * Set the form in the unchecked state.
    */
-  setUnsaved() {
-    this.isUnsaved = true;
-    this.form.classList.add('form--unsaved');
+  setUnchecked() {
+    this.isUnchecked = true;
+    this.isValid = false;
+    this.form.classList.remove('form--valid', 'form--invalid');
+    this.form.classList.add('form--unchecked');
+  }
+
+  /**
+   * Set the form in the checked state.
+   */
+  setChecked() {
+    this.isUnchecked = false;
+    this.form.classList.remove('form--unchecked');
   }
 
   /**
    * Cleans all the states, errors and values of the form.
    */
   cleanup() {
-    this.pristinify();
+    this.pristine();
     const fieldsAsArray = Array.from(this.fields.values());
     fieldsAsArray.map(f => f.cleanup());
   }
 
   /**
-   * Set the form in the pristine state, preserving values, removing the validations and unsaved.
+   * Set the form in the pristine state, preserving values, removing the validations and unchecked.
    */
-  pristinify() {
+  pristine() {
     this.isValid = false;
-    this.isUnsaved = false;
-    this.form.classList.remove('form--unsaved');
-    this.form.classList.remove('form--valid');
-    this.form.classList.remove('form--invalid');
+    this.isUnchecked = false;
+    this.form.classList.remove('form--unchecked', 'form--valid', 'form--invalid');
   }
 
   /**
@@ -130,5 +128,34 @@ export class FormLogic {
           }
         })
       ));
+  }
+
+  /**
+   * Check the validation state of the field.
+   */
+  checkValidity(): Promise<void> {
+    this.setChecked();
+
+    return this.validate().then(errs => {
+      const nonUndefinedErrs = errs.filter(err => err);
+      if (nonUndefinedErrs.length > 0) {
+        this.setInvalid();
+        throw new FormValidationError(errs);
+      } else {
+        this.setValid();
+      }
+    });
+  }
+}
+
+/**
+ * Represents an error of form validation.
+ */
+class FormValidationError extends Error {
+  errs: ValidationError[];
+  
+  constructor(errs: ValidationError[]) {
+    super('This form is invalid');
+    this.errs = errs;
   }
 }
