@@ -46,10 +46,11 @@ export class AcTabs {
   }
 
   private moveBulletToCurrentTab() {
-    const boundingRect = this.currentTab.getBoundingClientRect();
+    const bulletBounding = this.currentTab.getBoundingClientRect();
+    const hostBounding = this.host.getBoundingClientRect();
 
     animate(this.bulletElt)
-      .then(addStyle({ left: (boundingRect.left + boundingRect.width / 2) + 'px' }))
+      .then(addStyle({ left: ((bulletBounding.left - hostBounding.left) + bulletBounding.width / 2) + 'px' }))
       .then(addClass('ac-tabs__bullet--moving'))
       .then(wait(-200))
       .then(removeClass('ac-tabs__bullet--moving'));
