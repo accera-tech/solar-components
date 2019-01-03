@@ -1,0 +1,32 @@
+@import "../../../theme/variables";
+
+
+// General Tab Style
+// --------------------------------------------------
+
+:host {
+  color: var-color("primary", "normal");
+  padding: 16px 20px;
+  font-size: $font-small;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+:host([active]) {
+  color: var-color("secondary", "normal");
+}
+
+
+// Secondary theme
+// --------------------------------------------------
+
+:host(.ac-tab--secondary) {
+  color: var-color("secondary", "normal");
+}
+
+:host([active]) {
+  color: var-color("primary", "normal");
+}

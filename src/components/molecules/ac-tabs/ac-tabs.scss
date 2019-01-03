@@ -1,0 +1,39 @@
+@import "../../../theme/variables";
+
+
+// General Tabs Style
+// --------------------------------------------------
+
+:host {
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid $ui_tabs__border-bottom-color;
+
+  .ac-tabs__bullet {
+    position: absolute;
+    bottom: -4px;
+    margin-left: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    transition: all .4s ease-in-out;
+    background-color: var-color("secondary", "normal");
+
+    &.ac-tabs__bullet--moving {
+      height: 2px;
+      width: 72px;
+      border-radius: 2px;
+    }
+  }
+}
+
+
+// Secondary theme
+// --------------------------------------------------
+
+:host(.ac-tabs--secondary) {
+  .ac-tabs__bullet {
+    background-color: var-color("primary", "normal");
+  }
+}

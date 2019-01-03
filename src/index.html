@@ -40,15 +40,14 @@
     <h3>Select With Html Options</h3>
     <ac-select label="Band">
       <option value="0">TNT</option>
-      <option value="2">Queen</option>
-      <option value="3">Metallica</option>
-      <option value="4" selected>AC/DC</option>
+      <option value="1">Queen</option>
+      <option value="2">Metallica</option>
+      <option value="3" selected>AC/DC</option>
     </ac-select>
 
     <h3>Disabled State</h3>
     <ac-select label="Band" disabled>
       <option value="0">TNT</option>
-      <option value="4" selected>AC/DC</option>
     </ac-select>
 
     <h3>Loading State</h3>
@@ -91,8 +90,16 @@
       </ac-input>
 
       <ac-button type="submit">Send</ac-button>
-      <button>aaa</button>
     </form>
+  </section>
+
+  <section>
+    <h1>Tabs</h1>
+    <ac-tabs theme="secondary">
+      <ac-tab>Menu 1</ac-tab>
+      <ac-tab>Menu 2</ac-tab>
+      <ac-tab active>Menu 3</ac-tab>
+    </ac-tabs>
   </section>
 
 <script>

@@ -18,7 +18,8 @@
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.5.0"
+    "@fortawesome/free-solid-svg-icons": "^5.5.0",
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "@stencil/core": "~0.15.1",

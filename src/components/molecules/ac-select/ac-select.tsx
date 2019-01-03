@@ -6,10 +6,11 @@ import {
   EventEmitter,
   ComponentInterface,
   State,
-  Listen, Watch
+  Listen,
+  Watch
 } from '@stencil/core';
-
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { equals } from 'ramda';
 import { Bind } from '../../../helpers';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
@@ -86,15 +87,29 @@ export class AcSelect implements ComponentInterface {
     }
   }
 
+  @Watch('value')
+  valueDidUpdate(newValue, oldValue) {
+    if (!equals(oldValue, []) && !equals(newValue, oldValue)) {
+      const selectedOptions = [];
+      this.options.forEach(o => {
+        o.selected = this.value.includes(o.value);
+        if (o.selected) selectedOptions.push(o);
+      });
+      this.formatSelectedText(selectedOptions);
+    }
+  }
+
   @Watch('options')
   optionsDidUpdate() {
     const selectedOptions = this.options.filter(o => o.selected); // Get all selected
+    this.formatSelectedText(selectedOptions);
+    this.value = selectedOptions.map(o => o.value);
+  }
 
-    // Used to format the selectedText
+  formatSelectedText(selectedOptions: AcPanelItem[]) {
     const count = selectedOptions.length;
     const total = this.options.length;
 
-    // Format the selectedText
     if (count == 0) {
       this.selectedText = null;
     } else if (count > 0 && count < 3) {
@@ -104,8 +119,6 @@ export class AcSelect implements ComponentInterface {
     } else if (count === total) {
       this.selectedText = `Todos (${count})`;
     }
-
-    this.value = selectedOptions.map(o => o.value);
   }
 
   private loadOptionsFromHTML() {
@@ -176,7 +189,7 @@ export class AcSelect implements ComponentInterface {
       <span class="ac-input__helper-text">
         {this.helperText}
       </span>,
-      this.isShowingPanel && <ac-panel class="ac-select__panel" items={this.options} onSelect={this.handleSelect} />
+      this.isShowingPanel && <ac-panel class="ac-select__panel" items={this.options} onSelect={this.handleSelect} maxHeight="50vh" />
     ];
   }
 }

@@ -264,6 +264,10 @@ export namespace Components {
     * An array of items to display in this panel.
     */
     'items'?: AcPanelItem[];
+    /**
+    * The CSS max height of this panel.
+    */
+    'maxHeight'?: string;
   }
   interface AcPanelAttributes extends StencilHTMLAttributes {
     /**
@@ -271,9 +275,26 @@ export namespace Components {
     */
     'items'?: AcPanelItem[];
     /**
+    * The CSS max height of this panel.
+    */
+    'maxHeight'?: string;
+    /**
     * Fired when the user clicks over a item.
     */
     'onSelect'?: (event: CustomEvent<{ index: number, item: AcPanelItem }>) => void;
+  }
+
+  interface AcTab {
+    /**
+    * If true, mark this tab as a selected tab.
+    */
+    'active': boolean;
+  }
+  interface AcTabAttributes extends StencilHTMLAttributes {
+    /**
+    * If true, mark this tab as a selected tab.
+    */
+    'active'?: boolean;
   }
 
   interface AcInput {
@@ -429,6 +450,19 @@ export namespace Components {
     */
     'value'?: any;
   }
+
+  interface AcTabs {
+    /**
+    * The theme color defined in the color palette. The default is primary.
+    */
+    'theme': string;
+  }
+  interface AcTabsAttributes extends StencilHTMLAttributes {
+    /**
+    * The theme color defined in the color palette. The default is primary.
+    */
+    'theme'?: string;
+  }
 }
 
 declare global {
@@ -438,8 +472,10 @@ declare global {
     'AcFaIcon': Components.AcFaIcon;
     'AcInputBase': Components.AcInputBase;
     'AcPanel': Components.AcPanel;
+    'AcTab': Components.AcTab;
     'AcInput': Components.AcInput;
     'AcSelect': Components.AcSelect;
+    'AcTabs': Components.AcTabs;
   }
 
   interface StencilIntrinsicElements {
@@ -448,8 +484,10 @@ declare global {
     'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-panel': Components.AcPanelAttributes;
+    'ac-tab': Components.AcTabAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-select': Components.AcSelectAttributes;
+    'ac-tabs': Components.AcTabsAttributes;
   }
 
 
@@ -483,6 +521,12 @@ declare global {
     new (): HTMLAcPanelElement;
   };
 
+  interface HTMLAcTabElement extends Components.AcTab, HTMLStencilElement {}
+  var HTMLAcTabElement: {
+    prototype: HTMLAcTabElement;
+    new (): HTMLAcTabElement;
+  };
+
   interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
   var HTMLAcInputElement: {
     prototype: HTMLAcInputElement;
@@ -495,14 +539,22 @@ declare global {
     new (): HTMLAcSelectElement;
   };
 
+  interface HTMLAcTabsElement extends Components.AcTabs, HTMLStencilElement {}
+  var HTMLAcTabsElement: {
+    prototype: HTMLAcTabsElement;
+    new (): HTMLAcTabsElement;
+  };
+
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
     'ac-check': HTMLAcCheckElement
     'ac-fa-icon': HTMLAcFaIconElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-panel': HTMLAcPanelElement
+    'ac-tab': HTMLAcTabElement
     'ac-input': HTMLAcInputElement
     'ac-select': HTMLAcSelectElement
+    'ac-tabs': HTMLAcTabsElement
   }
 
   interface ElementTagNameMap {
@@ -511,8 +563,10 @@ declare global {
     'ac-fa-icon': HTMLAcFaIconElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-panel': HTMLAcPanelElement;
+    'ac-tab': HTMLAcTabElement;
     'ac-input': HTMLAcInputElement;
     'ac-select': HTMLAcSelectElement;
+    'ac-tabs': HTMLAcTabsElement;
   }
 
 
