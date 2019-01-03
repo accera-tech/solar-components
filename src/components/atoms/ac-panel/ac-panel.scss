@@ -14,12 +14,14 @@
   border-radius: 4px;
   background: $white;
   box-shadow: $z5-shadow;
+  box-sizing: border-box;
   z-index: $z-panel;
 
   ul.ac-panel__list {
     list-style: none;
     padding: 8px 0;
     margin: 0;
+    overflow-y: auto;
 
     li.ac-panel__list-item {
       position: relative;
@@ -39,4 +41,14 @@
       }
     }
   }
+}
+
+
+// List's Scrollbar theming
+// --------------------------------------------------
+
+@include scrollbar(':host ul.ac-panel__list');
+
+:host(.hydrated) {
+
 }

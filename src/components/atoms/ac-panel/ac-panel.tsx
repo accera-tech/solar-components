@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 
 /**
  * Accera's Panel webcomponent used as a menu.
@@ -9,10 +9,17 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
   shadow: true
 })
 export class AcPanel {
+  @Element() host: HTMLAcPanelElement;
+
   /**
    * An array of items to display in this panel.
    */
   @Prop() items?: AcPanelItem[];
+
+  /**
+   * The CSS max height of this panel.
+   */
+  @Prop() maxHeight?: string;
 
   /**
    * Fired when the user clicks over a item.
@@ -21,7 +28,7 @@ export class AcPanel {
 
   render() {
     return (
-      <ul class="ac-panel__list">
+      <ul class="ac-panel__list" style={{ maxHeight: this.maxHeight }}>
         {this.items && this.items.map((item, index) => (
           <li class={'ac-panel__list-item ' + (item.selected ? 'ac-panel__list-item--selected' : '')}
               onClick={() => this.select.emit({ item, index })}>
