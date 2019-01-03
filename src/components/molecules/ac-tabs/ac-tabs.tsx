@@ -1,4 +1,4 @@
-import { Component, Element, Listen, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Listen, Prop } from '@stencil/core';
 import { addClass, addStyle, animate, removeClass, wait } from '../../../helpers/animation';
 
 /**
@@ -21,6 +21,8 @@ export class AcTabs {
    */
   @Prop() theme: string;
 
+  @Event() change: EventEmitter<string>;
+
   componentDidLoad() {
     this.loadTabsFromHTML();
   }
@@ -38,18 +40,21 @@ export class AcTabs {
     this.moveBulletToCurrentTab();
   }
 
-  private select(tab: HTMLAcTabElement) {
-    this.currentTab.active = false;
-    tab.active = true;
-    this.currentTab = tab;
-    this.moveBulletToCurrentTab();
+  private async select(tab: HTMLAcTabElement) {
+    if (this.currentTab.id !== tab.id) {
+      this.currentTab.active = false;
+      tab.active = true;
+      this.currentTab = tab;
+      await this.moveBulletToCurrentTab();
+      this.change.emit(this.currentTab.id);
+    }
   }
 
   private moveBulletToCurrentTab() {
     const bulletBounding = this.currentTab.getBoundingClientRect();
     const hostBounding = this.host.getBoundingClientRect();
 
-    animate(this.bulletElt)
+    return animate(this.bulletElt)
       .then(addStyle({ left: ((bulletBounding.left - hostBounding.left) + bulletBounding.width / 2) + 'px' }))
       .then(addClass('ac-tabs__bullet--moving'))
       .then(wait(-200))
