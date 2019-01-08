@@ -37,7 +37,7 @@ export class AcTabs {
     this.currentTab = this.childTabs.find( tab => tab.active);
 
     if (this.theme) this.childTabs.forEach(tab => tab.classList.add(`ac-tab--${this.theme}`));
-    this.moveBulletToCurrentTab();
+    return this.moveBulletToCurrentTab();
   }
 
   private async select(tab: HTMLAcTabElement) {
