@@ -194,6 +194,9 @@ export namespace Components {
     'size'?: number;
   }
 
+  interface AcHeader {}
+  interface AcHeaderAttributes extends StencilHTMLAttributes {}
+
   interface AcInputBase {
     /**
     * The HTML disabled mode.
@@ -471,6 +474,7 @@ declare global {
     'AcButton': Components.AcButton;
     'AcCheck': Components.AcCheck;
     'AcFaIcon': Components.AcFaIcon;
+    'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
     'AcPanel': Components.AcPanel;
     'AcTab': Components.AcTab;
@@ -483,6 +487,7 @@ declare global {
     'ac-button': Components.AcButtonAttributes;
     'ac-check': Components.AcCheckAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
+    'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-panel': Components.AcPanelAttributes;
     'ac-tab': Components.AcTabAttributes;
@@ -508,6 +513,12 @@ declare global {
   var HTMLAcFaIconElement: {
     prototype: HTMLAcFaIconElement;
     new (): HTMLAcFaIconElement;
+  };
+
+  interface HTMLAcHeaderElement extends Components.AcHeader, HTMLStencilElement {}
+  var HTMLAcHeaderElement: {
+    prototype: HTMLAcHeaderElement;
+    new (): HTMLAcHeaderElement;
   };
 
   interface HTMLAcInputBaseElement extends Components.AcInputBase, HTMLStencilElement {}
@@ -550,6 +561,7 @@ declare global {
     'ac-button': HTMLAcButtonElement
     'ac-check': HTMLAcCheckElement
     'ac-fa-icon': HTMLAcFaIconElement
+    'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-panel': HTMLAcPanelElement
     'ac-tab': HTMLAcTabElement
@@ -562,6 +574,7 @@ declare global {
     'ac-button': HTMLAcButtonElement;
     'ac-check': HTMLAcCheckElement;
     'ac-fa-icon': HTMLAcFaIconElement;
+    'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-panel': HTMLAcPanelElement;
     'ac-tab': HTMLAcTabElement;

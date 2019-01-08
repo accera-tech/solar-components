@@ -102,6 +102,26 @@
     </ac-tabs>
   </section>
 
+  <section>
+    <h1>Header</h1>
+    <ac-header>
+      Basic Header with Action
+      <ac-button slot="actions" size="small" theme="primary">Action</ac-button>
+    </ac-header>
+    <ac-header>
+      Header with Tabs
+      <ac-button slot="actions" size="small" theme="primary">Action</ac-button>
+      <ac-tabs theme="secondary" slot="sub-header">
+        <ac-tab id="tab1">Tab 1</ac-tab>
+        <ac-tab id="tab2">Tab 2</ac-tab>
+        <ac-tab id="tab3" active>Tab 3</ac-tab>
+      </ac-tabs>
+    </ac-header>
+  </section>
+
+  <section>
+    <h1>Sidebar</h1>
+  </section>
 <script>
   const inputExample = document.querySelector('#inputExample');
   inputExample.addEventListener('change', ({ detail }) => {

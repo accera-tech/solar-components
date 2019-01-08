@@ -1,0 +1,39 @@
+@import "../../../theme/variables";
+
+
+// General Header Style
+// --------------------------------------------------
+
+:host {
+  display: block;
+  width: 100%;
+  padding: 0 $spacer-huge;
+  box-sizing: border-box;
+  z-index: $z-header;
+  background: $white;
+  box-shadow: $z1-shadow;
+
+  .ac-header__header-container {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacer-small 0;
+    box-sizing: border-box;
+    min-height: 64px;
+
+    .ac-header__content {
+      display: flex;
+    }
+  }
+
+
+  // Modify the AcTabs style when it is integrated
+  // through the sub-header slot.
+  // --------------------------------------------------
+
+  ::slotted(ac-tabs[slot="sub-header"]) {
+    border-top: 1px solid $ui_tabs__border-bottom-color;
+    border-bottom: 0;
+  }
+}
