@@ -1,1 +1,0 @@
-export { Bind } from './bind';
