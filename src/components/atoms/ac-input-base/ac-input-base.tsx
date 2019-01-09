@@ -1,5 +1,5 @@
 import { Component, Prop, Element, State, Event, EventEmitter, ComponentInterface } from '@stencil/core';
-import { Bind } from '../../../helpers';
+import { Bind } from '../../../helpers/bind';
 
 /**
  * Accera's full-featured Input webcomponent.

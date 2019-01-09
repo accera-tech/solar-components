@@ -2,7 +2,7 @@ import { Component, Prop, Element, Event, EventEmitter, ComponentInterface, Stat
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FormFieldLogic, FormFieldComponent } from '../../../helpers/forms';
 import { ValidatorFunction } from '../../../helpers/forms/validation';
-import { Bind } from '../../../helpers';
+import { Bind } from '../../../helpers/bind';
 
 /**
  * Accera's full-featured Input Field webcomponent.

@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { equals } from 'ramda';
-import { Bind } from '../../../helpers';
+import { Bind } from '../../../helpers/bind';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
 
