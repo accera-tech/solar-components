@@ -24,9 +24,11 @@
   "devDependencies": {
     "@stencil/core": "~0.15.1",
     "@stencil/sass": "^0.1.1",
+    "cross-env": "^5.2.0",
     "jest": "^23.6.0",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "rollup-plugin-strip-code": "^0.2.6"
   },
   "repository": {
     "type": "git",

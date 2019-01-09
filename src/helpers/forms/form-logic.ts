@@ -2,6 +2,9 @@ import { Bind } from '../bind';
 import { FormFieldLogic } from './form-field-logic';
 import { ValidationError } from './validation';
 
+import debug from 'debug/src/browser';
+const log = debug('solar:FormLogic');
+
 export class FormLogic {
   private form: HTMLFormElement;
   private fields = new Map<string, FormFieldLogic>();
@@ -21,8 +24,10 @@ export class FormLogic {
    * preventing the form submission if it is invalid.
    */
   constructor(form: HTMLFormElement) {
+    log('Initializing', form);
     this.form = form;
     this.form.addEventListener('submit', this.handleSubmit);
+    document.dispatchEvent(new Event('formBootstrap'));
   }
 
   /**

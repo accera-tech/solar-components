@@ -35,7 +35,7 @@ export namespace Components {
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
-    'fill': 'clear' | 'solid' | 'flat';
+    'fill': 'clear' | 'solid' | 'flat' | 'outline';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -77,7 +77,7 @@ export namespace Components {
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
-    'fill'?: 'clear' | 'solid' | 'flat';
+    'fill'?: 'clear' | 'solid' | 'flat' | 'outline';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */

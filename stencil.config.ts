@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+// import stripCode from 'rollup-plugin-strip-code';
 
 export const config: Config = {
   namespace: 'solar',
@@ -10,7 +11,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      serviceWorker: null
+      serviceWorker: null,
     }
   ],
   copy: [
@@ -18,6 +19,10 @@ export const config: Config = {
     { src: 'global/js/react', dest: 'react' }
   ],
   plugins: [
-    sass()
+    sass(),
+    // stripCode({
+    //   start_comment: 'devblock:start',
+    //   end_comment: 'devblock:end'
+    // })
   ],
 };

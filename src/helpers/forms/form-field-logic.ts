@@ -4,6 +4,9 @@ import { FormFieldComponent } from './form-field-component';
 import { FormComponent } from './form-component';
 import { ValidationError } from './validation';
 
+import debug from 'debug/src/browser';
+const log = debug('solar:FormFieldLogic');
+
 /**
  * Adds form field features to a component, such as validations.
  */
@@ -44,6 +47,7 @@ export class FormFieldLogic {
    * @param component The component that will be attached into.
    */
   constructor(component) {
+    log('Will load', component);
     this.component = component;
   }
 
@@ -55,6 +59,7 @@ export class FormFieldLogic {
     this.formAttached = this.component.host.closest('form') as FormComponent;
 
     if (this.formAttached) {
+      log('Attaching', this.name, this.formAttached);
       if (!this.formAttached.form) {
         this.formAttached.form = new FormLogic(this.formAttached);
       }
@@ -67,6 +72,7 @@ export class FormFieldLogic {
    */
   detach() {
     if (this.formAttached) {
+      log('Detaching', this.name, this.formAttached);
       this.formAttached.form.removeField(this);
     }
   }

@@ -123,6 +123,7 @@
     <h1>Sidebar</h1>
   </section>
 <script>
+  localStorage.debug = 'solar:*';
   const inputExample = document.querySelector('#inputExample');
   inputExample.addEventListener('change', ({ detail }) => {
     console.log('Input Change:', detail);
@@ -143,10 +144,10 @@
   const passwordInput = document.querySelector('#passwordInput');
   passwordInput.validateFn = (value) => value && value.length >= 8 ? null : 'The password must have 8 characters';
 
-  setTimeout(() => {
+  document.addEventListener('formBootstrap', function () {
     const testForm = document.querySelector('#testForm');
     testForm.addEventListener('submit', ev => console.log('SENT', ev));
-  }, 1000);
+  });
 </script>
 
 </body></html>
