@@ -1,6 +1,6 @@
 import { Component, Prop, Element, ComponentInterface } from '@stencil/core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { Bind } from '../../../helpers';
+import { Bind } from '../../../helpers/bind';
 import { hasShadowDom } from '../../../helpers/dom';
 
 /**
@@ -44,7 +44,7 @@ export class AcButton implements ComponentInterface {
    * * solid - Raised button, default
    * * clear - No background and no borders
    */
-  @Prop() fill: 'clear' | 'solid' | 'flat' = 'solid';
+  @Prop() fill: 'clear' | 'solid' | 'flat' | 'outline' = 'solid';
 
   /**
    * An optional link to open when click on it.
