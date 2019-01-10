@@ -1,6 +1,7 @@
 import { Bind } from '../bind';
 import { FormFieldLogic } from './form-field-logic';
 import { ValidationError } from './validation';
+import { serialize } from './serialize';
 
 import debug from 'debug/src/browser';
 const log = debug('solar:FormLogic');
@@ -150,6 +151,10 @@ export class FormLogic {
         this.setValid();
       }
     });
+  }
+
+  serialize() {
+    return serialize(this.form);
   }
 }
 
