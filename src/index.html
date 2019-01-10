@@ -81,11 +81,11 @@
   <section>
     <h1>Form Example</h1>
     <form id="testForm">
-      <ac-input id="formUserName" name="username" label="Username" required="The username is Required">
+      <ac-input id="formUserName" name="user[username]" label="Username" required="The username is Required">
         <i class="fas fa-user" slot="item-start"></i>
       </ac-input>
 
-      <ac-input id="formUserPassword" name="password" label="Password" type="password" required="The password is Required">
+      <ac-input id="formUserPassword" name="user[password]" label="Password" type="password" required="The password is Required">
         <i class="fas fa-lock" slot="item-start"></i>
       </ac-input>
 
@@ -115,6 +115,8 @@
         <ac-tab id="tab1">Tab 1</ac-tab>
         <ac-tab id="tab2">Tab 2</ac-tab>
         <ac-tab id="tab3" active>Tab 3</ac-tab>
+        <ac-tab id="tab5">Tab 5</ac-tab>
+        <ac-tab id="tab6">Tab 6</ac-tab>
       </ac-tabs>
     </ac-header>
   </section>

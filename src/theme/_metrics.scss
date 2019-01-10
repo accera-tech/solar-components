@@ -29,4 +29,30 @@ $screen-breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1200px
-)
+);
+
+// Breakpoints utility
+@mixin down-sm {
+  @media (max-width: map_get($screen-breakpoints, sm)) { @content }
+}
+@mixin up-sm {
+  @media (min-width: map_get($screen-breakpoints, sm)) { @content }
+}
+@mixin down-md {
+  @media (max-width: map_get($screen-breakpoints, md)) { @content }
+}
+@mixin up-md {
+  @media (min-width: map_get($screen-breakpoints, md)) { @content }
+}
+@mixin down-lg {
+  @media (max-width: map_get($screen-breakpoints, lg)) { @content }
+}
+@mixin up-lg {
+  @media (min-width: map_get($screen-breakpoints, lg)) { @content }
+}
+@mixin down-xl {
+  @media (max-width: map_get($screen-breakpoints, xl)) { @content }
+}
+@mixin up-xl {
+  @media (min-width: map_get($screen-breakpoints, xl)) { @content }
+}

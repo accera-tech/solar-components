@@ -9,6 +9,7 @@
   display: flex;
   width: 100%;
   border-bottom: 1px solid $ui_tabs__border-bottom-color;
+  box-sizing: border-box;
 
   .ac-tabs__bullet {
     position: absolute;
@@ -17,7 +18,12 @@
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    transition: all .4s ease-in-out;
+    transition:
+      left .4s ease-in-out,
+      height .4s ease-in-out,
+      width .4s ease-in-out,
+      border-radius .4s ease-in-out,
+      margin-bottom .4s ease-in-out;
     background-color: var-color("secondary", "normal");
 
     &.ac-tabs__bullet--moving {
@@ -26,6 +32,13 @@
       border-radius: 2px;
       margin-bottom: 2px;
     }
+  }
+
+  .ac-tabs__wrapper {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 }
 

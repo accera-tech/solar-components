@@ -1,5 +1,6 @@
 import { Component, Element, Event, EventEmitter, Listen, Prop } from '@stencil/core';
 import { addClass, addStyle, animate, removeClass, wait } from '../../../helpers/animation';
+import { Bind } from '../../../helpers/bind';
 
 /**
  * Accera's full-featured tabs webcomponent.
@@ -13,6 +14,7 @@ export class AcTabs {
   @Element() host;
 
   bulletElt: HTMLElement;
+  wrapperElt: HTMLElement;
   currentTab: HTMLAcTabElement;
   childTabs: HTMLAcTabElement[];
 
@@ -54,11 +56,19 @@ export class AcTabs {
     const bulletBounding = this.currentTab.getBoundingClientRect();
     const hostBounding = this.host.getBoundingClientRect();
 
+    const bulletLeft = ((bulletBounding.left - hostBounding.left) + bulletBounding.width / 2);
+    const bulletLeftWithScroll = bulletLeft + this.wrapperElt.scrollLeft;
+
     return animate(this.bulletElt)
-      .then(addStyle({ left: ((bulletBounding.left - hostBounding.left) + bulletBounding.width / 2) + 'px' }))
+      .then(addStyle({ left: bulletLeftWithScroll + 'px' }))
       .then(addClass('ac-tabs__bullet--moving'))
       .then(wait(-200))
       .then(removeClass('ac-tabs__bullet--moving'));
+  }
+
+  @Bind
+  private handleWrapperScroll() {
+    this.bulletElt.style.transform = `translateX(-${this.wrapperElt.scrollLeft}px)`;
   }
 
   hostData() {
@@ -72,7 +82,11 @@ export class AcTabs {
 
   render() {
     return [
-      <slot />,
+      <span class="ac-tabs__wrapper"
+            ref={wrapper => this.wrapperElt = wrapper}
+            onScroll={this.handleWrapperScroll}>
+        <slot />
+      </span>,
       <span class="ac-tabs__bullet" ref={bullet => this.bulletElt = bullet} />
     ];
   }

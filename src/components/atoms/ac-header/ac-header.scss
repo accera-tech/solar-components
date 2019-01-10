@@ -7,7 +7,6 @@
 :host {
   display: block;
   width: 100%;
-  padding: 0 $spacer-huge;
   box-sizing: border-box;
   z-index: $z-header;
   background: $white;
@@ -18,7 +17,10 @@
     align-content: center;
     justify-content: space-between;
     align-items: center;
-    padding: $spacer-small 0;
+    padding: $spacer-small $spacer-huge;
+    @include down-md() {
+      padding: $spacer-small $spacer-small;
+    }
     box-sizing: border-box;
     min-height: 64px;
 
@@ -33,7 +35,9 @@
   // --------------------------------------------------
 
   ::slotted(ac-tabs[slot="sub-header"]) {
-    border-top: 1px solid $ui_tabs__border-bottom-color;
     border-bottom: 0;
+    @include up-md() {
+      padding: 0 24px;
+    }
   }
 }
