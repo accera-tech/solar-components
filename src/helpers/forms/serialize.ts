@@ -29,25 +29,23 @@ export function serialize(form: HTMLFormElement) {
 
   Array.prototype.slice.call(form.querySelectorAll('[name]'))
     .forEach(function (field) {
-      if (['file', 'reset', 'button'].indexOf(field.type) === -1) {
+      if (field.name && ['file', 'reset', 'button'].indexOf(field.type) === -1) {
         switch (field.type) {
           case 'select-multiple':
+            const options = [];
             Array.prototype.slice.call(field.options).forEach(function (option) {
-              if (option.selected) {
-                assignPath(obj, field.name, option.value);
-              }
+              if (option.selected) options.push(option.value);
             });
+            assignPath(obj, field.name, options);
             break;
 
           case 'checkbox':
           case 'radio':
-            if (field.checked) {
-              assignPath(obj, field.name, field.value);
-            }
+            if (field.checked) assignPath(obj, field.name, true);
             break;
 
           default:
-            assignPath(obj, field.name, field.value);
+            if (field.value) assignPath(obj, field.name, field.value);
             break
         }
       }
