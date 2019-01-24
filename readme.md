@@ -35,6 +35,7 @@ npm run build
 ### Components Guidelines
 
 * **Naming:** All components should start with `ac` prefix;
+* **Styling:** Don't use `:slotted` CSS selector, because it not works properly in Edge and it breaks the rules of Atomic Design.
 
 ## Using this Library
 

@@ -5,6 +5,7 @@ $theme: (
     normal:           $turquoise, // --color-primary-normal
     contrast:         $white, // --color-primary-contrast
     dark:             darken($turquoise, 10%), // --color-primary-dark
+    darker:           darken($turquoise, 20%), // --color-primary-darker
     light:            lighten($turquoise, 10%), // --color-primary-light
     lighter:          lighten($turquoise, 20%) // --color-primary-lighter
   ),
@@ -12,6 +13,7 @@ $theme: (
     normal:           $orange, // --color-secondary-normal
     contrast:         $white, // --color-secondary-contrast
     dark:             darken($orange, 10%), // --color-secondary-dark
+    darker:           darken($orange, 20%), // --color-secondary-darker
     light:            lighten($orange, 10%), // --color-secondary-light
     lighter:          lighten($orange, 20%) // --color-secondary-lighter
   ),

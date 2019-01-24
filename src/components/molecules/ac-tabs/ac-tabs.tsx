@@ -1,6 +1,6 @@
 import { Component, Element, Event, EventEmitter, Listen, Prop } from '@stencil/core';
-import { addClass, addStyle, animate, removeClass, wait } from '../../../helpers/animation';
-import { Bind } from '../../../helpers/bind';
+import { addClass, addStyle, animate, removeClass, wait } from '../../../utils/animation';
+import { Bind } from '../../../utils/lang/bind';
 
 /**
  * Accera's full-featured tabs webcomponent.

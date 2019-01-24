@@ -1,5 +1,5 @@
 import { Component, Prop } from '@stencil/core';
-import { Bind } from '../../../helpers/bind';
+import { Bind } from '../../../utils/lang/bind';
 
 /**
  * Accera's full-featured checkbox webcomponent.

@@ -1,5 +1,5 @@
 /**
- * Represents a validator function that will be consumed by the `formField.validate` method.
+ * Represents a validator function that will be consumed by the `formFieldBehavior.validate` method.
  */
 export type ValidatorFunction = ((value) => ValidationError | string) | ((value) => Promise<ValidationError | string>);
 

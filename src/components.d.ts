@@ -15,11 +15,11 @@ import {
   AcPanelItem,
 } from './components/atoms/ac-panel/ac-panel';
 import {
-  FormFieldLogic,
-} from './helpers/forms';
+  FormFieldBehavior,
+} from './behaviors/form-behavior';
 import {
   ValidatorFunction,
-} from './helpers/forms/validation';
+} from './utils/validations/validations';
 import {
   AcPanelItem as AcPanelItem2,
 } from './components/atoms/ac-panel/ac-panel';
@@ -165,6 +165,9 @@ export namespace Components {
     'name'?: string;
   }
 
+  interface AcCollapse {}
+  interface AcCollapseAttributes extends StencilHTMLAttributes {}
+
   interface AcFaIcon {
     /**
     * Set an animation defined in the ac-fa-icon.scss
@@ -262,6 +265,31 @@ export namespace Components {
     'value'?: any;
   }
 
+  interface AcNavdrawer {
+    /**
+    * Show it as an absolute drawer.
+    */
+    'modal': boolean;
+    /**
+    * The color theme.
+    */
+    'theme': string;
+    /**
+    * Toggle opened state of the modal drawer.
+    */
+    'toggle': () => void;
+  }
+  interface AcNavdrawerAttributes extends StencilHTMLAttributes {
+    /**
+    * Show it as an absolute drawer.
+    */
+    'modal'?: boolean;
+    /**
+    * The color theme.
+    */
+    'theme'?: string;
+  }
+
   interface AcPanel {
     /**
     * An array of items to display in this panel.
@@ -310,9 +338,9 @@ export namespace Components {
     */
     'error': string;
     /**
-    * The form field logic.
+    * Provide access to the form field logic.
     */
-    'formField': FormFieldLogic;
+    'formFieldBehavior': FormFieldBehavior;
     /**
     * The helper text to guide the user.
     */
@@ -352,9 +380,9 @@ export namespace Components {
     */
     'error'?: string;
     /**
-    * The form field logic.
+    * Provide access to the form field logic.
     */
-    'formField'?: FormFieldLogic;
+    'formFieldBehavior'?: FormFieldBehavior;
     /**
     * The helper text to guide the user.
     */
@@ -473,9 +501,11 @@ declare global {
   interface StencilElementInterfaces {
     'AcButton': Components.AcButton;
     'AcCheck': Components.AcCheck;
+    'AcCollapse': Components.AcCollapse;
     'AcFaIcon': Components.AcFaIcon;
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
+    'AcNavdrawer': Components.AcNavdrawer;
     'AcPanel': Components.AcPanel;
     'AcTab': Components.AcTab;
     'AcInput': Components.AcInput;
@@ -486,9 +516,11 @@ declare global {
   interface StencilIntrinsicElements {
     'ac-button': Components.AcButtonAttributes;
     'ac-check': Components.AcCheckAttributes;
+    'ac-collapse': Components.AcCollapseAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
+    'ac-navdrawer': Components.AcNavdrawerAttributes;
     'ac-panel': Components.AcPanelAttributes;
     'ac-tab': Components.AcTabAttributes;
     'ac-input': Components.AcInputAttributes;
@@ -509,6 +541,12 @@ declare global {
     new (): HTMLAcCheckElement;
   };
 
+  interface HTMLAcCollapseElement extends Components.AcCollapse, HTMLStencilElement {}
+  var HTMLAcCollapseElement: {
+    prototype: HTMLAcCollapseElement;
+    new (): HTMLAcCollapseElement;
+  };
+
   interface HTMLAcFaIconElement extends Components.AcFaIcon, HTMLStencilElement {}
   var HTMLAcFaIconElement: {
     prototype: HTMLAcFaIconElement;
@@ -525,6 +563,12 @@ declare global {
   var HTMLAcInputBaseElement: {
     prototype: HTMLAcInputBaseElement;
     new (): HTMLAcInputBaseElement;
+  };
+
+  interface HTMLAcNavdrawerElement extends Components.AcNavdrawer, HTMLStencilElement {}
+  var HTMLAcNavdrawerElement: {
+    prototype: HTMLAcNavdrawerElement;
+    new (): HTMLAcNavdrawerElement;
   };
 
   interface HTMLAcPanelElement extends Components.AcPanel, HTMLStencilElement {}
@@ -560,9 +604,11 @@ declare global {
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
     'ac-check': HTMLAcCheckElement
+    'ac-collapse': HTMLAcCollapseElement
     'ac-fa-icon': HTMLAcFaIconElement
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
+    'ac-navdrawer': HTMLAcNavdrawerElement
     'ac-panel': HTMLAcPanelElement
     'ac-tab': HTMLAcTabElement
     'ac-input': HTMLAcInputElement
@@ -573,9 +619,11 @@ declare global {
   interface ElementTagNameMap {
     'ac-button': HTMLAcButtonElement;
     'ac-check': HTMLAcCheckElement;
+    'ac-collapse': HTMLAcCollapseElement;
     'ac-fa-icon': HTMLAcFaIconElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
+    'ac-navdrawer': HTMLAcNavdrawerElement;
     'ac-panel': HTMLAcPanelElement;
     'ac-tab': HTMLAcTabElement;
     'ac-input': HTMLAcInputElement;

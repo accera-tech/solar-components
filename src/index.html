@@ -122,7 +122,18 @@
   </section>
 
   <section>
-    <h1>Sidebar</h1>
+    <h1>Navigation Drawer</h1>
+    <div style="position: relative; height: 500px; max-width: 100%; overflow-x: hidden; display: flex">
+      <ac-navdrawer theme="primary">
+        <span slot="header-title">Teste</span>
+      </ac-navdrawer>
+
+      <ac-button onclick="toggleSidebar()" data-toggle="mainNavdrawer">Toggle Sidebar</ac-button>
+
+      <ac-navdrawer id="mainNavdrawer" modal>
+        <span slot="header-title">Teste</span>
+      </ac-navdrawer>
+    </div>
   </section>
 <script>
   localStorage.debug = 'solar:*';
@@ -150,6 +161,11 @@
     const testForm = document.querySelector('#testForm');
     testForm.addEventListener('submit', ev => console.log('SENT', ev));
   });
+
+  function toggleSidebar() {
+    const mainNavdrawer = document.querySelector('#mainNavdrawer');
+    mainNavdrawer.toggle();
+  }
 </script>
 
 </body></html>

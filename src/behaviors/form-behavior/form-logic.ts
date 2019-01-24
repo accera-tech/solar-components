@@ -1,14 +1,18 @@
-import { Bind } from '../bind';
-import { FormFieldLogic } from './form-field-logic';
-import { ValidationError } from './validation';
-import { serialize } from './serialize';
+import { Bind } from '../../utils/lang/bind';
+import { ValidationError } from '../../utils/validations/validations';
+import { serializeForm } from '../../utils/serialize-form';
+
+import { FormFieldBehavior } from './form-field-behavior';
 
 import debug from 'debug/src/browser';
 const log = debug('solar:FormLogic');
 
+/**
+ * Adds new features to a HTMLFormElement, useful to handle forms operations, like validation.
+ */
 export class FormLogic {
-  private form: HTMLFormElement;
-  private fields = new Map<string, FormFieldLogic>();
+  private readonly form: HTMLFormElement;
+  private fields = new Map<string, FormFieldBehavior>();
 
   /**
    * True if this form is valid.
@@ -108,7 +112,7 @@ export class FormLogic {
    * Adds a field to this logic. Note that the field must have a name.
    * @param field
    */
-  addField(field: FormFieldLogic) {
+  addField(field: FormFieldBehavior) {
     this.fields.set(field.name, field);
   }
 
@@ -116,7 +120,7 @@ export class FormLogic {
    * Remove a field from this logic.
    * @param field
    */
-  removeField(field: FormFieldLogic) {
+  removeField(field: FormFieldBehavior) {
     this.fields.delete(field.name);
   }
 
@@ -154,14 +158,14 @@ export class FormLogic {
   }
 
   serialize() {
-    return serialize(this.form);
+    return serializeForm(this.form);
   }
 }
 
 /**
  * Represents an error of form validation.
  */
-class FormValidationError extends Error {
+export class FormValidationError extends Error {
   errs: ValidationError[];
   
   constructor(errs: ValidationError[]) {

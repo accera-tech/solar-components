@@ -14,11 +14,12 @@ $font-huge: 28px;
 
 // Z indexes
 $z-default: 0;
-$z-side-menu: 1;
-$z-header: 2;
-$z-fab: 3;
+$z-header: 1;
+$z-fab: 2;
+$z-overlay: 3;
 $z-modal: 4;
 $z-panel: 5;
+$z-navdrawer: 6;
 
 // Screen Sizes
 // The minimum dimensions at which your layout will change,

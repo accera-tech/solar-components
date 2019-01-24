@@ -15,4 +15,10 @@
     font-size: $font-tiny;
     color: darken($gray, 20%);
   }
+
+  ac-panel {
+    position: absolute;
+    top: 100%;
+    z-index: $z-panel;
+  }
 }

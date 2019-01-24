@@ -1,0 +1,69 @@
+@import "../../../theme/variables";
+
+// General Navdrawer Style
+// --------------------------------------------------
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 236px;
+  height: 100%;
+
+  background: $white;
+  color: $black;
+
+  .ac-navdrawer__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 64px;
+    box-sizing: border-box;
+    font-weight: bold;
+  }
+
+  .ac-navdrawer__content {
+    height: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+}
+
+
+// Primary Theme
+// --------------------------------------------------
+
+:host(.ac-navdrawer--primary) {
+  background: var-color("primary", "dark");
+  color: var-color("primary", "contrast");
+
+  .ac-navdrawer__header {
+    background: var-color("primary", "darker");
+  }
+}
+
+
+// Modal mode
+// --------------------------------------------------
+
+:host(.ac-navdrawer--modal) {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: $z-navdrawer;
+  width: 380px;
+  box-shadow: $z5-shadow-left;
+  transition: transform $slow-transition;
+
+  .ac-navdrawer__header {
+    padding: 0 40px;
+  }
+
+  .ac-navdrawer__content {
+    padding: 0 40px;
+  }
+}
+
+:host(.ac-navdrawer--modal.ac-navdrawer--opened) {
+  transform: translateX(-100%);
+}

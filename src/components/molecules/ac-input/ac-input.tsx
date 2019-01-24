@@ -1,8 +1,8 @@
-import { Component, Prop, Element, Event, EventEmitter, ComponentInterface, State, Watch } from '@stencil/core';
+import { Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { FormFieldLogic, FormFieldComponent } from '../../../helpers/forms';
-import { ValidatorFunction } from '../../../helpers/forms/validation';
-import { Bind } from '../../../helpers/bind';
+import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
+import { ValidatorFunction } from '../../../utils/validations/validations';
+import { Bind } from '../../../utils/lang/bind';
 
 /**
  * Accera's full-featured Input Field webcomponent.
@@ -12,10 +12,10 @@ import { Bind } from '../../../helpers/bind';
   styleUrl: 'ac-input.scss',
   shadow: true
 })
-export class AcInput implements ComponentInterface, FormFieldComponent {
+export class AcInput implements FormFieldComponent {
   acInputBase: HTMLAcInputBaseElement;
 
-  @Prop({ mutable: false, reflectToAttr: false }) formField: FormFieldLogic = new FormFieldLogic(this);
+  @Prop({ mutable: false, reflectToAttr: false }) formFieldBehavior: FormFieldBehavior = new FormFieldBehavior(this);
 
   @Element() host: HTMLAcInputElement;
 
@@ -57,11 +57,6 @@ export class AcInput implements ComponentInterface, FormFieldComponent {
   @Prop() required: string | boolean;
 
   /**
-   * Fired when the value of the internal input changes.
-   */
-  @Event({ bubbles: true }) change: EventEmitter<any>;
-
-  /**
    * The validations that this field need.
    * This validations is checked on:
    * - Blur event
@@ -69,11 +64,15 @@ export class AcInput implements ComponentInterface, FormFieldComponent {
    */
   @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
 
+  /**
+   * Fired when the value of the internal input changes.
+   */
+  @Event({ bubbles: true }) change: EventEmitter<any>;
+
   @State() isShowingPassword: boolean;
 
   componentDidLoad() {
     this.errorDidUpdate(this.error);
-    this.formField.attach();
   }
 
   @Watch('error')
@@ -81,8 +80,8 @@ export class AcInput implements ComponentInterface, FormFieldComponent {
     this.acInputBase.classList.add(error ? 'ac-input--alert' : 'ac-input--success');
     this.acInputBase.classList.remove(error ? 'ac-input--success' : 'ac-input--alert');
 
-    if (error) this.formField.setInvalid();
-    else this.formField.setValid();
+    if (error) this.formFieldBehavior.setInvalid();
+    else this.formFieldBehavior.setValid();
   }
 
   @Bind
@@ -95,18 +94,14 @@ export class AcInput implements ComponentInterface, FormFieldComponent {
     this.value = this.acInputBase.value;
     this.change.emit(this.value);
 
-    this.formField.setDirty();
-    this.formField.validate()
+    this.formFieldBehavior.setDirty();
+    this.formFieldBehavior.validate()
   }
 
   @Bind
   private handleBlur() {
-    this.formField.setTouched();
-    this.formField.validate();
-  }
-
-  componentDidUnload() {
-    this.formField.detach();
+    this.formFieldBehavior.setTouched();
+    this.formFieldBehavior.validate();
   }
 
   render() {

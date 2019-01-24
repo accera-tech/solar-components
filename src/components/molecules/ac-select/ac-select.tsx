@@ -4,14 +4,13 @@ import {
   Element,
   Event,
   EventEmitter,
-  ComponentInterface,
   State,
-  Listen,
   Watch
 } from '@stencil/core';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { equals } from 'ramda';
-import { Bind } from '../../../helpers/bind';
+import { Bind } from '../../../utils/lang/bind';
+import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
 
@@ -23,9 +22,10 @@ import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
   styleUrl: 'ac-select.scss',
   shadow: true
 })
-export class AcSelect implements ComponentInterface {
+export class AcSelect implements OverlayComponent {
   acInputBase: AcInputBase;
   childOptions: NodeListOf<HTMLOptionElement>;
+  overlayBehavior = new OverlayBehavior(this);
 
   @Element() host: HTMLAcSelectElement;
 
@@ -80,9 +80,8 @@ export class AcSelect implements ComponentInterface {
     }
   }
 
-  @Listen('body:click')
-  whenClickOutside(ev) {
-    if (ev.target.closest('ac-select') !== this.host && this.isShowingPanel) {
+  whenClickOutside() {
+    if (this.isShowingPanel) {
       this.togglePanel();
     }
   }

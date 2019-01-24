@@ -1,7 +1,7 @@
 import { Component, Prop, Element, ComponentInterface } from '@stencil/core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { Bind } from '../../../helpers/bind';
-import { hasShadowDom } from '../../../helpers/dom';
+import { Bind } from '../../../utils/lang/bind';
+import { hasShadowDom } from '../../../utils/dom';
 
 /**
  * Accera's full-featured button webcomponent.

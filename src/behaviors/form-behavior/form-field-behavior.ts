@@ -1,20 +1,18 @@
-import { isRequired } from './validators/isRequired';
+import { ComponentBehavior } from '../../utils/stencil/component-behavior';
+import { ValidationError } from '../../utils/validations/validations';
+import { isRequired } from '../../utils/validations/isRequired';
+
 import { FormLogic } from './form-logic';
 import { FormFieldComponent } from './form-field-component';
 import { FormComponent } from './form-component';
-import { ValidationError } from './validation';
 
 import debug from 'debug/src/browser';
-const log = debug('solar:FormFieldLogic');
+const log = debug('solar:FormFieldBehavior');
 
 /**
  * Adds form field features to a component, such as validations.
  */
-export class FormFieldLogic {
-  /**
-   * The internal component that this instance is attached.
-   */
-  private readonly component: FormFieldComponent;
+export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
 
   /**
    * The form that this field is attached
@@ -41,15 +39,6 @@ export class FormFieldLogic {
    * True if the user has changed this field's value before.
    */
   isDirty: boolean;
-
-  /**
-   * Creates a new FormFieldLogic.
-   * @param component The component that will be attached into.
-   */
-  constructor(component) {
-    log('Will load', component);
-    this.component = component;
-  }
 
   /**
    * If this field is in a form, attach to it and initialize the FormLogic.
