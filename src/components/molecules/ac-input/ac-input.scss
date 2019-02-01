@@ -4,7 +4,7 @@
 // General Input Style
 // --------------------------------------------------
 
-:host {
+ac-input {
   display: flex;
   flex-direction: column;
 
@@ -16,7 +16,7 @@
   }
 }
 
-:host(.field--invalid) {
+ac-input.field--invalid {
   .ac-input__helper-text {
     color: $alert;
   }

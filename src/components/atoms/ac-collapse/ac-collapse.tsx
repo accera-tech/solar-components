@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
 
 /**
  * Accera's Collapse webcomponent.
@@ -9,6 +9,20 @@ import { Component } from '@stencil/core';
   shadow: true
 })
 export class AcCollapse {
+
+  /**
+   * If this collapse is opened.
+   */
+  @Prop() open: boolean;
+
+  hostData() {
+    return {
+      class: {
+        'ac-collapse--open': this.open
+      }
+    }
+  }
+
   render() {
     return (
       <slot />

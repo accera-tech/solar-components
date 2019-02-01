@@ -1,0 +1,7 @@
+:host {
+  height: 0;
+}
+
+:host(.ac-collapse--open) {
+  height: 100%;
+}

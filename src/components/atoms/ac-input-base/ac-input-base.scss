@@ -4,7 +4,7 @@
 * generate buttons variations
 */
 @mixin input-variations($selector, $color-name) {
-  :host(#{$selector}.ac-input--focus) {
+  ac-input-base.ac-input--focus {
     border-color: var-color($color-name, "normal");
     label.ac-input__label {
       color: var-color($color-name, "normal");
@@ -16,7 +16,7 @@
 // General Input Base Style
 // --------------------------------------------------
 
-:host {
+ac-input-base {
   display: flex;
   background-color: white;
   border: 2px solid $ui_input__border-color;
@@ -56,14 +56,15 @@
     }
   }
 
-  ::slotted([slot]) {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-
-    max-width: 44px;
-    min-width: 44px;
+  .ac-input__item-start, .ac-input__item-end {
     margin: $spacer-tiny / 2;
+    * {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      min-width: 44px;
+      height: 100%;
+    }
   }
 }
 
@@ -71,7 +72,7 @@
 // Input filled by a value or in Focus mode
 // --------------------------------------------------
 
-:host(.ac-input--focus, .ac-input--filled) {
+ac-input-base.ac-input--focus, ac-input-base.ac-input--filled {
   label.ac-input__label {
     font-size: $font-tiny;
     top: 25%;
@@ -82,7 +83,7 @@
 // Alert/Error mode
 // --------------------------------------------------
 
-:host(.ac-input--alert) {
+ac-input-base.ac-input--alert {
   border-color: var-color("alert", "normal");
   background-color: white;
   label.ac-input__label {
@@ -94,7 +95,7 @@
 // Disabled mode
 // --------------------------------------------------
 
-:host(.ac-input--disabled) {
+ac-input-base.ac-input--disabled {
   background-color: $ui_input--disabled__background-color;
   input.ac-input__native {
     cursor: not-allowed;

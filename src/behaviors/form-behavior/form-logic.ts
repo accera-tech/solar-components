@@ -32,6 +32,18 @@ export class FormLogic {
     log('Initializing', form);
     this.form = form;
     this.form.addEventListener('submit', this.handleSubmit);
+
+    if (this.form.dataset.preventUnsaved || this.form.dataset.preventUnsaved == "") {
+      log('Preventing Unsaved');
+      window.addEventListener('beforeunload', (e) => {
+        if (this.isUnchecked) {
+          const confirmationMessage = this.form.dataset.preventUnsaved;
+
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        }
+      });
+    }
     document.dispatchEvent(new Event('formBootstrap'));
   }
 

@@ -4,7 +4,7 @@
 // General Panel Style
 // --------------------------------------------------
 
-:host {
+ac-panel {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -13,6 +13,9 @@
   background: $white;
   box-shadow: $z5-shadow;
   box-sizing: border-box;
+
+  transform-origin: 0 0;
+  transition: opacity $default-transition, transform $default-transition;
 
   ul.ac-panel__list {
     list-style: none;
@@ -37,6 +40,16 @@
         background-color: var-color("primary", "normal", 0.08);
       }
     }
+  }
+
+  &.transition--before-enter {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.5);
+  }
+
+  &.transition--before-leave {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.5);
   }
 }
 

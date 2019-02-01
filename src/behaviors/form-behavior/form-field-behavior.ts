@@ -4,7 +4,7 @@ import { isRequired } from '../../utils/validations/isRequired';
 
 import { FormLogic } from './form-logic';
 import { FormFieldComponent } from './form-field-component';
-import { FormComponent } from './form-component';
+import { HTMLCustomFormElement } from './html-custom-form-element';
 
 import debug from 'debug/src/browser';
 const log = debug('solar:FormFieldBehavior');
@@ -17,7 +17,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
   /**
    * The form that this field is attached
    */
-  private formAttached?: FormComponent;
+  private formAttached?: HTMLCustomFormElement;
 
   /**
    * The name of the field to use in the form.
@@ -45,7 +45,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    */
   attach() {
     this.name = this.component.name;
-    this.formAttached = this.component.host.closest('form') as FormComponent;
+    this.formAttached = this.component.host.closest('form') as HTMLCustomFormElement;
 
     if (this.formAttached) {
       log('Attaching', this.name, this.formAttached);
@@ -136,7 +136,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
 
     // Running all validator functions
     for (const fn of validateFns) {
-      const exec = fn(this.component.value);
+      const exec = fn(this.component.value, this.formAttached);
       let res;
       if (exec instanceof Promise) res = await exec;
       else res = exec;

@@ -20,7 +20,6 @@ import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
 @Component({
   tag: 'ac-select',
   styleUrl: 'ac-select.scss',
-  shadow: true
 })
 export class AcSelect implements OverlayComponent {
   acInputBase: AcInputBase;
@@ -88,21 +87,22 @@ export class AcSelect implements OverlayComponent {
 
   @Watch('value')
   valueDidUpdate(newValue, oldValue) {
-    if (!equals(oldValue, []) && !equals(newValue, oldValue)) {
-      const selectedOptions = [];
-      this.options.forEach(o => {
-        o.selected = this.value.includes(o.value);
-        if (o.selected) selectedOptions.push(o);
-      });
+    if (!equals(newValue, []) && !equals(newValue, oldValue)) {
+      const selectedOptions = this.getOptionsByValue(newValue);
       this.formatSelectedText(selectedOptions);
     }
   }
 
   @Watch('options')
   optionsDidUpdate() {
-    const selectedOptions = this.options.filter(o => o.selected); // Get all selected
-    this.formatSelectedText(selectedOptions);
-    this.value = selectedOptions.map(o => o.value);
+    let selectedOptions = this.options.filter(o => o.selected); // Get all selected
+    if (selectedOptions.length > 0) {
+      this.value = selectedOptions.map(o => o.value);
+      this.formatSelectedText(selectedOptions);
+    } else {
+      selectedOptions = this.getOptionsByValue(this.value);
+      this.formatSelectedText(selectedOptions);
+    }
   }
 
   formatSelectedText(selectedOptions: AcPanelItem[]) {
@@ -147,6 +147,17 @@ export class AcSelect implements OverlayComponent {
 
     this.change.emit(this.value);
     this.isShowingPanel = this.multiple;
+  }
+
+  private getOptionsByValue(values: any[]) {
+    const options = [];
+    if (this.options) {
+      this.options.forEach(o => {
+        o.selected = values.includes(o.value);
+        if (o.selected) options.push(o);
+      });
+    }
+    return options;
   }
 
   setSelectedStateInDOM(index: number, state: boolean) {

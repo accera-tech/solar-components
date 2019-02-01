@@ -9,7 +9,6 @@ import { Bind } from '../../../utils/lang/bind';
 @Component({
   tag: 'ac-input-base',
   styleUrl: 'ac-input-base.scss',
-  shadow: true
 })
 export class AcInputBase implements ComponentInterface {
   private nativeInput?: HTMLInputElement;
@@ -61,6 +60,7 @@ export class AcInputBase implements ComponentInterface {
   @Bind
   private handleFocus() {
     this.hasFocus = true;
+    this.host.dispatchEvent(new (window as any).Event('focus'));
   }
 
   @Bind
@@ -87,7 +87,9 @@ export class AcInputBase implements ComponentInterface {
   render() {
 
     return [
-      <slot name="item-start" />,
+      <div class="ac-input__item-start">
+        <slot name="item-start" />
+      </div>,
       <span class="ac-input__input-container">
         <label
           class='ac-input__label'>
@@ -107,7 +109,9 @@ export class AcInputBase implements ComponentInterface {
           onBlur={this.handleBlur}
         />
       </span>,
-      <slot name="item-end" />
+      <div class="ac-input__item-end">
+        <slot name="item-end"/>
+      </div>
     ];
   }
 }

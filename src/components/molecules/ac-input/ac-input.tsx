@@ -10,7 +10,6 @@ import { Bind } from '../../../utils/lang/bind';
 @Component({
   tag: 'ac-input',
   styleUrl: 'ac-input.scss',
-  shadow: true
 })
 export class AcInput implements FormFieldComponent {
   acInputBase: HTMLAcInputBaseElement;

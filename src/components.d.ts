@@ -165,8 +165,18 @@ export namespace Components {
     'name'?: string;
   }
 
-  interface AcCollapse {}
-  interface AcCollapseAttributes extends StencilHTMLAttributes {}
+  interface AcCollapse {
+    /**
+    * If this collapse is opened.
+    */
+    'open': boolean;
+  }
+  interface AcCollapseAttributes extends StencilHTMLAttributes {
+    /**
+    * If this collapse is opened.
+    */
+    'open'?: boolean;
+  }
 
   interface AcFaIcon {
     /**
@@ -495,6 +505,21 @@ export namespace Components {
     */
     'theme'?: string;
   }
+
+  interface AcModalController {
+    'bound': string;
+    'set': (props: any) => void;
+  }
+  interface AcModalControllerAttributes extends StencilHTMLAttributes {
+    'bound'?: string;
+  }
+
+  interface AcModal {
+    'title': string;
+  }
+  interface AcModalAttributes extends StencilHTMLAttributes {
+    'title'?: string;
+  }
 }
 
 declare global {
@@ -511,6 +536,8 @@ declare global {
     'AcInput': Components.AcInput;
     'AcSelect': Components.AcSelect;
     'AcTabs': Components.AcTabs;
+    'AcModalController': Components.AcModalController;
+    'AcModal': Components.AcModal;
   }
 
   interface StencilIntrinsicElements {
@@ -526,6 +553,8 @@ declare global {
     'ac-input': Components.AcInputAttributes;
     'ac-select': Components.AcSelectAttributes;
     'ac-tabs': Components.AcTabsAttributes;
+    'ac-modal-controller': Components.AcModalControllerAttributes;
+    'ac-modal': Components.AcModalAttributes;
   }
 
 
@@ -601,6 +630,18 @@ declare global {
     new (): HTMLAcTabsElement;
   };
 
+  interface HTMLAcModalControllerElement extends Components.AcModalController, HTMLStencilElement {}
+  var HTMLAcModalControllerElement: {
+    prototype: HTMLAcModalControllerElement;
+    new (): HTMLAcModalControllerElement;
+  };
+
+  interface HTMLAcModalElement extends Components.AcModal, HTMLStencilElement {}
+  var HTMLAcModalElement: {
+    prototype: HTMLAcModalElement;
+    new (): HTMLAcModalElement;
+  };
+
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
     'ac-check': HTMLAcCheckElement
@@ -614,6 +655,8 @@ declare global {
     'ac-input': HTMLAcInputElement
     'ac-select': HTMLAcSelectElement
     'ac-tabs': HTMLAcTabsElement
+    'ac-modal-controller': HTMLAcModalControllerElement
+    'ac-modal': HTMLAcModalElement
   }
 
   interface ElementTagNameMap {
@@ -629,6 +672,8 @@ declare global {
     'ac-input': HTMLAcInputElement;
     'ac-select': HTMLAcSelectElement;
     'ac-tabs': HTMLAcTabsElement;
+    'ac-modal-controller': HTMLAcModalControllerElement;
+    'ac-modal': HTMLAcModalElement;
   }
 
 

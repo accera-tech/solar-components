@@ -9,7 +9,9 @@ function cssDurationToMilis(duration) {
  * @param element
  */
 export function animate(element: HTMLElement): Promise<AnimationProperties> {
+  /* @TODO: returns null in firefox even for elements with transition. */
   const declaredTransition = window.getComputedStyle(element).transition.match(/\.?\d[ms]/g);
+  if (!declaredTransition) return new Promise(resolve => resolve({ element, duration: 0 }));
 
   let duration = 0;
   declaredTransition.forEach(t => {

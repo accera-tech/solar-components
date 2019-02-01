@@ -1,4 +1,5 @@
 :host(.icon--anim-spin) {
+  display: flex;
   svg {
     animation: anim-spin 2s infinite linear;
   }

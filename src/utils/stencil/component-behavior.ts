@@ -15,33 +15,39 @@ export interface ComponentBase extends ComponentInterface {
 /**
  * Represents a Component's Behavior Modification.
  */
-export abstract class ComponentBehavior<T extends ComponentBase> {
+export class ComponentBehavior<T extends ComponentBase> {
   /**
    * The internal component that this instance is attached.
    */
   component: T;
 
   /**
+   * A hook called before the component load.
+   */
+  beforeAttach?(): Promise<any> | void;
+
+  /**
    * A hook called after the component load.
    */
-  abstract attach(): void;
+  attach?(): void;
 
   /**
    * A hook called before the component destroy.
    */
-  abstract detach(): Promise<any> | void;
+  detach?(): Promise<any> | void;
 
   constructor(component: T) {
     this.component = component;
+    if (this.beforeAttach) this.beforeAttach();
 
     extendMethod(this.component, 'componentDidLoad', componentDidLoad => {
       if (componentDidLoad) componentDidLoad();
-      this.attach();
+      if (this.attach) this.attach();
     });
 
     extendMethod(this.component, 'componentDidUnload', componentDidUnload => {
       if (componentDidUnload) componentDidUnload();
-      this.detach();
+      if (this.detach) this.detach();
     })
   }
 }

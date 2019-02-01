@@ -1,4 +1,5 @@
 import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 
 /**
  * Accera's Panel webcomponent used as a menu.
@@ -6,9 +7,9 @@ import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 @Component({
   tag: 'ac-panel',
   styleUrl: 'ac-panel.scss',
-  shadow: true
 })
-export class AcPanel {
+export class AcPanel implements TransitionComponent {
+  transitionBehavior = new TransitionBehavior(this);
   @Element() host: HTMLAcPanelElement;
 
   /**
@@ -25,6 +26,8 @@ export class AcPanel {
    * Fired when the user clicks over a item.
    */
   @Event() select: EventEmitter<{ index: number, item: AcPanelItem }>;
+
+  componentWillLoad() {}
 
   render() {
     return (

@@ -8,6 +8,7 @@
   <script src="/build/solar.js"></script>
 </head>
 <body>
+  <ac-modal-controller></ac-modal-controller>
 
   <section>
     <h1>Forms</h1>
@@ -135,8 +136,36 @@
       </ac-navdrawer>
     </div>
   </section>
+
+  <section>
+    <h1>Modal</h1>
+    <div style="position: relative; height: 500px; max-width: 100%; overflow-x: hidden; display: flex">
+      <ac-modal title="Teste">
+        <ac-select label="Band">
+          <option value="0">TNT</option>
+          <option value="1">Queen</option>
+          <option value="2">Metallica</option>
+          <option value="3" selected>AC/DC</option>
+        </ac-select>
+      </ac-modal>
+    </div>
+  </section>
+
+  <ac-collapse>
+    Collapse Test
+  </ac-collapse>
 <script>
+  document.addEventListener('load', () => {
+    const testForm = document.querySelector('#testForm');
+    testForm.addEventListener('submit', ev => console.log('SENT', ev));
+  });
+
   localStorage.debug = 'solar:*';
+  function toggleSidebar() {
+    const mainNavdrawer = document.querySelector('#mainNavdrawer');
+    mainNavdrawer.toggle();
+  }
+
   const inputExample = document.querySelector('#inputExample');
   inputExample.addEventListener('change', ({ detail }) => {
     console.log('Input Change:', detail);
@@ -156,16 +185,6 @@
 
   const passwordInput = document.querySelector('#passwordInput');
   passwordInput.validateFn = (value) => value && value.length >= 8 ? null : 'The password must have 8 characters';
-
-  document.addEventListener('formBootstrap', function () {
-    const testForm = document.querySelector('#testForm');
-    testForm.addEventListener('submit', ev => console.log('SENT', ev));
-  });
-
-  function toggleSidebar() {
-    const mainNavdrawer = document.querySelector('#mainNavdrawer');
-    mainNavdrawer.toggle();
-  }
 </script>
 
 </body></html>
