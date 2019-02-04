@@ -20,6 +20,9 @@ export class OverlayBehavior extends ComponentBehavior<OverlayComponent> {
   }
 }
 
+/**
+ * Represents a component that implements the overlay logic.
+ */
 export interface OverlayComponent extends ComponentBase {
   overlayBehavior: OverlayBehavior;
   whenClickOutside: () => void;

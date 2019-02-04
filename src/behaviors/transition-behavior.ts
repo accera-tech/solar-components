@@ -26,7 +26,15 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
 
     // Monkeypatch native Element#remove.
     // This function will wait for transitions.
-    this.component.host.remove = async () => {
+    this.component.host.remove = this.customRemoveFn.bind(this);
+  }
+
+  detach() {}
+
+  /**
+   * A custom remove teardown used to replace the native HTMLElement#remove, dispatching transitions.
+   */
+  async customRemoveFn() {
       // Deep animations
       const allChildrens = this.component.host.getElementsByClassName('transition--after-enter');
       await Promise.all(Array.from(allChildrens).map(child => child.remove()));
@@ -36,10 +44,7 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
 
       await animate(this.component.host).then(wait());
       Element.prototype.remove.apply(this.component.host);
-    };
   }
-
-  detach() {}
 }
 
 /**

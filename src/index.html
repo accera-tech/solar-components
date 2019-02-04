@@ -139,16 +139,7 @@
 
   <section>
     <h1>Modal</h1>
-    <div style="position: relative; height: 500px; max-width: 100%; overflow-x: hidden; display: flex">
-      <ac-modal title="Teste">
-        <ac-select label="Band">
-          <option value="0">TNT</option>
-          <option value="1">Queen</option>
-          <option value="2">Metallica</option>
-          <option value="3" selected>AC/DC</option>
-        </ac-select>
-      </ac-modal>
-    </div>
+    <ac-button id="showModalButton">Show Modal</ac-button>
   </section>
 
   <ac-collapse>
@@ -185,6 +176,11 @@
 
   const passwordInput = document.querySelector('#passwordInput');
   passwordInput.validateFn = (value) => value && value.length >= 8 ? null : 'The password must have 8 characters';
+
+  const showModalButton = document.querySelector('#showModalButton');
+  showModalButton.addEventListener('click', () => {
+    document.querySelector('ac-modal-controller').set({ title: 'Test Modal', content: 'Testing a modal' });
+  });
 </script>
 
 </body></html>
