@@ -4,15 +4,14 @@
 // General Checkbox Style
 // --------------------------------------------------
 
-:host {
+ac-check {
   display: inline-block;
-  cursor: pointer;
 
   .ac-check__container {
     display: flex;
     align-items: center;
 
-    label.ac-check__label {
+    .ac-check__label {
       margin: 0;
       padding-left: 8px;
       font-size: 16px;
@@ -22,40 +21,21 @@
     }
   }
 
-  input.ac-check__native {
+  .ac-check__native {
+    display: none;
+  }
+
+  .ac-check__custom {
     position: relative;
     width: 16px;
     height: 16px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     margin: 0;
     outline: none;
     cursor: pointer;
 
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 16px;
-      height: 16px;
-      background: $white;
-      border: 2px solid $ui_check__border-color;
-      box-sizing: border-box;
-      border-radius: 4px;
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 8px;
-      z-index: 1;
-      border: 2px solid transparent;
-      border-top-style: none;
-      border-right-style: none;
-      transition: all $default-transition;
-    }
+    background: $white;
+    border: 2px solid $ui_check__border-color;
+    box-sizing: border-box;
   }
 
   .ac-check__helper-text {
@@ -66,6 +46,46 @@
     font-size: $font-tiny;
     color: $ui_helper-text__color;
     user-select: none;
+    cursor: pointer;
+  }
+}
+
+// Checkbox mode.
+ac-check.ac-check--checkbox {
+  .ac-check__custom {
+    border-radius: 4px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 8px;
+      z-index: 1;
+      border: 2px solid transparent;
+      border-top-style: none;
+      border-right-style: none;
+      transition: all $default-transition;
+    }
+  }
+}
+
+// Radio button mode.
+ac-check.ac-check--radio {
+  .ac-check__custom {
+    border-radius: 100%;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      background-color: transparent;
+      height: 6px;
+      width: 6px;
+      border-radius: 100%;
+      transition: transform $default-transition;
+      transform: scale(2);
+    }
   }
 }
 
@@ -74,20 +94,36 @@
 // checked
 // --------------------------------------------------
 
-:host(.ac-check--checked) {
-  label.ac-check__label {
-    color: var-color("primary", "normal");
-  }
+ac-check {
+  .ac-check__native:checked {
+    + .ac-check__custom {
+      background: var-color("primary", "normal");
+      border-color: var-color("primary", "normal");
 
-  input.ac-check__native {
+      + .ac-check__label {
+        color: var-color("primary", "normal");
+      }
+    }
+  }
+}
+
+// Checkbox mode.
+ac-check.ac-check--checkbox {
+  .ac-check__native:checked + .ac-check__custom {
     &:before {
       transform: rotate(-45deg);
       border-color: $white;
       height: 5px;
     }
-    &:after {
-      background: var-color("primary", "normal");
-      border-color: var-color("primary", "normal");
+  }
+}
+
+// Radio button mode.
+ac-check.ac-check--radio {
+  .ac-check__native:checked + .ac-check__custom {
+    &:before {
+      background-color: $white;
+      transform: scale(1);
     }
   }
 }
@@ -97,31 +133,31 @@
 // disabled
 // --------------------------------------------------
 
-:host(.ac-check--disabled) {
+ac-check.ac-check--disabled {
   cursor: not-allowed;
 
   .ac-check__container,
   .ac-check__helper-text {
     pointer-events: none;
   }
-  label.ac-check__label {
+  .ac-check__label {
     color: $ui_label--disabled__color;
   }
-  input.ac-check__native {
-    &:after {
-      background: $ui-check--disabled__background-color;
-      border-color: $ui-check--disabled__border-color;
-    }
+  .ac-check__custom {
+    background: $ui-check--disabled__background-color;
+    border-color: $ui-check--disabled__border-color;
   }
 }
-:host(.ac-check--disabled.ac-check--checked) {
-  label.ac-check__label {
-    color: $ui_label--disabled__color;
-  }
-  input.ac-check__native {
-    &:after {
+
+ac-check.ac-check--disabled {
+  .ac-check__native:checked {
+    + .ac-check__custom {
       background: $gray;
       border-color: $gray;
+
+      + .ac-check__label {
+        color: $ui_label--disabled__color;
+      }
     }
   }
 }
@@ -131,12 +167,12 @@
 // label-left
 // --------------------------------------------------
 
-:host(.ac-check--label-left) {
+ac-check.ac-check--label-left {
   .ac-check__container {
     flex-direction: row-reverse;
   }
 
-  label.ac-check__label {
+  .ac-check__label {
     padding-right: 8px;
   }
   .ac-check__helper-text {
