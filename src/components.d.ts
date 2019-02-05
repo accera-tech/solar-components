@@ -137,6 +137,14 @@ export namespace Components {
     * The HTML field name.
     */
     'name': string;
+    /**
+    * The type of this field.
+    */
+    'type': 'radio' | 'checkbox';
+    /**
+    * The HTML field value.
+    */
+    'value': string;
   }
   interface AcCheckAttributes extends StencilHTMLAttributes {
     /**
@@ -163,6 +171,14 @@ export namespace Components {
     * The HTML field name.
     */
     'name'?: string;
+    /**
+    * The type of this field.
+    */
+    'type'?: 'radio' | 'checkbox';
+    /**
+    * The HTML field value.
+    */
+    'value'?: string;
   }
 
   interface AcCollapse {
@@ -507,10 +523,19 @@ export namespace Components {
   }
 
   interface AcModalController {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
     'bound': string;
-    'set': (props: any) => void;
+    /**
+    * Set properties to the managed component.
+    */
+    'set': (props: any) => any;
   }
   interface AcModalControllerAttributes extends StencilHTMLAttributes {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
     'bound'?: string;
   }
 

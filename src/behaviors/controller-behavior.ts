@@ -14,8 +14,8 @@ export class ControllerBehavior<T> extends ComponentBehavior<ControllerComponent
    * Create a new element by the Controller's managed target and append it to the bound parent.
    * @param props
    */
-  create(props: ControllerProps) {
-    const element = document.createElement(this.component.target);
+  async create(props: ControllerProps) {
+    const element = <HTMLStencilElement> document.createElement(this.component.target);
     const {content, templateId, ...realProps} = props;
 
     Object.assign(element, realProps);
@@ -32,6 +32,9 @@ export class ControllerBehavior<T> extends ComponentBehavior<ControllerComponent
     }
 
     this.root.appendChild(element);
+    await element.componentOnReady();
+
+    return element;
   }
 }
 

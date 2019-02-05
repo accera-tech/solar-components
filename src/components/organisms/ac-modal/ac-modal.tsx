@@ -33,6 +33,9 @@ export class AcModal implements TransitionComponent {
         <section class="ac-modal__content">
           <slot />
         </section>
+        <footer class="ac-modal__footer">
+          <slot name="modal-actions" />
+        </footer>
       </div>
     );
   }

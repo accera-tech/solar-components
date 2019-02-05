@@ -73,10 +73,17 @@
   </section>
 
   <section>
-    <h1>Checkbox</h1>
+    <h1>Checkbox & Radio</h1>
     <ac-check name="chk1" label="Test" label-left></ac-check>
-    <ac-check name="chk1" label="Test" disabled></ac-check>
-    <ac-check name="chk1" label="Test" helper-text="A brief description of this checkbox"></ac-check>
+    <ac-check name="chk2" label="Test" disabled></ac-check>
+    <ac-check name="chk3" label="Test" helper-text="A brief description of this checkbox"></ac-check>
+
+    <radiogroup>
+      <ac-check type="radio" name="radio1" value="1" label="Test" helper-text="A brief description of this checkbox"></ac-check>
+      <ac-check type="radio" name="radio1" value="2" label="Test" helper-text="A brief description of this checkbox"></ac-check>
+      <ac-check type="radio" name="radio1" value="3" label="Test" helper-text="A brief description of this checkbox"></ac-check>
+      <ac-check type="radio" name="radio1" value="4" label="Test" helper-text="A brief description of this checkbox"></ac-check>
+    </radiogroup>
   </section>
 
   <section>
@@ -179,7 +186,9 @@
 
   const showModalButton = document.querySelector('#showModalButton');
   showModalButton.addEventListener('click', () => {
-    document.querySelector('ac-modal-controller').set({ title: 'Test Modal', content: 'Testing a modal' });
+    document.querySelector('ac-modal-controller')
+      .set({ title: 'Test Modal', content: 'Testing a modal' })
+      .then(console.log);
   });
 </script>
 

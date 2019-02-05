@@ -15,6 +15,6 @@ export class AcModalController implements ControllerComponent<any> {
 
   @Method()
   set(props: any) {
-    this.controllerBehavior.create(props);
+    return this.controllerBehavior.create(props);
   }
 }

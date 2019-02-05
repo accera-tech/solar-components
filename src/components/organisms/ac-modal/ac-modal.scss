@@ -14,6 +14,9 @@ ac-modal {
   transition: opacity $default-transition;
 
   .ac-modal__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     min-width: 240px;
     min-height: 240px;
     border-radius: 4px;
@@ -39,6 +42,11 @@ ac-modal {
   .ac-modal__content {
     position: relative;
     padding: 40px;
+    height: 100%;
+  }
+
+  .ac-modal__footer {
+    padding: $spacer-small;
   }
 
   &.transition--before-enter {
