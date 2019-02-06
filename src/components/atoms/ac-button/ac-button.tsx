@@ -65,7 +65,7 @@ export class AcButton implements ComponentInterface {
   /**
    * The HTML5 native disable prop.
    */
-  @Prop() disabled?: boolean;
+  @Prop({ reflectToAttr: true }) disabled?: boolean;
 
   /**
    * Set the loading mode, showing a loading icon.

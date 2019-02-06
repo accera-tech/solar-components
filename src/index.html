@@ -40,10 +40,16 @@
 
     <h3>Select With Html Options</h3>
     <ac-select label="Band">
-      <option value="0">TNT</option>
-      <option value="1">Queen</option>
-      <option value="2">Metallica</option>
-      <option value="3" selected>AC/DC</option>
+      <optgroup label="Rock Bands">
+        <option value="0">TNT</option>
+        <option value="1">Queen</option>
+        <option value="2">Metallica</option>
+        <option value="3" selected>AC/DC</option>
+      </optgroup>
+      <optgroup label="Indie Bands">
+        <option value="4">Black Keys</option>
+        <option value="5">The Strokes</option>
+      </optgroup>
     </ac-select>
 
     <h3>Disabled State</h3>
@@ -149,9 +155,10 @@
     <ac-button id="showModalButton">Show Modal</ac-button>
   </section>
 
-  <ac-collapse>
-    Collapse Test
-  </ac-collapse>
+  <section>
+    <h1>Stepper</h1>
+    <ac-stepper steps="3" done="1"></ac-stepper>
+  </section>
 <script>
   document.addEventListener('load', () => {
     const testForm = document.querySelector('#testForm');

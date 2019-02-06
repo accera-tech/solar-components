@@ -1,5 +1,10 @@
-:host(.icon--anim-spin) {
+:host {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host(.icon--anim-spin) {
   svg {
     animation: anim-spin 2s infinite linear;
   }

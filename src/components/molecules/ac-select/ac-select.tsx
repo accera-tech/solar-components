@@ -12,7 +12,6 @@ import { equals } from 'ramda';
 import { Bind } from '../../../utils/lang/bind';
 import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
-import { AcPanelItem } from '../../atoms/ac-panel/ac-panel';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -51,7 +50,7 @@ export class AcSelect implements OverlayComponent {
   /**
    * The options that will be displayed in the panel.
    */
-  @Prop({ mutable: true }) options: AcPanelItem[];
+  @Prop({ mutable: true }) options: SelectOption[];
 
   /**
    * Set the disabled mode.
@@ -105,7 +104,7 @@ export class AcSelect implements OverlayComponent {
     }
   }
 
-  formatSelectedText(selectedOptions: AcPanelItem[]) {
+  formatSelectedText(selectedOptions: SelectOption[]) {
     const count = selectedOptions.length;
     const total = this.options.length;
 
@@ -121,8 +120,16 @@ export class AcSelect implements OverlayComponent {
   }
 
   private loadOptionsFromHTML() {
-    this.childOptions = this.host.querySelectorAll('option');
-    this.options = Array.prototype.map.call(this.childOptions, o => ({ title: o.text, value: o.value, selected: o.selected }));
+    this.childOptions = this.host.querySelectorAll('option, optgroup');
+    this.options = Array.prototype.map.call(this.childOptions, o =>
+      ({
+        title: o.tagName === 'OPTGROUP' ? o.label : o.text,
+        value: o.value,
+        selected: o.selected,
+        separator: o.tagName === 'OPTGROUP',
+        group: o.parentElement.tagName === 'OPTGROUP' ? o.parentElement.label : null
+      })
+    ) as SelectOption[];
   }
 
   @Bind
@@ -131,7 +138,7 @@ export class AcSelect implements OverlayComponent {
   }
 
   @Bind
-  private handleSelect({ detail }) {
+  private handleSelect(detail) {
     if (this.multiple) {
       this.options[detail.index].selected = !detail.item.selected; // Check the actual
       this.setSelectedStateInDOM(detail.index, !detail.item.selected); // If has options defined from DOM, update it!
@@ -172,6 +179,11 @@ export class AcSelect implements OverlayComponent {
     const icon = this.isShowingPanel ? faChevronUp : faChevronDown;
 
     return [
+      <select
+        multiple={this.multiple}
+        class="ac-select__native">
+        <slot/>
+      </select>,
       <ac-input-base
         ref={acInputBase => {
           this.acInputBase = acInputBase as any;
@@ -199,7 +211,56 @@ export class AcSelect implements OverlayComponent {
       <span class="ac-input__helper-text">
         {this.helperText}
       </span>,
-      this.isShowingPanel && <ac-panel class="ac-select__panel" items={this.options} onSelect={this.handleSelect} maxHeight="50vh" />
+
+      this.isShowingPanel &&
+        <ac-panel class="ac-select__panel">
+          <ul class="ac-select__list" style={{ maxHeight: '50vh' }}>
+            {this.options && this.options.map((item, index) => {
+              if (item.separator) return (
+                <li class='ac-select__list-separator'>
+                  <label>{item.title}</label>
+                </li>
+              );
+              else return (
+                <li class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
+                    onClick={() => this.handleSelect({item, index})}>
+                  {item.title}
+                </li>
+              );
+            })}
+          </ul>
+        </ac-panel>
     ];
   }
 }
+
+/**
+ * Defines an item of a Select.
+ */
+export interface SelectOption {
+  /**
+   * The title that will be displayed in the item
+   */
+  title: string;
+
+  /**
+   * The value of this item that will be handled by select listeners.
+   */
+  value?: any;
+
+  /**
+   * If true, this item will be displayed as a selected item.
+   */
+  selected?: boolean
+
+  /**
+   * If true, style this item as a list separator.
+   */
+  separator?: boolean
+
+  /**
+   * The label of the options group of this item.
+   */
+  group?: string
+}
+

@@ -12,17 +12,14 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  AcPanelItem,
-} from './components/atoms/ac-panel/ac-panel';
-import {
   FormFieldBehavior,
 } from './behaviors/form-behavior';
 import {
   ValidatorFunction,
 } from './utils/validations/validations';
 import {
-  AcPanelItem as AcPanelItem2,
-} from './components/atoms/ac-panel/ac-panel';
+  SelectOption,
+} from './components/molecules/ac-select/ac-select';
 
 
 export namespace Components {
@@ -181,19 +178,6 @@ export namespace Components {
     'value'?: string;
   }
 
-  interface AcCollapse {
-    /**
-    * If this collapse is opened.
-    */
-    'open': boolean;
-  }
-  interface AcCollapseAttributes extends StencilHTMLAttributes {
-    /**
-    * If this collapse is opened.
-    */
-    'open'?: boolean;
-  }
-
   interface AcFaIcon {
     /**
     * Set an animation defined in the ac-fa-icon.scss
@@ -316,42 +300,19 @@ export namespace Components {
     'theme'?: string;
   }
 
-  interface AcPanel {
-    /**
-    * An array of items to display in this panel.
-    */
-    'items'?: AcPanelItem[];
-    /**
-    * The CSS max height of this panel.
-    */
-    'maxHeight'?: string;
-  }
-  interface AcPanelAttributes extends StencilHTMLAttributes {
-    /**
-    * An array of items to display in this panel.
-    */
-    'items'?: AcPanelItem[];
-    /**
-    * The CSS max height of this panel.
-    */
-    'maxHeight'?: string;
-    /**
-    * Fired when the user clicks over a item.
-    */
-    'onSelect'?: (event: CustomEvent<{ index: number, item: AcPanelItem }>) => void;
-  }
+  interface AcPanel {}
+  interface AcPanelAttributes extends StencilHTMLAttributes {}
 
-  interface AcTab {
-    /**
-    * If true, mark this tab as a selected tab.
-    */
-    'active': boolean;
+  interface AcStepper {
+    'done': number;
+    'next': () => void;
+    'previous': () => void;
+    'steps': number;
   }
-  interface AcTabAttributes extends StencilHTMLAttributes {
-    /**
-    * If true, mark this tab as a selected tab.
-    */
-    'active'?: boolean;
+  interface AcStepperAttributes extends StencilHTMLAttributes {
+    'done'?: number;
+    'onChange'?: (event: CustomEvent<{ index: number }>) => void;
+    'steps'?: number;
   }
 
   interface AcInput {
@@ -467,7 +428,7 @@ export namespace Components {
     /**
     * The options that will be displayed in the panel.
     */
-    'options': AcPanelItem[];
+    'options': SelectOption[];
     /**
     * The value of the internal input.
     */
@@ -501,11 +462,24 @@ export namespace Components {
     /**
     * The options that will be displayed in the panel.
     */
-    'options'?: AcPanelItem[];
+    'options'?: SelectOption[];
     /**
     * The value of the internal input.
     */
     'value'?: any;
+  }
+
+  interface AcTab {
+    /**
+    * If true, mark this tab as a selected tab.
+    */
+    'active': boolean;
+  }
+  interface AcTabAttributes extends StencilHTMLAttributes {
+    /**
+    * If true, mark this tab as a selected tab.
+    */
+    'active'?: boolean;
   }
 
   interface AcTabs {
@@ -551,15 +525,15 @@ declare global {
   interface StencilElementInterfaces {
     'AcButton': Components.AcButton;
     'AcCheck': Components.AcCheck;
-    'AcCollapse': Components.AcCollapse;
     'AcFaIcon': Components.AcFaIcon;
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
     'AcNavdrawer': Components.AcNavdrawer;
     'AcPanel': Components.AcPanel;
-    'AcTab': Components.AcTab;
+    'AcStepper': Components.AcStepper;
     'AcInput': Components.AcInput;
     'AcSelect': Components.AcSelect;
+    'AcTab': Components.AcTab;
     'AcTabs': Components.AcTabs;
     'AcModalController': Components.AcModalController;
     'AcModal': Components.AcModal;
@@ -568,15 +542,15 @@ declare global {
   interface StencilIntrinsicElements {
     'ac-button': Components.AcButtonAttributes;
     'ac-check': Components.AcCheckAttributes;
-    'ac-collapse': Components.AcCollapseAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-navdrawer': Components.AcNavdrawerAttributes;
     'ac-panel': Components.AcPanelAttributes;
-    'ac-tab': Components.AcTabAttributes;
+    'ac-stepper': Components.AcStepperAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-select': Components.AcSelectAttributes;
+    'ac-tab': Components.AcTabAttributes;
     'ac-tabs': Components.AcTabsAttributes;
     'ac-modal-controller': Components.AcModalControllerAttributes;
     'ac-modal': Components.AcModalAttributes;
@@ -593,12 +567,6 @@ declare global {
   var HTMLAcCheckElement: {
     prototype: HTMLAcCheckElement;
     new (): HTMLAcCheckElement;
-  };
-
-  interface HTMLAcCollapseElement extends Components.AcCollapse, HTMLStencilElement {}
-  var HTMLAcCollapseElement: {
-    prototype: HTMLAcCollapseElement;
-    new (): HTMLAcCollapseElement;
   };
 
   interface HTMLAcFaIconElement extends Components.AcFaIcon, HTMLStencilElement {}
@@ -631,10 +599,10 @@ declare global {
     new (): HTMLAcPanelElement;
   };
 
-  interface HTMLAcTabElement extends Components.AcTab, HTMLStencilElement {}
-  var HTMLAcTabElement: {
-    prototype: HTMLAcTabElement;
-    new (): HTMLAcTabElement;
+  interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
+  var HTMLAcStepperElement: {
+    prototype: HTMLAcStepperElement;
+    new (): HTMLAcStepperElement;
   };
 
   interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
@@ -647,6 +615,12 @@ declare global {
   var HTMLAcSelectElement: {
     prototype: HTMLAcSelectElement;
     new (): HTMLAcSelectElement;
+  };
+
+  interface HTMLAcTabElement extends Components.AcTab, HTMLStencilElement {}
+  var HTMLAcTabElement: {
+    prototype: HTMLAcTabElement;
+    new (): HTMLAcTabElement;
   };
 
   interface HTMLAcTabsElement extends Components.AcTabs, HTMLStencilElement {}
@@ -670,15 +644,15 @@ declare global {
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
     'ac-check': HTMLAcCheckElement
-    'ac-collapse': HTMLAcCollapseElement
     'ac-fa-icon': HTMLAcFaIconElement
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-navdrawer': HTMLAcNavdrawerElement
     'ac-panel': HTMLAcPanelElement
-    'ac-tab': HTMLAcTabElement
+    'ac-stepper': HTMLAcStepperElement
     'ac-input': HTMLAcInputElement
     'ac-select': HTMLAcSelectElement
+    'ac-tab': HTMLAcTabElement
     'ac-tabs': HTMLAcTabsElement
     'ac-modal-controller': HTMLAcModalControllerElement
     'ac-modal': HTMLAcModalElement
@@ -687,15 +661,15 @@ declare global {
   interface ElementTagNameMap {
     'ac-button': HTMLAcButtonElement;
     'ac-check': HTMLAcCheckElement;
-    'ac-collapse': HTMLAcCollapseElement;
     'ac-fa-icon': HTMLAcFaIconElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;
     'ac-panel': HTMLAcPanelElement;
-    'ac-tab': HTMLAcTabElement;
+    'ac-stepper': HTMLAcStepperElement;
     'ac-input': HTMLAcInputElement;
     'ac-select': HTMLAcSelectElement;
+    'ac-tab': HTMLAcTabElement;
     'ac-tabs': HTMLAcTabsElement;
     'ac-modal-controller': HTMLAcModalControllerElement;
     'ac-modal': HTMLAcModalElement;

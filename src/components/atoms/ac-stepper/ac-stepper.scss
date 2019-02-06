@@ -1,0 +1,48 @@
+@import "../../../theme/variables";
+
+ac-stepper {
+  display: flex;
+
+  .ac-stepper__step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    margin-left: 44px;
+    box-sizing: border-box;
+    border: 2px solid var-color("secondary", "normal");
+    border-radius: 100%;
+    color: var-color("secondary", "normal");
+    fill: var-color("secondary", "normal");
+    font-weight: bold;
+    user-select: none;
+
+    &:after {
+      position: absolute;
+      margin-left: -44px;
+      content: "";
+      width: 44px;
+      border: 0.5px solid var-color("secondary", "normal");
+    }
+
+    &.ac-stepper__step--active {
+      background-color: var-color("primary", "normal");
+      border-color: var-color("primary", "normal");
+      color: $white;
+      fill: $white;
+      &:after {
+        border: 1px solid var-color("primary", "normal");
+      }
+    }
+
+    &:first-of-type {
+      margin-left: 0;
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+
+}
