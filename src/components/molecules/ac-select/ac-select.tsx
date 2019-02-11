@@ -12,6 +12,7 @@ import { equals } from 'ramda';
 import { Bind } from '../../../utils/lang/bind';
 import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
+import { createRef } from '../../../utils/stencil/create-ref';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -25,6 +26,8 @@ export class AcSelect implements OverlayComponent {
   childOptions: NodeListOf<HTMLOptionElement>;
   overlayBehavior = new OverlayBehavior(this);
 
+  private panelElement = createRef<HTMLAcPanelElement>();
+
   @Element() host: HTMLAcSelectElement;
 
   /**
@@ -36,6 +39,11 @@ export class AcSelect implements OverlayComponent {
    * The value of the internal input.
    */
   @Prop({ mutable: true }) value = [];
+
+  /**
+   * The name of the internal input.
+   */
+  @Prop({ reflectToAttr: true }) name: string;
 
   /**
    * The helper text to guide the user.
@@ -55,7 +63,7 @@ export class AcSelect implements OverlayComponent {
   /**
    * Set the disabled mode.
    */
-  @Prop() disabled: boolean;
+  @Prop({ reflectToAttr: true }) disabled: boolean;
 
   /**
    * Set the loading mode, showing a loading icon.
@@ -101,6 +109,12 @@ export class AcSelect implements OverlayComponent {
     } else {
       selectedOptions = this.getOptionsByValue(this.value);
       this.formatSelectedText(selectedOptions);
+    }
+  }
+
+  @Watch('isShowingPanel')
+  isShowingPanelDidUpdate() {
+    if (this.isShowingPanel) {
     }
   }
 
@@ -180,6 +194,7 @@ export class AcSelect implements OverlayComponent {
 
     return [
       <select
+        name={this.name}
         multiple={this.multiple}
         class="ac-select__native">
         <slot/>
@@ -213,7 +228,7 @@ export class AcSelect implements OverlayComponent {
       </span>,
 
       this.isShowingPanel &&
-        <ac-panel class="ac-select__panel">
+        <ac-panel ref={this.panelElement} class="ac-select__panel">
           <ul class="ac-select__list" style={{ maxHeight: '50vh' }}>
             {this.options && this.options.map((item, index) => {
               if (item.separator) return (

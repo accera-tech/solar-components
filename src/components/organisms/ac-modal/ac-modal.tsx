@@ -1,4 +1,4 @@
-import { Component, Prop, Element } from '@stencil/core';
+import { Component, Prop, Element, Method } from '@stencil/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -15,9 +15,10 @@ export class AcModal implements TransitionComponent {
 
   componentWillLoad() {}
 
+  @Method()
   @Bind
   close() {
-    this.host.remove();
+    return this.host.remove();
   }
 
   render() {

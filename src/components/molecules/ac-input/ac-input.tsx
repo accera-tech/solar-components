@@ -53,7 +53,7 @@ export class AcInput implements FormFieldComponent {
   /**
    * Set this field as required
    */
-  @Prop() required: string | boolean;
+  @Prop({ reflectToAttr: true }) required: string | boolean;
 
   /**
    * The validations that this field need.

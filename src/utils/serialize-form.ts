@@ -1,9 +1,13 @@
 import { assignByPath } from './lang/assign-by-path';
 
-export function serializeForm(form: HTMLFormElement) {
+export interface SerializeFormOptions {
+  ignoreDisabled?: boolean;
+}
+
+export function serializeForm(form: HTMLFormElement, options: SerializeFormOptions = {}) {
   const obj = {};
 
-  Array.prototype.slice.call(form.querySelectorAll('[name]'))
+  Array.prototype.slice.call(form.querySelectorAll('[name]' + (options.ignoreDisabled ? ':not([disabled])' : '')))
     .forEach(function (field) {
       if (field.name && ['file', 'reset', 'button'].indexOf(field.type) === -1) {
         switch (field.type) {

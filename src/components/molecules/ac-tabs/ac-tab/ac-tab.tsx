@@ -6,7 +6,6 @@ import { Component, Prop } from '@stencil/core';
 @Component({
   tag: 'ac-tab',
   styleUrl: 'ac-tab.scss',
-  shadow: true,
 })
 export class AcTab {
   /**

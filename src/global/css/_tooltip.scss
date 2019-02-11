@@ -21,7 +21,7 @@
     content: attr(tooltip);
     bottom: 120%;
     padding: 8px;
-    border-radius: 4px;
+    border-radius: $border-radius-default;
     background-color: $black;
     white-space: nowrap;
     color: $white;

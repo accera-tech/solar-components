@@ -1,10 +1,13 @@
 @import "../../../theme/variables";
+@import "ac-button.vars";
 
 /**
  * Generate button variations by color palette.
  */
 @mixin button-variations($selector, $color-name) {
   // Solid Style (default)
+  // fill="solid"
+  // --------------------------------------------------  // Solid Style (default)
   // fill="solid"
   // --------------------------------------------------
 
@@ -78,17 +81,17 @@
 // --------------------------------------------------
 
 :host {
-  display: inline-block;
+  display: $ac-button__display;
   -webkit-appearance: none;
 
   .ac-button__native {
-    height: 44px;
-    min-width: 44px;
+    height: $ac-button__height;
+    min-width: $ac-button__min-width;
     padding: $spacer-tiny $spacer-small;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    border-radius: 4px;
+    border-radius: $border-radius-default;
     font-family: inherit;
     font-size: $font-small;
     font-weight: 700;
@@ -103,6 +106,7 @@
 
     .ac-button__text {
       padding: 0 10px;
+      white-space: nowrap;
     }
   }
 }

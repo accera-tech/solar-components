@@ -1,6 +1,6 @@
 import { Bind } from '../../utils/lang/bind';
 import { ValidationError } from '../../utils/validations/validations';
-import { serializeForm } from '../../utils/serialize-form';
+import { serializeForm, SerializeFormOptions } from '../../utils/serialize-form';
 
 import { FormFieldBehavior } from './form-field-behavior';
 
@@ -169,8 +169,8 @@ export class FormLogic {
     });
   }
 
-  serialize() {
-    return serializeForm(this.form);
+  serialize(options?: SerializeFormOptions) {
+    return serializeForm(this.form, options);
   }
 }
 

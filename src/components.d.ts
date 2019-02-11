@@ -426,6 +426,10 @@ export namespace Components {
     */
     'multiple': boolean;
     /**
+    * The name of the internal input.
+    */
+    'name': string;
+    /**
     * The options that will be displayed in the panel.
     */
     'options': SelectOption[];
@@ -455,6 +459,10 @@ export namespace Components {
     * If true, the component will handle multiple selected items.
     */
     'multiple'?: boolean;
+    /**
+    * The name of the internal input.
+    */
+    'name'?: string;
     /**
     * Fired when the user select/deselect an option.
     */
@@ -502,6 +510,10 @@ export namespace Components {
     */
     'bound': string;
     /**
+    * Clear properties of the managed component.
+    */
+    'clear': () => Promise<void[]>;
+    /**
     * Set properties to the managed component.
     */
     'set': (props: any) => any;
@@ -514,6 +526,7 @@ export namespace Components {
   }
 
   interface AcModal {
+    'close': () => any;
     'title': string;
   }
   interface AcModalAttributes extends StencilHTMLAttributes {

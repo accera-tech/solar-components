@@ -8,8 +8,8 @@ ac-panel {
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid $ui_panel__border-color;
-  border-radius: 4px;
+  border: 1px solid $ui-panel__border-color;
+  border-radius: $border-radius-default;
   background: $white;
   box-shadow: $z5-shadow;
   box-sizing: border-box;

@@ -1,4 +1,5 @@
 @import "../../../theme/variables";
+@import "ac-input-base.vars";
 
 /**
 * generate buttons variations
@@ -17,11 +18,11 @@
 // --------------------------------------------------
 
 ac-input-base {
-  display: flex;
+  display: $ac-input-base__display;
   background-color: white;
-  border: 2px solid $ui_input__border-color;
+  border: 2px solid $ui-input__border-color;
   border-radius: 4px;
-  min-height: 52px;
+  min-height: $ac-input-base__min-height;
 
   .ac-input__input-container {
     position: relative;
@@ -32,7 +33,7 @@ ac-input-base {
       position: absolute;
       top: 50%;
       left: 16px;
-      color: $ui_label__color;
+      color: $ui-label__color;
       transition: font-size $default-transition, top $default-transition;
       user-select: none;
       pointer-events: none;
@@ -47,7 +48,7 @@ ac-input-base {
       box-sizing: border-box;
       background-color: transparent;
       border: none;
-      color: $ui_input__color;
+      color: $ui-input__color;
       font-size: $font-small;
 
       &:focus {
@@ -57,13 +58,13 @@ ac-input-base {
   }
 
   .ac-input__item-start, .ac-input__item-end {
-    margin: $spacer-tiny / 2;
-    * {
+    & > * {
       display: flex !important;
       justify-content: center !important;
       align-items: center !important;
       min-width: 44px;
-      height: 100%;
+      height: calc(100% - 8px);
+      margin: $spacer-tiny / 2;
     }
   }
 }
@@ -96,14 +97,14 @@ ac-input-base.ac-input--alert {
 // --------------------------------------------------
 
 ac-input-base.ac-input--disabled {
-  background-color: $ui_input--disabled__background-color;
+  background-color: $ui-input--disabled__background-color;
   input.ac-input__native {
     cursor: not-allowed;
-    color: $ui_input--disabled__color;
+    color: $ui-input--disabled__color;
   }
 
   label.ac-input__label {
-    color: $ui_label--disabled__color;
+    color: $ui-label--disabled__color;
   }
 }
 

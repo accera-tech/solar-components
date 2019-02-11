@@ -1,0 +1,17 @@
+@import "../../../theme/variables";
+
+@include component-skeleton("ac-header") {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $spacer-small $spacer-huge;
+  @include down-md() {
+    padding: $spacer-small $spacer-small;
+  }
+  z-index: $z-header;
+  box-shadow: $z1-shadow;
+
+  //ac-tabs {
+  //  align-items: flex-end;
+  //}
+}

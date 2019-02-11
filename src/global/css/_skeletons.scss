@@ -1,0 +1,47 @@
+@import "../../theme/variables";
+@import "../../components/atoms/ac-input-base/ac-input-base.skeleton";
+@import "../../components/atoms/ac-header/ac-header.skeleton";
+@import "../../components/molecules/ac-select/ac-select.skeleton";
+@import "../../components/molecules/ac-input/ac-input.skeleton";
+@import "../../components/molecules/ac-tabs/ac-tab/ac-tab.skeleton";
+
+@keyframes skeleton-background {
+  0% {
+    background-position: -1000px 0px;
+  }
+  100% {
+     background-position: 1000px 0px;
+   }
+}
+
+.ac-skeleton .ac-skeleton--text {
+  @include skeleton-before-strategy();
+}
+
+.ac-skeleton .ac-skeleton--text--inline {
+  @include skeleton-before-strategy();
+  display: inline-flex;
+  position: relative;
+  width: calc(1em * 10);
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.ac-skeleton .ac-skeleton--circle {
+  @include skeleton-base(skeleton-background);
+  border-radius: 100%;
+  color: transparent;
+  * {
+    display: none;
+  }
+}
+
+@include text-skeleton(h1, $font-huge);
+@include text-skeleton(h2, $font-large);
+@include text-skeleton(h3, $font-medium);
+@include text-skeleton(h4, $font-small);
+@include text-skeleton(h5, $font-tiny);
+@include text-skeleton(h6, $font-tiny);

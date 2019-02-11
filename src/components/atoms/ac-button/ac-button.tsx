@@ -72,7 +72,6 @@ export class AcButton implements ComponentInterface {
    */
   @Prop() loading: boolean;
 
-
   @Bind
   private handleClick() {
     if (this.type === 'submit' && hasShadowDom(this.host)) {

@@ -1,0 +1,11 @@
+@import "../../../../theme/variables";
+
+@include component-skeleton("ac-tab") {
+  @include skeleton-base("skeleton-background");
+  height: $spacer-small;
+  margin: $spacer-small $spacer-small;
+  color: transparent;
+  * {
+    display: none;
+  }
+}

@@ -8,13 +8,24 @@ export class AcModalController implements ControllerComponent<any> {
   controllerBehavior = new ControllerBehavior(this);
   target = 'ac-modal';
 
+  modalList: HTMLAcModalElement[] = [];
+
   @Element() host: HTMLElement;
 
   @Prop()
   bound: string;
 
   @Method()
-  set(props: any) {
-    return this.controllerBehavior.create(props);
+  async set(props: any) {
+    const newModal = await this.controllerBehavior.create(props);
+    this.modalList.push(newModal);
+    return newModal;
+  }
+
+  @Method()
+  clear() {
+    return Promise.all(this.modalList.map(modal => {
+      modal.close();
+    }));
   }
 }

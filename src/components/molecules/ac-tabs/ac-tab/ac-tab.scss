@@ -4,7 +4,7 @@
 // General Tab Style
 // --------------------------------------------------
 
-:host {
+ac-tab {
   color: var-color("primary", "normal");
   padding: $spacer-small $spacer-small;
   font-size: $font-small;
@@ -17,7 +17,7 @@
   user-select: none;
 }
 
-:host([active]) {
+ac-tab[active] {
   color: var-color("secondary", "normal");
 }
 
@@ -25,10 +25,10 @@
 // Secondary theme
 // --------------------------------------------------
 
-:host(.ac-tab--secondary) {
+ac-tab.ac-tab--secondary {
   color: var-color("secondary", "normal");
 }
 
-:host([active]) {
+ac-tab[active] {
   color: var-color("primary", "normal");
 }

@@ -4,11 +4,11 @@
 // General Tabs Style
 // --------------------------------------------------
 
-:host {
+ac-tabs {
   position: relative;
   display: flex;
   width: 100%;
-  border-bottom: 1px solid $ui_tabs__border-bottom-color;
+  border-bottom: 1px solid $ui-tabs__border-bottom-color;
   box-sizing: border-box;
 
   .ac-tabs__bullet {
@@ -46,7 +46,7 @@
 // Secondary theme
 // --------------------------------------------------
 
-:host(.ac-tabs--secondary) {
+ac-tabs.ac-tabs--secondary {
   .ac-tabs__bullet {
     background-color: var-color("primary", "normal");
   }

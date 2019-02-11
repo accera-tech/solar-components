@@ -4,7 +4,7 @@
 // General Header Style
 // --------------------------------------------------
 
-:host {
+ac-header {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -34,7 +34,7 @@
   // through the sub-header slot.
   // --------------------------------------------------
 
-  ::slotted(ac-tabs[slot="sub-header"]) {
+  ac-tabs[slot="sub-header"] {
     border-bottom: 0;
     @include up-md() {
       padding: 0 24px;

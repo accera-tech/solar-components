@@ -15,7 +15,7 @@ ac-check {
       margin: 0;
       padding-left: 8px;
       font-size: 16px;
-      color: $ui_label__color;
+      color: $ui-label__color;
       user-select: none;
       cursor: pointer;
     }
@@ -34,7 +34,7 @@ ac-check {
     cursor: pointer;
 
     background: $white;
-    border: 2px solid $ui_check__border-color;
+    border: 2px solid $ui-check__border-color;
     box-sizing: border-box;
   }
 
@@ -44,7 +44,7 @@ ac-check {
     display: block;
     margin-top: $spacer-tiny;
     font-size: $font-tiny;
-    color: $ui_helper-text__color;
+    color: $ui-helper-text__color;
     user-select: none;
     cursor: pointer;
   }
@@ -53,7 +53,7 @@ ac-check {
 // Checkbox mode.
 ac-check.ac-check--checkbox {
   .ac-check__custom {
-    border-radius: 4px;
+    border-radius: $border-radius-default;
     &:before {
       content: "";
       position: absolute;
@@ -141,7 +141,7 @@ ac-check.ac-check--disabled {
     pointer-events: none;
   }
   .ac-check__label {
-    color: $ui_label--disabled__color;
+    color: $ui-label--disabled__color;
   }
   .ac-check__custom {
     background: $ui-check--disabled__background-color;
@@ -156,7 +156,7 @@ ac-check.ac-check--disabled {
       border-color: $gray;
 
       + .ac-check__label {
-        color: $ui_label--disabled__color;
+        color: $ui-label--disabled__color;
       }
     }
   }

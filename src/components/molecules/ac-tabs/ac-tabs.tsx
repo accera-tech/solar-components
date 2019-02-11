@@ -8,7 +8,6 @@ import { Bind } from '../../../utils/lang/bind';
 @Component({
   tag: 'ac-tabs',
   styleUrl: 'ac-tabs.scss',
-  shadow: true
 })
 export class AcTabs {
   @Element() host;

@@ -69,6 +69,7 @@ export interface ControllerComponent<T> extends ComponentBase {
    * @Method
    */
   clear?(): void
+
 }
 
 /**
