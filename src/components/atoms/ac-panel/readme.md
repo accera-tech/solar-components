@@ -874,22 +874,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Auto Generated Below -->
-
-
-## Properties
-
-| Property    | Attribute    | Description                                 | Type            |
-| ----------- | ------------ | ------------------------------------------- | --------------- |
-| `items`     | --           | An array of items to display in this panel. | `AcPanelItem[]` |
-| `maxHeight` | `max-height` | The CSS max height of this panel.           | `string`        |
-
-
-## Events
-
-| Event    | Detail                               | Description                             |
-| -------- | ------------------------------------ | --------------------------------------- |
-| `select` | { index: number, item: AcPanelItem } | Fired when the user clicks over a item. |
 
 
 ----------------------------------------------
