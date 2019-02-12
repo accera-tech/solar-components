@@ -170,7 +170,7 @@ export class AcSelect implements OverlayComponent {
     this.isShowingPanel = this.multiple;
   }
 
-  private getOptionsByValue(values: any[]) {
+  private getOptionsByValue(values: any[]): SelectOption[] {
     const options = [];
     if (this.options) {
       this.options.forEach(o => {
@@ -196,7 +196,9 @@ export class AcSelect implements OverlayComponent {
       <select
         name={this.name}
         multiple={this.multiple}
-        class="ac-select__native">
+        class="ac-select__native"
+        data-native
+      >
         <slot/>
       </select>,
       <ac-input-base

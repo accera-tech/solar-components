@@ -3,6 +3,7 @@
 @import "../../components/atoms/ac-header/ac-header.skeleton";
 @import "../../components/molecules/ac-select/ac-select.skeleton";
 @import "../../components/molecules/ac-input/ac-input.skeleton";
+@import "../../components/molecules/ac-tabs/ac-tabs.skeleton";
 @import "../../components/molecules/ac-tabs/ac-tab/ac-tab.skeleton";
 
 @keyframes skeleton-background {
@@ -23,11 +24,6 @@
   display: inline-flex;
   position: relative;
   width: calc(1em * 10);
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 }
 
 .ac-skeleton .ac-skeleton--circle {

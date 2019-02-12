@@ -1,4 +1,5 @@
 @import "../../../theme/variables";
+@import "ac-tabs.vars";
 
 
 // General Tabs Style
@@ -6,8 +7,8 @@
 
 ac-tabs {
   position: relative;
-  display: flex;
-  width: 100%;
+  display: $ac-tabs__display;
+  width: $ac-tabs__width;
   border-bottom: 1px solid $ui-tabs__border-bottom-color;
   box-sizing: border-box;
 

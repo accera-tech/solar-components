@@ -1,9 +1,13 @@
 @import "../../../../theme/variables";
+@import "ac-tab.vars";
 
 @include component-skeleton("ac-tab") {
   @include skeleton-base("skeleton-background");
-  height: $spacer-small;
-  margin: $spacer-small $spacer-small;
+  display: inline-block;
+  height: $ac-tab__font-size;
+  margin: $ac-tab__padding;
+  padding: 0;
+  font-size: inherit;
   color: transparent;
   * {
     display: none;

@@ -1,0 +1,7 @@
+@import "../../../theme/variables";
+@import "ac-tabs.vars";
+
+@include component-skeleton("ac-tabs") {
+  display: $ac-tabs__display;
+  width: $ac-tabs__width;
+}
