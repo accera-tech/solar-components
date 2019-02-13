@@ -27,9 +27,3 @@ ac-panel {
     transform: translateY(-10px) scaleY(0.5);
   }
 }
-
-
-// List's Scrollbar theming
-// --------------------------------------------------
-
-@include scrollbar(':host ul.ac-panel__list');

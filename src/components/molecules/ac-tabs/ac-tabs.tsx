@@ -25,7 +25,9 @@ export class AcTabs {
   @Event() change: EventEmitter<string>;
 
   componentDidLoad() {
-    this.loadTabsFromHTML();
+    setTimeout(() => {
+      this.loadTabsFromHTML();
+    }, 0);
   }
 
   @Listen('click')

@@ -16,9 +16,9 @@ ac-select {
     color: darken($gray, 20%);
   }
 
+
   ac-panel {
     position: absolute;
-    top: 100%;
     z-index: $z-panel;
   }
 
@@ -78,3 +78,26 @@ ac-select {
     display: none;
   }
 }
+
+
+// List's Scrollbar theming
+// --------------------------------------------------
+
+@include scrollbar('ac-select ul.ac-select__list');
+
+ac-select.ac-select--top {
+  ac-panel {
+    bottom: calc(100% + #{$spacer-tiny});
+  }
+}
+
+
+ac-select.ac-select--bottom {
+  ac-panel {
+    top: 100%;
+  }
+}
+
+
+
+

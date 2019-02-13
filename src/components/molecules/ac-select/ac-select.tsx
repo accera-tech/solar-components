@@ -12,7 +12,7 @@ import { equals } from 'ramda';
 import { Bind } from '../../../utils/lang/bind';
 import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
-import { createRef } from '../../../utils/stencil/create-ref';
+import { leftSpaceOnWindow } from '../../../utils/screen';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -22,11 +22,12 @@ import { createRef } from '../../../utils/stencil/create-ref';
   styleUrl: 'ac-select.scss',
 })
 export class AcSelect implements OverlayComponent {
+  static readonly MAX_ITEMS_TO_RENDER = 10;
+  static readonly ITEM_HEIGHT = 30;
+
   acInputBase: AcInputBase;
   childOptions: NodeListOf<HTMLOptionElement>;
   overlayBehavior = new OverlayBehavior(this);
-
-  private panelElement = createRef<HTMLAcPanelElement>();
 
   @Element() host: HTMLAcSelectElement;
 
@@ -77,6 +78,7 @@ export class AcSelect implements OverlayComponent {
 
   @State() isShowingPanel: boolean;
   @State() selectedText: string;
+  @State() panelDirection: 'top' | 'bottom';
 
   componentDidLoad() {
     if (!this.options) {
@@ -115,6 +117,19 @@ export class AcSelect implements OverlayComponent {
   @Watch('isShowingPanel')
   isShowingPanelDidUpdate() {
     if (this.isShowingPanel) {
+      const clientRect = this.host.getBoundingClientRect();
+      const spaces = leftSpaceOnWindow({
+        width: clientRect.width,
+        height: AcSelect.ITEM_HEIGHT * AcSelect.MAX_ITEMS_TO_RENDER,
+        x: clientRect.left,
+        y: clientRect.top
+      });
+
+      if (spaces.bottom <= 0) {
+        this.panelDirection = 'top';
+      } else {
+        this.panelDirection = 'bottom';
+      }
     }
   }
 
@@ -189,6 +204,14 @@ export class AcSelect implements OverlayComponent {
     }
   }
 
+  hostData() {
+    return {
+      class: {
+        [`ac-select--${this.panelDirection}`]: !!this.panelDirection,
+      }
+    }
+  }
+
   render() {
     const icon = this.isShowingPanel ? faChevronUp : faChevronDown;
 
@@ -230,8 +253,8 @@ export class AcSelect implements OverlayComponent {
       </span>,
 
       this.isShowingPanel &&
-        <ac-panel ref={this.panelElement} class="ac-select__panel">
-          <ul class="ac-select__list" style={{ maxHeight: '50vh' }}>
+        <ac-panel class="ac-select__panel">
+          <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
             {this.options && this.options.map((item, index) => {
               if (item.separator) return (
                 <li class='ac-select__list-separator'>
