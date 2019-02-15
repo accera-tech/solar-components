@@ -530,6 +530,7 @@ export namespace Components {
     'title': string;
   }
   interface AcModalAttributes extends StencilHTMLAttributes {
+    'onClose'?: (event: CustomEvent<void>) => void;
     'title'?: string;
   }
 }

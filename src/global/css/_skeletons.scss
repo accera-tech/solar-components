@@ -35,6 +35,14 @@
   }
 }
 
+.ac-skeleton .ac-skeleton--bg {
+  @include skeleton-base(skeleton-background);
+  color: transparent;
+  * {
+    display: none;
+  }
+}
+
 @include text-skeleton(h1, $font-huge);
 @include text-skeleton(h2, $font-large);
 @include text-skeleton(h3, $font-medium);

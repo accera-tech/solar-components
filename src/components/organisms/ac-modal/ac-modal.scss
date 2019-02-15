@@ -40,7 +40,6 @@ ac-modal {
       .ac-modal__content {
         max-height: calc(100vh - 56px);
         padding: $spacer-tiny;
-        overflow-y: auto;
       }
     }
   }
@@ -63,6 +62,8 @@ ac-modal {
     position: relative;
     padding: 40px;
     height: 100%;
+    max-height: calc(100vh - 314px);
+    overflow-y: auto;
   }
 
   .ac-modal__footer {
@@ -87,3 +88,9 @@ ac-modal {
     }
   }
 }
+
+
+// Modal's Scrollbar theming
+// --------------------------------------------------
+
+@include scrollbar("ac-modal .ac-modal__content");

@@ -1,4 +1,4 @@
-import { Component, Prop, Element, Method } from '@stencil/core';
+import { Component, Prop, Element, Method, Event, EventEmitter } from '@stencil/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -13,11 +13,14 @@ export class AcModal implements TransitionComponent {
   @Element() host: HTMLAcModalElement;
   @Prop() title: string;
 
+  @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
+
   componentWillLoad() {}
 
   @Method()
   @Bind
   close() {
+    this.closeEv.emit();
     return this.host.remove();
   }
 
