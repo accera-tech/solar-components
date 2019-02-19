@@ -69,8 +69,8 @@ export class ScrollManager {
     this.isDisabled = false;
     this.isDisabledForAll = false;
 
-    document.querySelector('html').style.height = 'auto';
-    document.querySelector('html').style.overflow = 'auto';
+    document.querySelector('html').style.height = '';
+    document.querySelector('html').style.overflow = '';
 
     if (this.isDisabledForAll) {
       if (window.removeEventListener)

@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Listen, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 import { addClass, addStyle, animate, removeClass, wait } from '../../../utils/animation';
 import { Bind } from '../../../utils/lang/bind';
 
@@ -30,14 +30,13 @@ export class AcTabs {
     }, 0);
   }
 
-  @Listen('click')
-  handleClick(ev) {
-    if (ev.target.tagName == 'AC-TAB') this.select(ev.target);
-  }
-
   private loadTabsFromHTML() {
     this.childTabs = Array.from(this.host.querySelectorAll('ac-tab'));
     this.currentTab = this.childTabs.find( tab => tab.active);
+
+    this.childTabs.forEach(tab =>
+      tab.addEventListener('click', () => this.select(tab))
+    );
 
     if (this.theme) this.childTabs.forEach(tab => tab.classList.add(`ac-tab--${this.theme}`));
     return this.moveBulletToCurrentTab();
