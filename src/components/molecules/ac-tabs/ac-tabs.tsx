@@ -27,7 +27,7 @@ export class AcTabs {
   componentDidLoad() {
     setTimeout(() => {
       this.loadTabsFromHTML();
-    }, 0);
+    }, 500);
   }
 
   private loadTabsFromHTML() {
@@ -87,7 +87,7 @@ export class AcTabs {
             onScroll={this.handleWrapperScroll}>
         <slot />
       </span>,
-      <span class="ac-tabs__bullet" ref={bullet => this.bulletElt = bullet} />
+      <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet} />
     ];
   }
 }
