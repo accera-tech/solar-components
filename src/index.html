@@ -214,7 +214,7 @@
   const showModalButton = document.querySelector('#showModalButton');
   showModalButton.addEventListener('click', () => {
     document.querySelector('ac-modal-controller')
-      .set({ title: 'Test Modal', content: 'Testing a modal' })
+      .set({ title: 'Test Modal', content: `<ac-select label="Band"><option>teste</option></ac-select>` })
       .then(console.log);
   });
 </script>

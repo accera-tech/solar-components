@@ -497,7 +497,7 @@ export namespace Components {
     'theme': string;
   }
   interface AcTabsAttributes extends StencilHTMLAttributes {
-    'onChange'?: (event: CustomEvent<string>) => void;
+    'onTabChange'?: (event: CustomEvent<string>) => void;
     /**
     * The theme color defined in the color palette. The default is primary.
     */

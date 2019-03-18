@@ -10,6 +10,54 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Auto Generated Below -->
 
 
@@ -22,9 +70,9 @@
 
 ## Events
 
-| Event    | Detail | Description |
-| -------- | ------ | ----------- |
-| `change` | string |             |
+| Event       | Detail | Description |
+| ----------- | ------ | ----------- |
+| `tabChange` | string |             |
 
 
 ----------------------------------------------
