@@ -22,7 +22,7 @@ export class AcTabs {
    */
   @Prop() theme: string;
 
-  @Event() change: EventEmitter<string>;
+  @Event() tabChange: EventEmitter<string>;
 
   componentDidLoad() {
     setTimeout(() => {
@@ -48,7 +48,7 @@ export class AcTabs {
       tab.active = true;
       this.currentTab = tab;
       await this.moveBulletToCurrentTab();
-      this.change.emit(this.currentTab.id);
+      this.tabChange.emit(this.currentTab.id);
     }
   }
 
