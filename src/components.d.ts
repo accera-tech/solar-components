@@ -212,7 +212,19 @@ export namespace Components {
 
   interface AcInputBase {
     /**
-    * The HTML disabled mode.
+    * The native HTMLInputElement autocapitalize attribute.
+    */
+    'autocapitalize': string;
+    /**
+    * The native HTMLInputElement autocomplete attribute.
+    */
+    'autocomplete': string;
+    /**
+    * The native HTMLInputElement autofocus attribute.
+    */
+    'autofocus': boolean;
+    /**
+    * The HTMLInputElement disabled attribute.
     */
     'disabled': boolean;
     /**
@@ -220,11 +232,19 @@ export namespace Components {
     */
     'label': string;
     /**
-    * The native HTML field name.
+    * The native HTMLInputElement max attribute.
+    */
+    'max': number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'min': number;
+    /**
+    * The native HTMLInputElement name attribute.
     */
     'name': string;
     /**
-    * The pattern of the internal input.
+    * The native HTMLInputElement pattern attribute.
     */
     'pattern': string;
     /**
@@ -232,7 +252,7 @@ export namespace Components {
     */
     'readonly': boolean;
     /**
-    * The native HTML required mode.
+    * The native HTMLInputElement required attribute.
     */
     'required': boolean;
     /**
@@ -246,7 +266,19 @@ export namespace Components {
   }
   interface AcInputBaseAttributes extends StencilHTMLAttributes {
     /**
-    * The HTML disabled mode.
+    * The native HTMLInputElement autocapitalize attribute.
+    */
+    'autocapitalize'?: string;
+    /**
+    * The native HTMLInputElement autocomplete attribute.
+    */
+    'autocomplete'?: string;
+    /**
+    * The native HTMLInputElement autofocus attribute.
+    */
+    'autofocus'?: boolean;
+    /**
+    * The HTMLInputElement disabled attribute.
     */
     'disabled'?: boolean;
     /**
@@ -254,7 +286,15 @@ export namespace Components {
     */
     'label'?: string;
     /**
-    * The native HTML field name.
+    * The native HTMLInputElement max attribute.
+    */
+    'max'?: number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'min'?: number;
+    /**
+    * The native HTMLInputElement name attribute.
     */
     'name'?: string;
     /**
@@ -262,7 +302,7 @@ export namespace Components {
     */
     'onChange'?: (event: CustomEvent<any>) => void;
     /**
-    * The pattern of the internal input.
+    * The native HTMLInputElement pattern attribute.
     */
     'pattern'?: string;
     /**
@@ -270,7 +310,7 @@ export namespace Components {
     */
     'readonly'?: boolean;
     /**
-    * The native HTML required mode.
+    * The native HTMLInputElement required attribute.
     */
     'required'?: boolean;
     /**
@@ -312,20 +352,53 @@ export namespace Components {
   interface AcPanelAttributes extends StencilHTMLAttributes {}
 
   interface AcStepper {
+    /**
+    * The number of concluded steps.
+    */
     'done': number;
+    /**
+    * Increments the count of concluded steps.
+    */
     'next': () => void;
+    /**
+    * Decrement the count of concluded steps.
+    */
     'previous': () => void;
+    /**
+    * The count of steps to be displayed. TODO: It mighty support an array of steps in the future.
+    */
     'steps': number;
   }
   interface AcStepperAttributes extends StencilHTMLAttributes {
+    /**
+    * The number of concluded steps.
+    */
     'done'?: number;
+    /**
+    * Dispatched when the steps state changes.
+    */
     'onChange'?: (event: CustomEvent<{ index: number }>) => void;
+    /**
+    * The count of steps to be displayed. TODO: It mighty support an array of steps in the future.
+    */
     'steps'?: number;
   }
 
   interface AcInput {
     /**
-    * The disabled mode
+    * The native HTMLInputElement autocapitalize attribute.
+    */
+    'autocapitalize': string;
+    /**
+    * The native HTMLInputElement autocomplete attribute.
+    */
+    'autocomplete': string;
+    /**
+    * The native HTMLInputElement autofocus attribute.
+    */
+    'autofocus': boolean;
+    /**
+    * The disabled mode.
     */
     'disabled': boolean;
     /**
@@ -349,6 +422,14 @@ export namespace Components {
     */
     'mask': string;
     /**
+    * The native HTMLInputElement max attribute.
+    */
+    'max': number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'min': number;
+    /**
     * The HTML input field's name.
     */
     'name': string;
@@ -361,7 +442,7 @@ export namespace Components {
     */
     'patternMessage': string;
     /**
-    * Set this field as required
+    * Set this field as required. A validation error message can be provided as well.
     */
     'required': string | boolean;
     /**
@@ -379,7 +460,19 @@ export namespace Components {
   }
   interface AcInputAttributes extends StencilHTMLAttributes {
     /**
-    * The disabled mode
+    * The native HTMLInputElement autocapitalize attribute.
+    */
+    'autocapitalize'?: string;
+    /**
+    * The native HTMLInputElement autocomplete attribute.
+    */
+    'autocomplete'?: string;
+    /**
+    * The native HTMLInputElement autofocus attribute.
+    */
+    'autofocus'?: boolean;
+    /**
+    * The disabled mode.
     */
     'disabled'?: boolean;
     /**
@@ -403,6 +496,14 @@ export namespace Components {
     */
     'mask'?: string;
     /**
+    * The native HTMLInputElement max attribute.
+    */
+    'max'?: number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'min'?: number;
+    /**
     * The HTML input field's name.
     */
     'name'?: string;
@@ -419,7 +520,7 @@ export namespace Components {
     */
     'patternMessage'?: string;
     /**
-    * Set this field as required
+    * Set this field as required. A validation error message can be provided as well.
     */
     'required'?: string | boolean;
     /**
@@ -542,11 +643,11 @@ export namespace Components {
     */
     'bound': string;
     /**
-    * Clear properties of the managed component.
+    * Clear all modals that are displayed.
     */
     'clear': () => Promise<void[]>;
     /**
-    * Set properties to the managed component.
+    * Setup a new modal on the screen.
     */
     'set': (props: any) => any;
   }
@@ -558,11 +659,23 @@ export namespace Components {
   }
 
   interface AcModal {
+    /**
+    * Close the modal programmatically and dispatch the close event.
+    */
     'close': () => any;
+    /**
+    * The title that will be displayed on the modal.
+    */
     'title': string;
   }
   interface AcModalAttributes extends StencilHTMLAttributes {
+    /**
+    * Dispatched when the modal closes.
+    */
     'onClose'?: (event: CustomEvent<void>) => void;
+    /**
+    * The title that will be displayed on the modal.
+    */
     'title'?: string;
   }
 }

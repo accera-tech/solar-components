@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+
+// Animations
+// --------------------------------------------------
+
 :host(.icon--anim-spin) {
   svg {
     animation: anim-spin 2s infinite linear;

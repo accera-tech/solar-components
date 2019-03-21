@@ -104,6 +104,7 @@ export class AcButton implements ComponentInterface {
       : { href: this.href, target: this.target };
 
     return (
+      // @ts-ignore
       <TagType
         {...attrs}
         disabled={this.disabled}

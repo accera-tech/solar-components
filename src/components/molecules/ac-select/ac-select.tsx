@@ -22,11 +22,29 @@ import { leftSpaceOnWindow } from '../../../utils/screen';
   styleUrl: 'ac-select.scss',
 })
 export class AcSelect implements OverlayComponent {
+  /**
+   * The count of max items to render in the select list, used to calculate the size of the panel.
+   */
   static readonly MAX_ITEMS_TO_RENDER = 10;
+
+  /**
+   * The height of each item to render, used to calculate the size of the panel.
+   */
   static readonly ITEM_HEIGHT = 30;
 
+  /**
+   * A reference to the ac-input-base component.
+   */
   acInputBase: AcInputBase;
+
+  /**
+   * A list of option elements defined as a child of the select component.
+   */
   childOptions: NodeListOf<HTMLOptionElement>;
+
+  /**
+   * The instance of the OverlayBehavior used to close the panel when the user clicks outside.
+   */
   overlayBehavior = new OverlayBehavior(this);
 
   @Element() host: HTMLAcSelectElement;
@@ -76,8 +94,19 @@ export class AcSelect implements OverlayComponent {
    */
   @Event() change: EventEmitter<any>;
 
+  /**
+   * Used to toggle the panel view.
+   */
   @State() isShowingPanel: boolean;
+
+  /**
+   * The text that will be displayed on the select input based on it value.
+   */
   @State() selectedText: string;
+
+  /**
+   * Set the initial panel direction.
+   */
   @State() panelDirection: 'top' | 'bottom';
 
   componentDidLoad() {
@@ -88,6 +117,9 @@ export class AcSelect implements OverlayComponent {
     }
   }
 
+  /**
+   * Toggle the panel view.
+   */
   whenClickOutside() {
     if (this.isShowingPanel) {
       this.togglePanel();
@@ -95,7 +127,7 @@ export class AcSelect implements OverlayComponent {
   }
 
   @Watch('value')
-  valueDidUpdate(newValue, oldValue) {
+  valueDidUpdate(newValue: Array<any>, oldValue: Array<any>) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       const selectedOptions = this.getOptionsByValue(newValue);
       this.formatSelectedText(selectedOptions);
@@ -133,6 +165,10 @@ export class AcSelect implements OverlayComponent {
     }
   }
 
+  /**
+   * Generate the selectedText based on the selected options.
+   * @param selectedOptions
+   */
   formatSelectedText(selectedOptions: SelectOption[]) {
     const count = selectedOptions.length;
     const total = this.options.length;
@@ -148,6 +184,9 @@ export class AcSelect implements OverlayComponent {
     }
   }
 
+  /**
+   * Load the options elements from the children HTML.
+   */
   private loadOptionsFromHTML() {
     this.childOptions = this.host.querySelectorAll('option, optgroup');
     this.options = Array.prototype.map.call(this.childOptions, o =>
@@ -161,11 +200,18 @@ export class AcSelect implements OverlayComponent {
     ) as SelectOption[];
   }
 
+  /**
+   * Toggle the panel.
+   */
   @Bind
   private togglePanel() {
     this.isShowingPanel = !this.loading && !this.isShowingPanel;
   }
 
+  /**
+   * A listener that is dispatched when the user click on a select's option.
+   * @param detail
+   */
   @Bind
   private handleSelect(detail) {
     if (this.multiple) {
@@ -185,6 +231,10 @@ export class AcSelect implements OverlayComponent {
     this.isShowingPanel = this.multiple;
   }
 
+  /**
+   * Filter the options by the actual value. Used to update the options state by an external value update.
+   * @param values
+   */
   private getOptionsByValue(values: any[]): SelectOption[] {
     const options = [];
     if (this.options) {
@@ -196,6 +246,11 @@ export class AcSelect implements OverlayComponent {
     return options;
   }
 
+  /**
+   * Update the selected options in the options elements children.
+   * @param index
+   * @param state
+   */
   setSelectedStateInDOM(index: number, state: boolean) {
     if (this.childOptions && this.childOptions.length > 0) {
       this.childOptions.item(index).selected = state;

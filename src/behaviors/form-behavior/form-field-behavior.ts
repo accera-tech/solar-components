@@ -70,6 +70,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Set the field in the dirty state.
    */
   setDirty() {
+    log('Set dirty', this.name, this.formAttached);
     this.component.host.classList.add('field--dirty');
     this.isDirty = true;
 
@@ -80,6 +81,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Set the field in the touched state.
    */
   setTouched() {
+    log('Set touched', this.name);
     this.component.host.classList.add('field--touched');
     this.isTouched = true;
   }
@@ -88,6 +90,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Set the field in the valid state.
    */
   setValid() {
+    log('Set valid', this.name);
     this.component.host.classList.add('field--valid');
     this.component.host.classList.remove('field--invalid');
 
@@ -98,6 +101,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Set the field in the invalid state
    */
   setInvalid() {
+    log('Set invalid', this.name);
     this.component.host.classList.add('field--invalid');
     this.component.host.classList.remove('field--valid');
 
@@ -108,6 +112,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Cleans all the states, error and value of the field.
    */
   cleanup() {
+    log('Cleaning up', this.name);
     this.component.host.classList.remove(
       'field--invalid', 'field--valid', 'field--touched', 'field--dirty'
     );
@@ -123,6 +128,8 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * The Required Field validation runs if the `required` prop of the component is present.
    */
   async validate(): Promise<ValidationError> {
+    log('Validating', this.name);
+
     const { validateFn } = this.component;
 
     // Converting to Array
@@ -144,6 +151,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
 
         if (res) {
           this.component.error = res.message || res;
+          log('Validation error', this.name, res);
           return res.message ? res : {message: res};
         }
       }

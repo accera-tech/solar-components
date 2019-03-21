@@ -2,15 +2,29 @@ import { Component, ComponentInterface, Method, Prop, Event, EventEmitter } from
 import { count } from '../../../utils/lang/count';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
+/**
+ * Accera's full-featured stepper webcomponent.
+ */
 @Component({
   tag: 'ac-stepper',
   styleUrl: 'ac-stepper.scss'
 })
 export class AcStepper implements ComponentInterface {
 
+  /**
+   * The count of steps to be displayed.
+   * TODO: It mighty support an array of steps in the future.
+   */
   @Prop({ reflectToAttr: true }) steps: number;
+
+  /**
+   * The number of concluded steps.
+   */
   @Prop({ reflectToAttr: true, mutable: true }) done: number;
 
+  /**
+   * Increments the count of concluded steps.
+   */
   @Method()
   next() {
     if (this.done < this.steps) {
@@ -19,6 +33,9 @@ export class AcStepper implements ComponentInterface {
     }
   }
 
+  /**
+   * Decrement the count of concluded steps.
+   */
   @Method()
   previous() {
     if (this.done > 0) {
@@ -27,6 +44,9 @@ export class AcStepper implements ComponentInterface {
     }
   }
 
+  /**
+   * Dispatched when the steps state changes.
+   */
   @Event() change: EventEmitter<{ index: number }>;
 
   render() {

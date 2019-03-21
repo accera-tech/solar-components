@@ -13,6 +13,7 @@ const log = debug('solar:FormLogic');
 export class FormLogic {
   private readonly form: HTMLFormElement;
   private fields = new Map<string, FormFieldBehavior>();
+  private preventUnsavedIsAttached = false;
 
   /**
    * True if this form is valid.
@@ -32,19 +33,6 @@ export class FormLogic {
     log('Initializing', form);
     this.form = form;
     this.form.addEventListener('submit', this.handleSubmit);
-
-    if (this.form.dataset.preventUnsaved || this.form.dataset.preventUnsaved == "") {
-      log('Preventing Unsaved');
-      window.addEventListener('beforeunload', (e) => {
-        if (this.isUnchecked) {
-          const confirmationMessage = this.form.dataset.preventUnsaved;
-
-          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-          return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-        }
-      });
-    }
-    document.dispatchEvent(new Event('formBootstrap'));
   }
 
   /**
@@ -54,6 +42,7 @@ export class FormLogic {
    */
   @Bind
   handleSubmit(ev: Event) {
+    log('Submitting', this.form);
     ev.preventDefault();
     const currentValidation = !!this.isValid;
 
@@ -70,6 +59,7 @@ export class FormLogic {
    * Set the form in the valid state.
    */
   setValid() {
+    log('Set valid', this.form);
     this.isValid = true;
     this.form.classList.remove('form--invalid');
     this.form.classList.add('form--valid');
@@ -79,6 +69,7 @@ export class FormLogic {
    * Set the form in the invalid state.
    */
   setInvalid() {
+    log('Set invalid', this.form);
     this.isValid = false;
     this.form.classList.remove('form--valid');
     this.form.classList.add('form--invalid');
@@ -88,16 +79,33 @@ export class FormLogic {
    * Set the form in the unchecked state.
    */
   setUnchecked() {
+    log('Set unchecked', this.form);
     this.isUnchecked = true;
     this.isValid = false;
     this.form.classList.remove('form--valid', 'form--invalid');
     this.form.classList.add('form--unchecked');
+
+    // Prevent close the page with unsaved changes.
+    if (!this.preventUnsavedIsAttached &&
+        (this.form.dataset.preventUnsaved || this.form.dataset.preventUnsaved == "")) {
+      log('Preventing Unsaved');
+      window.addEventListener('beforeunload', (e) => {
+        if (this.isUnchecked) {
+          const confirmationMessage = this.form.dataset.preventUnsaved;
+
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        }
+      });
+      this.preventUnsavedIsAttached = true;
+    }
   }
 
   /**
    * Set the form in the checked state.
    */
   setChecked() {
+    log('Set checked', this.form);
     this.isUnchecked = false;
     this.form.classList.remove('form--unchecked');
   }
@@ -106,6 +114,7 @@ export class FormLogic {
    * Cleans all the states, errors and values of the form.
    */
   cleanup() {
+    log('Cleaning', this.form);
     this.pristine();
     const fieldsAsArray = Array.from(this.fields.values());
     fieldsAsArray.map(f => f.cleanup());
@@ -115,6 +124,7 @@ export class FormLogic {
    * Set the form in the pristine state, preserving values, removing the validations and unchecked.
    */
   pristine() {
+    log('Set pristine', this.form);
     this.isValid = false;
     this.isUnchecked = false;
     this.form.classList.remove('form--unchecked', 'form--valid', 'form--invalid');
@@ -140,6 +150,7 @@ export class FormLogic {
    * Runs all field validations from the form.
    */
   validate(): Promise<ValidationError[]> {
+    log('Validating form', this.form);
     const fieldsAsArray = Array.from(this.fields.values());
     return Promise.all(fieldsAsArray
       .map(f => f.validate()
@@ -170,6 +181,7 @@ export class FormLogic {
   }
 
   serialize(options?: SerializeFormOptions) {
+    log('Serializing', this.form, serializeForm(this.form, options));
     return serializeForm(this.form, options);
   }
 }

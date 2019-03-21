@@ -1,13 +1,26 @@
 import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
+import debug from 'debug/src/browser';
+
+const log = debug('solar:ControllerBehavior');
 
 /**
  * Used to implement a Controller Component logic.
+ * A controller component is a singleton that can make operations in a context of layout, breaking the atomic design.
+ * Is useful to create modals, toasts etc.
+ * This was based on the abstraction of the Ionic Team.
  */
 export class ControllerBehavior<T> extends ComponentBehavior<ControllerComponent<T>> {
+  /**
+   * The element that it is bounded.
+   */
   root: HTMLElement;
 
+  /**
+   * Bound the controller to the provided bound or to the parentElement.
+   */
   attach() {
     this.root = document.querySelector(this.component.bound) || this.component.host.parentElement;
+    log('Bounding', this.root);
   }
 
   /**
@@ -19,6 +32,8 @@ export class ControllerBehavior<T> extends ComponentBehavior<ControllerComponent
     const {content, templateId, ...realProps} = props;
 
     Object.assign(element, realProps);
+
+    log('Creating', element);
 
     if (templateId) {
       const template = <HTMLTemplateElement> document.getElementById(templateId);

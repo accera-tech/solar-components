@@ -3,8 +3,6 @@ import { Bind } from '../../../utils/lang/bind';
 
 /**
  * Accera's full-featured Input webcomponent.
- * Native Props that's not implemented yet:
- * ```max min autofocus autocorrect autocomplete autocapitalize```
  */
 @Component({
   tag: 'ac-input-base',
@@ -16,7 +14,7 @@ export class AcInputBase implements ComponentInterface {
   @Element() host: HTMLAcInputBaseElement;
 
   /**
-   * The native HTML field name.
+   * The native HTMLInputElement name attribute.
    */
   @Prop() name: string;
 
@@ -36,7 +34,7 @@ export class AcInputBase implements ComponentInterface {
   @Prop() type: string;
 
   /**
-   * The pattern of the internal input.
+   * The native HTMLInputElement pattern attribute.
    */
   @Prop({ reflectToAttr: true }) pattern: string;
 
@@ -46,14 +44,39 @@ export class AcInputBase implements ComponentInterface {
   @Prop() readonly: boolean;
 
   /**
-   * The HTML disabled mode.
+   * The HTMLInputElement disabled attribute.
    */
   @Prop() disabled: boolean;
 
   /**
-   * The native HTML required mode.
+   * The native HTMLInputElement required attribute.
    */
   @Prop({ reflectToAttr: true }) required: boolean;
+
+  /**
+   * The native HTMLInputElement max attribute.
+   */
+  @Prop({ reflectToAttr: true }) max: number;
+
+  /**
+   * The native HTMLInputElement min attribute.
+   */
+  @Prop({ reflectToAttr: true }) min: number;
+
+  /**
+   * The native HTMLInputElement autofocus attribute.
+   */
+  @Prop({ reflectToAttr: true }) autofocus: boolean;
+
+  /**
+   * The native HTMLInputElement autocomplete attribute.
+   */
+  @Prop({ reflectToAttr: true }) autocomplete: string;
+
+  /**
+   * The native HTMLInputElement autocapitalize attribute.
+   */
+  @Prop({ reflectToAttr: true }) autocapitalize: string;
 
   /**
    * Fired when the value of the internal input changes.
@@ -110,6 +133,11 @@ export class AcInputBase implements ComponentInterface {
           readonly={this.readonly}
           disabled={this.disabled}
           required={this.required}
+          max={this.max}
+          min={this.min}
+          autofocus={this.autofocus}
+          autocomplete={this.autocomplete}
+          autocapitalize={this.autocapitalize}
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}

@@ -82,6 +82,30 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Auto Generated Below -->
 
 
@@ -96,7 +120,7 @@
 
 ### `clear() => Promise<void[]>`
 
-Clear properties of the managed component.
+Clear all modals that are displayed.
 
 #### Returns
 
@@ -106,7 +130,7 @@ Type: `Promise<void[]>`
 
 ### `set(props: any) => any`
 
-Set properties to the managed component.
+Setup a new modal on the screen.
 
 #### Parameters
 

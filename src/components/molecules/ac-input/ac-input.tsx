@@ -63,14 +63,39 @@ export class AcInput implements FormFieldComponent {
   @Prop() name: string;
 
   /**
-   * The disabled mode
+   * The disabled mode.
    */
   @Prop() disabled: boolean;
 
   /**
-   * Set this field as required
+   * Set this field as required. A validation error message can be provided as well.
    */
   @Prop({ reflectToAttr: true }) required: string | boolean;
+
+  /**
+   * The native HTMLInputElement max attribute.
+   */
+  @Prop({ reflectToAttr: true }) max: number;
+
+  /**
+   * The native HTMLInputElement min attribute.
+   */
+  @Prop({ reflectToAttr: true }) min: number;
+
+  /**
+   * The native HTMLInputElement autofocus attribute.
+   */
+  @Prop({ reflectToAttr: true }) autofocus: boolean;
+
+  /**
+   * The native HTMLInputElement autocomplete attribute.
+   */
+  @Prop({ reflectToAttr: true }) autocomplete: string;
+
+  /**
+   * The native HTMLInputElement autocapitalize attribute.
+   */
+  @Prop({ reflectToAttr: true }) autocapitalize: string;
 
   /**
    * The validations that this field need.
@@ -85,6 +110,9 @@ export class AcInput implements FormFieldComponent {
    */
   @Event({ bubbles: true }) change: EventEmitter<any>;
 
+  /**
+   * Used to toggle the password view.
+   */
   @State() isShowingPassword: boolean;
 
   componentDidLoad() {
@@ -98,12 +126,19 @@ export class AcInput implements FormFieldComponent {
     }
 
     if (this.mask) {
-      vanillaMasker(this.acInputBase.querySelector('.ac-input__native')).maskPattern(this.mask)
+      vanillaMasker(this.acInputBase.querySelector('.ac-input__native')).maskPattern(this.mask);
+      // Masking the initial value
+      if (this.value)
+        this.value = vanillaMasker.toPattern(this.value, this.mask);
     }
   }
 
+  /**
+   * Set the error state based on the error prop.
+   * @param error
+   */
   @Watch('error')
-  errorDidUpdate(error) {
+  errorDidUpdate(error: string) {
     this.acInputBase.classList.add(error ? 'ac-input--alert' : 'ac-input--success');
     this.acInputBase.classList.remove(error ? 'ac-input--success' : 'ac-input--alert');
 
@@ -111,25 +146,44 @@ export class AcInput implements FormFieldComponent {
     else this.formFieldBehavior.setValid();
   }
 
+  /**
+   * Applies transformations when the value update.
+   */
   @Watch('value')
-  valueDidUpdate(value) {
-    if (value && value != '') {
-      this.formFieldBehavior.setDirty();
-      this.formFieldBehavior.validate();
+  valueDidUpdate() {
+    // @TODO: Review how to set the dirty state in the form for programmatically value changes.
+    // this.formFieldBehavior.setDirty();
+    // this.formFieldBehavior.validate();
+
+    // Masking when value update programmatically
+    if (this.mask) {
+      this.value = vanillaMasker.toPattern(this.value, this.mask);
     }
   }
 
+  /**
+   * Toggle the password view.
+   */
   @Bind
   private togglePassword() {
     this.isShowingPassword = !this.isShowingPassword;
   }
 
+  /**
+   * Used as a listener to the change event. Dispatch form field validations.
+   */
   @Bind
   private handleChange() {
     this.value = this.acInputBase.value;
     this.change.emit(this.value);
+
+    this.formFieldBehavior.setDirty();
+    this.formFieldBehavior.validate();
   }
 
+  /**
+   * Used as a listener to the blur event. Dispatch form field validations.
+   */
   @Bind
   private handleBlur() {
     this.formFieldBehavior.setTouched();
@@ -150,6 +204,11 @@ export class AcInput implements FormFieldComponent {
         value={this.value}
         disabled={this.disabled}
         required={!!this.required}
+        max={this.max}
+        min={this.min}
+        autofocus={this.autofocus}
+        autocomplete={this.autocomplete}
+        autocapitalize={this.autocapitalize}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
       >

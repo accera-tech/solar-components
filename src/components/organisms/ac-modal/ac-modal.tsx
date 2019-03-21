@@ -3,20 +3,36 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
 
+/**
+ * Accera's full-featured modal webcomponent.
+ */
 @Component({
   tag: 'ac-modal',
   styleUrl: 'ac-modal.scss',
 })
 export class AcModal implements TransitionComponent {
+  /**
+   * The instance of the transition behavior used to animate this component.
+   */
   transitionBehavior = new TransitionBehavior(this);
 
   @Element() host: HTMLAcModalElement;
+
+  /**
+   * The title that will be displayed on the modal.
+   */
   @Prop() title: string;
 
+  /**
+   * Dispatched when the modal closes.
+   */
   @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
 
   componentWillLoad() {}
 
+  /**
+   * Close the modal programmatically and dispatch the close event.
+   */
   @Method()
   @Bind
   close() {

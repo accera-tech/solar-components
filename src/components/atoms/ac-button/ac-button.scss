@@ -7,8 +7,6 @@
 @mixin button-variations($selector, $color-name) {
   // Solid Style (default)
   // fill="solid"
-  // --------------------------------------------------  // Solid Style (default)
-  // fill="solid"
   // --------------------------------------------------
 
   :host(#{$selector}) {

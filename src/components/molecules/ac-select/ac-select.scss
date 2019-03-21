@@ -85,12 +85,19 @@ ac-select {
 
 @include scrollbar('ac-select ul.ac-select__list');
 
+
+// Panel at top mode
+// --------------------------------------------------
+
 ac-select.ac-select--top {
   ac-panel {
     bottom: calc(100% + #{$spacer-tiny});
   }
 }
 
+
+// Panel at bottom mode
+// --------------------------------------------------
 
 ac-select.ac-select--bottom {
   ac-panel {

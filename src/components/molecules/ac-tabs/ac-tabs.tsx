@@ -30,6 +30,9 @@ export class AcTabs {
     }, 500);
   }
 
+  /**
+   * Load the tabs from the children.
+   */
   private loadTabsFromHTML() {
     this.childTabs = Array.from(this.host.querySelectorAll('ac-tab'));
     this.currentTab = this.childTabs.find( tab => tab.active);
@@ -42,6 +45,10 @@ export class AcTabs {
     return this.moveBulletToCurrentTab();
   }
 
+  /**
+   * Mark a tab as selected.
+   * @param tab
+   */
   private async select(tab: HTMLAcTabElement) {
     if (this.currentTab.id !== tab.id) {
       this.currentTab.active = false;
@@ -52,6 +59,9 @@ export class AcTabs {
     }
   }
 
+  /**
+   * Animate the bullet element to a tab on the screen.
+   */
   private moveBulletToCurrentTab() {
     const bulletBounding = this.currentTab.getBoundingClientRect();
     const hostBounding = this.host.getBoundingClientRect();
@@ -66,6 +76,9 @@ export class AcTabs {
       .then(removeClass('ac-tabs__bullet--moving'));
   }
 
+  /**
+   * Update the bullet element position when occurs a scroll, preventing breaks on the layout.
+   */
   @Bind
   private handleWrapperScroll() {
     this.bulletElt.style.transform = `translateX(-${this.wrapperElt.scrollLeft}px)`;

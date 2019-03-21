@@ -11,8 +11,10 @@ import { extendMethod } from '../utils/lang/extend-method';
  */
 export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
 
+  /**
+   * Applies a mokeypatch of componentWillLoad to add the transition hooks. Also, it dispatch the CSS transitions.
+   */
   beforeAttach() {
-    // Mokeypatch componentWillLoad.
     extendMethod(this.component, 'componentWillLoad', async componentWillLoad => {
       this.component.host.classList.add('transition--before-enter');
        await animate(this.component.host).then(wait());
@@ -20,6 +22,10 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
     });
   }
 
+  /**
+   * Execute the componentWillEnter transition.
+   * Also, it applies a mokeypatch of the native Element#remove function to add the transition hooks.
+   */
   async attach() {
     if (this.component.componentWillEnter) await this.component.componentWillEnter();
     this.component.host.classList.replace('transition--before-enter', 'transition--after-enter');
@@ -32,7 +38,7 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
   detach() {}
 
   /**
-   * A custom remove teardown used to replace the native HTMLElement#remove, dispatching transitions.
+   * A custom remove teardown used to replace the native HTMLElement#remove, dispatching the CSS transitions.
    */
   async customRemoveFn() {
       // Deep animations
@@ -52,11 +58,22 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
  */
 export interface TransitionComponent extends ComponentBase {
   /**
-   * The behavior instance itself.
+   * The behavior instance itself applied to the component.
    */
   transitionBehavior: TransitionBehavior;
 
+  /**
+   * A hook dispatched when the component loads. Supporting async operations.
+   */
   componentWillLoad: () => Promise<void> | void;
+
+  /**
+   * A hook dispatched when the component appears on the screen.
+   */
   componentWillEnter?: () => Promise<any> | void;
+
+  /**
+   * A hook dispatched when the component leaves the screen.
+   */
   componentWillLeave?: () => Promise<any> | void;
 }

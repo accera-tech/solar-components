@@ -1,5 +1,8 @@
 @import "../../../theme/variables";
 
+// General Stepper Style
+// --------------------------------------------------
+
 ac-stepper {
   display: flex;
 
@@ -43,6 +46,4 @@ ac-stepper {
       }
     }
   }
-
-
 }
