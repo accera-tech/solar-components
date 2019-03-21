@@ -224,6 +224,10 @@ export namespace Components {
     */
     'name': string;
     /**
+    * The pattern of the internal input.
+    */
+    'pattern': string;
+    /**
     * Enable readonly.
     */
     'readonly': boolean;
@@ -257,6 +261,10 @@ export namespace Components {
     * Fired when the value of the internal input changes.
     */
     'onChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The pattern of the internal input.
+    */
+    'pattern'?: string;
     /**
     * Enable readonly.
     */
@@ -341,6 +349,14 @@ export namespace Components {
     */
     'name': string;
     /**
+    * The pattern of the internal input.
+    */
+    'pattern': string;
+    /**
+    * The pattern of the internal input.
+    */
+    'patternMessage': string;
+    /**
     * Set this field as required
     */
     'required': string | boolean;
@@ -386,6 +402,14 @@ export namespace Components {
     * Fired when the value of the internal input changes.
     */
     'onChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The pattern of the internal input.
+    */
+    'pattern'?: string;
+    /**
+    * The pattern of the internal input.
+    */
+    'patternMessage'?: string;
     /**
     * Set this field as required
     */

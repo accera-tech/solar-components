@@ -34,6 +34,16 @@ export class AcInput implements FormFieldComponent {
   @Prop() type: string;
 
   /**
+   * The pattern of the internal input.
+   */
+  @Prop({ reflectToAttr: true }) pattern: string;
+
+  /**
+   * The pattern of the internal input.
+   */
+  @Prop({ reflectToAttr: true }) patternMessage: string;
+
+  /**
    * The helper text to guide the user.
    */
   @Prop() helperText: string;
@@ -83,6 +93,14 @@ export class AcInput implements FormFieldComponent {
     else this.formFieldBehavior.setValid();
   }
 
+  @Watch('value')
+  valueDidUpdate(value) {
+    if (value && value != '') {
+      this.formFieldBehavior.setDirty();
+      this.formFieldBehavior.validate();
+    }
+  }
+
   @Bind
   private togglePassword() {
     this.isShowingPassword = !this.isShowingPassword;
@@ -92,9 +110,6 @@ export class AcInput implements FormFieldComponent {
   private handleChange() {
     this.value = this.acInputBase.value;
     this.change.emit(this.value);
-
-    this.formFieldBehavior.setDirty();
-    this.formFieldBehavior.validate()
   }
 
   @Bind
@@ -113,6 +128,7 @@ export class AcInput implements FormFieldComponent {
         label={this.label}
         name={this.name}
         type={this.isShowingPassword ? 'text' : this.type}
+        pattern={this.pattern}
         value={this.value}
         disabled={this.disabled}
         required={!!this.required}

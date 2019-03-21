@@ -1,6 +1,7 @@
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
 import { ValidationError } from '../../utils/validations/validations';
 import { isRequired } from '../../utils/validations/isRequired';
+import { matchPattern } from '../../utils/validations/matchPattern';
 
 import { FormLogic } from './form-logic';
 import { FormFieldComponent } from './form-field-component';
@@ -129,6 +130,10 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     let validateFns = [];
     if (validateFn instanceof Array) validateFns = validateFn;
     else if (validateFn) validateFns = [ validateFn ];
+
+    if (this.component.pattern) {
+      validateFns.unshift(matchPattern(this.component.pattern, this.component.patternMessage));
+    }
 
     if (this.component.required) {
       validateFns.unshift(isRequired(this.component.required));

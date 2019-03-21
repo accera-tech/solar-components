@@ -36,6 +36,11 @@ export class AcInputBase implements ComponentInterface {
   @Prop() type: string;
 
   /**
+   * The pattern of the internal input.
+   */
+  @Prop({ reflectToAttr: true }) pattern: string;
+
+  /**
    * Enable readonly.
    */
   @Prop() readonly: boolean;
@@ -48,7 +53,7 @@ export class AcInputBase implements ComponentInterface {
   /**
    * The native HTML required mode.
    */
-  @Prop() required: boolean;
+  @Prop({ reflectToAttr: true }) required: boolean;
 
   /**
    * Fired when the value of the internal input changes.
@@ -101,6 +106,7 @@ export class AcInputBase implements ComponentInterface {
           name={this.name}
           value={this.value}
           type={this.type || 'text'}
+          pattern={this.pattern}
           readonly={this.readonly}
           disabled={this.disabled}
           required={this.required}
