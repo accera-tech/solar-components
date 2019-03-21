@@ -345,15 +345,19 @@ export namespace Components {
     */
     'label': string;
     /**
+    * The mask of the input.
+    */
+    'mask': string;
+    /**
     * The HTML input field's name.
     */
     'name': string;
     /**
-    * The pattern of the internal input.
+    * The pattern of the input.
     */
     'pattern': string;
     /**
-    * The pattern of the internal input.
+    * The message displayed if the pattern doesnt match.
     */
     'patternMessage': string;
     /**
@@ -395,6 +399,10 @@ export namespace Components {
     */
     'label'?: string;
     /**
+    * The mask of the input.
+    */
+    'mask'?: string;
+    /**
     * The HTML input field's name.
     */
     'name'?: string;
@@ -403,11 +411,11 @@ export namespace Components {
     */
     'onChange'?: (event: CustomEvent<any>) => void;
     /**
-    * The pattern of the internal input.
+    * The pattern of the input.
     */
     'pattern'?: string;
     /**
-    * The pattern of the internal input.
+    * The message displayed if the pattern doesnt match.
     */
     'patternMessage'?: string;
     /**

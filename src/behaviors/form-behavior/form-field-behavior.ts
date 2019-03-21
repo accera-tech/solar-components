@@ -1,7 +1,6 @@
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
 import { ValidationError } from '../../utils/validations/validations';
 import { isRequired } from '../../utils/validations/isRequired';
-import { matchPattern } from '../../utils/validations/matchPattern';
 
 import { FormLogic } from './form-logic';
 import { FormFieldComponent } from './form-field-component';
@@ -131,24 +130,22 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     if (validateFn instanceof Array) validateFns = validateFn;
     else if (validateFn) validateFns = [ validateFn ];
 
-    if (this.component.pattern) {
-      validateFns.unshift(matchPattern(this.component.pattern, this.component.patternMessage));
-    }
-
     if (this.component.required) {
       validateFns.unshift(isRequired(this.component.required));
     }
 
     // Running all validator functions
     for (const fn of validateFns) {
-      const exec = fn(this.component.value, this.formAttached);
-      let res;
-      if (exec instanceof Promise) res = await exec;
-      else res = exec;
+      if (fn) {
+        const exec = fn(this.component.value, this.formAttached);
+        let res;
+        if (exec instanceof Promise) res = await exec;
+        else res = exec;
 
-      if (res) {
-        this.component.error = res.message || res;
-        return res.message ? res : { message: res };
+        if (res) {
+          this.component.error = res.message || res;
+          return res.message ? res : {message: res};
+        }
       }
     }
 

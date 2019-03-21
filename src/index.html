@@ -31,6 +31,16 @@
     <i class="fas fa-lock" slot="item-start"></i>
   </ac-input>
 
+  <h2>Input with Pattern Validation</h2>
+  <ac-input id="patternInput" label="Your Nickname" type="text" pattern="^[a-zA-Z0-9]+$" pattern-message="Dont use special characters">
+    <i class="fas fa-user" slot="item-start"></i>
+  </ac-input>
+
+  <h2>Input with Mask</h2>
+  <ac-input id="patternInput" label="Phone" type="text" mask="(99) 99999-9999">
+    <i class="fas fa-phone" slot="item-start"></i>
+  </ac-input>
+
   <h2>Select Box</h2>
   <h3>Single Select</h3>
   <ac-select id="selectExample" label="Artist"></ac-select>

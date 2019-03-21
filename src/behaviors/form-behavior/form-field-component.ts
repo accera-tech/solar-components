@@ -14,18 +14,6 @@ export interface FormFieldComponent extends ComponentBase {
   value: any;
 
   /**
-   * The RegExp pattern of the input.
-   * @Prop
-   */
-  pattern?: string;
-
-  /**
-   * The message of the pattern for i18n.
-   * @Prop
-   */
-  patternMessage?: string;
-
-  /**
    * The validators that ensure the field validity.
    * @Prop
    */

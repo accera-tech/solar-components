@@ -1,8 +1,10 @@
-import { Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
+import {Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { ValidatorFunction } from '../../../utils/validations/validations';
 import { Bind } from '../../../utils/lang/bind';
+import { matchPattern } from '../../../utils/validations/matchPattern';
+import vanillaMasker from 'vanilla-masker';
 
 /**
  * Accera's full-featured Input Field webcomponent.
@@ -34,14 +36,19 @@ export class AcInput implements FormFieldComponent {
   @Prop() type: string;
 
   /**
-   * The pattern of the internal input.
+   * The pattern of the input.
    */
   @Prop({ reflectToAttr: true }) pattern: string;
 
   /**
-   * The pattern of the internal input.
+   * The message displayed if the pattern doesnt match.
    */
   @Prop({ reflectToAttr: true }) patternMessage: string;
+
+  /**
+   * The mask of the input.
+   */
+  @Prop({ reflectToAttr: true }) mask: string;
 
   /**
    * The helper text to guide the user.
@@ -71,7 +78,7 @@ export class AcInput implements FormFieldComponent {
    * - Blur event
    * - Form submit event
    */
-  @Prop() validateFn: ValidatorFunction | ValidatorFunction[];
+  @Prop({ mutable: true }) validateFn: ValidatorFunction | ValidatorFunction[];
 
   /**
    * Fired when the value of the internal input changes.
@@ -82,6 +89,17 @@ export class AcInput implements FormFieldComponent {
 
   componentDidLoad() {
     this.errorDidUpdate(this.error);
+
+    // Add pattern validation to the validation pipeline
+    if (this.pattern) {
+      if (this.validateFn instanceof Array)
+        this.validateFn.unshift(matchPattern(this.pattern, this.patternMessage));
+      else this.validateFn = [ matchPattern(this.pattern, this.patternMessage), this.validateFn ];
+    }
+
+    if (this.mask) {
+      vanillaMasker(this.acInputBase.querySelector('.ac-input__native')).maskPattern(this.mask)
+    }
   }
 
   @Watch('error')
