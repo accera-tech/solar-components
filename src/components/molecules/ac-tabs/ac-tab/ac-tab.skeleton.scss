@@ -1,6 +1,7 @@
 @import "../../../../theme/variables";
 @import "ac-tab.vars";
 
+// @TODO: Review the skeleton usage.
 @include component-skeleton("ac-tab") {
   @include skeleton-base("skeleton-background");
   display: inline-block;
@@ -9,7 +10,8 @@
   padding: 0;
   font-size: inherit;
   color: transparent;
+  @include text-skeleton("*", $ac-tab__font-size);
   * {
-    display: none;
+    display: inherit !important;
   }
 }
