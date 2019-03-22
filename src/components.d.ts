@@ -298,10 +298,6 @@ export namespace Components {
     */
     'name'?: string;
     /**
-    * Fired when the value of the internal input changes.
-    */
-    'onChange'?: (event: CustomEvent<any>) => void;
-    /**
     * The native HTMLInputElement pattern attribute.
     */
     'pattern'?: string;
@@ -446,6 +442,10 @@ export namespace Components {
     */
     'required': string | boolean;
     /**
+    * Update the value and run validations as if the user change it manually. When to use each: input.value will only update the value, useful to set the initial value of the input. input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state to the form.
+    */
+    'setValue': (value: any) => void;
+    /**
     * The type of the internal input.
     */
     'type': string;
@@ -507,10 +507,6 @@ export namespace Components {
     * The HTML input field's name.
     */
     'name'?: string;
-    /**
-    * Fired when the value of the internal input changes.
-    */
-    'onChange'?: (event: CustomEvent<any>) => void;
     /**
     * The pattern of the input.
     */
