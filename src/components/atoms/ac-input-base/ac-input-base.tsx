@@ -1,4 +1,4 @@
-import { Component, Prop, Element, State, Event, EventEmitter, ComponentInterface } from '@stencil/core';
+import { Component, Prop, Element, State, ComponentInterface } from '@stencil/core';
 import { Bind } from '../../../utils/lang/bind';
 
 /**
@@ -78,11 +78,6 @@ export class AcInputBase implements ComponentInterface {
    */
   @Prop({ reflectToAttr: true }) autocapitalize: string;
 
-  /**
-   * Fired when the value of the internal input changes.
-   */
-  @Event({ bubbles: true }) change: EventEmitter<any>;
-
   @State() hasFocus: boolean;
 
   @Bind
@@ -94,12 +89,12 @@ export class AcInputBase implements ComponentInterface {
   @Bind
   private handleBlur() {
     this.hasFocus = false;
+    this.host.dispatchEvent(new (window as any).Event('blur'));
   }
 
   @Bind
   private handleChange() {
     this.value = this.nativeInput.value;
-    this.change.emit(this.value);
   }
 
   hostData() {

@@ -1,4 +1,4 @@
-import {Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
+import { Component, Prop, Element, State, Watch, Method } from '@stencil/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { ValidatorFunction } from '../../../utils/validations/validations';
@@ -106,11 +106,6 @@ export class AcInput implements FormFieldComponent {
   @Prop({ mutable: true }) validateFn: ValidatorFunction | ValidatorFunction[];
 
   /**
-   * Fired when the value of the internal input changes.
-   */
-  @Event({ bubbles: true }) change: EventEmitter<any>;
-
-  /**
    * Used to toggle the password view.
    */
   @State() isShowingPassword: boolean;
@@ -151,14 +146,27 @@ export class AcInput implements FormFieldComponent {
    */
   @Watch('value')
   valueDidUpdate() {
-    // @TODO: Review how to set the dirty state in the form for programmatically value changes.
-    // this.formFieldBehavior.setDirty();
-    // this.formFieldBehavior.validate();
-
     // Masking when value update programmatically
     if (this.mask) {
       this.value = vanillaMasker.toPattern(this.value, this.mask);
     }
+  }
+
+  /**
+   * Update the value and run validations as if the user change it manually.
+   * When to use each:
+   * input.value will only update the value, useful to set the initial value of the input.
+   * input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state
+   * to the form.
+   * @param value
+   */
+  @Method()
+  setValue(value) {
+    this.value = value;
+
+    // @TODO: Review how to set the dirty state in the form for programmatically value changes.
+    this.formFieldBehavior.setDirty();
+    this.formFieldBehavior.validate();
   }
 
   /**
@@ -175,7 +183,6 @@ export class AcInput implements FormFieldComponent {
   @Bind
   private handleChange() {
     this.value = this.acInputBase.value;
-    this.change.emit(this.value);
 
     this.formFieldBehavior.setDirty();
     this.formFieldBehavior.validate();
@@ -187,7 +194,6 @@ export class AcInput implements FormFieldComponent {
   @Bind
   private handleBlur() {
     this.formFieldBehavior.setTouched();
-    this.formFieldBehavior.validate();
   }
 
   render() {
