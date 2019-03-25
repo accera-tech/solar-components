@@ -1,4 +1,4 @@
-import { configure, addDecorator } from '@storybook/html';
+import { configure } from '@storybook/html';
 // import { withInfo } from '@storybook/addon-info';
 
 // automatically import all files ending in *.stories.js
