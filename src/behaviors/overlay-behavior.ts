@@ -12,7 +12,11 @@ export class OverlayBehavior extends ComponentBehavior<OverlayComponent> {
    * @param ev
    */
   private handleBodyClick = (ev: any) => {
-    if (ev.target.closest(this.component.host.tagName.toLowerCase()) !== this.component.host
+    const isClickingOutsideTheTarget = this.component.overlayTarget ?
+      ev.target.closest(this.component.overlayTarget.tagName.toLowerCase()) !== this.component.overlayTarget
+      : ev.target.closest(this.component.host.tagName.toLowerCase()) !== this.component.host;
+
+    if (isClickingOutsideTheTarget
       && ev.target.dataset.toggle !== this.component.host.id) {
       log('Clicked outside', this.component);
       this.component.whenClickOutside();
@@ -47,4 +51,9 @@ export interface OverlayComponent extends ComponentBase {
    * Called when the behavior detects a click outside of the component.
    */
   whenClickOutside: () => void;
+
+  /**
+   * The target to be checked. If it is null, the host field will be used.
+   */
+  overlayTarget?: HTMLElement;
 }
