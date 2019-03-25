@@ -210,3 +210,16 @@
     cursor: not-allowed;
   }
 }
+
+
+// Block mode
+// block
+// --------------------------------------------------
+
+:host(.ac-button--block) {
+  width: 100%;
+  .ac-button__native {
+    width: 100%;
+    justify-content: center;
+  }
+}

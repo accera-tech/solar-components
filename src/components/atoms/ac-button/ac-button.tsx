@@ -47,6 +47,11 @@ export class AcButton implements ComponentInterface {
   @Prop() fill: 'clear' | 'solid' | 'flat' | 'outline' = 'solid';
 
   /**
+   * Button in full-width mode.
+   */
+  @Prop() block: boolean;
+
+  /**
    * An optional link to open when click on it.
    * Turns the button into a anchor element.
    */
@@ -92,7 +97,8 @@ export class AcButton implements ComponentInterface {
         [`ac-button--${this.fill}`]: this.fill !== undefined,
         'ac-button--icon-only': this.iconOnly,
         'ac-button--disabled': this.disabled,
-        'ac-button--loading' : this.loading
+        'ac-button--loading' : this.loading,
+        'ac-button--block' : this.block
       }
     };
   }
