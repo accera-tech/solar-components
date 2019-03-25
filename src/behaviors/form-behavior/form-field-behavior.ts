@@ -137,9 +137,14 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     if (validateFn instanceof Array) validateFns = validateFn;
     else if (validateFn) validateFns = [ validateFn ];
 
+    let hasRequiredCheck = false;
     if (this.component.required) {
+      hasRequiredCheck = true;
       validateFns.unshift(isRequired(this.component.required));
     }
+
+    if (!hasRequiredCheck && !this.component.value)
+      return this.component.error = null;
 
     // Running all validator functions
     for (const fn of validateFns) {
