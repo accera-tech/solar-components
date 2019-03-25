@@ -1,4 +1,4 @@
-import { Component, Prop, Element, State, ComponentInterface } from '@stencil/core';
+import { Component, Prop, Element, State, ComponentInterface, Method } from '@stencil/core';
 import { Bind } from '../../../utils/lang/bind';
 
 /**
@@ -22,6 +22,11 @@ export class AcInputBase implements ComponentInterface {
    * The label text of the this input group.
    */
   @Prop() label: string;
+
+  /**
+   * The render mode of the input.
+   */
+  @Prop() mode: 'compact';
 
   /**
    * The value of the internal input.
@@ -80,6 +85,14 @@ export class AcInputBase implements ComponentInterface {
 
   @State() hasFocus: boolean;
 
+  /**
+   * Set focus state in the native input.
+   */
+  @Method()
+  setFocus() {
+    this.nativeInput.focus();
+  }
+
   @Bind
   private handleFocus() {
     this.hasFocus = true;
@@ -100,6 +113,7 @@ export class AcInputBase implements ComponentInterface {
   hostData() {
     return {
       class: {
+        [`ac-input--${this.mode}`]: !!this.mode,
         'ac-input--disabled': this.disabled,
         'ac-input--focus': this.hasFocus,
         'ac-input--filled': !!this.value && this.value !== '',

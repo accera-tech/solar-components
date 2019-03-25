@@ -7,4 +7,8 @@
   min-height: $ac-input-base__min-height;
   border-radius: $border-radius-default;
   border: none;
+
+  &[mode="compact"] {
+    min-height: $ac-input-base--compact__min-height;
+  }
 }
