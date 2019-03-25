@@ -169,6 +169,15 @@ export class AcInput implements FormFieldComponent {
     this.formFieldBehavior.validate();
   }
 
+
+  /**
+   * Set focus state in the native input.
+   */
+  @Method()
+  setFocus() {
+    this.acInputBase.setFocus();
+  }
+
   /**
    * Toggle the password view.
    */
