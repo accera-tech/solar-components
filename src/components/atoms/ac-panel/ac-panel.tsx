@@ -15,8 +15,10 @@ export class AcPanel implements TransitionComponent {
   componentWillLoad() {}
 
   render() {
-    return (
-      <slot />
-    );
+    return [
+      <slot name="item-top" />,
+      <slot />,
+      <slot name="item-bottom" />
+    ];
   }
 }

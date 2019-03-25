@@ -9,6 +9,10 @@ ac-select {
   display: flex;
   flex-direction: column;
 
+  & > [slot="item-top"], & > [slot="item-bottom"] {
+    display: none !important;
+  }
+
   .ac-input__helper-text {
     display: block;
     margin-top: $spacer-tiny;

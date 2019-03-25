@@ -136,13 +136,15 @@ export class AcSelect implements OverlayComponent {
 
   @Watch('options')
   optionsDidUpdate() {
-    let selectedOptions = this.options.filter(o => o.selected); // Get all selected
-    if (selectedOptions.length > 0) {
-      this.value = selectedOptions.map(o => o.value);
-      this.formatSelectedText(selectedOptions);
-    } else {
-      selectedOptions = this.getOptionsByValue(this.value);
-      this.formatSelectedText(selectedOptions);
+    if (this.options) {
+      let selectedOptions = this.options.filter(o => o.selected); // Get all selected
+      if (selectedOptions.length > 0) {
+        this.value = selectedOptions.map(o => o.value);
+        this.formatSelectedText(selectedOptions);
+      } else {
+        selectedOptions = this.getOptionsByValue(this.value);
+        this.formatSelectedText(selectedOptions);
+      }
     }
   }
 
@@ -309,6 +311,7 @@ export class AcSelect implements OverlayComponent {
 
       this.isShowingPanel &&
         <ac-panel class="ac-select__panel">
+          <slot name="item-top" slot="item-top" />
           <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
             {this.options && this.options.map((item, index) => {
               if (item.separator) return (
@@ -324,6 +327,7 @@ export class AcSelect implements OverlayComponent {
               );
             })}
           </ul>
+          <slot name="item-bottom" slot="item-bottom" />
         </ac-panel>
     ];
   }
