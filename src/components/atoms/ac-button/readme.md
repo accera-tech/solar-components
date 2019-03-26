@@ -7,6 +7,7 @@
 
 | Property   | Attribute   | Description                                                                                                           | Type                                        |
 | ---------- | ----------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `block`    | `block`     | Button in full-width mode.                                                                                            | `boolean`                                   |
 | `disabled` | `disabled`  | The HTML5 native disable prop.                                                                                        | `boolean`                                   |
 | `fill`     | `fill`      | Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders | `"clear" \| "flat" \| "outline" \| "solid"` |
 | `href`     | `href`      | An optional link to open when click on it. Turns the button into a anchor element.                                    | `string`                                    |

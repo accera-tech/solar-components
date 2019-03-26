@@ -38847,21 +38847,35 @@
 
 ## Properties
 
-| Property         | Attribute        | Description                                           | Type      |
-| ---------------- | ---------------- | ----------------------------------------------------- | --------- |
-| `autocapitalize` | `autocapitalize` | The native HTMLInputElement autocapitalize attribute. | `string`  |
-| `autocomplete`   | `autocomplete`   | The native HTMLInputElement autocomplete attribute.   | `string`  |
-| `autofocus`      | `autofocus`      | The native HTMLInputElement autofocus attribute.      | `boolean` |
-| `disabled`       | `disabled`       | The HTMLInputElement disabled attribute.              | `boolean` |
-| `label`          | `label`          | The label text of the this input group.               | `string`  |
-| `max`            | `max`            | The native HTMLInputElement max attribute.            | `number`  |
-| `min`            | `min`            | The native HTMLInputElement min attribute.            | `number`  |
-| `name`           | `name`           | The native HTMLInputElement name attribute.           | `string`  |
-| `pattern`        | `pattern`        | The native HTMLInputElement pattern attribute.        | `string`  |
-| `readonly`       | `readonly`       | Enable readonly.                                      | `boolean` |
-| `required`       | `required`       | The native HTMLInputElement required attribute.       | `boolean` |
-| `type`           | `type`           | The type of the internal input.                       | `string`  |
-| `value`          | --               | The value of the internal input.                      | `any`     |
+| Property         | Attribute        | Description                                           | Type        |
+| ---------------- | ---------------- | ----------------------------------------------------- | ----------- |
+| `autocapitalize` | `autocapitalize` | The native HTMLInputElement autocapitalize attribute. | `string`    |
+| `autocomplete`   | `autocomplete`   | The native HTMLInputElement autocomplete attribute.   | `string`    |
+| `autofocus`      | `autofocus`      | The native HTMLInputElement autofocus attribute.      | `boolean`   |
+| `disabled`       | `disabled`       | The HTMLInputElement disabled attribute.              | `boolean`   |
+| `label`          | `label`          | The label text of the this input group.               | `string`    |
+| `max`            | `max`            | The native HTMLInputElement max attribute.            | `number`    |
+| `min`            | `min`            | The native HTMLInputElement min attribute.            | `number`    |
+| `mode`           | `mode`           | The render mode of the input.                         | `"compact"` |
+| `name`           | `name`           | The native HTMLInputElement name attribute.           | `string`    |
+| `pattern`        | `pattern`        | The native HTMLInputElement pattern attribute.        | `string`    |
+| `readonly`       | `readonly`       | Enable readonly.                                      | `boolean`   |
+| `required`       | `required`       | The native HTMLInputElement required attribute.       | `boolean`   |
+| `type`           | `type`           | The type of the internal input.                       | `string`    |
+| `value`          | --               | The value of the internal input.                      | `any`       |
+
+
+## Methods
+
+### `setFocus() => void`
+
+Set focus state in the native input.
+
+#### Returns
+
+Type: `void`
+
+
 
 
 ----------------------------------------------

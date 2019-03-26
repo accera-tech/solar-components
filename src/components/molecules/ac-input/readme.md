@@ -38871,6 +38871,16 @@
 
 ## Methods
 
+### `setFocus() => void`
+
+Set focus state in the native input.
+
+#### Returns
+
+Type: `void`
+
+
+
 ### `setValue(value: any) => void`
 
 Update the value and run validations as if the user change it manually.
