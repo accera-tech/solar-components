@@ -62,6 +62,19 @@
     </optgroup>
   </ac-select>
 
+  <ac-select label="With a custom item at end">
+    <option value="0">TNT</option>
+    <option value="1">Queen</option>
+    <option value="2">Metallica</option>
+    <option value="3" selected>AC/DC</option>
+    <div slot="item-bottom" style="margin: 8px; display: flex; justify-content: center">
+      <ac-button theme="primary" fill="clear" block>
+        <i class="fas fa-plus" slot="icon-start"></i>
+        Adicionar
+      </ac-button>
+    </div>
+  </ac-select>
+
   <h3>Disabled State</h3>
   <ac-select label="Band" disabled>
     <option value="0">TNT</option>
@@ -96,6 +109,7 @@
   <ac-button tooltip="This is a clear button" theme="black" fill="outline">Outline</ac-button>
   <ac-button tooltip="This is a clear button" disabled>Disabled</ac-button>
   <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
+  <ac-button block>Full Width</ac-button>
 
   <h2>Loading button</h2>
   <ac-button loading icon-only></ac-button>

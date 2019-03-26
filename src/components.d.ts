@@ -26,6 +26,10 @@ export namespace Components {
 
   interface AcButton {
     /**
+    * Button in full-width mode.
+    */
+    'block': boolean;
+    /**
     * The HTML5 native disable prop.
     */
     'disabled'?: boolean;
@@ -67,6 +71,10 @@ export namespace Components {
     'type': 'button' | 'submit' | 'reset';
   }
   interface AcButtonAttributes extends StencilHTMLAttributes {
+    /**
+    * Button in full-width mode.
+    */
+    'block'?: boolean;
     /**
     * The HTML5 native disable prop.
     */
@@ -240,6 +248,10 @@ export namespace Components {
     */
     'min': number;
     /**
+    * The render mode of the input.
+    */
+    'mode': 'compact';
+    /**
     * The native HTMLInputElement name attribute.
     */
     'name': string;
@@ -255,6 +267,10 @@ export namespace Components {
     * The native HTMLInputElement required attribute.
     */
     'required': boolean;
+    /**
+    * Set focus state in the native input.
+    */
+    'setFocus': () => void;
     /**
     * The type of the internal input.
     */
@@ -293,6 +309,10 @@ export namespace Components {
     * The native HTMLInputElement min attribute.
     */
     'min'?: number;
+    /**
+    * The render mode of the input.
+    */
+    'mode'?: 'compact';
     /**
     * The native HTMLInputElement name attribute.
     */
@@ -441,6 +461,10 @@ export namespace Components {
     * Set this field as required. A validation error message can be provided as well.
     */
     'required': string | boolean;
+    /**
+    * Set focus state in the native input.
+    */
+    'setFocus': () => void;
     /**
     * Update the value and run validations as if the user change it manually. When to use each: input.value will only update the value, useful to set the initial value of the input. input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state to the form.
     */
