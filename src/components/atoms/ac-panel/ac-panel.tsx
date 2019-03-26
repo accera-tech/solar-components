@@ -13,6 +13,7 @@ export class AcPanel implements TransitionComponent {
   @Element() host: HTMLAcPanelElement;
 
   componentWillLoad() {}
+  componentDidUnload() {}
 
   render() {
     return [

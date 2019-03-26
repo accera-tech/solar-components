@@ -51,4 +51,6 @@ export class AcModalController implements ControllerComponent<any> {
       modal.close();
     }));
   }
+
+  componentDidUnload() {}
 }

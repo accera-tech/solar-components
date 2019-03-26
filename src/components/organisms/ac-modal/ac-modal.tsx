@@ -29,6 +29,7 @@ export class AcModal implements TransitionComponent {
   @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
 
   componentWillLoad() {}
+  componentDidUnload() {}
 
   /**
    * Close the modal programmatically and dispatch the close event.

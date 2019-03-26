@@ -34,6 +34,8 @@ export class AcNavdrawer implements OverlayComponent {
     if (this.isOpened) this.toggle();
   }
 
+  componentDidUnload() {}
+
   /**
    * Toggle opened state of the modal drawer.
    */

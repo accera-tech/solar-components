@@ -117,6 +117,8 @@ export class AcSelect implements OverlayComponent {
     }
   }
 
+  componentDidUnload() {}
+
   /**
    * Toggle the panel view.
    */

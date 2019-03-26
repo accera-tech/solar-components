@@ -10,6 +10,11 @@ export interface ComponentBase extends ComponentInterface {
    * @Element
    */
   host: HTMLElement;
+
+  /**
+   * Stencil only calls componentDidUnload if it is declared in the component.
+   */
+  componentDidUnload: () => void;
 }
 
 /**
