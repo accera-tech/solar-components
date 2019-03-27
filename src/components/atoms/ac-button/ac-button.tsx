@@ -21,7 +21,7 @@ export class AcButton implements ComponentInterface {
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
 
   /**
-   * When hover this button, present a tootip text.
+   * When hover this button, present a tooltip text.
    */
   @Prop() tooltip?: string;
 
@@ -44,12 +44,12 @@ export class AcButton implements ComponentInterface {
    * * solid - Raised button, default
    * * clear - No background and no borders
    */
-  @Prop() fill: 'clear' | 'solid' | 'flat' | 'outline' = 'solid';
+  @Prop() fill: 'clear' | 'solid' | 'flat' = 'solid';
 
   /**
-   * Button in full-width mode.
+   * Button in width mode.
    */
-  @Prop() block: boolean;
+  @Prop() expand: 'block';
 
   /**
    * An optional link to open when click on it.
@@ -95,10 +95,10 @@ export class AcButton implements ComponentInterface {
         [`ac-button--${this.theme}`]: this.theme !== undefined,
         [`ac-button--${this.size}`]: this.size !== undefined,
         [`ac-button--${this.fill}`]: this.fill !== undefined,
+        [`ac-button--${this.expand}`]: this.expand !== undefined,
         'ac-button--icon-only': this.iconOnly,
         'ac-button--disabled': this.disabled,
         'ac-button--loading' : this.loading,
-        'ac-button--block' : this.block
       }
     };
   }

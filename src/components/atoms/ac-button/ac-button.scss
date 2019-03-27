@@ -40,7 +40,7 @@
   // fill="clear"
   // --------------------------------------------------
 
-  :host(#{$selector}.ac-button--clear), :host(#{$selector}.ac-button--outline) {
+  :host(#{$selector}.ac-button--clear) {
     .ac-button__native {
       color: var-color($color-name, "normal");
       fill: var-color($color-name, "normal");
@@ -53,18 +53,6 @@
       }
     }
   }
-
-
-  // Outline Style
-  // fill="outline"
-  // --------------------------------------------------
-
-  :host(#{$selector}.ac-button--outline) {
-    .ac-button__native {
-      border: 2px solid var-color($color-name, "normal");
-    }
-  }
-
 
   :host(#{$selector}.ac-button--loading) {
     pointer-events: none;
