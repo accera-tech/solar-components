@@ -1,5 +1,5 @@
 /**
- * Binds a method to it instance.
+ * A method decorator that binds a method to it instance.
  */
 //@ts-ignore
 export function Bind(target: any, name: string, descriptor: PropertyDescriptor) {

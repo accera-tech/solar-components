@@ -1,5 +1,5 @@
 /**
- * Useful to create iterations based on a count.
+ * Create a array based on a length, useful for arbitrary iterations.
  * @param to
  */
 export function count(to: number) {

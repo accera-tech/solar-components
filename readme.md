@@ -133,3 +133,9 @@ You can also use the variables defined in this lib in your SCSS:
 Consider follow these documentations to contribute in this repo:
 - [Stenciljs Styleguide](https://stenciljs.com/docs/style-guide)
 - [Atomic Design](http://atomicdesign.bradfrost.com/)
+
+### Best Practices
+- [WebComponents.org](https://www.webcomponents.org/community/articles/web-components-best-practices)
+- [Google WebComponents](https://developers.google.com/web/fundamentals/web-components/best-practices)
+- [Open WebComponents](https://open-wc.org/)
+- [WebComponents Gold Standard](https://github.com/webcomponents/gold-standard/wiki)

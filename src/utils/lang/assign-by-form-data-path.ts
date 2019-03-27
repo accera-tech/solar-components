@@ -1,10 +1,11 @@
 /**
- * Used to assign into a object field, accessing it by it Form Field Path.
+ * Used to assign into a object field, accessing it by it Form Data Path,
+ * commonly used in PHP's form data parsing engine.
  * @param target The target Object that will be assigned.
- * @param path The Form Field Path to assign the value. Ex: `user.name`.
+ * @param path The Form Data Path to assign the value. Ex: `user[name]`.
  * @param value The value of the field.
  */
-export function assignByPath(target, path, value) {
+export function assignByFormDataPath(target, path, value) {
   const pathTokens = path.split(/\[/).map(p => p.replace(/\]/, ''));
   let i;
   let actualTarget = target;

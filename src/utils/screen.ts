@@ -8,6 +8,11 @@ export interface ViewBounding extends Viewport {
   y: number;
 }
 
+/**
+ * Calculates the amount of space left in a viewport, assuming a box.
+ * @param bounding The box that will be positioned on the viewport.
+ * @param viewport The viewport definitions.
+ */
 export function leftSpaceOnViewport(bounding: ViewBounding | DOMRect, viewport: Viewport) {
   return {
     top: (viewport.height - (viewport.height - bounding.y)) - bounding.height,
@@ -17,6 +22,10 @@ export function leftSpaceOnViewport(bounding: ViewBounding | DOMRect, viewport: 
   }
 }
 
+/**
+ * Calculates the amount of space left in the window's viewport, assuming a box.
+ * @param bounding The box that will be positioned on the window.
+ */
 export function leftSpaceOnWindow(bounding: ViewBounding | DOMRect) {
   return leftSpaceOnViewport(bounding, { height: window.innerHeight, width: window.innerWidth });
 }

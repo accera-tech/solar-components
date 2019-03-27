@@ -1,5 +1,7 @@
 function cssDurationToMilis(duration) {
+  // Prevent errors with .xxx values
   const time = duration.startsWith('.') ? '0' + duration : duration;
+
   if (time.endsWith('ms')) return parseInt(time);
   else return parseFloat(time) * 1000;
 }

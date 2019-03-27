@@ -6,13 +6,14 @@ import { extendMethod } from '../lang/extend-method';
  */
 export interface ComponentBase extends ComponentInterface {
   /**
-   * The main native element from the component.
+   * The main native nativeElement from the component.
    * @Element
    */
   host: HTMLElement;
 
   /**
-   * Stencil only calls componentDidUnload if it is declared in the component.
+   * The unload lifecycle hook.
+   * Note that Stencil only calls componentDidUnload if it is declared in the component.
    */
   componentDidUnload: () => void;
 }

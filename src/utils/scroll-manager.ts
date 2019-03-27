@@ -81,4 +81,4 @@ export class ScrollManager {
       document.onkeydown = null;
     }
   }
-};
+}

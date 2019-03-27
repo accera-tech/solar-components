@@ -1,6 +1,7 @@
 import { Component, Element, Method, Prop } from '@stencil/core';
-import { ControllerBehavior, ControllerComponent } from '../../../behaviors/controller-behavior';
+import { ControllerBehavior, ControllerComponent, ControllerProps } from '../../../behaviors/controller-behavior';
 import { ScrollManager } from '../../../utils/scroll-manager';
+import { AcModal } from "./ac-modal";
 
 /**
  * A controller that creates modal on the screen.
@@ -8,7 +9,7 @@ import { ScrollManager } from '../../../utils/scroll-manager';
 @Component({
   tag: 'ac-modal-controller',
 })
-export class AcModalController implements ControllerComponent<any> {
+export class AcModalController implements ControllerComponent<AcModal> {
   /**
    * The instance of the controller behavior that setup the modals on the screen.
    */
@@ -30,7 +31,7 @@ export class AcModalController implements ControllerComponent<any> {
    * @param props
    */
   @Method()
-  async set(props: any) {
+  async set(props: ControllerProps<AcModal>) {
     const newModal = await this.controllerBehavior.create(props);
 
     newModal.addEventListener('close', () => {
