@@ -92,7 +92,6 @@
 
     <div style="display: flex; align-items: center; justify-content: space-around">
       <div class="ac-skeleton--circle" style="width: 100px; height: 100px"></div>
-      <div class="ac-skeleton--text" style="margin-left: 20px; flex: 1 1 auto;"></div>
     </div>
     <ac-input-base label="Disabled example" disabled></ac-input-base>
   </div>
@@ -106,7 +105,6 @@
   <ac-button tooltip="This is a clear button" theme="success" fill="clear">Clear</ac-button>
   <ac-button tooltip="This is a clear button" theme="info" fill="clear">Clear</ac-button>
   <ac-button tooltip="This is a clear button" theme="info" fill="flat" disabled onclick="console.log('aa')">Clear</ac-button>
-  <ac-button tooltip="This is a clear button" theme="black" fill="outline">Outline</ac-button>
   <ac-button tooltip="This is a clear button" disabled>Disabled</ac-button>
   <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
   <ac-button block>Full Width</ac-button>
@@ -118,7 +116,7 @@
 
 <section>
   <h1>Checkbox & Radio</h1>
-  <ac-check name="chk1" label="Test" label-left></ac-check>
+  <ac-check name="chk1" label="Test" direction="left"></ac-check>
   <ac-check name="chk2" label="Test" disabled></ac-check>
   <ac-check name="chk3" label="Test" helper-text="A brief description of this checkbox"></ac-check>
 

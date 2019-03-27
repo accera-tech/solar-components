@@ -130,24 +130,24 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
   async validate(): Promise<ValidationError> {
     log('Validating', this.name);
 
-    const { validateFn } = this.component;
+    const { validator } = this.component;
 
     // Converting to Array
-    let validateFns = [];
-    if (validateFn instanceof Array) validateFns = validateFn;
-    else if (validateFn) validateFns = [ validateFn ];
+    let validators = [];
+    if (validator instanceof Array) validators = validator;
+    else if (validator) validators = [ validator ];
 
     let hasRequiredCheck = false;
     if (this.component.required) {
       hasRequiredCheck = true;
-      validateFns.unshift(isRequired(this.component.required));
+      validators.unshift(isRequired(this.component.required));
     }
 
     if (!hasRequiredCheck && !this.component.value)
       return this.component.error = null;
 
     // Running all validator functions
-    for (const fn of validateFns) {
+    for (const fn of validators) {
       if (fn) {
         const exec = fn(this.component.value, this.formAttached);
         let res;

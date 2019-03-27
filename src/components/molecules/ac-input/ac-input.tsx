@@ -103,7 +103,7 @@ export class AcInput implements FormFieldComponent {
    * - Blur event
    * - Form submit event
    */
-  @Prop({ mutable: true }) validateFn: ValidatorFunction | ValidatorFunction[];
+  @Prop({ mutable: true }) validator: ValidatorFunction | ValidatorFunction[];
 
   /**
    * Used to toggle the password view.
@@ -115,9 +115,9 @@ export class AcInput implements FormFieldComponent {
 
     // Add pattern validation to the validation pipeline
     if (this.pattern) {
-      if (this.validateFn instanceof Array)
-        this.validateFn.unshift(matchPattern(this.pattern, this.patternMessage));
-      else this.validateFn = [ matchPattern(this.pattern, this.patternMessage), this.validateFn ];
+      if (this.validator instanceof Array)
+        this.validator.unshift(matchPattern(this.pattern, this.patternMessage));
+      else this.validator = [ matchPattern(this.pattern, this.patternMessage), this.validator ];
     }
 
     if (this.mask) {

@@ -17,7 +17,7 @@ export interface FormFieldComponent extends ComponentBase {
    * The validators that ensure the field validity.
    * @Prop
    */
-  validateFn: ValidatorFunction | ValidatorFunction[];
+  validator: ValidatorFunction | ValidatorFunction[];
 
   /**
    * Provide access to the form field logic.
