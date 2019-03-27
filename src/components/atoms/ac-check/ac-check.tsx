@@ -31,9 +31,9 @@ export class AcCheck {
   @Prop() value: string;
 
   /**
-   * Set the label to the left of checkbox.
+   * Set the label direction.
    */
-  @Prop() labelLeft: boolean;
+  @Prop() direction: 'left';
 
   /**
    * The actual checked state.
@@ -54,9 +54,9 @@ export class AcCheck {
     return {
       attribute: 'input',
       class: {
+        [`ac-check--label-${this.direction}`]: this.direction !== undefined,
+        [`ac-check--${this.type}`]: this.type !== undefined,
         'ac-check--disabled': this.disabled,
-        'ac-check--label-left': this.labelLeft,
-        [`ac-check--${this.type}`]: this.type,
       }
     };
   }
