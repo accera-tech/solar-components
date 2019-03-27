@@ -57,7 +57,7 @@ export class AcSelect implements OverlayComponent {
   /**
    * The value of the internal input.
    */
-  @Prop({ mutable: true }) value = [];
+  @Prop({ mutable: true }) value: Array<any> | any = [];
 
   /**
    * The name of the internal input.
@@ -129,7 +129,8 @@ export class AcSelect implements OverlayComponent {
   }
 
   @Watch('value')
-  valueDidUpdate(newValue: Array<any>, oldValue: Array<any>) {
+  valueDidUpdate(newValue: Array<number|string> | number | string,
+                 oldValue: Array<number|string> | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       const selectedOptions = this.getOptionsByValue(newValue);
       this.formatSelectedText(selectedOptions);
@@ -141,7 +142,8 @@ export class AcSelect implements OverlayComponent {
     if (this.options) {
       let selectedOptions = this.options.filter(o => o.selected); // Get all selected
       if (selectedOptions.length > 0) {
-        this.value = selectedOptions.map(o => o.value);
+        const value = selectedOptions.map(o => o.value);
+        this.value = this.multiple ? value : value[0]; // Array to a single value for Single select
         this.formatSelectedText(selectedOptions);
       } else {
         selectedOptions = this.getOptionsByValue(this.value);
@@ -239,13 +241,20 @@ export class AcSelect implements OverlayComponent {
    * Filter the options by the actual value. Used to update the options state by an external value update.
    * @param values
    */
-  private getOptionsByValue(values: any[]): SelectOption[] {
+  private getOptionsByValue(values: Array<any> | any): SelectOption[] {
     const options = [];
     if (this.options) {
-      this.options.forEach(o => {
-        o.selected = values.includes(o.value);
-        if (o.selected) options.push(o);
-      });
+      if (values instanceof Array) {
+        this.options.forEach(o => {
+          o.selected = values.includes(o.value);
+          if (o.selected) options.push(o);
+        });
+      } else {
+        this.options.forEach(o => {
+          o.selected = values == o.value;
+          if (o.selected) options.push(o);
+        });
+      }
     }
     return options;
   }
