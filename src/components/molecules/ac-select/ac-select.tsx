@@ -176,17 +176,19 @@ export class AcSelect implements OverlayComponent {
    * @param selectedOptions
    */
   formatSelectedText(selectedOptions: SelectOption[]) {
-    const count = selectedOptions.length;
-    const total = this.options.length;
+    if (this.options) {
+      const count = selectedOptions.length;
+      const total = this.options.length;
 
-    if (count == 0) {
-      this.selectedText = null;
-    } else if (count > 0 && count < 3) {
-      this.selectedText = selectedOptions.map(item => item.title).join(', ');
-    } else if (count > 2 && count < total) {
-      this.selectedText = `${count} ${this.label}`;
-    } else if (count === total) {
-      this.selectedText = `Todos (${count})`;
+      if (count == 0) {
+        this.selectedText = null;
+      } else if (count > 0 && count < 3) {
+        this.selectedText = selectedOptions.map(item => item.title).join(', ');
+      } else if (count > 2 && count < total) {
+        this.selectedText = `${count} ${this.label}`;
+      } else if (count === total) {
+        this.selectedText = `Todos (${count})`;
+      }
     }
   }
 

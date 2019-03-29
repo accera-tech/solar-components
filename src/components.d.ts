@@ -20,23 +20,29 @@ import {
 import {
   SelectOption,
 } from './components/molecules/ac-select/ac-select';
+import {
+  ControllerProps,
+} from './behaviors/controller-behavior';
+import {
+  AcModal,
+} from './components/organisms/ac-modal/ac-modal';
 
 
 export namespace Components {
 
   interface AcButton {
     /**
-    * Button in full-width mode.
-    */
-    'block': boolean;
-    /**
     * The HTML5 native disable prop.
     */
     'disabled'?: boolean;
     /**
+    * Button in width mode.
+    */
+    'expand': 'block';
+    /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
-    'fill': 'clear' | 'solid' | 'flat' | 'outline';
+    'fill': 'clear' | 'solid' | 'flat';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -62,7 +68,7 @@ export namespace Components {
     */
     'theme'?: string;
     /**
-    * When hover this button, present a tootip text.
+    * When hover this button, present a tooltip text.
     */
     'tooltip'?: string;
     /**
@@ -72,17 +78,17 @@ export namespace Components {
   }
   interface AcButtonAttributes extends StencilHTMLAttributes {
     /**
-    * Button in full-width mode.
-    */
-    'block'?: boolean;
-    /**
     * The HTML5 native disable prop.
     */
     'disabled'?: boolean;
     /**
+    * Button in width mode.
+    */
+    'expand'?: 'block';
+    /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
-    'fill'?: 'clear' | 'solid' | 'flat' | 'outline';
+    'fill'?: 'clear' | 'solid' | 'flat';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -108,7 +114,7 @@ export namespace Components {
     */
     'theme'?: string;
     /**
-    * When hover this button, present a tootip text.
+    * When hover this button, present a tooltip text.
     */
     'tooltip'?: string;
     /**
@@ -123,6 +129,10 @@ export namespace Components {
     */
     'checked': boolean;
     /**
+    * Set the label direction.
+    */
+    'direction': 'left';
+    /**
     * The native disabled mode.
     */
     'disabled': boolean;
@@ -134,10 +144,6 @@ export namespace Components {
     * The textual label of this field.
     */
     'label': string;
-    /**
-    * Set the label to the left of checkbox.
-    */
-    'labelLeft': boolean;
     /**
     * The HTML field name.
     */
@@ -157,6 +163,10 @@ export namespace Components {
     */
     'checked'?: boolean;
     /**
+    * Set the label direction.
+    */
+    'direction'?: 'left';
+    /**
     * The native disabled mode.
     */
     'disabled'?: boolean;
@@ -168,10 +178,6 @@ export namespace Components {
     * The textual label of this field.
     */
     'label'?: string;
-    /**
-    * Set the label to the left of checkbox.
-    */
-    'labelLeft'?: boolean;
     /**
     * The HTML field name.
     */
@@ -476,7 +482,7 @@ export namespace Components {
     /**
     * The validations that this field need. This validations is checked on: - Blur event - Form submit event
     */
-    'validateFn': ValidatorFunction | ValidatorFunction[];
+    'validator': ValidatorFunction | ValidatorFunction[];
     /**
     * The value of the internal input.
     */
@@ -550,7 +556,7 @@ export namespace Components {
     /**
     * The validations that this field need. This validations is checked on: - Blur event - Form submit event
     */
-    'validateFn'?: ValidatorFunction | ValidatorFunction[];
+    'validator'?: ValidatorFunction | ValidatorFunction[];
     /**
     * The value of the internal input.
     */
@@ -589,7 +595,7 @@ export namespace Components {
     /**
     * The value of the internal input.
     */
-    'value': any;
+    'value': Array<any> | any;
   }
   interface AcSelectAttributes extends StencilHTMLAttributes {
     /**
@@ -627,7 +633,7 @@ export namespace Components {
     /**
     * The value of the internal input.
     */
-    'value'?: any;
+    'value'?: Array<any> | any;
   }
 
   interface AcTab {
@@ -669,7 +675,7 @@ export namespace Components {
     /**
     * Setup a new modal on the screen.
     */
-    'set': (props: any) => any;
+    'set': (props: ControllerProps<AcModal>) => any;
   }
   interface AcModalControllerAttributes extends StencilHTMLAttributes {
     /**

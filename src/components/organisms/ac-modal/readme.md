@@ -176,15 +176,15 @@ Type: `Promise<void[]>`
 
 
 
-### `set(props: any) => any`
+### `set(props: ControllerProps<AcModal>) => any`
 
 Setup a new modal on the screen.
 
 #### Parameters
 
-| Name    | Type  | Description |
-| ------- | ----- | ----------- |
-| `props` | `any` |             |
+| Name    | Type                       | Description |
+| ------- | -------------------------- | ----------- |
+| `props` | `ControllerProps<AcModal>` |             |
 
 #### Returns
 

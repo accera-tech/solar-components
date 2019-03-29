@@ -38856,7 +38856,7 @@
 | `multiple`   | `multiple`    | If true, the component will handle multiple selected items. | `boolean`        |
 | `name`       | `name`        | The name of the internal input.                             | `string`         |
 | `options`    | --            | The options that will be displayed in the panel.            | `SelectOption[]` |
-| `value`      | --            | The value of the internal input.                            | `any[]`          |
+| `value`      | --            | The value of the internal input.                            | `any`            |
 
 
 ## Events
