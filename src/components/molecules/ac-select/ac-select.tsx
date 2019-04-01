@@ -57,7 +57,7 @@ export class AcSelect implements OverlayComponent {
   /**
    * The value of the internal input.
    */
-  @Prop({ mutable: true }) value: Array<any> | any = [];
+  @Prop({ mutable: true }) value: Array<any> | any;
 
   /**
    * The name of the internal input.
