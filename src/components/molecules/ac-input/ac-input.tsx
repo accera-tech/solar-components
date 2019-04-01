@@ -230,6 +230,7 @@ export class AcInput implements FormFieldComponent {
         onBlur={this.handleBlur}
       >
         <slot name="item-start" slot="item-start" />
+        <slot name="input-label" slot="input-label" />
         {this.type === 'password'
           ? <ac-button slot="item-end" onClick={this.togglePassword} icon-only>
               <ac-fa-icon icon={icon} size={14} />

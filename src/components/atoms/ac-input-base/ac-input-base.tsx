@@ -130,7 +130,7 @@ export class AcInputBase implements ComponentInterface {
       <span class="ac-input__input-container">
         <label
           class='ac-input__label'>
-          {this.label}
+          <slot name="input-label" /> {this.label}
         </label>
         <input
           ref={input => this.nativeInput = input}

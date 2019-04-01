@@ -306,6 +306,7 @@ export class AcSelect implements OverlayComponent {
         readonly
       >
         <slot name="item-start" slot="item-start" />
+        <slot name="input-label" slot="input-label" />
         <ac-button
           slot="item-end"
           theme={this.isShowingPanel ? 'primary' : 'light'}

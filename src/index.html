@@ -26,6 +26,13 @@
     <i class="fas fa-user" slot="item-start"></i>
   </ac-input>
 
+  <h2>With a custom label</h2>
+  <ac-input id="textInput" type="text" helper-text="Set your name here">
+    <label slot="input-label">
+      <i class="fas fa-user" slot="item-start"></i> User
+    </label>
+  </ac-input>
+
   <h2>Password Input</h2>
   <ac-input id="passwordInput" label="Password" type="password" helper-text="It needs to have 8 characters" required="The password is Required">
     <i class="fas fa-lock" slot="item-start"></i>
