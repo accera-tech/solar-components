@@ -159,10 +159,10 @@
 
 ## Properties
 
-| Property | Attribute | Description                    | Type      |
-| -------- | --------- | ------------------------------ | --------- |
-| `modal`  | `modal`   | Show it as an absolute drawer. | `boolean` |
-| `theme`  | `theme`   | The color theme.               | `string`  |
+| Property    | Attribute   | Description                                                 | Type      |
+| ----------- | ----------- | ----------------------------------------------------------- | --------- |
+| `collapsed` | `collapsed` | In modal mode, it used to control if the drawers is opened. | `boolean` |
+| `theme`     | `theme`     | The color theme.                                            | `string`  |
 
 
 ## Methods

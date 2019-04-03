@@ -38871,6 +38871,22 @@
 
 ## Methods
 
+### `getRawValue(type?: string) => any`
+
+Get the unmasked value.
+
+#### Parameters
+
+| Name   | Type     | Description |
+| ------ | -------- | ----------- |
+| `type` | `string` |             |
+
+#### Returns
+
+Type: `any`
+
+
+
 ### `setFocus() => void`
 
 Set focus state in the native input.

@@ -347,9 +347,9 @@ export namespace Components {
 
   interface AcNavdrawer {
     /**
-    * Show it as an absolute drawer.
+    * In modal mode, it used to control if the drawers is opened.
     */
-    'modal': boolean;
+    'collapsed': boolean;
     /**
     * The color theme.
     */
@@ -361,9 +361,9 @@ export namespace Components {
   }
   interface AcNavdrawerAttributes extends StencilHTMLAttributes {
     /**
-    * Show it as an absolute drawer.
+    * In modal mode, it used to control if the drawers is opened.
     */
-    'modal'?: boolean;
+    'collapsed'?: boolean;
     /**
     * The color theme.
     */
@@ -431,6 +431,10 @@ export namespace Components {
     * Provide access to the form field logic.
     */
     'formFieldBehavior': FormFieldBehavior;
+    /**
+    * Get the unmasked value.
+    */
+    'getRawValue': (type?: string) => any;
     /**
     * The helper text to guide the user.
     */
@@ -704,6 +708,13 @@ export namespace Components {
     */
     'title'?: string;
   }
+
+  interface AcLayout {
+    'collapsed': 'nav-left';
+  }
+  interface AcLayoutAttributes extends StencilHTMLAttributes {
+    'collapsed'?: 'nav-left';
+  }
 }
 
 declare global {
@@ -722,6 +733,7 @@ declare global {
     'AcTabs': Components.AcTabs;
     'AcModalController': Components.AcModalController;
     'AcModal': Components.AcModal;
+    'AcLayout': Components.AcLayout;
   }
 
   interface StencilIntrinsicElements {
@@ -739,6 +751,7 @@ declare global {
     'ac-tabs': Components.AcTabsAttributes;
     'ac-modal-controller': Components.AcModalControllerAttributes;
     'ac-modal': Components.AcModalAttributes;
+    'ac-layout': Components.AcLayoutAttributes;
   }
 
 
@@ -826,6 +839,12 @@ declare global {
     new (): HTMLAcModalElement;
   };
 
+  interface HTMLAcLayoutElement extends Components.AcLayout, HTMLStencilElement {}
+  var HTMLAcLayoutElement: {
+    prototype: HTMLAcLayoutElement;
+    new (): HTMLAcLayoutElement;
+  };
+
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
     'ac-check': HTMLAcCheckElement
@@ -841,6 +860,7 @@ declare global {
     'ac-tabs': HTMLAcTabsElement
     'ac-modal-controller': HTMLAcModalControllerElement
     'ac-modal': HTMLAcModalElement
+    'ac-layout': HTMLAcLayoutElement
   }
 
   interface ElementTagNameMap {
@@ -858,6 +878,7 @@ declare global {
     'ac-tabs': HTMLAcTabsElement;
     'ac-modal-controller': HTMLAcModalControllerElement;
     'ac-modal': HTMLAcModalElement;
+    'ac-layout': HTMLAcLayoutElement;
   }
 
 
