@@ -43,28 +43,3 @@
 }
 
 
-// Modal mode
-// @TODO: Port the modal mode to another component.
-// --------------------------------------------------
-
-:host(.ac-navdrawer--modal) {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  z-index: $z-navdrawer;
-  width: 380px;
-  box-shadow: $z5-shadow-left;
-  transition: transform $slow-transition;
-
-  .ac-navdrawer__header {
-    padding: 0 40px;
-  }
-
-  .ac-navdrawer__content {
-    padding: 0 40px;
-  }
-}
-
-:host(.ac-navdrawer--modal.ac-navdrawer--opened) {
-  transform: translateX(-100%);
-}

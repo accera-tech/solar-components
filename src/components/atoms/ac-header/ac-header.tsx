@@ -6,6 +6,7 @@ import { Component } from '@stencil/core';
 @Component({
   tag: 'ac-header',
   styleUrl: 'ac-header.scss',
+  shadow: false,
 })
 export class AcHeader {
   render() {

@@ -1,5 +1,4 @@
-import { Component, Element, Method, Prop, State } from '@stencil/core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Method, Prop } from '@stencil/core';
 import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
 import { Bind } from '../../../utils/lang/bind';
 
@@ -21,17 +20,12 @@ export class AcNavdrawer implements OverlayComponent {
   @Prop() theme: string;
 
   /**
-   * Show it as an absolute drawer.
-   */
-  @Prop() modal: boolean;
-
-  /**
    * In modal mode, it used to control if the drawers is opened.
    */
-  @State() isOpened: boolean;
+  @Prop({ mutable: true }) collapsed: boolean;
 
   whenClickOutside() {
-    if (this.isOpened) this.toggle();
+    if (this.collapsed) this.toggle();
   }
 
   componentDidUnload() {}
@@ -42,7 +36,7 @@ export class AcNavdrawer implements OverlayComponent {
   @Method()
   @Bind
   toggle() {
-    this.isOpened = !this.isOpened;
+    this.collapsed = !this.collapsed;
   }
 
   hostData() {
@@ -50,8 +44,7 @@ export class AcNavdrawer implements OverlayComponent {
       attribute: 'nav',
       class: {
         [`ac-navdrawer--${this.theme}`]: !!this.theme,
-        'ac-navdrawer--modal': !!this.modal,
-        'ac-navdrawer--opened': this.isOpened,
+        'ac-navdrawer--collapsed': this.collapsed,
       }
     };
   }
@@ -61,15 +54,6 @@ export class AcNavdrawer implements OverlayComponent {
       <div class="ac-navdrawer__header">
         <slot name="header-title" />
         <slot name="header-actions" />
-        { this.modal ?
-          <ac-button
-            onClick={this.toggle}
-            fill="clear"
-            theme="primary"
-            icon-only>
-            <ac-fa-icon icon={faTimes} />
-          </ac-button> : null
-        }
       </div>,
       <div class="ac-navdrawer__content">
         <slot name="content" />
