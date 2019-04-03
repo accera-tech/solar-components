@@ -171,6 +171,16 @@ export class AcInput implements FormFieldComponent {
     this.formFieldBehavior.validate();
   }
 
+  /**
+   * Get the unmasked value.
+   * @param type
+   */
+  @Method()
+  getRawValue(type = 'text'){
+    if (type === 'text') return this.value.toString().replace(/[^a-z0-9 ]+/ig, "");
+    else return vanillaMasker.toNumber(this.value);
+  }
+
 
   /**
    * Set focus state in the native input.

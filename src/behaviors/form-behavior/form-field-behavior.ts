@@ -1,5 +1,5 @@
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
-import { ValidationError } from '../../utils/validations/validations';
+import {ValidationError, ValidatorFunction} from '../../utils/validations/validations';
 import { isRequired } from '../../utils/validations/isRequired';
 
 import { FormLogic } from './form-logic';
@@ -163,5 +163,17 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     }
 
     this.component.error = null;
+  }
+
+  /**
+   * Add a validator to the validation pipeline.
+   * @param validator
+   */
+  addValidator(validator: ValidatorFunction) {
+    if (!this.component.validator) this.component.validator = [];
+    else if (!(this.component.validator instanceof Array)) this.component.validator = [ this.component.validator ];
+    this.component.validator.push(validator);
+
+    return this;
   }
 }
