@@ -241,6 +241,7 @@ export namespace Components {
     * The HTMLInputElement disabled attribute.
     */
     'disabled': boolean;
+    'getNativeInput': () => HTMLInputElement;
     /**
     * The label text of the this input group.
     */
@@ -250,9 +251,17 @@ export namespace Components {
     */
     'max': number;
     /**
+    * The native HTMLInputElement maxlength attribute.
+    */
+    'maxlength': number;
+    /**
     * The native HTMLInputElement min attribute.
     */
     'min': number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'minlength': number;
     /**
     * The render mode of the input.
     */
@@ -312,9 +321,17 @@ export namespace Components {
     */
     'max'?: number;
     /**
+    * The native HTMLInputElement maxlength attribute.
+    */
+    'maxlength'?: number;
+    /**
     * The native HTMLInputElement min attribute.
     */
     'min'?: number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'minlength'?: number;
     /**
     * The render mode of the input.
     */
@@ -452,9 +469,17 @@ export namespace Components {
     */
     'max': number;
     /**
+    * The native HTMLInputElement maxlength attribute.
+    */
+    'maxlength': number;
+    /**
     * The native HTMLInputElement min attribute.
     */
     'min': number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'minlength': number;
     /**
     * The HTML input field's name.
     */
@@ -534,9 +559,17 @@ export namespace Components {
     */
     'max'?: number;
     /**
+    * The native HTMLInputElement maxlength attribute.
+    */
+    'maxlength'?: number;
+    /**
     * The native HTMLInputElement min attribute.
     */
     'min'?: number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'minlength'?: number;
     /**
     * The HTML input field's name.
     */

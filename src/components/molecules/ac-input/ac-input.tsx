@@ -78,9 +78,19 @@ export class AcInput implements FormFieldComponent {
   @Prop({ reflectToAttr: true }) max: number;
 
   /**
+   * The native HTMLInputElement maxlength attribute.
+   */
+  @Prop({ reflectToAttr: true }) maxlength: number;
+
+  /**
    * The native HTMLInputElement min attribute.
    */
   @Prop({ reflectToAttr: true }) min: number;
+
+  /**
+   * The native HTMLInputElement min attribute.
+   */
+  @Prop({ reflectToAttr: true }) minlength : number;
 
   /**
    * The native HTMLInputElement autofocus attribute.
@@ -121,7 +131,7 @@ export class AcInput implements FormFieldComponent {
     }
 
     if (this.mask) {
-      vanillaMasker(this.acInputBase.querySelector('.ac-input__native')).maskPattern(this.mask);
+      vanillaMasker(this.acInputBase.getNativeInput()).maskPattern(this.mask);
       // Masking the initial value
       if (this.value)
         this.value = vanillaMasker.toPattern(this.value, this.mask);
@@ -233,6 +243,8 @@ export class AcInput implements FormFieldComponent {
         required={!!this.required}
         max={this.max}
         min={this.min}
+        maxlength={this.maxlength}
+        minlength={this.minlength}
         autofocus={this.autofocus}
         autocomplete={this.autocomplete}
         autocapitalize={this.autocapitalize}

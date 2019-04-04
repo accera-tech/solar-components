@@ -64,9 +64,19 @@ export class AcInputBase implements ComponentInterface {
   @Prop({ reflectToAttr: true }) max: number;
 
   /**
+   * The native HTMLInputElement maxlength attribute.
+   */
+  @Prop({ reflectToAttr: true }) maxlength: number;
+
+  /**
    * The native HTMLInputElement min attribute.
    */
   @Prop({ reflectToAttr: true }) min: number;
+
+  /**
+   * The native HTMLInputElement min attribute.
+   */
+  @Prop({ reflectToAttr: true }) minlength : number;
 
   /**
    * The native HTMLInputElement autofocus attribute.
@@ -84,6 +94,11 @@ export class AcInputBase implements ComponentInterface {
   @Prop({ reflectToAttr: true }) autocapitalize: string;
 
   @State() hasFocus: boolean;
+
+  @Method()
+  getNativeInput() {
+    return this.nativeInput;
+  }
 
   /**
    * Set focus state in the native input.
@@ -144,6 +159,8 @@ export class AcInputBase implements ComponentInterface {
           required={this.required}
           max={this.max}
           min={this.min}
+          maxlength={this.maxlength}
+          minlength={this.minlength}
           autofocus={this.autofocus}
           autocomplete={this.autocomplete}
           autocapitalize={this.autocapitalize}
