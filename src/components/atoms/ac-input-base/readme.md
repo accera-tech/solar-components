@@ -38855,7 +38855,9 @@
 | `disabled`       | `disabled`       | The HTMLInputElement disabled attribute.              | `boolean`   |
 | `label`          | `label`          | The label text of the this input group.               | `string`    |
 | `max`            | `max`            | The native HTMLInputElement max attribute.            | `number`    |
+| `maxlength`      | `maxlength`      | The native HTMLInputElement maxlength attribute.      | `number`    |
 | `min`            | `min`            | The native HTMLInputElement min attribute.            | `number`    |
+| `minlength`      | `minlength`      | The native HTMLInputElement min attribute.            | `number`    |
 | `mode`           | `mode`           | The render mode of the input.                         | `"compact"` |
 | `name`           | `name`           | The native HTMLInputElement name attribute.           | `string`    |
 | `pattern`        | `pattern`        | The native HTMLInputElement pattern attribute.        | `string`    |
@@ -38866,6 +38868,16 @@
 
 
 ## Methods
+
+### `getNativeInput() => HTMLInputElement`
+
+
+
+#### Returns
+
+Type: `HTMLInputElement`
+
+
 
 ### `setFocus() => void`
 
