@@ -52,6 +52,9 @@ export class FormLogic {
         .then(() => {
           this.form.dispatchEvent(ev);
         })
+        .catch((error) => {
+          this.form.dispatchEvent(new CustomEvent('invalid', { detail: { error } }));
+        });
     }
   }
 
@@ -149,34 +152,39 @@ export class FormLogic {
   /**
    * Runs all field validations from the form.
    */
-  validate(): Promise<ValidationError[]> {
+  async validate(): Promise<ValidationError[]> {
     log('Validating form', this.form);
     const fieldsAsArray = Array.from(this.fields.values());
-    return Promise.all(fieldsAsArray
+    const errors = await Promise.all(fieldsAsArray
       .map(f => f.validate()
         .then(err => {
           if (err) {
-            err.field = f.name;
-            return err;
+            return {
+              message: err.message || err.toString(),
+              field: f.name,
+            };
           }
         })
       ));
+
+    return errors.filter(err => !!err);
   }
 
   /**
    * Check the validation state of the field.
    */
-  checkValidity(): Promise<void> {
+  checkValidity(): Promise<ValidationError[]> {
     this.setChecked();
 
     return this.validate().then(errs => {
-      const nonUndefinedErrs = errs.filter(err => err);
-      if (nonUndefinedErrs.length > 0) {
+      if (errs.length > 0) {
         this.setInvalid();
         throw new FormValidationError(errs);
       } else {
         this.setValid();
       }
+
+      return errs;
     });
   }
 
