@@ -187,6 +187,7 @@ export class AcInput implements FormFieldComponent {
    */
   @Method()
   getRawValue(type = 'text'){
+    if (!this.value) return null;
     if (type === 'text') return this.value.toString().replace(/[^a-z0-9 ]+/ig, "");
     else return vanillaMasker.toNumber(this.value);
   }
