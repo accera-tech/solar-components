@@ -33,9 +33,9 @@ export class AcNavdrawer {
         <slot name="header-title" />
         <slot name="header-actions" />
       </div>,
-      <div class="ac-navdrawer__content">
+      <nav class="ac-navdrawer__content">
         <slot name="content" />
-      </div>,
+      </nav>,
     ];
   }
 }

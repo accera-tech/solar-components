@@ -1,0 +1,27 @@
+@import "../../../theme/variables";
+
+
+// General Card Style
+// --------------------------------------------------
+
+ac-card {
+  display: block;
+  border: 1px solid $ui-card__border-color;
+  background: $white;
+  border-radius: $border-radius-default;
+  box-shadow: $z8-shadow;
+
+  & > [slot=header] {
+    padding: 24px 32px 16px;
+  }
+
+  & > [slot=content] {
+    padding: 16px 32px 24px;
+  }
+
+  & > [slot=actions] {
+    display: flex;
+    justify-content: end;
+    padding: 16px 32px 24px;
+  }
+}

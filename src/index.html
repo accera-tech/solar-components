@@ -7,254 +7,53 @@
   <link rel="stylesheet" href="/build/solar.css">
   <script src="/build/solar.js"></script>
 </head>
-<body class="">
-<ac-modal-controller></ac-modal-controller>
-<ac-panel-controller></ac-panel-controller>
-
-<section>
-  <h1>Forms</h1>
-  <h2>Input Base</h2>
-  <ac-input-base id="inputExample" label="Example" value="Value">
-    <ac-button slot="item-start"></ac-button>
-    <ac-button slot="item-end"></ac-button>
-  </ac-input-base>
-
-  <h3>Disabled Input</h3>
-  <ac-input-base label="Disabled example" disabled></ac-input-base>
-
-  <h2>A text input</h2>
-  <ac-input id="textInput" label="Name" type="text" helper-text="Set your name here">
-    <i class="fas fa-user" slot="item-start"></i>
-  </ac-input>
-
-  <h2>With a custom label</h2>
-  <ac-input id="textInput" type="text" helper-text="Set your name here">
-    <label slot="input-label">
-      <i class="fas fa-user" slot="item-start"></i> User
-    </label>
-  </ac-input>
-
-  <h2>Password Input</h2>
-  <ac-input id="passwordInput" label="Password" type="password" helper-text="It needs to have 8 characters" required="The password is Required">
-    <i class="fas fa-lock" slot="item-start"></i>
-  </ac-input>
-
-  <h2>Input with Pattern Validation</h2>
-  <ac-input id="patternInput" label="Your Nickname" type="text" pattern="^[a-zA-Z0-9]+$" pattern-message="Dont use special characters">
-    <i class="fas fa-user" slot="item-start"></i>
-  </ac-input>
-
-  <h2>Input with Mask</h2>
-  <ac-input id="patternInput" label="Phone" type="text" mask="(99) 99999-9999">
-    <i class="fas fa-phone" slot="item-start"></i>
-  </ac-input>
-
-  <h2>Select Box</h2>
-  <h3>Single Select</h3>
-  <ac-select id="selectExample" label="Artist"></ac-select>
-
-  <h3>Select Multiple</h3>
-  <ac-select id="selectMultiple" label="Beatles" multiple></ac-select>
-
-  <h3>Select With Html Options</h3>
-  <ac-select label="Band">
-    <optgroup label="Rock Bands">
-      <option value="0">TNT</option>
-      <option value="1">Queen</option>
-      <option value="2">Metallica</option>
-      <option value="3" selected>AC/DC</option>
-    </optgroup>
-    <optgroup label="Indie Bands">
-      <option value="4">Black Keys</option>
-      <option value="5">The Strokes</option>
-    </optgroup>
-  </ac-select>
-
-  <ac-select label="With a custom item at end">
-    <option value="0">TNT</option>
-    <option value="1">Queen</option>
-    <option value="2">Metallica</option>
-    <option value="3" selected>AC/DC</option>
-    <div slot="item-bottom" style="margin: 8px; display: flex; justify-content: center">
-      <ac-button theme="primary" fill="clear" block>
-        <i class="fas fa-plus" slot="icon-start"></i>
-        Adicionar
+<body>
+<ac-layout>
+  <ac-header slot="header">
+    Solar Components
+  </ac-header>
+  <ac-navdrawer slot="nav-left" theme="primary">
+    <div slot="content">
+      <ac-button fill="clear" expand="block" size="">
+        Home
       </ac-button>
     </div>
-  </ac-select>
+  </ac-navdrawer>
 
-  <h3>Disabled State</h3>
-  <ac-select label="Band" disabled>
-    <option value="0">TNT</option>
-  </ac-select>
+  <section class="container p-2 p-md-5" slot="content">
+    <ac-input label="Pesquisar por..."></ac-input>
 
-  <h3>Loading State</h3>
-  <ac-select label="Band" loading></ac-select>
+    <div class="row pt-4">
+      <div class="col-6">
+        <ac-card>
+          <header slot="header">
+            <h3>Dashboard 1</h3>
+            <span class="">Subtitle</span>
+          </header>
+          <section slot="content">
+            teste
+          </section>
+        </ac-card>
+      </div>
 
-  <h3>Skeletons</h3>
-  <div class="ac-skeleton">
-    <h1>Teste</h1>
-    <h2>Teste</h2>
-    <h3>Teste</h3>
-    In a text <small class="ac-skeleton--text--inline">Teste</small> you can put it too.
-
-    <div style="display: flex; align-items: center; justify-content: space-around">
-      <div class="ac-skeleton--circle" style="width: 100px; height: 100px"></div>
+      <div class="col-6">
+        <ac-card>
+          <header slot="header">
+            <h3>Dashboard 2</h3>
+            <span>Subtitle</span>
+          </header>
+          <section slot="content">
+            teste
+          </section>
+        </ac-card>
+      </div>
     </div>
-    <ac-input-base label="Disabled example" disabled></ac-input-base>
-  </div>
-</section>
-
-<section>
-  <h1>Buttons</h1>
-  <ac-button tooltip="A default button">Default</ac-button>
-  <ac-button tooltip="This is a flat button" theme="primary" fill="flat">Flat</ac-button>
-  <ac-button tooltip="This is a clear button" theme="secondary" fill="clear">Clear</ac-button>
-  <ac-button tooltip="This is a clear button" theme="success" fill="clear">Clear</ac-button>
-  <ac-button tooltip="This is a clear button" theme="info" fill="clear">Clear</ac-button>
-  <ac-button tooltip="This is a clear button" theme="info" fill="flat" disabled onclick="console.log('aa')">Clear</ac-button>
-  <ac-button tooltip="This is a clear button" disabled>Disabled</ac-button>
-  <ac-button tooltip="Google" href="https://google.com" target="_blank">With an external link</ac-button>
-  <ac-button block>Full Width</ac-button>
-
-  <h2>Loading button</h2>
-  <ac-button loading icon-only></ac-button>
-  <ac-button loading theme="primary">Login</ac-button>
-</section>
-
-<section>
-  <h1>Checkbox & Radio</h1>
-  <ac-check name="chk1" label="Test" direction="left"></ac-check>
-  <ac-check name="chk2" label="Test" disabled></ac-check>
-  <ac-check name="chk3" label="Test" helper-text="A brief description of this checkbox"></ac-check>
-
-  <radiogroup>
-    <ac-check type="radio" name="radio1" value="1" label="Test" helper-text="A brief description of this checkbox"></ac-check>
-    <ac-check type="radio" name="radio1" value="2" label="Test" helper-text="A brief description of this checkbox"></ac-check>
-    <ac-check type="radio" name="radio1" value="3" label="Test" helper-text="A brief description of this checkbox"></ac-check>
-    <ac-check type="radio" name="radio1" value="4" label="Test" helper-text="A brief description of this checkbox"></ac-check>
-  </radiogroup>
-</section>
-
-<section>
-  <h1>Form Example</h1>
-  <form id="testForm">
-    <ac-input id="formUserName" name="user[username]" label="Username" required="The username is Required">
-      <i class="fas fa-user" slot="item-start"></i>
-    </ac-input>
-
-    <ac-input id="formUserPassword" name="user[password]" label="Password" type="password" required="The password is Required">
-      <i class="fas fa-lock" slot="item-start"></i>
-    </ac-input>
-
-    <ac-button type="submit">Send</ac-button>
-  </form>
-</section>
-
-<section>
-  <h1>Tabs</h1>
-  <ac-tabs theme="secondary" onchange="console.log(event)">
-    <ac-tab id="tab1">Tab 1</ac-tab>
-    <ac-tab id="tab2">Tab 2</ac-tab>
-    <ac-tab id="tab3" active>Tab 3</ac-tab>
-  </ac-tabs>
-</section>
-
-<section>
-  <h1>Header</h1>
-  <ac-header>
-    Basic Header with Action
-    <ac-button slot="actions" size="small" theme="primary">Action</ac-button>
-  </ac-header>
-  <ac-header>
-    Header with Tabs
-    <ac-button slot="actions" size="small" theme="primary">Action</ac-button>
-    <ac-tabs theme="secondary" slot="sub-header">
-      <ac-tab id="tab1">Tab 1</ac-tab>
-      <ac-tab id="tab2">Tab 2</ac-tab>
-      <ac-tab id="tab3" active>Tab 3</ac-tab>
-      <ac-tab id="tab5">Tab 5</ac-tab>
-      <ac-tab id="tab6">Tab 6</ac-tab>
-    </ac-tabs>
-  </ac-header>
-</section>
-
-<section>
-  <h1>Navigation Drawer</h1>
-  <div style="position: relative; height: 500px; max-width: 100%; overflow-x: hidden; display: flex">
-    <ac-navdrawer theme="primary">
-      <span slot="header-title">Teste</span>
-    </ac-navdrawer>
-
-    <ac-button onclick="toggleSidebar()" data-toggle="mainNavdrawer">Toggle Sidebar</ac-button>
-
-    <ac-navdrawer id="mainNavdrawer" modal>
-      <span slot="header-title">Teste</span>
-    </ac-navdrawer>
-  </div>
-</section>
-
-<section>
-  <h1>Modal</h1>
-  <ac-button id="showModalButton">Show Modal</ac-button>
-</section>
-
-<section>
-  <h1>Stepper</h1>
-  <ac-stepper steps="3" done="1"></ac-stepper>
-</section>
-
-<section style="position: relative">
-  <div class="spinner">
-    <span class="planets"></span>
-  </div>
-</section>
-
+  </section>
+</ac-layout>
+<ac-modal-controller></ac-modal-controller>
+<ac-panel-controller></ac-panel-controller>
 <script>
-  window.addEventListener('appload', () => {
-    const testForm = document.querySelector('#testForm');
-    testForm.addEventListener('formSubmit', ev => {
-      ev.preventDefault();
-      console.log('SENT', ev)
-    });
-    testForm.addEventListener('submit', ev => {
-      ev.preventDefault();
-      console.log(ev);
-    });
-  });
 
-  localStorage.debug = 'solar:*';
-  function toggleSidebar() {
-    const mainNavdrawer = document.querySelector('#mainNavdrawer');
-    mainNavdrawer.toggle();
-  }
-
-  const inputExample = document.querySelector('#inputExample');
-  inputExample.addEventListener('change', ({ detail }) => {
-    console.log('Input Change:', detail);
-  });
-
-  const select = document.querySelector('#selectExample');
-  select.options = [{ title: 'Bob Dylan', value: 0 }, { title: 'Bob Marley', value: 1 }];
-  select.addEventListener('change', ({ detail }) => {
-    console.log('Single Select Change', detail);
-  });
-
-  const selectMultiple = document.querySelector('#selectMultiple');
-  selectMultiple.options = [{ title: 'Ringo Star', value: 0 }, { title: 'Paul McCartney', value: 1 }, { title: 'John Lennon', value: 2 }, { title: 'George Harrison', value: 3, selected: true }];
-  selectMultiple.addEventListener('change', ({ detail }) => {
-    console.log('Multiple Select Change', detail);
-  });
-
-  const passwordInput = document.querySelector('#passwordInput');
-  passwordInput.validateFn = (value) => value && value.length >= 8 ? null : 'The password must have 8 characters';
-
-  const showModalButton = document.querySelector('#showModalButton');
-  showModalButton.addEventListener('click', () => {
-    document.querySelector('ac-modal-controller')
-      .create({ title: 'Test Modal', component: `<ac-select label="Band"><option>teste</option></ac-select>` })
-      .then(console.log);
-  });
 </script>
 
 </body></html>

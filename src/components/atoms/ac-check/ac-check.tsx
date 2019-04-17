@@ -1,5 +1,7 @@
-import { Component, Prop } from '@stencil/core';
+import {Element, Component, Prop, Watch} from '@stencil/core';
 import { Bind } from '../../../utils/lang/bind';
+import { FormFieldBehavior, FormFieldComponent } from "../../../behaviors/form-behavior";
+import {ValidatorFunction} from "../../../utils/validations/validations";
 
 /**
  * Accera's full-featured checkbox webcomponent.
@@ -8,7 +10,10 @@ import { Bind } from '../../../utils/lang/bind';
   tag: 'ac-check',
   styleUrl: 'ac-check.scss',
 })
-export class AcCheck {
+export class AcCheck implements FormFieldComponent {
+  formFieldBehavior = new FormFieldBehavior(this);
+
+  @Element() host: HTMLAcCheckElement;
 
   /**
    * The textual label of this field.
@@ -33,7 +38,7 @@ export class AcCheck {
   /**
    * Set the label direction.
    */
-  @Prop() direction: 'left';
+  @Prop() direction: 'left' | 'right' = 'right';
 
   /**
    * The actual checked state.
@@ -50,6 +55,35 @@ export class AcCheck {
    */
   @Prop() disabled: boolean;
 
+  /**
+   * Mark this field as required.
+   */
+  @Prop() required: string | boolean;
+
+  /**
+   * Error state and message of this field.
+   */
+  @Prop({ mutable: true }) error: string;
+
+  /**
+   * Set the error state based on the error prop.
+   * @param error
+   */
+  @Watch('error')
+  errorDidUpdate(error: string) {
+    if (error) this.formFieldBehavior.setInvalid();
+    else this.formFieldBehavior.setValid();
+  }
+
+  /**
+   * Validation pipeline for this field.
+   */
+  @Prop() validator: ValidatorFunction | ValidatorFunction[];
+
+  componentDidLoad() {}
+  componentDidUnload() {}
+  componentWillLoad() {}
+
   hostData() {
     return {
       attribute: 'input',
@@ -57,6 +91,7 @@ export class AcCheck {
         [`ac-check--label-${this.direction}`]: this.direction !== undefined,
         [`ac-check--${this.type}`]: this.type !== undefined,
         'ac-check--disabled': this.disabled,
+        'ac-check--error': !!this.error,
       }
     };
   }
@@ -84,7 +119,7 @@ export class AcCheck {
         </label>
         { this.label && <label class="ac-check__label" htmlFor={nativeInputId}>{this.label}</label> }
       </div>,
-      this.helperText && <label class="ac-check__helper-text" htmlFor={nativeInputId}>{ this.helperText }</label>
+      (this.error || this.helperText) && <label class="ac-check__helper-text" htmlFor={nativeInputId}>{ this.error || this.helperText }</label>
     ]
   }
 }

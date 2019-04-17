@@ -5,6 +5,37 @@ $spacer-medium: 24px;
 $spacer-large: 32px;
 $spacer-huge: 40px;
 
+$spacer: $spacer-huge;
+$spacers: (
+  0: 0,
+  1: $spacer-tiny,
+  2: $spacer-small,
+  3: $spacer-medium,
+  4: $spacer-large,
+  5: $spacer-huge
+);
+
+// Grid
+$grid-columns: 12 !default;
+$grid-gutter-width: $spacer-huge !default;
+
+// Define the maximum width of `.container` for different screen sizes.
+$container-max-widths: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto
+);
+
 // Default Metrics
 $border-radius-default: 4px;
 

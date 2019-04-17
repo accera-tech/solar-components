@@ -9,13 +9,13 @@
   // fill="solid"
   // --------------------------------------------------
 
-  :host(#{$selector}) {
+  ac-button#{$selector} {
     .ac-button__native {
       background-color: var-color($color-name, "normal");
       color: var-color($color-name, "contrast");
       fill: var-color($color-name, "contrast");
 
-      @if ($selector == "ac-button") {
+      @if ($selector == "") {
         &:active, &:focus {
           box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2),
           0 0 0 4px rgba(#e6e6e6, 0.6);
@@ -40,7 +40,7 @@
   // fill="clear"
   // --------------------------------------------------
 
-  :host(#{$selector}.ac-button--clear) {
+  ac-button#{$selector}.ac-button--clear {
     .ac-button__native {
       color: var-color($color-name, "normal");
       fill: var-color($color-name, "normal");
@@ -54,7 +54,7 @@
     }
   }
 
-  :host(#{$selector}.ac-button--loading) {
+  ac-button#{$selector}.ac-button--loading{
     pointer-events: none;
     .ac-button__native {
       opacity: 0.5;
@@ -66,7 +66,7 @@
 // General Button Style
 // --------------------------------------------------
 
-:host {
+ac-button {
   display: $ac-button__display;
   -webkit-appearance: none;
 
@@ -103,7 +103,7 @@
 @include button-variations(".ac-button--success", "success");
 @include button-variations(".ac-button--warning", "warning");
 @include button-variations(".ac-button--alert", "alert");
-@include button-variations("ac-button", "white");
+@include button-variations("", "white");
 @include button-variations(".ac-button--light", "light");
 @include button-variations(".ac-button--disabled", "disabled");
 @include button-variations(".ac-button--black", "black");
@@ -113,7 +113,7 @@
 // size="small"
 // --------------------------------------------------
 
-:host(.ac-button--small) {
+ac-button.ac-button--small {
   .ac-button__native {
     height: 36px;
     min-width: 36px;
@@ -127,7 +127,7 @@
 // size="big"
 // --------------------------------------------------
 
-:host(.ac-button--big) {
+ac-button.ac-button--big {
   .ac-button__native {
     height: 50px;
     min-width: 50px;
@@ -139,7 +139,7 @@
 // icon-only
 // --------------------------------------------------
 
-:host(.ac-button--icon-only) {
+ac-button.ac-button--icon-only {
   .ac-button__native {
     .ac-button__text {
       display: flex;
@@ -157,7 +157,7 @@
 // fill="solid"
 // --------------------------------------------------
 
-:host(.ac-button--solid) {
+ac-button.ac-button--solid {
   .ac-button__native {
     box-shadow: inset 0 -2px 0 0px rgba(0, 0, 0, .2);
     border: 1px solid rgba(0, 0, 0, .1);
@@ -169,7 +169,7 @@
 // fill="clear"
 // --------------------------------------------------
 
-:host(.ac-button--clear) {
+ac-button.ac-button--clear {
   .ac-button__native {
     background: transparent;
     border: 0;
@@ -181,7 +181,7 @@
 // fill="flat"
 // --------------------------------------------------
 
-:host(.ac-button--flat) {
+ac-button.ac-button--flat {
   .ac-button__native {
     border: 0;
   }
@@ -192,7 +192,7 @@
 // disable
 // --------------------------------------------------
 
-:host(.ac-button--disabled) {
+ac-button.ac-button--disabled {
   pointer-events: none;
   .ac-button__native {
     cursor: not-allowed;
@@ -204,7 +204,7 @@
 // block
 // --------------------------------------------------
 
-:host(.ac-button--block) {
+ac-button.ac-button--block {
   width: 100%;
   .ac-button__native {
     width: 100%;

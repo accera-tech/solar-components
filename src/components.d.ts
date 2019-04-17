@@ -9,14 +9,14 @@ import '@stencil/core';
 
 
 import {
+  ValidatorFunction,
+} from './utils/validations/validations';
+import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   FormFieldBehavior,
 } from './behaviors/form-behavior';
-import {
-  ValidatorFunction,
-} from './utils/validations/validations';
 import {
   SelectOption,
 } from './components/molecules/ac-select/ac-select';
@@ -130,6 +130,19 @@ export namespace Components {
     'type'?: 'button' | 'submit' | 'reset';
   }
 
+  interface AcCard {
+    /**
+    * The icon imported from @fortawesome/free-solid-svg-icons.
+    */
+    'icon': any;
+  }
+  interface AcCardAttributes extends StencilHTMLAttributes {
+    /**
+    * The icon imported from @fortawesome/free-solid-svg-icons.
+    */
+    'icon'?: any;
+  }
+
   interface AcCheck {
     /**
     * The actual checked state.
@@ -138,11 +151,15 @@ export namespace Components {
     /**
     * Set the label direction.
     */
-    'direction': 'left';
+    'direction': 'left' | 'right';
     /**
     * The native disabled mode.
     */
     'disabled': boolean;
+    /**
+    * Error state and message of this field.
+    */
+    'error': string;
     /**
     * The helper text to guide the user.
     */
@@ -156,9 +173,17 @@ export namespace Components {
     */
     'name': string;
     /**
+    * Mark this field as required.
+    */
+    'required': string | boolean;
+    /**
     * The type of this field.
     */
     'type': 'radio' | 'checkbox';
+    /**
+    * Validation pipeline for this field.
+    */
+    'validator': ValidatorFunction | ValidatorFunction[];
     /**
     * The HTML field value.
     */
@@ -172,11 +197,15 @@ export namespace Components {
     /**
     * Set the label direction.
     */
-    'direction'?: 'left';
+    'direction'?: 'left' | 'right';
     /**
     * The native disabled mode.
     */
     'disabled'?: boolean;
+    /**
+    * Error state and message of this field.
+    */
+    'error'?: string;
     /**
     * The helper text to guide the user.
     */
@@ -190,9 +219,17 @@ export namespace Components {
     */
     'name'?: string;
     /**
+    * Mark this field as required.
+    */
+    'required'?: string | boolean;
+    /**
     * The type of this field.
     */
     'type'?: 'radio' | 'checkbox';
+    /**
+    * Validation pipeline for this field.
+    */
+    'validator'?: ValidatorFunction | ValidatorFunction[];
     /**
     * The HTML field value.
     */
@@ -437,7 +474,7 @@ export namespace Components {
     */
     'error': string;
     /**
-    * Provide access to the formBehavior field logic.
+    * Provide access to the form field logic.
     */
     'formFieldBehavior': FormFieldBehavior;
     /**
@@ -531,7 +568,7 @@ export namespace Components {
     */
     'error'?: string;
     /**
-    * Provide access to the formBehavior field logic.
+    * Provide access to the form field logic.
     */
     'formFieldBehavior'?: FormFieldBehavior;
     /**
@@ -704,7 +741,7 @@ export namespace Components {
     /**
     * Clear all modals that are displayed.
     */
-    'dismiss': (elt: any) => any;
+    'dismiss': (elt: any) => Promise<any>;
   }
   interface AcModalControllerAttributes extends StencilHTMLAttributes {
     /**
@@ -746,7 +783,7 @@ export namespace Components {
     /**
     * Clear all modals that are displayed.
     */
-    'dismiss': (elt?: any) => Promise<void>;
+    'dismiss': (elt?: any) => Promise<any>;
   }
   interface AcPanelControllerAttributes extends StencilHTMLAttributes {
     /**
@@ -862,6 +899,7 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'AcButton': Components.AcButton;
+    'AcCard': Components.AcCard;
     'AcCheck': Components.AcCheck;
     'AcFaIcon': Components.AcFaIcon;
     'AcHeader': Components.AcHeader;
@@ -884,6 +922,7 @@ declare global {
 
   interface StencilIntrinsicElements {
     'ac-button': Components.AcButtonAttributes;
+    'ac-card': Components.AcCardAttributes;
     'ac-check': Components.AcCheckAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-header': Components.AcHeaderAttributes;
@@ -909,6 +948,12 @@ declare global {
   var HTMLAcButtonElement: {
     prototype: HTMLAcButtonElement;
     new (): HTMLAcButtonElement;
+  };
+
+  interface HTMLAcCardElement extends Components.AcCard, HTMLStencilElement {}
+  var HTMLAcCardElement: {
+    prototype: HTMLAcCardElement;
+    new (): HTMLAcCardElement;
   };
 
   interface HTMLAcCheckElement extends Components.AcCheck, HTMLStencilElement {}
@@ -1021,6 +1066,7 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'ac-button': HTMLAcButtonElement
+    'ac-card': HTMLAcCardElement
     'ac-check': HTMLAcCheckElement
     'ac-fa-icon': HTMLAcFaIconElement
     'ac-header': HTMLAcHeaderElement
@@ -1043,6 +1089,7 @@ declare global {
 
   interface ElementTagNameMap {
     'ac-button': HTMLAcButtonElement;
+    'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
     'ac-fa-icon': HTMLAcFaIconElement;
     'ac-header': HTMLAcHeaderElement;

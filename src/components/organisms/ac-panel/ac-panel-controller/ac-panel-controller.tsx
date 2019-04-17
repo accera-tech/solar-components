@@ -52,7 +52,7 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
   @Method()
   async dismiss(elt?: HTMLAcPanelElement) {
     if (elt) {
-      elt.remove();
+      return await elt.remove();
     }
   }
 

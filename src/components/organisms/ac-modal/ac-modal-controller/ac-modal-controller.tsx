@@ -54,13 +54,11 @@ export class AcModalController implements ControllerComponent<AcModal, HTMLAcMod
    * Clear all modals that are displayed.
    */
   @Method()
-  dismiss(elt) {
+  async dismiss(elt) {
     if (elt) {
-      return elt.close();
+      return await elt.close();
     }
-    return Promise.all(this.modalList.map(modal => {
-      modal.close();
-    }));
+    return await Promise.all(this.modalList.map(modal => modal.close()));
   }
 
   componentDidUnload() {}

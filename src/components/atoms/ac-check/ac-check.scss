@@ -65,6 +65,7 @@ ac-check.ac-check--checkbox {
       border-top-style: none;
       border-right-style: none;
       transition: all $default-transition;
+      box-sizing: initial;
     }
   }
 }
@@ -85,6 +86,7 @@ ac-check.ac-check--radio {
       border-radius: 100%;
       transition: transform $default-transition;
       transform: scale(2);
+      box-sizing: initial;
     }
   }
 }
@@ -147,9 +149,7 @@ ac-check.ac-check--disabled {
     background: $ui-check--disabled__background-color;
     border-color: $ui-check--disabled__border-color;
   }
-}
 
-ac-check.ac-check--disabled {
   .ac-check__native:checked {
     + .ac-check__custom {
       background: $gray;
@@ -157,6 +157,35 @@ ac-check.ac-check--disabled {
 
       + .ac-check__label {
         color: $ui-label--disabled__color;
+      }
+    }
+  }
+}
+
+// Error mode
+// error
+// --------------------------------------------------
+
+ac-check.ac-check--error {
+
+  .ac-check__label {
+    color: var-color("alert", "normal");
+  }
+  .ac-check__custom {
+    border-color: var-color("alert", "normal");
+  }
+
+  .ac-check__helper-text {
+    color: var-color("alert", "normal");;
+  }
+
+  .ac-check__native:checked {
+    + .ac-check__custom {
+      background: var-color("alert", "normal");
+      border-color: var-color("alert", "normal");
+
+      + .ac-check__label {
+        color: var-color("alert", "normal");
       }
     }
   }

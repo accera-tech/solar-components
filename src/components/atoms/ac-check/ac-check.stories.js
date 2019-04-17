@@ -10,12 +10,14 @@ storiesOf('Form Field', module)
 
         const helperText = text('helperText', 'Helper Text');
 
+        const error = text('error', null);
+
         const type = radios('Radio', ['radio', 'checkbox'], 'checkbox');
 
         const disabled = radios('Disabled', ['true', 'false'], 'false');
 
         return `
-        <ac-check label="${innerText}" helper-text="${helperText}" type="${type}" disabled="${disabled}">
+        <ac-check label="${innerText}" helper-text="${helperText}" error="${error}" type="${type}" disabled="${disabled}">
         </ac-check>`;
     }, { notes }
     );
