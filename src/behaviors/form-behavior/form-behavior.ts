@@ -1,100 +1,98 @@
+import { ComponentBehavior } from '../../utils/stencil/component-behavior';
+import { FormFieldBehavior } from './form-field-behavior';
 import { Bind } from '../../utils/lang/bind';
 import { ValidationError } from '../../utils/validations/validations';
 import { serializeForm, SerializeFormOptions } from '../../utils/serialize-form';
 
-import { FormFieldBehavior } from './form-field-behavior';
-
 import debug from 'debug/src/browser';
-const log = debug('solar:FormLogic');
 
-/**
- * Adds new features to a HTMLFormElement, useful to handle forms operations, like validation.
- */
-export class FormLogic {
-  private readonly form: HTMLFormElement;
+const log = debug('solar:FormBehavior');
+
+export class FormBehavior extends ComponentBehavior<any> {
   private fields = new Map<string, FormFieldBehavior>();
   private preventUnsavedIsAttached = false;
 
   /**
-   * True if this form is valid.
+   * True if this formBehavior is valid.
    */
   isValid: boolean;
 
   /**
-   * True if the user has changed any field from the form.
+   * True if the user has changed any field from the formBehavior.
    */
   isUnchecked: boolean;
 
   /**
-   * Attach a listener to 'submit' to the form,
-   * preventing the form submission if it is invalid.
+   * Attach a listener to 'submit' to the formBehavior,
+   * preventing the formBehavior submission if it is invalid.
    */
-  constructor(form: HTMLFormElement) {
-    log('Initializing', form);
-    this.form = form;
-    this.form.addEventListener('submit', this.handleSubmit);
+  attach() {
+    log('Initializing', this);
+    this.component.host.addEventListener('submit', this.handleSubmit);
+  }
+
+  detach() {
+    this.component.host.removeEventListener('submit', this.handleSubmit);
   }
 
   /**
-   * A event listener that runs all validations from form's fields.
+   * A event listener that runs all validations from formBehavior's fields.
    * If it is valid, propagates the event to other listeners
-   * @param ev
    */
   @Bind
-  handleSubmit(ev: Event) {
-    log('Submitting', this.form);
-    ev.preventDefault();
+  handleSubmit() {
+    log('Submitting', this);
+    // ev.preventDefault();
     const currentValidation = !!this.isValid;
 
     if (!currentValidation || this.isUnchecked) {
-      ev.stopImmediatePropagation();
       this.checkValidity()
         .then(() => {
-          this.form.dispatchEvent(ev);
+          this.component.host.dispatchEvent(new CustomEvent('formSubmit'));
         })
         .catch((error) => {
-          this.form.dispatchEvent(new CustomEvent('invalid', { detail: { error } }));
+          this.component.host.dispatchEvent(new CustomEvent('formInvalid', { detail: { error } }));
         });
     }
   }
 
   /**
-   * Set the form in the valid state.
+   * Set the formBehavior in the valid state.
    */
   setValid() {
-    log('Set valid', this.form);
+    log('Set valid', this);
     this.isValid = true;
-    this.form.classList.remove('form--invalid');
-    this.form.classList.add('form--valid');
+    this.component.host.classList.remove('formBehavior--invalid');
+    this.component.host.classList.add('formBehavior--valid');
   }
 
   /**
-   * Set the form in the invalid state.
+   * Set the formBehavior in the invalid state.
    */
   setInvalid() {
-    log('Set invalid', this.form);
+    log('Set invalid', this);
     this.isValid = false;
-    this.form.classList.remove('form--valid');
-    this.form.classList.add('form--invalid');
+    this.component.host.classList.remove('formBehavior--valid');
+    this.component.host.classList.add('formBehavior--invalid');
   }
 
   /**
-   * Set the form in the unchecked state.
+   * Set the formBehavior in the unchecked state.
    */
   setUnchecked() {
-    log('Set unchecked', this.form);
+    log('Set unchecked', this);
     this.isUnchecked = true;
     this.isValid = false;
-    this.form.classList.remove('form--valid', 'form--invalid');
-    this.form.classList.add('form--unchecked');
+    this.component.host.classList.remove('formBehavior--valid', 'formBehavior--invalid');
+    this.component.host.classList.add('formBehavior--unchecked');
 
     // Prevent close the page with unsaved changes.
     if (!this.preventUnsavedIsAttached &&
-        (this.form.dataset.preventUnsaved || this.form.dataset.preventUnsaved == "")) {
+      (this.component.preventUnsaved || this.component.preventUnsaved == "")) {
       log('Preventing Unsaved');
       window.addEventListener('beforeunload', (e) => {
         if (this.isUnchecked) {
-          const confirmationMessage = this.form.dataset.preventUnsaved;
+          const confirmationMessage = this.component.preventUnsaved;
 
           (e || window.event).returnValue = confirmationMessage; //Gecko + IE
           return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
@@ -105,32 +103,32 @@ export class FormLogic {
   }
 
   /**
-   * Set the form in the checked state.
+   * Set the formBehavior in the checked state.
    */
   setChecked() {
-    log('Set checked', this.form);
+    log('Set checked', this);
     this.isUnchecked = false;
-    this.form.classList.remove('form--unchecked');
+    this.component.host.classList.remove('formBehavior--unchecked');
   }
 
   /**
-   * Cleans all the states, errors and values of the form.
+   * Cleans all the states, errors and values of the formBehavior.
    */
   cleanup() {
-    log('Cleaning', this.form);
+    log('Cleaning', this);
     this.pristine();
     const fieldsAsArray = Array.from(this.fields.values());
     fieldsAsArray.map(f => f.cleanup());
   }
 
   /**
-   * Set the form in the pristine state, preserving values, removing the validations and unchecked.
+   * Set the formBehavior in the pristine state, preserving values, removing the validations and unchecked.
    */
   pristine() {
-    log('Set pristine', this.form);
+    log('Set pristine', this);
     this.isValid = false;
     this.isUnchecked = false;
-    this.form.classList.remove('form--unchecked', 'form--valid', 'form--invalid');
+    this.component.host.classList.remove('formBehavior--unchecked', 'formBehavior--valid', 'formBehavior--invalid');
   }
 
   /**
@@ -150,10 +148,10 @@ export class FormLogic {
   }
 
   /**
-   * Runs all field validations from the form.
+   * Runs all field validations from the formBehavior.
    */
   async validate(): Promise<ValidationError[]> {
-    log('Validating form', this.form);
+    log('Validating formBehavior', this);
     const fieldsAsArray = Array.from(this.fields.values());
     const errors = await Promise.all(fieldsAsArray
       .map(f => f.validate()
@@ -189,19 +187,20 @@ export class FormLogic {
   }
 
   serialize(options?: SerializeFormOptions) {
-    log('Serializing', this.form, serializeForm(this.form, options));
-    return serializeForm(this.form, options);
+    log('Serializing', this.component.host, serializeForm(this.component.host, options));
+    return serializeForm(this.component.host, options);
   }
 }
 
 /**
- * Represents an error of form validation.
+ * Represents an error of formBehavior validation.
  */
 export class FormValidationError extends Error {
   errs: ValidationError[];
-  
+
   constructor(errs: ValidationError[]) {
-    super('This form is invalid');
+    super('This formBehavior is invalid');
     this.errs = errs;
   }
 }
+

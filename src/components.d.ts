@@ -437,7 +437,7 @@ export namespace Components {
     */
     'error': string;
     /**
-    * Provide access to the form field logic.
+    * Provide access to the formBehavior field logic.
     */
     'formFieldBehavior': FormFieldBehavior;
     /**
@@ -531,7 +531,7 @@ export namespace Components {
     */
     'error'?: string;
     /**
-    * Provide access to the form field logic.
+    * Provide access to the formBehavior field logic.
     */
     'formFieldBehavior'?: FormFieldBehavior;
     /**

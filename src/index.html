@@ -211,9 +211,16 @@
 </section>
 
 <script>
-  document.addEventListener('load', () => {
+  window.addEventListener('appload', () => {
     const testForm = document.querySelector('#testForm');
-    testForm.addEventListener('submit', ev => console.log('SENT', ev));
+    testForm.addEventListener('formSubmit', ev => {
+      ev.preventDefault();
+      console.log('SENT', ev)
+    });
+    testForm.addEventListener('submit', ev => {
+      ev.preventDefault();
+      console.log(ev);
+    });
   });
 
   localStorage.debug = 'solar:*';

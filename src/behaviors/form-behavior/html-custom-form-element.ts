@@ -1,8 +1,8 @@
-import { FormLogic } from './form-logic';
+import { FormBehavior } from "./form-behavior";
 
 /**
- * Represents a HTMLFormElement that implements a Form Logic in it.
+ * Represents a HTMLFormElement that implements a Form Behavior in it.
  */
 export interface HTMLCustomFormElement extends HTMLFormElement {
-  form: FormLogic
+  formBehavior: FormBehavior
 }

@@ -2,7 +2,7 @@ import { ComponentBehavior } from '../../utils/stencil/component-behavior';
 import {ValidationError, ValidatorFunction} from '../../utils/validations/validations';
 import { isRequired } from '../../utils/validations/isRequired';
 
-import { FormLogic } from './form-logic';
+import { FormBehavior } from './form-behavior';
 import { FormFieldComponent } from './form-field-component';
 import { HTMLCustomFormElement } from './html-custom-form-element';
 
@@ -49,10 +49,10 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
 
     if (this.formAttached) {
       log('Attaching', this.name, this.formAttached);
-      if (!this.formAttached.form) {
-        this.formAttached.form = new FormLogic(this.formAttached);
+      if (!this.formAttached.formBehavior) {
+        this.formAttached.formBehavior = new FormBehavior({ host: this.formAttached, native: true });
       }
-      this.formAttached.form.addField(this);
+      this.formAttached.formBehavior.addField(this);
     }
   }
 
@@ -62,7 +62,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
   detach() {
     if (this.formAttached) {
       log('Detaching', this.name, this.formAttached);
-      this.formAttached.form.removeField(this);
+      this.formAttached.formBehavior.removeField(this);
     }
   }
 
@@ -74,7 +74,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     this.component.host.classList.add('field--dirty');
     this.isDirty = true;
 
-    if (this.formAttached) this.formAttached.form.setUnchecked();
+    if (this.formAttached) this.formAttached.formBehavior.setUnchecked();
   }
 
   /**
