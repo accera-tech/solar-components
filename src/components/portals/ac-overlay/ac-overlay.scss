@@ -1,0 +1,40 @@
+@import "../../../theme/variables";
+
+ac-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-overlay;
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .ac-overlay--layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+ac-overlay.ac-overlay--backdrop-dark {
+  .ac-overlay--layer {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity $default-transition;
+  }
+
+  &.transition--before-enter {
+    .ac-overlay--layer {
+      opacity: 0;
+    }
+  }
+
+  &.transition--before-leave {
+    .ac-overlay--layer {
+      opacity: 0;
+    }
+  }
+}
+
+

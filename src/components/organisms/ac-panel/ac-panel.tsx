@@ -1,4 +1,5 @@
 import { Component, Element } from '@stencil/core';
+
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 
 /**

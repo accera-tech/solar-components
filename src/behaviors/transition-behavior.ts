@@ -10,6 +10,7 @@ import { extendMethod } from '../utils/lang/extend-method';
  * - `transition--before-leave` The state before the component leave the screen.
  */
 export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
+  removeIsQueued = false;
 
   /**
    * Applies a mokeypatch of componentWillLoad to add the transition hooks. Also, it dispatch the CSS transitions.
@@ -41,15 +42,19 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
    * A custom remove teardown used to replace the native HTMLElement#remove, dispatching the CSS transitions.
    */
   async customRemoveFn() {
+    if (!this.removeIsQueued) {
+      this.removeIsQueued = true;
+
       // Deep animations
-      const allChildrens = this.component.host.getElementsByClassName('transition--after-enter');
-      await Promise.all(Array.from(allChildrens).map(child => child.remove()));
+      const allChildren = this.component.host.getElementsByClassName('transition--after-enter');
+      await Promise.all(Array.from(allChildren).map(child => child.remove()));
 
       this.component.host.classList.add('transition--before-leave');
       if (this.component.componentWillLeave) await this.component.componentWillLeave();
 
       await animate(this.component.host).then(wait());
       Element.prototype.remove.apply(this.component.host);
+    }
   }
 }
 

@@ -1,46 +1,32 @@
 @import "../../../theme/variables";
 
 ac-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: $z-modal;
-  width: 100%;
-  height: 100%;
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0,0,0, 0.5); // temp
-  transition: opacity $default-transition;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  min-width: 240px;
+  min-height: 240px;
+  border-radius: 4px;
+  background-color: $white;
+  box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
+  transition: transform $default-transition;
 
-  .ac-modal__panel {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 50%;
-    min-width: 240px;
-    min-height: 240px;
-    border-radius: 4px;
-    background-color: $white;
-    box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
-    transition: transform $default-transition;
-
-    @include down-sm() {
-      border-radius: 0;
-      width: 100%;
-      height: 100%;
-      .ac-modal__header {
-        padding: $spacer-tiny;
-        h1 {
-          font-size: $font-medium;
-        }
-        min-height: 56px;
+  @include down-sm() {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    .ac-modal__header {
+      padding: $spacer-tiny;
+      h1 {
+        font-size: $font-medium;
       }
-      .ac-modal__content {
-        max-height: calc(100vh - 56px);
-        padding: $spacer-tiny;
-      }
+      min-height: 56px;
+    }
+    .ac-modal__content {
+      max-height: calc(100vh - 56px);
+      padding: $spacer-tiny;
     }
   }
 
@@ -75,17 +61,12 @@ ac-modal {
   }
 
   &.transition--before-enter {
-    opacity: 0;
-    .ac-modal__panel {
+
       transform: scale(0.7);
-    }
   }
 
   &.transition--before-leave {
-    opacity: 0;
-    .ac-modal__panel {
       transform: scale(0.7);
-    }
   }
 }
 

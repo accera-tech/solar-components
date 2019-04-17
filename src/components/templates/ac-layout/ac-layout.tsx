@@ -1,5 +1,5 @@
-import {Component, Prop, Element} from '@stencil/core';
-import {OverlayBehavior, OverlayComponent} from "../../../behaviors/overlay-behavior";
+import { Component, Prop, Element, Watch } from '@stencil/core';
+import { FocusBehavior, FocusableComponent } from "../../../behaviors/focus-behavior";
 
 /**
  * Accera's layout webcomponent.
@@ -9,18 +9,26 @@ import {OverlayBehavior, OverlayComponent} from "../../../behaviors/overlay-beha
   styleUrl: 'ac-layout.scss',
   shadow: false
 })
-export class AcLayout implements OverlayComponent {
+export class AcLayout implements FocusableComponent {
   @Element() host: HTMLAcLayoutElement;
 
-  overlayBehavior = new OverlayBehavior(this);
-  overlayTarget: HTMLElement;
+  focusBehavior = new FocusBehavior(this);
+  focusTarget: HTMLElement;
+  hasFocus: boolean;
 
+  /**
+   * Collapse a nav drawer.
+   */
   @Prop({ mutable: true, reflectToAttr: true }) collapsed: 'nav-left';
+  @Watch('collapsed')
+  collapsedDidUpdate() {
+    this.hasFocus = !!this.collapsed;
+  }
 
   componentDidLoad() {}
   componentDidUnload() {}
 
-  whenClickOutside() {
+  whenBlur() {
     if (this.collapsed) {
       this.collapsed = null;
     }
@@ -36,7 +44,7 @@ export class AcLayout implements OverlayComponent {
 
   render() {
     return [
-      <div class="ac-layout__nav-left-container" ref={elt => this.overlayTarget = elt}>
+      <div class="ac-layout__nav-left-container" ref={elt => this.focusTarget = elt}>
         <slot name="nav-left" />
       </div>,
       <div class="ac-layout__content-container">

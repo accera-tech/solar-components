@@ -9,6 +9,7 @@
 </head>
 <body class="">
 <ac-modal-controller></ac-modal-controller>
+<ac-panel-controller></ac-panel-controller>
 
 <section>
   <h1>Forms</h1>
@@ -208,6 +209,7 @@
     <span class="planets"></span>
   </div>
 </section>
+
 <script>
   document.addEventListener('load', () => {
     const testForm = document.querySelector('#testForm');
@@ -243,7 +245,7 @@
   const showModalButton = document.querySelector('#showModalButton');
   showModalButton.addEventListener('click', () => {
     document.querySelector('ac-modal-controller')
-      .set({ title: 'Test Modal', content: `<ac-select label="Band"><option>teste</option></ac-select>` })
+      .create({ title: 'Test Modal', component: `<ac-select label="Band"><option>teste</option></ac-select>` })
       .then(console.log);
   });
 </script>

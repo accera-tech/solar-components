@@ -1,6 +1,4 @@
-import { Component, Element, Method, Prop } from '@stencil/core';
-import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
-import { Bind } from '../../../utils/lang/bind';
+import { Component, Element, Prop } from '@stencil/core';
 
 /**
  * Accera's Sidebar webcomponent.
@@ -10,41 +8,21 @@ import { Bind } from '../../../utils/lang/bind';
   styleUrl: 'ac-navdrawer.scss',
   shadow: true
 })
-export class AcNavdrawer implements OverlayComponent {
+export class AcNavdrawer {
   @Element() host: HTMLAcNavdrawerElement;
-  overlayBehavior = new OverlayBehavior(this);
 
   /**
    * The color theme.
    */
   @Prop() theme: string;
 
-  /**
-   * In modal mode, it used to control if the drawers is opened.
-   */
-  @Prop({ mutable: true }) collapsed: boolean;
-
-  whenClickOutside() {
-    if (this.collapsed) this.toggle();
-  }
-
   componentDidUnload() {}
-
-  /**
-   * Toggle opened state of the modal drawer.
-   */
-  @Method()
-  @Bind
-  toggle() {
-    this.collapsed = !this.collapsed;
-  }
 
   hostData() {
     return {
       attribute: 'nav',
       class: {
         [`ac-navdrawer--${this.theme}`]: !!this.theme,
-        'ac-navdrawer--collapsed': this.collapsed,
       }
     };
   }

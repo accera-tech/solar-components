@@ -22,10 +22,17 @@ import {
 } from './components/molecules/ac-select/ac-select';
 import {
   ControllerProps,
-} from './behaviors/controller-behavior';
+} from './behaviors/controller-behavior/controller-behavior';
 import {
   AcModal,
 } from './components/organisms/ac-modal/ac-modal';
+import {
+  AcPanel,
+} from './components/organisms/ac-panel/ac-panel';
+import {
+  Placement,
+  PopperOptions,
+} from 'popper.js';
 
 
 export namespace Components {
@@ -364,31 +371,16 @@ export namespace Components {
 
   interface AcNavdrawer {
     /**
-    * In modal mode, it used to control if the drawers is opened.
-    */
-    'collapsed': boolean;
-    /**
     * The color theme.
     */
     'theme': string;
-    /**
-    * Toggle opened state of the modal drawer.
-    */
-    'toggle': () => void;
   }
   interface AcNavdrawerAttributes extends StencilHTMLAttributes {
-    /**
-    * In modal mode, it used to control if the drawers is opened.
-    */
-    'collapsed'?: boolean;
     /**
     * The color theme.
     */
     'theme'?: string;
   }
-
-  interface AcPanel {}
-  interface AcPanelAttributes extends StencilHTMLAttributes {}
 
   interface AcStepper {
     /**
@@ -706,13 +698,13 @@ export namespace Components {
     */
     'bound': string;
     /**
-    * Clear all modals that are displayed.
-    */
-    'clear': () => Promise<void[]>;
-    /**
     * Setup a new modal on the screen.
     */
-    'set': (props: ControllerProps<AcModal>) => any;
+    'create': (props: ControllerProps<AcModal>) => any;
+    /**
+    * Clear all modals that are displayed.
+    */
+    'dismiss': (elt: any) => any;
   }
   interface AcModalControllerAttributes extends StencilHTMLAttributes {
     /**
@@ -725,7 +717,7 @@ export namespace Components {
     /**
     * Close the modal programmatically and dispatch the close event.
     */
-    'close': () => any;
+    'close': () => Promise<any>;
     /**
     * The title that will be displayed on the modal.
     */
@@ -742,10 +734,127 @@ export namespace Components {
     'title'?: string;
   }
 
+  interface AcPanelController {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound': string;
+    /**
+    * Setup a new modal on the screen.
+    */
+    'create': (props: ControllerProps<AcPanel>) => any;
+    /**
+    * Clear all modals that are displayed.
+    */
+    'dismiss': (elt?: any) => Promise<void>;
+  }
+  interface AcPanelControllerAttributes extends StencilHTMLAttributes {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound'?: string;
+  }
+
+  interface AcPanel {}
+  interface AcPanelAttributes extends StencilHTMLAttributes {}
+
+  interface AcOverlay {
+    /**
+    * The backdrop theme.
+    */
+    'backdrop': 'dark' | 'light';
+    'disableClose': boolean;
+    'handleBackDropClick': () => void;
+    /**
+    * Content position based on flex layout.
+    */
+    'position': 'start start' | 'start center' | 'start end' |
+    'center start' | 'center center' | 'center end' |
+    'end start' | 'end center' | 'end end';
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren': any;
+  }
+  interface AcOverlayAttributes extends StencilHTMLAttributes {
+    /**
+    * The backdrop theme.
+    */
+    'backdrop'?: 'dark' | 'light';
+    'disableClose'?: boolean;
+    'onBackDropClick'?: (event: CustomEvent<void>) => void;
+    /**
+    * Content position based on flex layout.
+    */
+    'position'?: 'start start' | 'start center' | 'start end' |
+    'center start' | 'center center' | 'center end' |
+    'end start' | 'end center' | 'end end';
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren'?: any;
+  }
+
+  interface AcPopper {
+    /**
+    * Popper.js's options.
+    */
+    'popperOptions': PopperOptions;
+    /**
+    * Pivot element used to place the popper.
+    */
+    'popperPivot': string | HTMLElement;
+    /**
+    * Popper.js's placement.
+    */
+    'popperPlacement': Placement;
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren': any;
+  }
+  interface AcPopperAttributes extends StencilHTMLAttributes {
+    /**
+    * Popper.js's options.
+    */
+    'popperOptions'?: PopperOptions;
+    /**
+    * Pivot element used to place the popper.
+    */
+    'popperPivot'?: string | HTMLElement;
+    /**
+    * Popper.js's placement.
+    */
+    'popperPlacement'?: Placement;
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren'?: any;
+  }
+
+  interface AcPortal {
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren': any;
+  }
+  interface AcPortalAttributes extends StencilHTMLAttributes {
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren'?: any;
+  }
+
   interface AcLayout {
+    /**
+    * Collapse a nav drawer.
+    */
     'collapsed': 'nav-left';
   }
   interface AcLayoutAttributes extends StencilHTMLAttributes {
+    /**
+    * Collapse a nav drawer.
+    */
     'collapsed'?: 'nav-left';
   }
 }
@@ -758,7 +867,6 @@ declare global {
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
     'AcNavdrawer': Components.AcNavdrawer;
-    'AcPanel': Components.AcPanel;
     'AcStepper': Components.AcStepper;
     'AcInput': Components.AcInput;
     'AcSelect': Components.AcSelect;
@@ -766,6 +874,11 @@ declare global {
     'AcTabs': Components.AcTabs;
     'AcModalController': Components.AcModalController;
     'AcModal': Components.AcModal;
+    'AcPanelController': Components.AcPanelController;
+    'AcPanel': Components.AcPanel;
+    'AcOverlay': Components.AcOverlay;
+    'AcPopper': Components.AcPopper;
+    'AcPortal': Components.AcPortal;
     'AcLayout': Components.AcLayout;
   }
 
@@ -776,7 +889,6 @@ declare global {
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-navdrawer': Components.AcNavdrawerAttributes;
-    'ac-panel': Components.AcPanelAttributes;
     'ac-stepper': Components.AcStepperAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-select': Components.AcSelectAttributes;
@@ -784,6 +896,11 @@ declare global {
     'ac-tabs': Components.AcTabsAttributes;
     'ac-modal-controller': Components.AcModalControllerAttributes;
     'ac-modal': Components.AcModalAttributes;
+    'ac-panel-controller': Components.AcPanelControllerAttributes;
+    'ac-panel': Components.AcPanelAttributes;
+    'ac-overlay': Components.AcOverlayAttributes;
+    'ac-popper': Components.AcPopperAttributes;
+    'ac-portal': Components.AcPortalAttributes;
     'ac-layout': Components.AcLayoutAttributes;
   }
 
@@ -822,12 +939,6 @@ declare global {
   var HTMLAcNavdrawerElement: {
     prototype: HTMLAcNavdrawerElement;
     new (): HTMLAcNavdrawerElement;
-  };
-
-  interface HTMLAcPanelElement extends Components.AcPanel, HTMLStencilElement {}
-  var HTMLAcPanelElement: {
-    prototype: HTMLAcPanelElement;
-    new (): HTMLAcPanelElement;
   };
 
   interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
@@ -872,6 +983,36 @@ declare global {
     new (): HTMLAcModalElement;
   };
 
+  interface HTMLAcPanelControllerElement extends Components.AcPanelController, HTMLStencilElement {}
+  var HTMLAcPanelControllerElement: {
+    prototype: HTMLAcPanelControllerElement;
+    new (): HTMLAcPanelControllerElement;
+  };
+
+  interface HTMLAcPanelElement extends Components.AcPanel, HTMLStencilElement {}
+  var HTMLAcPanelElement: {
+    prototype: HTMLAcPanelElement;
+    new (): HTMLAcPanelElement;
+  };
+
+  interface HTMLAcOverlayElement extends Components.AcOverlay, HTMLStencilElement {}
+  var HTMLAcOverlayElement: {
+    prototype: HTMLAcOverlayElement;
+    new (): HTMLAcOverlayElement;
+  };
+
+  interface HTMLAcPopperElement extends Components.AcPopper, HTMLStencilElement {}
+  var HTMLAcPopperElement: {
+    prototype: HTMLAcPopperElement;
+    new (): HTMLAcPopperElement;
+  };
+
+  interface HTMLAcPortalElement extends Components.AcPortal, HTMLStencilElement {}
+  var HTMLAcPortalElement: {
+    prototype: HTMLAcPortalElement;
+    new (): HTMLAcPortalElement;
+  };
+
   interface HTMLAcLayoutElement extends Components.AcLayout, HTMLStencilElement {}
   var HTMLAcLayoutElement: {
     prototype: HTMLAcLayoutElement;
@@ -885,7 +1026,6 @@ declare global {
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-navdrawer': HTMLAcNavdrawerElement
-    'ac-panel': HTMLAcPanelElement
     'ac-stepper': HTMLAcStepperElement
     'ac-input': HTMLAcInputElement
     'ac-select': HTMLAcSelectElement
@@ -893,6 +1033,11 @@ declare global {
     'ac-tabs': HTMLAcTabsElement
     'ac-modal-controller': HTMLAcModalControllerElement
     'ac-modal': HTMLAcModalElement
+    'ac-panel-controller': HTMLAcPanelControllerElement
+    'ac-panel': HTMLAcPanelElement
+    'ac-overlay': HTMLAcOverlayElement
+    'ac-popper': HTMLAcPopperElement
+    'ac-portal': HTMLAcPortalElement
     'ac-layout': HTMLAcLayoutElement
   }
 
@@ -903,7 +1048,6 @@ declare global {
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;
-    'ac-panel': HTMLAcPanelElement;
     'ac-stepper': HTMLAcStepperElement;
     'ac-input': HTMLAcInputElement;
     'ac-select': HTMLAcSelectElement;
@@ -911,6 +1055,11 @@ declare global {
     'ac-tabs': HTMLAcTabsElement;
     'ac-modal-controller': HTMLAcModalControllerElement;
     'ac-modal': HTMLAcModalElement;
+    'ac-panel-controller': HTMLAcPanelControllerElement;
+    'ac-panel': HTMLAcPanelElement;
+    'ac-overlay': HTMLAcOverlayElement;
+    'ac-popper': HTMLAcPopperElement;
+    'ac-portal': HTMLAcPortalElement;
     'ac-layout': HTMLAcLayoutElement;
   }
 

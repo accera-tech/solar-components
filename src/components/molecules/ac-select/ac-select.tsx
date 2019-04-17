@@ -1,18 +1,13 @@
-import {
-  Component,
-  Prop,
-  Element,
-  Event,
-  EventEmitter,
-  State,
-  Watch
-} from '@stencil/core';
+import { Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { equals } from 'ramda';
+
 import { Bind } from '../../../utils/lang/bind';
-import { OverlayBehavior, OverlayComponent } from '../../../behaviors/overlay-behavior';
-import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { leftSpaceOnWindow } from '../../../utils/screen';
+
+import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
+import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
+import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -21,7 +16,10 @@ import { leftSpaceOnWindow } from '../../../utils/screen';
   tag: 'ac-select',
   styleUrl: 'ac-select.scss',
 })
-export class AcSelect implements OverlayComponent {
+export class AcSelect implements FocusableComponent {
+  private SelectPanel =
+    createControllerPortal<any>(document.getElementsByTagName('ac-panel-controller')[0]);
+
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
    */
@@ -43,9 +41,10 @@ export class AcSelect implements OverlayComponent {
   childOptions: NodeListOf<HTMLOptionElement>;
 
   /**
-   * The instance of the OverlayBehavior used to close the panel when the user clicks outside.
+   * The instance of the FocusBehavior used to close the panel when the user clicks outside.
    */
-  overlayBehavior = new OverlayBehavior(this);
+  focusBehavior = new FocusBehavior(this);
+  hasFocus: boolean;
 
   @Element() host: HTMLAcSelectElement;
 
@@ -122,7 +121,7 @@ export class AcSelect implements OverlayComponent {
   /**
    * Toggle the panel view.
    */
-  whenClickOutside() {
+  whenBlur() {
     if (this.isShowingPanel) {
       this.togglePanel();
     }
@@ -154,6 +153,7 @@ export class AcSelect implements OverlayComponent {
 
   @Watch('isShowingPanel')
   isShowingPanelDidUpdate() {
+    this.hasFocus = this.isShowingPanel;
     if (this.isShowingPanel) {
       const clientRect = this.host.getBoundingClientRect();
       const spaces = leftSpaceOnWindow({
@@ -323,26 +323,25 @@ export class AcSelect implements OverlayComponent {
         {this.helperText}
       </span>,
 
-      this.isShowingPanel &&
-        <ac-panel class="ac-select__panel">
-          <slot name="item-top" slot="item-top" />
-          <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
-            {this.options && this.options.map((item, index) => {
-              if (item.separator) return (
-                <li class='ac-select__list-separator'>
-                  <label>{item.title}</label>
-                </li>
-              );
-              else return (
-                <li class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
-                    onClick={() => this.handleSelect({item, index})}>
-                  {item.title}
-                </li>
-              );
-            })}
-          </ul>
-          <slot name="item-bottom" slot="item-bottom" />
-        </ac-panel>
+      <this.SelectPanel class="ac-select__panel" popperPivot={this.host} reset={!this.isShowingPanel}>
+        <slot name="item-top" slot="item-top" />
+        <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
+          {this.options && this.options.map((item, index) => {
+            if (item.separator) return (
+              <li class='ac-select__list-separator'>
+                <label>{item.title}</label>
+              </li>
+            );
+            else return (
+              <li class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
+                  onClick={() => this.handleSelect({item, index})}>
+                {item.title}
+              </li>
+            );
+          })}
+        </ul>
+        <slot name="item-bottom" slot="item-bottom" />
+      </this.SelectPanel>
     ];
   }
 }
@@ -376,4 +375,3 @@ export interface SelectOption {
    */
   group?: string
 }
-

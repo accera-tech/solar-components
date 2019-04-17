@@ -1,7 +1,7 @@
 import { Component, Element, Method, Prop } from '@stencil/core';
-import { ControllerBehavior, ControllerComponent, ControllerProps } from '../../../behaviors/controller-behavior';
-import { ScrollManager } from '../../../utils/scroll-manager';
-import { AcModal } from "./ac-modal";
+import { ControllerBehavior, ControllerComponent, ControllerProps } from '../../../../behaviors/controller-behavior/controller-behavior';
+import { ScrollManager } from '../../../../utils/scroll-manager';
+import { AcModal } from '../ac-modal';
 
 /**
  * A controller that creates modal on the screen.
@@ -9,7 +9,7 @@ import { AcModal } from "./ac-modal";
 @Component({
   tag: 'ac-modal-controller',
 })
-export class AcModalController implements ControllerComponent<AcModal> {
+export class AcModalController implements ControllerComponent<AcModal, HTMLAcModalElement> {
   /**
    * The instance of the controller behavior that setup the modals on the screen.
    */
@@ -31,23 +31,33 @@ export class AcModalController implements ControllerComponent<AcModal> {
    * @param props
    */
   @Method()
-  async set(props: ControllerProps<AcModal>) {
-    const newModal = await this.controllerBehavior.create(props);
+  async create(props: ControllerProps<AcModal>) {
+    const portal = document.createElement('ac-overlay') as HTMLAcOverlayElement;
 
-    newModal.addEventListener('close', () => {
+    const modal = await this.controllerBehavior.create({ portal, ...props });
+
+    portal.addEventListener('backDropClick', () => {
+      modal.close();
+    });
+
+    modal.addEventListener('close', () => {
+      portal.remove();
       ScrollManager.enable();
     });
 
-    this.modalList.push(newModal);
+    this.modalList.push(modal);
     ScrollManager.disable();
-    return newModal;
+    return modal;
   }
 
   /**
    * Clear all modals that are displayed.
    */
   @Method()
-  clear() {
+  dismiss(elt) {
+    if (elt) {
+      return elt.close();
+    }
     return Promise.all(this.modalList.map(modal => {
       modal.close();
     }));

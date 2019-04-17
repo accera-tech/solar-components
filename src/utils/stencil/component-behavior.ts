@@ -54,6 +54,6 @@ export class ComponentBehavior<T extends ComponentBase> {
     extendMethod(this.component, 'componentDidUnload', componentDidUnload => {
       if (componentDidUnload) componentDidUnload();
       if (this.detach) this.detach();
-    })
+    });
   }
 }

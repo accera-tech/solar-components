@@ -20,12 +20,15 @@ ac-select {
     color: darken($gray, 20%);
   }
 
-
-  ac-panel {
-    position: absolute;
-    z-index: $z-panel;
+  .ac-select__native {
+    display: none;
   }
+}
 
+// Select's panel rendered in a portal
+// --------------------------------------------------
+
+.ac-select__panel {
   ul.ac-select__list {
     list-style: none;
     padding: 8px 0;
@@ -77,10 +80,6 @@ ac-select {
       }
     }
   }
-
-  .ac-select__native {
-    display: none;
-  }
 }
 
 
@@ -88,27 +87,3 @@ ac-select {
 // --------------------------------------------------
 
 @include scrollbar('ac-select ul.ac-select__list');
-
-
-// Panel at top mode
-// --------------------------------------------------
-
-ac-select.ac-select--top {
-  ac-panel {
-    bottom: calc(100% + #{$spacer-tiny});
-  }
-}
-
-
-// Panel at bottom mode
-// --------------------------------------------------
-
-ac-select.ac-select--bottom {
-  ac-panel {
-    top: 100%;
-  }
-}
-
-
-
-
