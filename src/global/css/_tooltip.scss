@@ -8,40 +8,40 @@
   &:before,
   &:after {
     display: block;
+    visibility: hidden;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    opacity: 0;
-    visibility: hidden;
     transition: all ease 0.25s;
+    opacity: 0;
 
   }
 
   &:before {
     content: attr(tooltip);
     bottom: 120%;
+    max-width: 300px;
     padding: 8px;
     border-radius: $border-radius-default;
     background-color: $black;
-    white-space: nowrap;
     color: $white;
-    max-width: 300px;
+    white-space: nowrap;
   }
 
   &:after {
     content: "";
+    top: -14px;
     width: $spacer-tiny;
     height: $spacer-tiny;
-    background-color: $black;
     border-radius: 50%;
-    top: -14px;
+    background-color: $black;
   }
 
   &:hover {
     &:before,
     &:after {
-      opacity: 1;
       visibility: visible;
+      opacity: 1;
     }
   }
 }

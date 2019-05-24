@@ -1,54 +1,53 @@
 @import "../../../theme/variables";
 
 ac-modal {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 50%;
-  min-width: 240px;
-  min-height: 240px;
-  border-radius: 4px;
-  background-color: $white;
-  box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
-  transition: transform $default-transition;
-
   @include down-sm() {
-    border-radius: 0;
     width: 100%;
     height: 100%;
+    border-radius: 0;
     .ac-modal__header {
+      min-height: 56px;
       padding: $spacer-tiny;
       h1 {
         font-size: $font-medium;
       }
-      min-height: 56px;
     }
     .ac-modal__content {
       max-height: calc(100vh - 56px);
       padding: $spacer-tiny;
     }
   }
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  min-width: 240px;
+  min-height: 240px;
+  transition: transform $default-transition;
+  border-radius: 4px;
+  background-color: $white;
+  box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
 
   .ac-modal__header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 16px 20px;
-    color: $black;
     border-bottom: 1px solid $light-gray;
+    color: $black;
 
     h1 {
-      padding: 0;
       margin: 0;
+      padding: 0;
     }
   }
 
   .ac-modal__content {
     position: relative;
-    padding: 40px;
     height: 100%;
     max-height: calc(100vh - 314px);
+    padding: 40px;
     overflow-y: auto;
   }
 

@@ -1,6 +1,7 @@
-import { FormFieldBehavior} from './form-field-behavior';
-import { ValidatorFunction } from '../../utils/validations/validations';
 import { ComponentBase } from '../../utils/stencil/component-behavior';
+import { ValidatorFunction } from '../../utils/validations/validations';
+
+import { FormFieldBehavior } from './form-field-behavior';
 
 /**
  * Represents a Component that implements the FormFieldBehavior structure.

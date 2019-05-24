@@ -1,5 +1,5 @@
-import { Component, Prop, Element, Method, Event, EventEmitter } from '@stencil/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -30,16 +30,13 @@ export class AcModal implements TransitionComponent {
   @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
 
   componentWillLoad() {}
-  componentDidUnload() {}
-
-  /**
-   * Close the modal programmatically and dispatch the close event.
-   */
-  @Method()
-  @Bind
-  async close() {
+  componentDidUnload() {
     this.closeEv.emit();
-    return this.host.remove();
+  }
+
+  @Bind
+  private close() {
+    this.host.remove();
   }
 
   render() {

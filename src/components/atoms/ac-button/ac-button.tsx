@@ -1,5 +1,5 @@
-import { Component, Prop, Element, ComponentInterface } from '@stencil/core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Component, ComponentInterface, Element, Prop } from '@stencil/core';
 
 /**
  * Accera's full-featured button webcomponent.
@@ -46,7 +46,7 @@ export class AcButton implements ComponentInterface {
   /**
    * Button in width mode.
    */
-  @Prop() expand: 'block';
+  @Prop() expand: 'block' | 'circle';
 
   /**
    * An optional link to open when click on it.
@@ -102,14 +102,14 @@ export class AcButton implements ComponentInterface {
         disabled={this.disabled}
         class="ac-button__native"
       >
-        { /** If is a textual button and its loading, shows a loading icon in the icon-start slot **/ }
+        {/* If is a textual button and its loading, shows a loading icon in the icon-start slot */}
         { !this.iconOnly && this.loading
           ? <ac-fa-icon icon={faSpinner} size={14} anim="spin" />
           : <slot name="icon-start" /> }
         <span class="ac-button__text">
-          { this.iconOnly && this.loading && <ac-fa-icon icon={faSpinner} size={12} anim="spin" /> }
-          { /** If is a icon only button and its loading, hides the main icon **/  }
-          { !this.iconOnly || (this.iconOnly && !this.loading) ? <slot /> : null }
+          {this.iconOnly && this.loading && <ac-fa-icon icon={faSpinner} size={12} anim="spin" />}
+          {/* If is a icon only button and its loading, hides the main icon */}
+          {!this.iconOnly || (this.iconOnly && !this.loading) ? <slot /> : null}
         </span>
         <slot name="icon-end" />
       </TagType>

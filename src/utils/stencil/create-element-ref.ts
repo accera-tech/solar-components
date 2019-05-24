@@ -1,4 +1,4 @@
-type NativeRefFunction = (elm?: HTMLElement) => void;
+type NativeRefFunction = (elm?: HTMLElement) => void;
 
 /**
  * Represents a reference function that contains a nativeElement instance.
@@ -12,7 +12,7 @@ export interface ElementRef<T> extends NativeRefFunction {
  * Creates a ElementRef function.
  */
 export function createElementRef<T extends HTMLElement>(): ElementRef<T> {
-  const refFunction: ElementRef<T> = function (elt?: HTMLElement) {
+  const refFunction: ElementRef<T> = (elt?: HTMLElement) => {
     refFunction.nativeElement = elt as T;
   };
   return refFunction;

@@ -22,8 +22,34 @@
 
   @if ($alpha) {
     $value: color-to-rgb-list($value);
+
     @return rgba(var(#{$variable}-rgb, $value), $alpha);
   }
 
   @return var(#{$variable}, $value);
+}
+
+// Define colors variables used to share the theme used in a component to a child.
+// --------------------------------------------------------------------------------------------
+@mixin define-theme-colors($name) {
+  $values: map-get($theme, $name);
+  @each $variation in map-keys(map-get($theme, $name)) {
+    $value: map-get($values, $variation);
+
+    --color-theme-#{$variation}: #{var-color($name, $variation)};
+    --color-theme-#{$variation}-rgb: var(--color-#{$name}-#{$variation}-rgb, #{color-to-rgb-list($value)});
+  }
+}
+
+// Get a color defined by the context theme. If it isn't defined, use the black color.
+// --------------------------------------------------------------------------------------------
+@function current-color($variation, $alpha: null) {
+  @if ($alpha) {
+    $values: map-get($theme, "white");
+    $value: map-get($values, $variation);
+
+    @return rgba(var(--color-theme-#{$variation}-rgb, color-to-rgb-list($value)), $alpha);
+  }
+
+  @return var(--color-theme-#{$variation}, var-color("white", $variation));
 }

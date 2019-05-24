@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core';
+import { Component, Listen, Prop } from '@stencil/core';
 
 /**
  * Accera's header webcomponent.
@@ -9,6 +9,22 @@ import { Component } from '@stencil/core';
   shadow: false,
 })
 export class AcHeader {
+
+  @Prop({ reflectToAttr: true, mutable: true }) scrolled: boolean;
+
+  @Listen('window:contentScroll')
+  handleLayoutContentScroll(ev) {
+    this.scrolled = ev.detail.top > 0;
+  }
+
+  hostData() {
+    return {
+      class: {
+        'ac-header--scrolled': this.scrolled,
+      }
+    };
+  }
+
   render() {
     return [
       <header class="ac-header__header-container">

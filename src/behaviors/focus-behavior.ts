@@ -1,5 +1,6 @@
-import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
 import debug from 'debug/src/browser';
+
+import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
 
 const log = debug('solar:FocusBehavior');
 
@@ -9,7 +10,7 @@ const log = debug('solar:FocusBehavior');
 export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
   /**
    * Filter all the clicks in the body and calls the `whenBlur` from the component if match an outside click.
-   * @param ev
+   * @param ev A Click Event.
    */
   private handleBodyClick = (ev: any) => {
     if (this.component.hasFocus) {

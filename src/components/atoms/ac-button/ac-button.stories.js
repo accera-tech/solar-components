@@ -7,20 +7,17 @@ storiesOf('Buttons', module)
   .add('Normal', () => {
       const theme = select(
         'theme',
-        [ 'primary', 'secondary', 'white', 'info', 'success', 'warning', 'alert', 'light', 'black' ],
+        ['primary', 'secondary', 'white', 'info', 'success', 'warning', 'alert', 'light', 'black'],
         'white'
       );
-
       const innerText = text('innerText', 'Normal');
-
-      const fill = radios('fill', [ 'flat', 'solid', 'clear' ], 'solid');
-
-      const size = radios('size', [ 'small', 'big', 'normal' ], 'normal');
+      const fill = radios('fill', ['flat', 'solid', 'clear'], 'solid');
+      const size = radios('size', ['small', 'big', 'normal'], 'normal');
 
       return `
         <ac-button theme="${theme}" fill="${fill}" size="${size}">
           ${innerText}
         </ac-button>
       `;
-  }, { notes }
-);
+    }, {notes}
+  );

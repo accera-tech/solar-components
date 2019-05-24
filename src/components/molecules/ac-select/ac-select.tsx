@@ -1,13 +1,14 @@
-import { Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Event, EventEmitter, Prop, State, Watch } from '@stencil/core';
 import { equals } from 'ramda';
 
+import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
+import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
 import { Bind } from '../../../utils/lang/bind';
 import { leftSpaceOnWindow } from '../../../utils/screen';
-
-import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
-import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
+import { AcPanel } from '../../organisms/ac-panel/ac-panel';
+import { AcPopper } from '../../portals/ac-popper/ac-popper';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -18,7 +19,7 @@ import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 })
 export class AcSelect implements FocusableComponent {
   private SelectPanel =
-    createControllerPortal<any>(document.getElementsByTagName('ac-panel-controller')[0]);
+    createControllerPortal<AcPanel & AcPopper>(document.getElementsByTagName('ac-panel-controller')[0]);
 
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
@@ -56,7 +57,7 @@ export class AcSelect implements FocusableComponent {
   /**
    * The value of the internal input.
    */
-  @Prop({ mutable: true }) value: Array<any> | any;
+  @Prop({ mutable: true }) value: any[] | any;
 
   /**
    * The name of the internal input.
@@ -128,8 +129,8 @@ export class AcSelect implements FocusableComponent {
   }
 
   @Watch('value')
-  valueDidUpdate(newValue: Array<number|string> | number | string,
-                 oldValue: Array<number|string> | number | string) {
+  valueDidUpdate(newValue: (number | string)[] | number | string,
+                 oldValue: (number | string)[] | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       const selectedOptions = this.getOptionsByValue(newValue);
       this.formatSelectedText(selectedOptions);
@@ -163,24 +164,19 @@ export class AcSelect implements FocusableComponent {
         y: clientRect.top
       });
 
-      if (spaces.bottom <= 0) {
-        this.panelDirection = 'top';
-      } else {
-        this.panelDirection = 'bottom';
-      }
+      this.panelDirection = spaces.bottom <= 0 ? 'top' : 'bottom';
     }
   }
 
   /**
    * Generate the selectedText based on the selected options.
-   * @param selectedOptions
    */
   formatSelectedText(selectedOptions: SelectOption[]) {
     if (this.options) {
       const count = selectedOptions.length;
       const total = this.options.length;
 
-      if (count == 0) {
+      if (count === 0) {
         this.selectedText = null;
       } else if (count > 0 && count < 3) {
         this.selectedText = selectedOptions.map(item => item.title).join(', ');
@@ -218,7 +214,6 @@ export class AcSelect implements FocusableComponent {
 
   /**
    * A listener that is dispatched when the user click on a select's option.
-   * @param detail
    */
   @Bind
   private handleSelect(detail) {
@@ -228,8 +223,8 @@ export class AcSelect implements FocusableComponent {
     } else {
       if (!detail.item.selected) {
         this.options.map((o, index) => {
-          o.selected = index == detail.index; // Check only the new selected item
-          this.setSelectedStateInDOM(index, index == detail.index); // If has options defined from DOM, update it!
+          o.selected = index === detail.index; // Check only the new selected item
+          this.setSelectedStateInDOM(index, index === detail.index); // If has options defined from DOM, update it!
         });
       }
     }
@@ -241,20 +236,19 @@ export class AcSelect implements FocusableComponent {
 
   /**
    * Filter the options by the actual value. Used to update the options state by an external value update.
-   * @param values
    */
-  private getOptionsByValue(values: Array<any> | any): SelectOption[] {
+  private getOptionsByValue(values: any[] | any): SelectOption[] {
     const options = [];
     if (this.options) {
       if (values instanceof Array) {
         this.options.forEach(o => {
           o.selected = values.includes(o.value);
-          if (o.selected) options.push(o);
+          if (o.selected) { options.push(o); }
         });
       } else {
         this.options.forEach(o => {
-          o.selected = values == o.value;
-          if (o.selected) options.push(o);
+          o.selected = values === o.value;
+          if (o.selected) { options.push(o); }
         });
       }
     }
@@ -263,14 +257,11 @@ export class AcSelect implements FocusableComponent {
 
   /**
    * Update the selected options in the options elements children.
-   * @param index
-   * @param state
    */
   setSelectedStateInDOM(index: number, state: boolean) {
     if (this.childOptions && this.childOptions.length > 0) {
       this.childOptions.item(index).selected = state;
-      if (state) this.childOptions.item(index).setAttribute('selected', '');
-      else this.childOptions.item(index).removeAttribute('selected');
+      if (state) { this.childOptions.item(index).setAttribute('selected', ''); } else { this.childOptions.item(index).removeAttribute('selected'); }
     }
   }
 
@@ -279,11 +270,12 @@ export class AcSelect implements FocusableComponent {
       class: {
         [`ac-select--${this.panelDirection}`]: !!this.panelDirection,
       }
-    }
+    };
   }
 
   render() {
     const icon = this.isShowingPanel ? faChevronUp : faChevronDown;
+    const SelectPanel = this.SelectPanel;
 
     return [
       <select
@@ -299,7 +291,7 @@ export class AcSelect implements FocusableComponent {
           this.acInputBase = acInputBase as any;
         }}
         label={this.label}
-        type='text'
+        type="text"
         value={this.selectedText}
         onFocus={this.togglePanel}
         disabled={this.disabled}
@@ -323,25 +315,28 @@ export class AcSelect implements FocusableComponent {
         {this.helperText}
       </span>,
 
-      <this.SelectPanel class="ac-select__panel" popperPivot={this.host} reset={!this.isShowingPanel}>
+      <SelectPanel class="ac-select__panel" popperPivot={this.host} reset={!this.isShowingPanel}>
         <slot name="item-top" slot="item-top" />
         <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
           {this.options && this.options.map((item, index) => {
-            if (item.separator) return (
-              <li class='ac-select__list-separator'>
+            if (item.separator) { return (
+              <li class="ac-select__list-separator">
                 <label>{item.title}</label>
               </li>
             );
-            else return (
-              <li class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
-                  onClick={() => this.handleSelect({item, index})}>
+            } else { return (
+              <li
+                class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
+                onClick={() => this.handleSelect({ item, index })}
+              >
                 {item.title}
               </li>
             );
+            }
           })}
         </ul>
         <slot name="item-bottom" slot="item-bottom" />
-      </this.SelectPanel>
+      </SelectPanel>
     ];
   }
 }
@@ -363,15 +358,15 @@ export interface SelectOption {
   /**
    * If true, this item will be displayed as a selected item.
    */
-  selected?: boolean
+  selected?: boolean;
 
   /**
    * If true, style this item as a list separator.
    */
-  separator?: boolean
+  separator?: boolean;
 
   /**
    * The label of the options group of this item.
    */
-  group?: string
+  group?: string;
 }

@@ -7,8 +7,8 @@
 ac-card {
   display: block;
   border: 1px solid $ui-card__border-color;
-  background: $white;
   border-radius: $border-radius-default;
+  background: $white;
   box-shadow: $z8-shadow;
 
   & > [slot=header] {

@@ -4,13 +4,13 @@
 // @TODO: Review the skeleton usage.
 @include component-skeleton("ac-tab") {
   @include skeleton-base("skeleton-background");
+  @include text-skeleton("*", $ac-tab__font-size);
   display: inline-block;
   height: $ac-tab__font-size;
   margin: $ac-tab__padding;
   padding: 0;
-  font-size: inherit;
   color: transparent;
-  @include text-skeleton("*", $ac-tab__font-size);
+  font-size: inherit;
   * {
     display: inherit !important;
   }

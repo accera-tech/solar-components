@@ -5,27 +5,72 @@
 
 :host {
   display: flex;
+  position: relative;
   flex-direction: column;
-  width: 236px;
+  width: 260px;
   height: 100%;
-
+  transition: width $default-transition;
   background: $white;
   color: $black;
 
   .ac-navdrawer__header {
     display: flex;
-    justify-content: space-between;
+    box-sizing: border-box;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     min-height: 64px;
-    box-sizing: border-box;
     font-weight: bold;
   }
 
   .ac-navdrawer__content {
-    height: 100%;
-    padding: 16px;
+    display: flex;
     box-sizing: border-box;
+    justify-content: center;
+    height: 100%;
+  }
+
+  // Brand Button
+  .ac-navdrawer__toggle-button {
+    display: flex;
+    position: absolute;
+    z-index: $z-fab;
+    top: 22px;
+    left: calc(100% - 14px);
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 22px;
+    border: none;
+    border-radius: 7px;
+    outline: none !important;
+    cursor: pointer;
+
+    & > * {
+      position: absolute;
+      z-index: 1;
+    }
+
+    &:after, &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+      background-color: inherit;
+    }
+
+    &:before {
+      transform: rotate(60deg);
+    }
+    &:after {
+      transform: rotate(-60deg);
+    }
   }
 }
 
@@ -34,12 +79,43 @@
 // --------------------------------------------------
 
 :host(.ac-navdrawer--primary) {
+  @include define-theme-colors("primary");
   background: var-color("primary", "dark");
   color: var-color("primary", "contrast");
 
-  .ac-navdrawer__header {
-    background: var-color("primary", "darker");
+  .ac-navdrawer__toggle-button {
+    background-color: var-color("primary", "normal");
+    & > * {
+      fill: var-color("primary", "contrast");
+    }
   }
+}
+
+
+// Secondary Theme
+// --------------------------------------------------
+
+:host(.ac-navdrawer--secondary) {
+  @include define-theme-colors("secondary");
+  background: var-color("secondary", "dark");
+  color: var-color("secondary", "contrast");
+
+  .ac-navdrawer__toggle-button {
+    background-color: var-color("secondary", "normal");
+    & > * {
+      fill: var-color("secondary", "contrast");
+    }
+  }
+}
+
+
+
+// Compact mode
+// mode="compact"
+// --------------------------------------------------
+
+:host(.ac-navdrawer--compact) {
+  width: 64px;
 }
 
 

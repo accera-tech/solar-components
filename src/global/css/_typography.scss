@@ -1,47 +1,57 @@
 @import "../../theme/variables";
 
 * {
-  font-family: Nunito, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 h1, h2, h3, h4, h5, h6, p, small {
-  line-height: calc(100% + #{$spacer-tiny});
   margin: 0;
   padding: 0;
+  line-height: calc(100% + #{$spacer-tiny});
 }
+
 h1 {
+  color: $black;
   font-size: $font-huge;
   font-weight: 900;
-  color: $black;
 }
+
 h2 {
-  font-size: $font-large;
   color: $black;
+  font-size: $font-large;
 }
+
 h3 {
   font-size: $font-medium;
 }
+
 h4 {
   font-size: $font-small;
 }
+
 h5 {
   font-size: $font-tiny;
   text-transform: uppercase;
 }
+
 h6 {
   font-size: $font-tiny;
 }
+
 p {
-  font-size: $font-small;
   padding: 0;
+  font-size: $font-small;
 }
+
 p + div {
   margin-top: $spacer-huge;
 }
+
 small {
-  font-size: $font-tiny;
   padding: 0;
+  font-size: $font-tiny;
 }
+
 strong, b {
   color: $black;
 }
@@ -53,18 +63,45 @@ strong, b {
 .font-light {
   font-weight: 300;
 }
+
 .font-regular {
   font-weight: 400;
 }
+
 .font-semibold {
   font-weight: 600;
 }
+
 .font-bold {
   font-weight: 700;
 }
+
 .font-extrabold {
   font-weight: 800;
 }
+
 .font-black {
   font-weight: 900;
+}
+
+.text-subtitle {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.text-subtitle-light {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@each $color in map-keys($theme) {
+  @each $variation in map-keys(map_get($theme, $color)) {
+    @if $variation != "normal" {
+      .text-#{$color}-#{$variation} {
+        color: var-color($color, $variation);
+      }
+    }
+  }
+
+  .text-#{$color} {
+    color: var-color($color, "normal");
+  }
 }

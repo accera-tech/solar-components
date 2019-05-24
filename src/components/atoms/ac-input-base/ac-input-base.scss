@@ -19,35 +19,35 @@
 
 ac-input-base {
   display: $ac-input-base__display;
-  background-color: white;
+  min-height: $ac-input-base__min-height;
   border: 2px solid $ui-input__border-color;
   border-radius: 4px;
-  min-height: $ac-input-base__min-height;
+  background-color: white;
 
   .ac-input__input-container {
+    display: flex;
     position: relative;
     width: 100%;
-    display: flex;
 
     label.ac-input__label {
       position: absolute;
       top: 50%;
       left: 16px;
-      color: $ui-label__color;
-      transition: font-size $default-transition, top $default-transition;
-      user-select: none;
-      pointer-events: none;
-      font-size: $font-small;
       transform: translateY(-50%);
+      transition: font-size $default-transition, top $default-transition;
+      color: $ui-label__color;
+      font-size: $font-small;
+      pointer-events: none;
+      user-select: none;
     }
 
     input.ac-input__native {
+      box-sizing: border-box;
       width: 100%;
       height: $ac-input-base__min-height;
       padding: 24px 16px 8px;
-      box-sizing: border-box;
-      background-color: transparent;
       border: none;
+      background-color: transparent;
       color: $ui-input__color;
       font-size: $font-small;
 
@@ -60,8 +60,8 @@ ac-input-base {
   .ac-input__item-start, .ac-input__item-end {
     & > * {
       display: flex !important;
-      justify-content: center !important;
       align-items: center !important;
+      justify-content: center !important;
       min-width: 44px;
       height: calc(100% - 8px);
       margin: $spacer-tiny / 2;
@@ -75,8 +75,8 @@ ac-input-base {
 
 ac-input-base.ac-input--focus, ac-input-base.ac-input--filled {
   label.ac-input__label {
-    font-size: $font-tiny;
     top: 25%;
+    font-size: $font-tiny;
   }
 }
 
@@ -99,8 +99,8 @@ ac-input-base.ac-input--alert {
 ac-input-base.ac-input--disabled {
   background-color: $ui-input--disabled__background-color;
   input.ac-input__native {
-    cursor: not-allowed;
     color: $ui-input--disabled__color;
+    cursor: not-allowed;
   }
 
   label.ac-input__label {
@@ -113,8 +113,8 @@ ac-input-base.ac-input--disabled {
 // --------------------------------------------------
 
 ac-input-base.ac-input--compact {
-  border: 0px;
   min-height: $ac-input-base--compact__min-height;
+  border: 0px;
 
   .ac-input__input-container {
     input.ac-input__native {

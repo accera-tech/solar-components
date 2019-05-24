@@ -2,20 +2,20 @@
 
 $theme: (
   primary: (
-    normal:           $turquoise, // --color-primary-normal
+    normal:           $accent-blue, // --color-primary-normal
     contrast:         $white, // --color-primary-contrast
-    dark:             darken($turquoise, 10%), // --color-primary-dark
-    darker:           darken($turquoise, 20%), // --color-primary-darker
-    light:            lighten($turquoise, 10%), // --color-primary-light
-    lighter:          lighten($turquoise, 20%) // --color-primary-lighter
+    dark:             darken($accent-blue, 10%), // --color-primary-dark
+    darker:           darken($accent-blue, 20%), // --color-primary-darker
+    light:            lighten($accent-blue, 10%), // --color-primary-light
+    lighter:          lighten($accent-blue, 20%) // --color-primary-lighter
   ),
   secondary: (
-    normal:           $orange, // --color-secondary-normal
+    normal:           $accent-red, // --color-secondary-normal
     contrast:         $white, // --color-secondary-contrast
-    dark:             darken($orange, 10%), // --color-secondary-dark
-    darker:           darken($orange, 20%), // --color-secondary-darker
-    light:            lighten($orange, 10%), // --color-secondary-light
-    lighter:          lighten($orange, 20%) // --color-secondary-lighter
+    dark:             darken($accent-red, 10%), // --color-secondary-dark
+    darker:           darken($accent-red, 20%), // --color-secondary-darker
+    light:            lighten($accent-red, 10%), // --color-secondary-light
+    lighter:          lighten($accent-red, 20%) // --color-secondary-lighter
   ),
   info: (
     normal:           $info, // --color-info-normal
@@ -64,5 +64,12 @@ $theme: (
     contrast:         $white, // --color-black-contrast
     dark:             darken($black, 10%), // --color-black-dark
     light:            lighten($black, 10%) // --color-black-light
+  ),
+  // Default component current-color.
+  theme: (
+    normal:           $white, // --color-theme-base
+    contrast:         $black, // --color-theme-contrast
+    dark:             darken($white, 10%), // --color-theme-dark
+    light:            $white // --color-theme-light
   )
 );

@@ -19,7 +19,7 @@ export function leftSpaceOnViewport(bounding: ViewBounding | DOMRect, viewport: 
     left: (viewport.width - (viewport.width - bounding.x)) - bounding.width,
     right: (viewport.width - bounding.x) - bounding.width,
     bottom: (viewport.height - bounding.y) - bounding.height,
-  }
+  };
 }
 
 /**

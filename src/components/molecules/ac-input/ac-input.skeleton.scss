@@ -5,6 +5,6 @@
   @include skeleton-base("skeleton-background");
   display: $ac-input-base__display;
   min-height: $ac-input-base__min-height;
-  border-radius: $border-radius-default;
   border: none;
+  border-radius: $border-radius-default;
 }

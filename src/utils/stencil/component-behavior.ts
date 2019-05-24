@@ -1,4 +1,5 @@
 import { ComponentInterface } from '@stencil/core';
+
 import { extendMethod } from '../lang/extend-method';
 
 /**
@@ -49,7 +50,7 @@ export class ComponentBehavior<T extends ComponentBase> {
 
   constructor(component: T) {
     this.component = component;
-    if (this.beforeAttach) this.beforeAttach();
+    if (this.beforeAttach) { this.beforeAttach(); }
 
     // Native Elements support
     if (this.component.native) {
@@ -62,13 +63,13 @@ export class ComponentBehavior<T extends ComponentBase> {
     }
 
     extendMethod(this.component, 'componentDidLoad', componentDidLoad => {
-      if (componentDidLoad) componentDidLoad();
-      if (this.attach) this.attach();
+      if (componentDidLoad) { componentDidLoad(); }
+      if (this.attach) { this.attach(); }
     });
 
     extendMethod(this.component, 'componentDidUnload', componentDidUnload => {
-      if (componentDidUnload) componentDidUnload();
-      if (this.detach) this.detach();
+      if (componentDidUnload) { componentDidUnload(); }
+      if (this.detach) { this.detach(); }
     });
   }
 }

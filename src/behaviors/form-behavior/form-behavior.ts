@@ -1,10 +1,11 @@
-import { ComponentBehavior } from '../../utils/stencil/component-behavior';
-import { FormFieldBehavior } from './form-field-behavior';
-import { Bind } from '../../utils/lang/bind';
-import { ValidationError } from '../../utils/validations/validations';
-import { serializeForm, SerializeFormOptions } from '../../utils/serialize-form';
-
 import debug from 'debug/src/browser';
+
+import { Bind } from '../../utils/lang/bind';
+import { SerializeFormOptions, serializeForm } from '../../utils/serialize-form';
+import { ComponentBehavior } from '../../utils/stencil/component-behavior';
+import { ValidationError } from '../../utils/validations/validations';
+
+import { FormFieldBehavior } from './form-field-behavior';
 
 const log = debug('solar:FormBehavior');
 
@@ -50,7 +51,7 @@ export class FormBehavior extends ComponentBehavior<any> {
         .then(() => {
           this.component.host.dispatchEvent(new CustomEvent('formSubmit'));
         })
-        .catch((error) => {
+        .catch(error => {
           this.component.host.dispatchEvent(new CustomEvent('formInvalid', { detail: { error } }));
         });
     }
@@ -88,14 +89,14 @@ export class FormBehavior extends ComponentBehavior<any> {
 
     // Prevent close the page with unsaved changes.
     if (!this.preventUnsavedIsAttached &&
-      (this.component.preventUnsaved || this.component.preventUnsaved == "")) {
+      (this.component.preventUnsaved || this.component.preventUnsaved === '')) {
       log('Preventing Unsaved');
-      window.addEventListener('beforeunload', (e) => {
+      window.addEventListener('beforeunload', e => {
         if (this.isUnchecked) {
           const confirmationMessage = this.component.preventUnsaved;
 
-          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-          return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+          (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+          return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
         }
       });
       this.preventUnsavedIsAttached = true;
@@ -133,7 +134,7 @@ export class FormBehavior extends ComponentBehavior<any> {
 
   /**
    * Adds a field to this logic. Note that the field must have a name.
-   * @param field
+   * @param field A component's FormFieldBehavior
    */
   addField(field: FormFieldBehavior) {
     this.fields.set(field.name, field);
@@ -141,7 +142,7 @@ export class FormBehavior extends ComponentBehavior<any> {
 
   /**
    * Remove a field from this logic.
-   * @param field
+   * @param field A component's FormFieldBehavior
    */
   removeField(field: FormFieldBehavior) {
     this.fields.delete(field.name);
@@ -203,4 +204,3 @@ export class FormValidationError extends Error {
     this.errs = errs;
   }
 }
-

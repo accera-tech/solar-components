@@ -5,6 +5,6 @@
  */
 export function matchPattern(pattern, patternMessage) {
   return value => !(new RegExp(pattern).test(value)) ?
-    (typeof patternMessage == 'string' ? patternMessage : 'This field is does not match the required pattern')
-    : null
+    (typeof patternMessage === 'string' ? patternMessage : 'This field is does not match the required pattern')
+    : null;
 }

@@ -2,18 +2,16 @@ function cssDurationToMilis(duration) {
   // Prevent errors with .xxx values
   const time = duration.startsWith('.') ? '0' + duration : duration;
 
-  if (time.endsWith('ms')) return parseInt(time);
-  else return parseFloat(time) * 1000;
+  if (time.endsWith('ms')) { return parseInt(time); } else { return parseFloat(time) * 1000; }
 }
 
 /**
  * Start an element animation pipeline.
- * @param element
  */
 export function animate(element: HTMLElement): Promise<AnimationProperties> {
   /* @TODO: returns null in firefox even for elements with transition. */
   const declaredTransition = window.getComputedStyle(element).transition.match(/\.?\d[ms]/g);
-  if (!declaredTransition) return new Promise(resolve => resolve({ element, duration: 0 }));
+  if (!declaredTransition) { return new Promise(resolve => resolve({ element, duration: 0 })); }
 
   let duration = 0;
   declaredTransition.forEach(t => {
@@ -31,7 +29,7 @@ export function animate(element: HTMLElement): Promise<AnimationProperties> {
  * @param property The specific property that this transition rule is applied.
  */
 export function transition(timing: string, transitionDur: number, property?: string): AnimationTransformFunction {
-  return function ({ element, duration }) {
+  return ({ element, duration }) => {
     element.style.transition = `${property || ''} ${timing} ${transitionDur}ms`;
     const newDuration = duration < transitionDur ? transitionDur : duration;
 
@@ -41,10 +39,10 @@ export function transition(timing: string, transitionDur: number, property?: str
 
 /**
  * Apply CSS classes to this element.
- * @param classList
+ * @param classList A list of CSS classes to apply.
  */
 export function addClass(...classList): AnimationTransformFunction {
-  return function ({ element, duration }) {
+  return ({ element, duration }) => {
     element.classList.add(...classList);
     return new Promise(res => res({ element, duration }));
   };
@@ -52,10 +50,10 @@ export function addClass(...classList): AnimationTransformFunction {
 
 /**
  * Remove CSS classes from this element.
- * @param classList
+ * @param classList A list of CSS classes to remove.
  */
 export function removeClass(...classList): AnimationTransformFunction {
-  return function ({ element, duration }) {
+  return ({ element, duration }) => {
     element.classList.remove(...classList);
     return new Promise(res => res({ element, duration }));
   };
@@ -63,13 +61,13 @@ export function removeClass(...classList): AnimationTransformFunction {
 
 /**
  * Add inline style to this element.
- * @param style
+ * @param style A style object to set in the element.
  */
 export function addStyle(style: ElementStyle): AnimationTransformFunction {
-  return function ({ element, duration }) {
+  return ({ element, duration }) => {
     Object.assign(element.style, style);
     return new Promise(res => res({ element, duration }));
-  }
+  };
 }
 
 /**
@@ -77,7 +75,7 @@ export function addStyle(style: ElementStyle): AnimationTransformFunction {
  * @param delay An optional delay to add to the animation execution.
  */
 export function wait(delay = 0): AnimationTransformFunction {
-  return function ({ element, duration }) {
+  return ({ element, duration }) => {
     return new Promise(res => setTimeout(() => res({ element, duration }), duration + delay));
   };
 }
@@ -94,7 +92,7 @@ type ElementStyle = {
  */
 export interface AnimationProperties {
   element: HTMLElement;
-  duration: number
+  duration: number;
 }
 
 /**

@@ -1,10 +1,11 @@
-import { Component, Prop, Element, State, Watch, Method } from '@stencil/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Method, Prop, State, Watch } from '@stencil/core';
+import vanillaMasker from 'vanilla-masker';
+
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
-import { ValidatorFunction } from '../../../utils/validations/validations';
 import { Bind } from '../../../utils/lang/bind';
 import { matchPattern } from '../../../utils/validations/matchPattern';
-import vanillaMasker from 'vanilla-masker';
+import { ValidatorFunction } from '../../../utils/validations/validations';
 
 /**
  * Accera's full-featured Input Field webcomponent.
@@ -90,7 +91,7 @@ export class AcInput implements FormFieldComponent {
   /**
    * The native HTMLInputElement min attribute.
    */
-  @Prop({ reflectToAttr: true }) minlength : number;
+  @Prop({ reflectToAttr: true }) minlength: number;
 
   /**
    * The native HTMLInputElement autofocus attribute.
@@ -120,21 +121,22 @@ export class AcInput implements FormFieldComponent {
    */
   @State() isShowingPassword: boolean;
 
-  componentDidLoad() {
+  async componentDidLoad() {
     this.errorDidUpdate(this.error);
 
     // Add pattern validation to the validation pipeline
     if (this.pattern) {
-      if (this.validator instanceof Array)
+      if (this.validator instanceof Array) {
         this.validator.unshift(matchPattern(this.pattern, this.patternMessage));
-      else this.validator = [ matchPattern(this.pattern, this.patternMessage), this.validator ];
+      } else { this.validator = [ matchPattern(this.pattern, this.patternMessage), this.validator ]; }
     }
 
     if (this.mask) {
-      vanillaMasker(this.acInputBase.getNativeInput()).maskPattern(this.mask);
+      vanillaMasker(await this.acInputBase.getNativeInput()).maskPattern(this.mask);
       // Masking the initial value
-      if (this.value)
+      if (this.value) {
         this.value = vanillaMasker.toPattern(this.value, this.mask);
+      }
     }
   }
 
@@ -142,15 +144,14 @@ export class AcInput implements FormFieldComponent {
 
   /**
    * Set the error state based on the error prop.
-   * @param error
+   * @param error An error message.
    */
   @Watch('error')
   errorDidUpdate(error: string) {
     this.acInputBase.classList.add(error ? 'ac-input--alert' : 'ac-input--success');
     this.acInputBase.classList.remove(error ? 'ac-input--success' : 'ac-input--alert');
 
-    if (error) this.formFieldBehavior.setInvalid();
-    else this.formFieldBehavior.setValid();
+    if (error) { this.formFieldBehavior.setInvalid(); } else { this.formFieldBehavior.setValid(); }
   }
 
   /**
@@ -170,7 +171,6 @@ export class AcInput implements FormFieldComponent {
    * input.value will only update the value, useful to set the initial value of the input.
    * input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state
    * to the form.
-   * @param value
    */
   @Method()
   setValue(value) {
@@ -183,15 +183,12 @@ export class AcInput implements FormFieldComponent {
 
   /**
    * Get the unmasked value.
-   * @param type
    */
   @Method()
-  getRawValue(type = 'text'){
-    if (!this.value) return null;
-    if (type === 'text') return this.value.toString().replace(/[^a-z0-9 ]+/ig, "");
-    else return vanillaMasker.toNumber(this.value);
+  async getRawValue(type = 'text') {
+    if (!this.value) { return null; }
+    if (type === 'text') { return this.value.toString().replace(/[^a-z0-9 ]+/ig, ''); } else { return vanillaMasker.toNumber(this.value); }
   }
-
 
   /**
    * Set focus state in the native input.

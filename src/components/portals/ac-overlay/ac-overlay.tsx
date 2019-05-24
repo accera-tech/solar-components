@@ -1,7 +1,8 @@
-import { Component, Element, Method, Prop, EventEmitter, Event } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Method, Prop } from '@stencil/core';
+
+import { PortalBehavior, PortalComponent } from '../../../behaviors/portal-behavior';
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
-import { PortalBehavior, PortalComponent } from "../../../behaviors/portal-behavior";
-import { Bind } from "../../../utils/lang/bind";
+import { Bind } from '../../../utils/lang/bind';
 
 /**
  * Accera's Panel webcomponent used as a menu.
@@ -54,7 +55,7 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
         justifyContent: this.position.split(' ')[0],
         alignItems: this.position.split(' ')[1],
       }
-    }
+    };
   }
 
   render() {
@@ -64,4 +65,3 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
     ];
   }
 }
-

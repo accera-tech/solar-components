@@ -1,8 +1,9 @@
-import { Component, Prop, Element } from '@stencil/core';
-import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
-import { PortalBehavior, PortalComponent } from "../../../behaviors/portal-behavior";
+import { Component, Element, Prop } from '@stencil/core';
+import { Placement, PopperOptions } from 'popper.js';
+
 import { PopperBehavior, PopperComponent } from '../../../behaviors/popper-behavior';
-import { Placement, PopperOptions } from "popper.js";
+import { PortalBehavior, PortalComponent } from '../../../behaviors/portal-behavior';
+import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 
 @Component({
   tag: 'ac-popper',
@@ -18,7 +19,6 @@ export class AcPopper implements PortalComponent, TransitionComponent, PopperCom
   @Prop() popperPivot: string | HTMLElement;
   @Prop() popperPlacement: Placement;
   @Prop() popperOptions: PopperOptions;
-
 
   componentWillLoad() {}
   componentDidUnload() {}

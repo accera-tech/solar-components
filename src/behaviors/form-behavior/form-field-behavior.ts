@@ -1,12 +1,12 @@
+import debug from 'debug/src/browser';
+
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
-import {ValidationError, ValidatorFunction} from '../../utils/validations/validations';
 import { isRequired } from '../../utils/validations/isRequired';
+import { ValidationError, ValidatorFunction } from '../../utils/validations/validations';
 
 import { FormBehavior } from './form-behavior';
 import { FormFieldComponent } from './form-field-component';
 import { HTMLCustomFormElement } from './html-custom-form-element';
-
-import debug from 'debug/src/browser';
 const log = debug('solar:FormFieldBehavior');
 
 /**
@@ -74,7 +74,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     this.component.host.classList.add('field--dirty');
     this.isDirty = true;
 
-    if (this.formAttached) this.formAttached.formBehavior.setUnchecked();
+    if (this.formAttached) { this.formAttached.formBehavior.setUnchecked(); }
   }
 
   /**
@@ -134,8 +134,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
 
     // Converting to Array
     let validators = [];
-    if (validator instanceof Array) validators = validator;
-    else if (validator) validators = [ validator ];
+    if (validator instanceof Array) { validators = validator; } else if (validator) { validators = [ validator ]; }
 
     let hasRequiredCheck = false;
     if (this.component.required) {
@@ -143,21 +142,21 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
       validators.unshift(isRequired(this.component.required));
     }
 
-    if (!hasRequiredCheck && !this.component.value)
+    if (!hasRequiredCheck && !this.component.value) {
       return this.component.error = null;
+    }
 
     // Running all validator functions
     for (const fn of validators) {
       if (fn) {
         const exec = fn(this.component.value, this.formAttached);
         let res;
-        if (exec instanceof Promise) res = await exec;
-        else res = exec;
+        res = exec instanceof Promise ? await exec : exec;
 
         if (res) {
           this.component.error = res.message || res;
           log('Validation error', this.name, res);
-          return res.message ? res : {message: res};
+          return res.message ? res : { message: res };
         }
       }
     }
@@ -167,11 +166,9 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
 
   /**
    * Add a validator to the validation pipeline.
-   * @param validator
    */
   addValidator(validator: ValidatorFunction) {
-    if (!this.component.validator) this.component.validator = [];
-    else if (!(this.component.validator instanceof Array)) this.component.validator = [ this.component.validator ];
+    if (!this.component.validator) { this.component.validator = []; } else if (!(this.component.validator instanceof Array)) { this.component.validator = [ this.component.validator ]; }
     this.component.validator.push(validator);
 
     return this;

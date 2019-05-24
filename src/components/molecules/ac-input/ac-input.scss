@@ -11,8 +11,8 @@ ac-input {
   .ac-input__helper-text {
     display: block;
     margin-top: $spacer-tiny;
-    font-size: $font-tiny;
     color: darken($gray, 20%);
+    font-size: $font-tiny;
   }
 }
 

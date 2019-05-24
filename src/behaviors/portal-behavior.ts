@@ -1,4 +1,5 @@
 import { VNode } from '@stencil/core/dist/declarations';
+
 import { extendMethod } from '../utils/lang/extend-method';
 import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
 
@@ -9,7 +10,7 @@ import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-beh
 export class PortalBehavior extends ComponentBehavior<PortalComponent> {
   constructor(component) {
     super(component);
-    extendMethod(component, 'render', function (original) {
+    extendMethod(component, 'render', original => {
       return component.customRender ? component.customRender(component.vchildren) : component.vchildren || original();
     });
   }
@@ -33,5 +34,5 @@ export interface PortalComponent extends ComponentBase {
   /**
    * A custom vchildren render function to use instead the default.
    */
-  customRender?: (vchildren) => VNode | VNode[]
+  customRender?: (vchildren) => VNode | VNode[];
 }

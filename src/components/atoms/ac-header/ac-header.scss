@@ -1,28 +1,34 @@
 @import "../../../theme/variables";
+@import "./ac-header.vars";
 
 
 // General Header Style
 // --------------------------------------------------
 
 ac-header {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
+  display: $ac-header__display;
   z-index: $z-header;
-  background: $white;
-  box-shadow: $z1-shadow;
+  box-sizing: border-box;
+  width: $ac-header__width;
+  transition: background $slow-transition, box-shadow $slow-transition;
+
+  @include down-md {
+    background: $white;
+    box-shadow: $z1-shadow;
+  }
 
   .ac-header__header-container {
     display: flex;
+    box-sizing: border-box;
     align-content: center;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    min-height: $ac-header__min-height;
     padding: $spacer-small $spacer-huge;
+
     @include down-md() {
       padding: $spacer-small $spacer-small;
     }
-    box-sizing: border-box;
-    min-height: 64px;
 
     .ac-header__content {
       display: flex;
@@ -36,9 +42,14 @@ ac-header {
   // --------------------------------------------------
 
   ac-tabs[slot="sub-header"] {
-    border-bottom: 0;
     @include up-md() {
       padding: 0 24px;
     }
+    border-bottom: 0;
   }
+}
+
+ac-header.ac-header--scrolled {
+  background: $white;
+  box-shadow: $z1-shadow;
 }

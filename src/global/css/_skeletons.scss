@@ -11,8 +11,8 @@
     background-position: -1000px 0px;
   }
   100% {
-     background-position: 1000px 0px;
-   }
+    background-position: 1000px 0px;
+  }
 }
 
 .ac-skeleton .ac-skeleton--text {
@@ -30,6 +30,7 @@
   @include skeleton-base(skeleton-background);
   border-radius: 100%;
   color: transparent;
+
   * {
     display: none;
   }
@@ -38,6 +39,7 @@
 .ac-skeleton .ac-skeleton--bg {
   @include skeleton-base(skeleton-background);
   color: transparent;
+
   * {
     display: none;
   }

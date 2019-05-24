@@ -10,14 +10,21 @@
     "dist/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "stencil build --drocs",
     "publish-latest": "npm run build && npm publish --tag latest",
     "publish-beta": "npm run build && npm publish --tag beta",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "storybook": "start-storybook -p 6006 -s .",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "lint": "npm run lint.ts && npm run lint.sass",
+    "lint.fix": "npm run lint.ts.fix && npm run lint.sass.fix",
+    "lint.sass": "stylelint src/**/*.scss",
+    "lint.sass.fix": "npm run lint.sass -- --fix",
+    "lint.ts": "tslint --project .",
+    "lint.ts.fix": "tslint --project . --fix"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
@@ -26,18 +33,23 @@
     "vanilla-masker": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@stencil/core": "~0.15.1",
+    "@babel/core": "^7.4.3",
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "@stencil/core": "0.17.3-0",
     "@stencil/sass": "^0.1.1",
     "@storybook/addon-knobs": "^5.0.5",
     "@storybook/addon-notes": "^5.0.5",
-    "@storybook/html": "^5.0.3",
-    "babel-loader": "^8.0.5",
-    "cross-env": "^5.2.0",
-    "jest": "^23.6.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "rollup-plugin-strip-code": "^0.2.6"
+    "@storybook/html": "^5.0.10",
+    "@types/jest": "^24.0.11",
+    "conventional-changelog": "^3.1.3",
+    "husky": "^2.1.0",
+    "jest": "^24.7.1",
+    "stylelint": "^10.0.1",
+    "stylelint-order": "^3.0.0",
+    "tslint": "^5.16.0",
+    "tslint-ionic-rules": "0.0.21",
+    "tslint-react": "^4.0.0"
   },
   "repository": {
     "type": "git",

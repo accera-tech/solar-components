@@ -4,7 +4,7 @@
  */
 export class ScrollManager {
 
-  static isDisabled: boolean = false;
+  static isDisabled = false;
   static isDisabledForAll: boolean;
 
   /**
@@ -24,8 +24,9 @@ export class ScrollManager {
 
   static preventDefault(e) {
     e = e || window.event;
-    if (e.preventDefault)
+    if (e.preventDefault) {
       e.preventDefault();
+    }
     e.returnValue = false;
   }
 
@@ -52,8 +53,9 @@ export class ScrollManager {
     if (all) {
       const preventDefault = ScrollManager.preventDefault;
       const preventDefaultForScrollKeys = ScrollManager.preventDefaultForScrollKeys;
-      if (window.addEventListener) // older FF
+      if (window.addEventListener) { // older FF
         window.addEventListener('DOMMouseScroll', preventDefault, false);
+      }
       window.onwheel = preventDefault; // modern standard
       window.onmousewheel = (document as any).onmousewheel = preventDefault; // older browsers, IE
       window.ontouchmove = preventDefault; // mobile
@@ -73,8 +75,9 @@ export class ScrollManager {
     document.querySelector('html').style.overflow = '';
 
     if (this.isDisabledForAll) {
-      if (window.removeEventListener)
+      if (window.removeEventListener) {
         window.removeEventListener('DOMMouseScroll', ScrollManager.preventDefault, false);
+      }
       window.onmousewheel = (document as any).onmousewheel = null;
       window.onwheel = null;
       window.ontouchmove = null;

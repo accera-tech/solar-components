@@ -6,8 +6,8 @@
 // --------------------------------------------------
 
 ac-tab {
-  color: var-color("primary", "normal");
   padding: $ac-tab__padding;
+  color: var-color("primary", "normal");
   font-size: $ac-tab__font-size;
   font-weight: 700;
   line-height: 1;

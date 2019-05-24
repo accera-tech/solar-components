@@ -1,7 +1,8 @@
-import {Element, Component, Prop, Watch} from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
+
+import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
-import { FormFieldBehavior, FormFieldComponent } from "../../../behaviors/form-behavior";
-import {ValidatorFunction} from "../../../utils/validations/validations";
+import { ValidatorFunction } from '../../../utils/validations/validations';
 
 /**
  * Accera's full-featured checkbox webcomponent.
@@ -67,12 +68,11 @@ export class AcCheck implements FormFieldComponent {
 
   /**
    * Set the error state based on the error prop.
-   * @param error
+   * @param error An error message.
    */
   @Watch('error')
   errorDidUpdate(error: string) {
-    if (error) this.formFieldBehavior.setInvalid();
-    else this.formFieldBehavior.setValid();
+    if (error) { this.formFieldBehavior.setInvalid(); } else { this.formFieldBehavior.setValid(); }
   }
 
   /**
@@ -117,9 +117,9 @@ export class AcCheck implements FormFieldComponent {
         />
         <label class="ac-check__custom" htmlFor={nativeInputId}>
         </label>
-        { this.label && <label class="ac-check__label" htmlFor={nativeInputId}>{this.label}</label> }
+        {this.label && <label class="ac-check__label" htmlFor={nativeInputId}>{this.label}</label>}
       </div>,
-      (this.error || this.helperText) && <label class="ac-check__helper-text" htmlFor={nativeInputId}>{ this.error || this.helperText }</label>
-    ]
+      (this.error || this.helperText) && <label class="ac-check__helper-text" htmlFor={nativeInputId}>{this.error || this.helperText}</label>
+    ];
   }
 }

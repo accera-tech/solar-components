@@ -1,5 +1,7 @@
-import { Component, Prop, Element, Watch } from '@stencil/core';
-import { FocusBehavior, FocusableComponent } from "../../../behaviors/focus-behavior";
+import { Component, Element, Event, EventEmitter, Prop, Watch } from '@stencil/core';
+
+import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
+import { Bind } from '../../../utils/lang/bind';
 
 /**
  * Accera's layout webcomponent.
@@ -25,6 +27,8 @@ export class AcLayout implements FocusableComponent {
     this.hasFocus = !!this.collapsed;
   }
 
+  @Event() contentScroll: EventEmitter<{top: number, left: number}>;
+
   componentDidLoad() {}
   componentDidUnload() {}
 
@@ -34,12 +38,17 @@ export class AcLayout implements FocusableComponent {
     }
   }
 
+  @Bind
+  handleContentScroll(ev) {
+    this.contentScroll.emit({ top: ev.target.scrollTop, left: ev.target.scrollLeft });
+  }
+
   hostData() {
     return {
       class: {
         [`ac-layout--${this.collapsed}-collapsed`]: !!this.collapsed,
       }
-    }
+    };
   }
 
   render() {
@@ -50,7 +59,7 @@ export class AcLayout implements FocusableComponent {
       <div class="ac-layout__content-container">
         <slot name="header" />
 
-        <div class="ac-layout__content-scroll">
+        <div class="ac-layout__content-scroll" onScroll={this.handleContentScroll}>
           <slot name="content" />
         </div>
       </div>

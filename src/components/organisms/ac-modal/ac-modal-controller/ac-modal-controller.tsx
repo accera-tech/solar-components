@@ -1,6 +1,12 @@
 import { Component, Element, Method, Prop } from '@stencil/core';
-import { ControllerBehavior, ControllerComponent, ControllerProps } from '../../../../behaviors/controller-behavior/controller-behavior';
+
+import {
+  ControllerBehavior,
+  ControllerComponent,
+  ControllerComponentOptions, HTMLStencilControlledElement,
+} from '../../../../behaviors/controller-behavior/controller-behavior';
 import { ScrollManager } from '../../../../utils/scroll-manager';
+import { AcOverlay } from '../../../portals/ac-overlay/ac-overlay';
 import { AcModal } from '../ac-modal';
 
 /**
@@ -20,7 +26,7 @@ export class AcModalController implements ControllerComponent<AcModal, HTMLAcMod
   /**
    * The list of modals that are displayed.
    */
-  modalList: HTMLAcModalElement[] = [];
+  modalList: HTMLStencilControlledElement<AcModal, HTMLAcModalElement>[] = [];
 
   @Element() host: HTMLElement;
 
@@ -28,20 +34,21 @@ export class AcModalController implements ControllerComponent<AcModal, HTMLAcMod
 
   /**
    * Setup a new modal on the screen.
-   * @param props
    */
   @Method()
-  async create(props: ControllerProps<AcModal>) {
-    const portal = document.createElement('ac-overlay') as HTMLAcOverlayElement;
+  async create(props: ControllerComponentOptions<AcModal & AcOverlay>) {
+    const wrapper = document.createElement('ac-overlay') as HTMLAcOverlayElement;
+    props.wrapper = wrapper;
 
-    const modal = await this.controllerBehavior.create({ portal, ...props });
+    const modal =
+      await this.controllerBehavior.create(props);
 
-    portal.addEventListener('backDropClick', () => {
-      modal.close();
+    wrapper.addEventListener('backDropClick', () => {
+      modal.remove();
     });
 
     modal.addEventListener('close', () => {
-      portal.remove();
+      wrapper.remove();
       ScrollManager.enable();
     });
 
@@ -54,11 +61,9 @@ export class AcModalController implements ControllerComponent<AcModal, HTMLAcMod
    * Clear all modals that are displayed.
    */
   @Method()
-  async dismiss(elt) {
-    if (elt) {
-      return await elt.close();
-    }
-    return await Promise.all(this.modalList.map(modal => modal.close()));
+  async dismiss(data) {
+    const topModal = this.modalList.pop();
+    return topModal.dismiss(data);
   }
 
   componentDidUnload() {}

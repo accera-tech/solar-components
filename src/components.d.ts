@@ -21,14 +21,20 @@ import {
   SelectOption,
 } from './components/molecules/ac-select/ac-select';
 import {
-  ControllerProps,
+  ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
 import {
   AcModal,
 } from './components/organisms/ac-modal/ac-modal';
 import {
+  AcOverlay,
+} from './components/portals/ac-overlay/ac-overlay';
+import {
   AcPanel,
 } from './components/organisms/ac-panel/ac-panel';
+import {
+  AcPopper,
+} from './components/portals/ac-popper/ac-popper';
 import {
   Placement,
   PopperOptions,
@@ -45,7 +51,7 @@ export namespace Components {
     /**
     * Button in width mode.
     */
-    'expand': 'block';
+    'expand': 'block' | 'circle';
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
@@ -91,7 +97,7 @@ export namespace Components {
     /**
     * Button in width mode.
     */
-    'expand'?: 'block';
+    'expand'?: 'block' | 'circle';
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
     */
@@ -265,8 +271,12 @@ export namespace Components {
     'size'?: number;
   }
 
-  interface AcHeader {}
-  interface AcHeaderAttributes extends StencilHTMLAttributes {}
+  interface AcHeader {
+    'scrolled': boolean;
+  }
+  interface AcHeaderAttributes extends StencilHTMLAttributes {
+    'scrolled'?: boolean;
+  }
 
   interface AcInputBase {
     /**
@@ -285,7 +295,7 @@ export namespace Components {
     * The HTMLInputElement disabled attribute.
     */
     'disabled': boolean;
-    'getNativeInput': () => HTMLInputElement;
+    'getNativeInput': () => Promise<HTMLInputElement>;
     /**
     * The label text of the this input group.
     */
@@ -408,11 +418,19 @@ export namespace Components {
 
   interface AcNavdrawer {
     /**
+    * The navdrawer mode.
+    */
+    'compact': boolean;
+    /**
     * The color theme.
     */
     'theme': string;
   }
   interface AcNavdrawerAttributes extends StencilHTMLAttributes {
+    /**
+    * The navdrawer mode.
+    */
+    'compact'?: boolean;
     /**
     * The color theme.
     */
@@ -480,7 +498,7 @@ export namespace Components {
     /**
     * Get the unmasked value.
     */
-    'getRawValue': (type?: string) => any;
+    'getRawValue': (type?: string) => Promise<any>;
     /**
     * The helper text to guide the user.
     */
@@ -629,6 +647,22 @@ export namespace Components {
     'value'?: any;
   }
 
+  interface AcMenuItem {
+    'href': string;
+    'iconOnly': boolean;
+  }
+  interface AcMenuItemAttributes extends StencilHTMLAttributes {
+    'href'?: string;
+    'iconOnly'?: boolean;
+  }
+
+  interface AcMenu {
+    'iconOnly': boolean;
+  }
+  interface AcMenuAttributes extends StencilHTMLAttributes {
+    'iconOnly'?: boolean;
+  }
+
   interface AcSelect {
     /**
     * Set the disabled mode.
@@ -661,7 +695,7 @@ export namespace Components {
     /**
     * The value of the internal input.
     */
-    'value': Array<any> | any;
+    'value': any[] | any;
   }
   interface AcSelectAttributes extends StencilHTMLAttributes {
     /**
@@ -699,7 +733,7 @@ export namespace Components {
     /**
     * The value of the internal input.
     */
-    'value'?: Array<any> | any;
+    'value'?: any[] | any;
   }
 
   interface AcTab {
@@ -737,11 +771,11 @@ export namespace Components {
     /**
     * Setup a new modal on the screen.
     */
-    'create': (props: ControllerProps<AcModal>) => any;
+    'create': (props: ControllerComponentOptions<AcModal & AcOverlay>) => Promise<any>;
     /**
     * Clear all modals that are displayed.
     */
-    'dismiss': (elt: any) => Promise<any>;
+    'dismiss': (data: any) => Promise<any>;
   }
   interface AcModalControllerAttributes extends StencilHTMLAttributes {
     /**
@@ -751,10 +785,6 @@ export namespace Components {
   }
 
   interface AcModal {
-    /**
-    * Close the modal programmatically and dispatch the close event.
-    */
-    'close': () => Promise<any>;
     /**
     * The title that will be displayed on the modal.
     */
@@ -779,7 +809,7 @@ export namespace Components {
     /**
     * Setup a new modal on the screen.
     */
-    'create': (props: ControllerProps<AcPanel>) => any;
+    'create': (props: ControllerComponentOptions<AcPanel & AcPopper>) => Promise<any>;
     /**
     * Clear all modals that are displayed.
     */
@@ -793,7 +823,12 @@ export namespace Components {
   }
 
   interface AcPanel {}
-  interface AcPanelAttributes extends StencilHTMLAttributes {}
+  interface AcPanelAttributes extends StencilHTMLAttributes {
+    /**
+    * Dispatched when the modal closes.
+    */
+    'onClose'?: (event: CustomEvent<void>) => void;
+  }
 
   interface AcOverlay {
     /**
@@ -893,6 +928,7 @@ export namespace Components {
     * Collapse a nav drawer.
     */
     'collapsed'?: 'nav-left';
+    'onContentScroll'?: (event: CustomEvent<{top: number, left: number}>) => void;
   }
 }
 
@@ -907,6 +943,8 @@ declare global {
     'AcNavdrawer': Components.AcNavdrawer;
     'AcStepper': Components.AcStepper;
     'AcInput': Components.AcInput;
+    'AcMenuItem': Components.AcMenuItem;
+    'AcMenu': Components.AcMenu;
     'AcSelect': Components.AcSelect;
     'AcTab': Components.AcTab;
     'AcTabs': Components.AcTabs;
@@ -930,6 +968,8 @@ declare global {
     'ac-navdrawer': Components.AcNavdrawerAttributes;
     'ac-stepper': Components.AcStepperAttributes;
     'ac-input': Components.AcInputAttributes;
+    'ac-menu-item': Components.AcMenuItemAttributes;
+    'ac-menu': Components.AcMenuAttributes;
     'ac-select': Components.AcSelectAttributes;
     'ac-tab': Components.AcTabAttributes;
     'ac-tabs': Components.AcTabsAttributes;
@@ -996,6 +1036,18 @@ declare global {
   var HTMLAcInputElement: {
     prototype: HTMLAcInputElement;
     new (): HTMLAcInputElement;
+  };
+
+  interface HTMLAcMenuItemElement extends Components.AcMenuItem, HTMLStencilElement {}
+  var HTMLAcMenuItemElement: {
+    prototype: HTMLAcMenuItemElement;
+    new (): HTMLAcMenuItemElement;
+  };
+
+  interface HTMLAcMenuElement extends Components.AcMenu, HTMLStencilElement {}
+  var HTMLAcMenuElement: {
+    prototype: HTMLAcMenuElement;
+    new (): HTMLAcMenuElement;
   };
 
   interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
@@ -1074,6 +1126,8 @@ declare global {
     'ac-navdrawer': HTMLAcNavdrawerElement
     'ac-stepper': HTMLAcStepperElement
     'ac-input': HTMLAcInputElement
+    'ac-menu-item': HTMLAcMenuItemElement
+    'ac-menu': HTMLAcMenuElement
     'ac-select': HTMLAcSelectElement
     'ac-tab': HTMLAcTabElement
     'ac-tabs': HTMLAcTabsElement
@@ -1097,6 +1151,8 @@ declare global {
     'ac-navdrawer': HTMLAcNavdrawerElement;
     'ac-stepper': HTMLAcStepperElement;
     'ac-input': HTMLAcInputElement;
+    'ac-menu-item': HTMLAcMenuItemElement;
+    'ac-menu': HTMLAcMenuElement;
     'ac-select': HTMLAcSelectElement;
     'ac-tab': HTMLAcTabElement;
     'ac-tabs': HTMLAcTabsElement;

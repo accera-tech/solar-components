@@ -1,4 +1,5 @@
-import { Component, Prop, Element, State, ComponentInterface, Method } from '@stencil/core';
+import { Component, ComponentInterface, Element, Method, Prop, State } from '@stencil/core';
+
 import { Bind } from '../../../utils/lang/bind';
 
 /**
@@ -76,7 +77,7 @@ export class AcInputBase implements ComponentInterface {
   /**
    * The native HTMLInputElement min attribute.
    */
-  @Prop({ reflectToAttr: true }) minlength : number;
+  @Prop({ reflectToAttr: true }) minlength: number;
 
   /**
    * The native HTMLInputElement autofocus attribute.
@@ -96,7 +97,7 @@ export class AcInputBase implements ComponentInterface {
   @State() hasFocus: boolean;
 
   @Method()
-  getNativeInput() {
+  async getNativeInput() {
     return this.nativeInput;
   }
 
@@ -144,7 +145,8 @@ export class AcInputBase implements ComponentInterface {
       </div>,
       <span class="ac-input__input-container">
         <label
-          class='ac-input__label'>
+          class="ac-input__label"
+        >
           <slot name="input-label" /> {this.label}
         </label>
         <input

@@ -1,5 +1,11 @@
 import { Component, Element, Method, Prop } from '@stencil/core';
-import { ControllerBehavior, ControllerComponent, ControllerProps } from '../../../../behaviors/controller-behavior/controller-behavior';
+
+import {
+  ControllerBehavior,
+  ControllerComponent,
+  ControllerComponentOptions
+} from '../../../../behaviors/controller-behavior/controller-behavior';
+import { AcPopper } from '../../../portals/ac-popper/ac-popper';
 import { AcPanel } from '../ac-panel';
 
 /**
@@ -16,23 +22,23 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
 
   target = 'ac-panel';
 
-
   @Element() host: HTMLElement;
 
   @Prop() bound: string;
 
   /**
    * Setup a new modal on the screen.
-   * @param props
    */
   @Method()
-  async create(props: ControllerProps<AcPanel>) {
-    const { popperOptions, popperPivot, ...restProps } = props as any;
+  async create(props: ControllerComponentOptions<AcPanel & AcPopper>) {
+    const { popperOptions, popperPivot, ...restProps } = props;
 
-    const portal = document.createElement('ac-popper') as HTMLAcPopperElement;
-    portal.style.zIndex = '1000';
-    portal.popperPivot = popperPivot;
-    portal.popperOptions = {
+    const wrapper = document.createElement('ac-popper') as HTMLAcPopperElement;
+    restProps.wrapper = wrapper;
+
+    wrapper.style.zIndex = '1000';
+    wrapper.popperPivot = popperPivot;
+    wrapper.popperOptions = {
       onCreate: (data: any) => {
         data.instance.popper.style.width = data.offsets.reference.width + 'px';
         data.instance.scheduleUpdate();
@@ -43,7 +49,7 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
       ...popperOptions
     };
 
-    return await this.controllerBehavior.create({ portal, ...restProps});
+    return this.controllerBehavior.create(restProps);
   }
 
   /**
@@ -52,10 +58,9 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
   @Method()
   async dismiss(elt?: HTMLAcPanelElement) {
     if (elt) {
-      return await elt.remove();
+      return elt.remove();
     }
   }
-
 
   componentDidUnload() {}
 }

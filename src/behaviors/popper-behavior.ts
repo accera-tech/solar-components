@@ -1,4 +1,5 @@
 import Popper from 'popper.js';
+
 import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
 
 /**
@@ -14,18 +15,21 @@ export class PopperBehavior extends ComponentBehavior<PopperComponent> {
   attach() {
     let pivot = this.component.popperPivot;
 
-    if (typeof pivot == 'string') {
+    if (typeof pivot === 'string') {
       // Pivot is an element id.
       pivot = document.getElementById(pivot);
     }
 
     if (pivot) {
-      this.popper = new Popper(pivot, this.component.popperTarget || this.component.host, this.component.popperOptions);
+      this.popper = new Popper(
+        pivot,
+        this.component.popperTarget || this.component.host, this.component.popperOptions
+      );
     }
   }
 
   detach() {
-    if (this.popper) this.popper.destroy();
+    if (this.popper) { this.popper.destroy(); }
   }
 }
 

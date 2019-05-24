@@ -1,15 +1,18 @@
-import { ComponentBase, ComponentBehavior } from '../../utils/stencil/component-behavior';
-import debug from 'debug/src/browser';
+import { VNode } from '@stencil/core/dist/declarations';
 
-const log = debug('solar:ControllerBehavior');
+import { ComponentBase, ComponentBehavior } from '../../utils/stencil/component-behavior';
+
+import { FrameworkDelegate } from './delegates/framework-delegate';
+import { nativeDelegate } from './delegates/native-delegate';
 
 /**
  * Used to implement a Controller Component logic.
- * A controller component is a singleton that can make operations in a context of all the layout, breaking the atomic design.
+ * A controller component is a singleton that can make operations in a context of all the layout,
+ * breaking the atomic design.
  * Use it to create modals, toasts, floating panels etc.
  * This was based on the abstraction from Ionic Team.
  */
-export class ControllerBehavior<C, H extends HTMLElement> extends ComponentBehavior<ControllerComponent<C, H>> {
+export class ControllerBehavior<C, E extends HTMLStencilElement> extends ComponentBehavior<ControllerComponent<C, E>> {
   /**
    * The element that it is bounded.
    */
@@ -20,56 +23,65 @@ export class ControllerBehavior<C, H extends HTMLElement> extends ComponentBehav
    */
   attach() {
     this.root = document.querySelector(this.component.bound) || this.component.host.parentElement;
-    log('Bounding', this.root);
   }
 
   /**
    * Clear the controller before unload.
    */
   detach(): Promise<any> | void {
-    return this.component.clear ? this.component.clear() : null;
+    return this.component.dismissAll ? this.component.dismissAll() : null;
   }
 
   /**
    * Create a new element by the Controller's managed target and append it to the bound parent.
-   * @param props The properties based on the target component.
+   * @param options The properties based on the target component.
+   * @param customDelegate A custom DOM api used to attach the component.
    */
-  async create(props: ControllerProps<C>) {
-    const { component, portal, render, ...restProps } = props as any;
+  async create(
+    options: ControllerComponentOptions<C>,
+    customDelegate?: FrameworkDelegate
+  ): Promise<E & HTMLStencilControlledElement<C, E>> {
 
-    if (portal && render) {
-      return await new Promise(res => {
-        portal.vchildren = render({ ref: res, Tag: this.component.target });
-        this.root.appendChild(portal);
+    const { wrapper, render, ...props } = options;
+    const delegate = customDelegate || nativeDelegate;
+
+    if (render) {
+      // Using a portal
+      return new Promise(res => {
+        wrapper.vchildren = render({ ref: res, Tag: this.component.target });
+        this.root.appendChild(wrapper);
       });
     } else {
-      const element = <HTMLStencilElement>document.createElement(this.component.target);
-      if (restProps) Object.assign(element, restProps);
+      // Using delegate
+      const element = await delegate.createComponent<E & HTMLStencilControlledElement<C, E>>(this.component.target, props);
 
-      if (component) {
-        if (typeof component == 'string') {
-          // The component is an template id:
-          const componentElt = <HTMLTemplateElement>document.getElementById(component);
-          if (componentElt) {
-            element.appendChild(componentElt.content.cloneNode(true));
-          } else {
-            // The component is a HTML String:
-            element.innerHTML = component;
-          }
-        } else {
-          // The component is a HTMLElement:
-          element.appendChild(component)
+      element.controller = this.component;
+      element._resolveDismiss = null;
+      element._resolveWillDismiss = null;
+      element.onDidDismiss = () => new Promise(res => element._resolveDismiss = res);
+      element.onWillDismiss = () => new Promise(res => element._resolveWillDismiss = res);
+      element.dismiss = async data => {
+        let canDismiss = true;
+        if (this.component.willDismissComponent) {
+          canDismiss = await this.component.willDismissComponent(element, data);
         }
-      }
+        if (canDismiss) {
+          if (element._resolveWillDismiss) {
+            await element._resolveWillDismiss(data);
+          }
+          if (element._resolveDismiss) {
+            await element._resolveDismiss(data);
+          }
+          await delegate.detachViewFromDom(element, props);
+        }
+      };
 
-      if (portal) {
-        portal.appendChild(element);
-        this.root.appendChild(portal);
+      if (wrapper) {
+        wrapper.appendChild(element);
+        await delegate.attachViewToDom(this.root, wrapper);
       } else {
-        this.root.appendChild(element);
+        await delegate.attachViewToDom(this.root, element);
       }
-
-      await element.componentOnReady();
 
       return element;
     }
@@ -79,11 +91,11 @@ export class ControllerBehavior<C, H extends HTMLElement> extends ComponentBehav
 /**
  * Represents a Controller Component that will manage to create a new target component.
  */
-export interface ControllerComponent<C, H extends HTMLElement> extends ComponentBase {
+export interface ControllerComponent<C, E extends HTMLStencilElement> extends ComponentBase {
   /**
    * The instance of this behaviour.
    */
-  controllerBehavior: ControllerBehavior<C, H>;
+  controllerBehavior: ControllerBehavior<C, E>;
 
   /**
    * The tag of the component that will be managed.
@@ -100,40 +112,43 @@ export interface ControllerComponent<C, H extends HTMLElement> extends Component
    * Set properties to the managed component.
    * @Method
    */
-  create(props: ControllerProps<C>): Promise<H>
+  create(props: ControllerComponentOptions<C>): Promise<E & HTMLStencilControlledElement<C, E>>;
 
   /**
    * Clear properties of the managed component.
    * @Method
    */
-  dismiss(elt?: any): Promise<any>
+  dismiss(data?: any): Promise<void>;
 
+  willDismissComponent?(element: E & HTMLStencilControlledElement<C, E>, data?: any): Promise<boolean>;
 }
 
-
-
-// @TODO: Future framework integrations.
-/////////////////////////////////////////////////////////
-
-export interface ControlledComponent extends ComponentBase {
-  /**
-   * Represents the target inner element.
-   */
-  component?: ComponentRef;
-
-  /**
-   * The Framework internal.
-   */
-  delegate?: FrameworkDelegate;
-}
-
-export type ControllerProps<C> = {
-  [key in keyof C]?: any;
+/**
+ * Represents the custom props that can be passed to a controlled component.
+ */
+export type ControllerComponentOptions<C> = ComponentFields<C> & {
+  component?: any;
+  componentProps?: any;
+  wrapper?: any;
+  render?: (data) => VNode;
+  [key: string]: any;
 };
 
-export type ComponentRef = Function | HTMLElement | string;
-
-export interface FrameworkDelegate {
-  attachViewToDom(container: any, component: any, propsOrDataObj?: any, cssClasses?: string[]): Promise<HTMLElement>;
-  removeViewFromDom(container: any, component: any): Promise<void>;
+export interface ControlledElementFields {
+  onDidDismiss?: <T>() => Promise<T>;
+  onWillDismiss?: <T>() => Promise<T>;
+  dismiss?: (data: any) => Promise<void>;
 }
+
+/**
+ * Represents a Component that was created by a Controller.
+ */
+export type HTMLStencilControlledElement<C, E extends HTMLStencilElement> = E & ControlledElementFields & {
+  _resolveDismiss: (data) => void;
+  _resolveWillDismiss: (data) => void;
+  controller: ControllerComponent<C, E>;
+};
+
+type ComponentFields<C> = {
+  [key in keyof C]?: C[key];
+};

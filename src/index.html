@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en"><head>
+<html dir="ltr" lang="en">
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
@@ -10,17 +11,22 @@
 <body>
 <ac-layout>
   <ac-header slot="header">
-    Solar Components
+    <span class="ac-skeleton--text">Solar Components</span>
   </ac-header>
-  <ac-navdrawer slot="nav-left" theme="primary">
-    <div slot="content">
-      <ac-button fill="clear" expand="block" size="">
+  <ac-navdrawer slot="nav-left" theme="primary" mode="compact">
+    <ac-menu slot="content">
+      <ac-menu-item>
+        <i class="fa fa-home" slot="icon-start"></i>
         Home
-      </ac-button>
-    </div>
+      </ac-menu-item>
+      <ac-menu-item>
+        <i class="fa fa-edit" slot="icon-start"></i>
+        Edit
+      </ac-menu-item>
+    </ac-menu>
   </ac-navdrawer>
 
-  <section class="container p-2 p-md-5" slot="content">
+  <section class="container-fluid p-2 p-md-5" slot="content">
     <ac-input label="Pesquisar por..."></ac-input>
 
     <div class="row pt-4">
@@ -28,10 +34,10 @@
         <ac-card>
           <header slot="header">
             <h3>Dashboard 1</h3>
-            <span class="">Subtitle</span>
+            <span class="text-subtitle">Subtitle</span>
           </header>
           <section slot="content">
-            teste
+            <ac-button>Teste</ac-button>
           </section>
         </ac-card>
       </div>
@@ -40,10 +46,10 @@
         <ac-card>
           <header slot="header">
             <h3>Dashboard 2</h3>
-            <span>Subtitle</span>
+            <span class="text-subtitle">Subtitle</span>
           </header>
           <section slot="content">
-            teste
+            <ac-button>Teste</ac-button>
           </section>
         </ac-card>
       </div>
@@ -53,7 +59,19 @@
 <ac-modal-controller></ac-modal-controller>
 <ac-panel-controller></ac-panel-controller>
 <script>
+  async function main() {
+    const modalCtrl = document.querySelector('ac-modal-controller');
 
+    const modal = await modalCtrl.create({ component: 'Test' });
+    modal.onDidDismiss()
+      .then(console.log);
+  }
+
+  let INIT = false;
+  window.addEventListener('appload', () => {
+    if (!INIT) main();
+    INIT = true;
+  });
 </script>
 
 </body></html>
