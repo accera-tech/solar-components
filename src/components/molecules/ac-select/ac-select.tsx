@@ -104,11 +104,6 @@ export class AcSelect implements FocusableComponent {
    */
   @State() selectedText: string;
 
-  /**
-   * Set the initial panel direction.
-   */
-  @State() panelDirection: 'top' | 'bottom';
-
   componentDidLoad() {
     if (!this.options) {
       this.loadOptionsFromHTML();
@@ -155,17 +150,6 @@ export class AcSelect implements FocusableComponent {
   @Watch('isShowingPanel')
   isShowingPanelDidUpdate() {
     this.hasFocus = this.isShowingPanel;
-    if (this.isShowingPanel) {
-      const clientRect = this.host.getBoundingClientRect();
-      const spaces = leftSpaceOnWindow({
-        width: clientRect.width,
-        height: AcSelect.ITEM_HEIGHT * AcSelect.MAX_ITEMS_TO_RENDER,
-        x: clientRect.left,
-        y: clientRect.top
-      });
-
-      this.panelDirection = spaces.bottom <= 0 ? 'top' : 'bottom';
-    }
   }
 
   /**
@@ -239,7 +223,7 @@ export class AcSelect implements FocusableComponent {
    */
   private getOptionsByValue(values: any[] | any): SelectOption[] {
     const options = [];
-    if (this.options) {
+    if (this.options && values) {
       if (values instanceof Array) {
         this.options.forEach(o => {
           o.selected = values.includes(o.value);
@@ -263,14 +247,6 @@ export class AcSelect implements FocusableComponent {
       this.childOptions.item(index).selected = state;
       if (state) { this.childOptions.item(index).setAttribute('selected', ''); } else { this.childOptions.item(index).removeAttribute('selected'); }
     }
-  }
-
-  hostData() {
-    return {
-      class: {
-        [`ac-select--${this.panelDirection}`]: !!this.panelDirection,
-      }
-    };
   }
 
   render() {

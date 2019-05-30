@@ -31,12 +31,13 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
    */
   @Method()
   async create(props: ControllerComponentOptions<AcPanel & AcPopper>) {
-    const { popperOptions, popperPivot, ...restProps } = props;
+    const { popperOptions, popperPivot, popperPlacement, ...restProps } = props;
 
     const wrapper = document.createElement('ac-popper') as HTMLAcPopperElement;
     restProps.wrapper = wrapper;
 
     wrapper.style.zIndex = '1000';
+    wrapper.popperPlacement = popperPlacement;
     wrapper.popperPivot = popperPivot;
     wrapper.popperOptions = {
       onCreate: (data: any) => {
@@ -45,6 +46,11 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
       },
       onUpdate: (data: any) => {
         data.instance.popper.style.width = data.offsets.reference.width + 'px';
+      },
+      modifiers: {
+        preventOverflow: {
+          boundariesElement: this.controllerBehavior.root,
+        },
       },
       ...popperOptions
     };
