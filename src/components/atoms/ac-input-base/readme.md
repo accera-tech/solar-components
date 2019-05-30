@@ -38847,24 +38847,24 @@
 
 ## Properties
 
-| Property         | Attribute        | Description                                           | Type        |
-| ---------------- | ---------------- | ----------------------------------------------------- | ----------- |
-| `autocapitalize` | `autocapitalize` | The native HTMLInputElement autocapitalize attribute. | `string`    |
-| `autocomplete`   | `autocomplete`   | The native HTMLInputElement autocomplete attribute.   | `string`    |
-| `autofocus`      | `autofocus`      | The native HTMLInputElement autofocus attribute.      | `boolean`   |
-| `disabled`       | `disabled`       | The HTMLInputElement disabled attribute.              | `boolean`   |
-| `label`          | `label`          | The label text of the this input group.               | `string`    |
-| `max`            | `max`            | The native HTMLInputElement max attribute.            | `number`    |
-| `maxlength`      | `maxlength`      | The native HTMLInputElement maxlength attribute.      | `number`    |
-| `min`            | `min`            | The native HTMLInputElement min attribute.            | `number`    |
-| `minlength`      | `minlength`      | The native HTMLInputElement min attribute.            | `number`    |
-| `mode`           | `mode`           | The render mode of the input.                         | `"compact"` |
-| `name`           | `name`           | The native HTMLInputElement name attribute.           | `string`    |
-| `pattern`        | `pattern`        | The native HTMLInputElement pattern attribute.        | `string`    |
-| `readonly`       | `readonly`       | Enable readonly.                                      | `boolean`   |
-| `required`       | `required`       | The native HTMLInputElement required attribute.       | `boolean`   |
-| `type`           | `type`           | The type of the internal input.                       | `string`    |
-| `value`          | --               | The value of the internal input.                      | `any`       |
+| Property         | Attribute        | Description                                           | Type        | Default     |
+| ---------------- | ---------------- | ----------------------------------------------------- | ----------- | ----------- |
+| `autocapitalize` | `autocapitalize` | The native HTMLInputElement autocapitalize attribute. | `string`    | `undefined` |
+| `autocomplete`   | `autocomplete`   | The native HTMLInputElement autocomplete attribute.   | `string`    | `undefined` |
+| `autofocus`      | `autofocus`      | The native HTMLInputElement autofocus attribute.      | `boolean`   | `undefined` |
+| `disabled`       | `disabled`       | The HTMLInputElement disabled attribute.              | `boolean`   | `undefined` |
+| `label`          | `label`          | The label text of the this input group.               | `string`    | `undefined` |
+| `max`            | `max`            | The native HTMLInputElement max attribute.            | `number`    | `undefined` |
+| `maxlength`      | `maxlength`      | The native HTMLInputElement maxlength attribute.      | `number`    | `undefined` |
+| `min`            | `min`            | The native HTMLInputElement min attribute.            | `number`    | `undefined` |
+| `minlength`      | `minlength`      | The native HTMLInputElement min attribute.            | `number`    | `undefined` |
+| `mode`           | `mode`           | The render mode of the input.                         | `"compact"` | `undefined` |
+| `name`           | `name`           | The native HTMLInputElement name attribute.           | `string`    | `undefined` |
+| `pattern`        | `pattern`        | The native HTMLInputElement pattern attribute.        | `string`    | `undefined` |
+| `readonly`       | `readonly`       | Enable readonly.                                      | `boolean`   | `undefined` |
+| `required`       | `required`       | The native HTMLInputElement required attribute.       | `boolean`   | `undefined` |
+| `type`           | `type`           | The type of the internal input.                       | `string`    | `undefined` |
+| `value`          | `value`          | The value of the internal input.                      | `any`       | `undefined` |
 
 
 ## Methods

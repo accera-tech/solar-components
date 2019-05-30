@@ -38847,23 +38847,23 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                                                 | Type             |
-| ------------ | ------------- | ----------------------------------------------------------- | ---------------- |
-| `disabled`   | `disabled`    | Set the disabled mode.                                      | `boolean`        |
-| `helperText` | `helper-text` | The helper text to guide the user.                          | `string`         |
-| `label`      | `label`       | The label text of the this input group.                     | `string`         |
-| `loading`    | `loading`     | Set the loading mode, showing a loading icon.               | `boolean`        |
-| `multiple`   | `multiple`    | If true, the component will handle multiple selected items. | `boolean`        |
-| `name`       | `name`        | The name of the internal input.                             | `string`         |
-| `options`    | --            | The options that will be displayed in the panel.            | `SelectOption[]` |
-| `value`      | --            | The value of the internal input.                            | `any`            |
+| Property     | Attribute     | Description                                                 | Type             | Default     |
+| ------------ | ------------- | ----------------------------------------------------------- | ---------------- | ----------- |
+| `disabled`   | `disabled`    | Set the disabled mode.                                      | `boolean`        | `undefined` |
+| `helperText` | `helper-text` | The helper text to guide the user.                          | `string`         | `undefined` |
+| `label`      | `label`       | The label text of the this input group.                     | `string`         | `undefined` |
+| `loading`    | `loading`     | Set the loading mode, showing a loading icon.               | `boolean`        | `undefined` |
+| `multiple`   | `multiple`    | If true, the component will handle multiple selected items. | `boolean`        | `undefined` |
+| `name`       | `name`        | The name of the internal input.                             | `string`         | `undefined` |
+| `options`    | --            | The options that will be displayed in the panel.            | `SelectOption[]` | `undefined` |
+| `value`      | `value`       | The value of the internal input.                            | `any`            | `undefined` |
 
 
 ## Events
 
-| Event    | Detail | Description                                    |
-| -------- | ------ | ---------------------------------------------- |
-| `change` | any    | Fired when the user select/deselect an option. |
+| Event    | Description                                    | Type               |
+| -------- | ---------------------------------------------- | ------------------ |
+| `change` | Fired when the user select/deselect an option. | `CustomEvent<any>` |
 
 
 ----------------------------------------------

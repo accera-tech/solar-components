@@ -38847,11 +38847,11 @@
 
 ## Properties
 
-| Property | Attribute | Description                                               | Type             |
-| -------- | --------- | --------------------------------------------------------- | ---------------- |
-| `anim`   | `anim`    | Set an animation defined in the ac-fa-icon.scss           | `string`         |
-| `icon`   | --        | The icon imported from @fortawesome/free-solid-svg-icons. | `IconDefinition` |
-| `size`   | `size`    | The size of the icon in px.                               | `number`         |
+| Property | Attribute | Description                                               | Type             | Default     |
+| -------- | --------- | --------------------------------------------------------- | ---------------- | ----------- |
+| `anim`   | `anim`    | Set an animation defined in the ac-fa-icon.scss           | `string`         | `undefined` |
+| `icon`   | --        | The icon imported from @fortawesome/free-solid-svg-icons. | `IconDefinition` | `undefined` |
+| `size`   | `size`    | The size of the icon in px.                               | `number`         | `16`        |
 
 
 ----------------------------------------------

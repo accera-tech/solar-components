@@ -14,15 +14,15 @@
 
 ## Methods
 
-### `create(props: ControllerProps<AcPanel>) => Promise<any>`
+### `create(props: ControllerComponentOptions<AcPanel & AcPopper>) => Promise<any>`
 
 Setup a new modal on the screen.
 
 #### Parameters
 
-| Name    | Type                                                                                                         | Description |
-| ------- | ------------------------------------------------------------------------------------------------------------ | ----------- |
-| `props` | `{ transitionBehavior?: any; host?: any; componentWillLoad?: any; componentDidUnload?: any; render?: any; }` |             |
+| Name    | Type                                                                                                                                                 | Description |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `props` | `ComponentFields<AcPanel & AcPopper> & { [key: string]: any; component?: any; componentProps?: any; wrapper?: any; render?: (data: any) => VNode; }` |             |
 
 #### Returns
 

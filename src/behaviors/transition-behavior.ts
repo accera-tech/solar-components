@@ -1,6 +1,6 @@
-import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
 import { animate, wait } from '../utils/animation';
 import { extendMethod } from '../utils/lang/extend-method';
+import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';
 
 /**
  * Implements hooks to control the transitions states, such as entering and leaving.
@@ -10,6 +10,7 @@ import { extendMethod } from '../utils/lang/extend-method';
  * - `transition--before-leave` The state before the component leave the screen.
  */
 export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
+  removeIsQueued = false;
 
   /**
    * Applies a mokeypatch of componentWillLoad to add the transition hooks. Also, it dispatch the CSS transitions.
@@ -17,8 +18,8 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
   beforeAttach() {
     extendMethod(this.component, 'componentWillLoad', async componentWillLoad => {
       this.component.host.classList.add('transition--before-enter');
-       await animate(this.component.host).then(wait());
-      if (componentWillLoad) return componentWillLoad();
+      await animate(this.component.host).then(wait());
+      if (componentWillLoad) { return componentWillLoad(); }
     });
   }
 
@@ -27,7 +28,7 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
    * Also, it applies a mokeypatch of the native Element#remove function to add the transition hooks.
    */
   async attach() {
-    if (this.component.componentWillEnter) await this.component.componentWillEnter();
+    if (this.component.componentWillEnter) { await this.component.componentWillEnter(); }
     this.component.host.classList.replace('transition--before-enter', 'transition--after-enter');
 
     // Monkeypatch native Element#remove.
@@ -41,15 +42,19 @@ export class TransitionBehavior extends ComponentBehavior<TransitionComponent> {
    * A custom remove teardown used to replace the native HTMLElement#remove, dispatching the CSS transitions.
    */
   async customRemoveFn() {
+    if (!this.removeIsQueued) {
+      this.removeIsQueued = true;
+
       // Deep animations
-      const allChildrens = this.component.host.getElementsByClassName('transition--after-enter');
-      await Promise.all(Array.from(allChildrens).map(child => child.remove()));
+      const allChildren = this.component.host.getElementsByClassName('transition--after-enter');
+      await Promise.all(Array.from(allChildren).map(child => child.remove()));
 
       this.component.host.classList.add('transition--before-leave');
-      if (this.component.componentWillLeave) await this.component.componentWillLeave();
+      if (this.component.componentWillLeave) { await this.component.componentWillLeave(); }
 
       await animate(this.component.host).then(wait());
       Element.prototype.remove.apply(this.component.host);
+    }
   }
 }
 

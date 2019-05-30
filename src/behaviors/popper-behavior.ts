@@ -23,7 +23,8 @@ export class PopperBehavior extends ComponentBehavior<PopperComponent> {
     if (pivot) {
       this.popper = new Popper(
         pivot,
-        this.component.popperTarget || this.component.host, this.component.popperOptions
+        this.component.popperTarget || this.component.host,
+        this.component.popperOptions
       );
     }
   }

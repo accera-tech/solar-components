@@ -14,7 +14,7 @@
 
 ## Methods
 
-### `create(props: ControllerProps<AcModal>) => Promise<any>`
+### `create(props: ControllerComponentOptions<AcModal & AcOverlay>) => Promise<any>`
 
 Setup a new modal on the screen.
 
@@ -22,7 +22,7 @@ Setup a new modal on the screen.
 
 | Name    | Type                                                                                                                                                  | Description |
 | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `props` | `{ transitionBehavior?: any; host?: any; title?: any; closeEv?: any; componentWillLoad?: any; componentDidUnload?: any; close?: any; render?: any; }` |             |
+| `props` | `ComponentFields<AcModal & AcOverlay> & { [key: string]: any; component?: any; componentProps?: any; wrapper?: any; render?: (data: any) => VNode; }` |             |
 
 #### Returns
 
@@ -30,15 +30,15 @@ Type: `Promise<any>`
 
 
 
-### `dismiss(elt: any) => Promise<any>`
+### `dismiss(data: any) => Promise<any>`
 
 Clear all modals that are displayed.
 
 #### Parameters
 
-| Name  | Type  | Description |
-| ----- | ----- | ----------- |
-| `elt` | `any` |             |
+| Name   | Type  | Description |
+| ------ | ----- | ----------- |
+| `data` | `any` |             |
 
 #### Returns
 
