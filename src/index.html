@@ -9,6 +9,7 @@
 </head>
 <body class="">
 <ac-modal-controller></ac-modal-controller>
+<ac-panel-controller></ac-panel-controller>
 
 <section>
   <h1>Forms</h1>
@@ -55,13 +56,16 @@
   <h3>Select Multiple</h3>
   <ac-select id="selectMultiple" label="Beatles" multiple></ac-select>
 
+  <h3>With Option Groups</h3>
+  <ac-select id="selectGroup" label="Guittarist"></ac-select>
+
   <h3>Select With Html Options</h3>
   <ac-select label="Band">
     <optgroup label="Rock Bands">
       <option value="0">TNT</option>
       <option value="1">Queen</option>
       <option value="2">Metallica</option>
-      <option value="3" selected>AC/DC</option>
+      <option value="3">AC/DC</option>
     </optgroup>
     <optgroup label="Indie Bands">
       <option value="4">Black Keys</option>
@@ -237,13 +241,16 @@
     console.log('Multiple Select Change', detail);
   });
 
+  const selectGroup = document.querySelector('#selectGroup');
+  selectGroup.options = [ { title: 'BALA', separator: true }, { title: 'John Lennon', value: 2 }, { title: 'George Harrison', value: 3 } ];
+
   const passwordInput = document.querySelector('#passwordInput');
   passwordInput.validateFn = (value) => value && value.length >= 8 ? null : 'The password must have 8 characters';
 
   const showModalButton = document.querySelector('#showModalButton');
   showModalButton.addEventListener('click', () => {
     document.querySelector('ac-modal-controller')
-      .set({ title: 'Test Modal', content: `<ac-select label="Band"><option>teste</option></ac-select>` })
+      .create({ title: 'Test Modal', component: `<ac-select label="Band"><option>teste</option></ac-select>` })
       .then(console.log);
   });
 </script>

@@ -1,4 +1,5 @@
-import { Component, Element } from '@stencil/core';
+import { Component, Element, Event, EventEmitter } from '@stencil/core';
+
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 
 /**
@@ -12,8 +13,15 @@ export class AcPanel implements TransitionComponent {
   transitionBehavior = new TransitionBehavior(this);
   @Element() host: HTMLAcPanelElement;
 
+  /**
+   * Dispatched when the modal closes.
+   */
+  @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
+
   componentWillLoad() {}
-  componentDidUnload() {}
+  componentDidUnload() {
+    this.closeEv.emit();
+  }
 
   render() {
     return [

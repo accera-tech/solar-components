@@ -6,24 +6,24 @@
 
 ac-panel {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   width: 100%;
+
+  transform-origin: 0 0;
+  transition: opacity $default-transition, transform $default-transition;
   border: 1px solid $ui-panel__border-color;
   border-radius: $border-radius-default;
   background: $white;
   box-shadow: $z5-shadow;
-  box-sizing: border-box;
-
-  transform-origin: 0 0;
-  transition: opacity $default-transition, transform $default-transition;
 
   &.transition--before-enter {
-    opacity: 0;
     transform: translateY(-10px) scaleY(0.5);
+    opacity: 0;
   }
 
   &.transition--before-leave {
-    opacity: 0;
     transform: translateY(-10px) scaleY(0.5);
+    opacity: 0;
   }
 }

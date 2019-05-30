@@ -20,29 +20,33 @@ ac-select {
     color: darken($gray, 20%);
   }
 
-
-  ac-panel {
-    position: absolute;
-    z-index: $z-panel;
+  .ac-select__native {
+    display: none;
   }
+}
 
+
+// Select's panel rendered in a portal
+// --------------------------------------------------
+
+.ac-select__panel {
   ul.ac-select__list {
-    list-style: none;
-    padding: 8px 0;
     margin: 0;
+    padding: 8px 0;
     overflow-y: auto;
+    list-style: none;
 
     li.ac-select__list-item {
       position: relative;
       padding: 4px 16px;
-      font-size: $font-small;
       color: $ui-label__color;
+      font-size: $font-small;
       cursor: pointer;
       user-select: none;
 
       &:hover {
-        color: var-color("primary", "normal");
         background-color: var-color("primary", "normal", 0.04);
+        color: var-color("primary", "normal");
       }
 
       &.ac-select__list-item--selected {
@@ -52,23 +56,23 @@ ac-select {
 
     li.ac-select__list-separator {
       position: relative;
-      user-select: none;
-      cursor: default;
       height: 27px;
+      cursor: default;
+      user-select: none;
 
       &:before {
         content: "";
         position: absolute;
         top: 18px;
-        left: 16px;
         right: 16px;
+        left: 16px;
         height: 1px;
         background-color: $gray;
       }
 
       label {
-        position: absolute;
         display: inline-block;
+        position: absolute;
         padding: 12px 8px 0 16px;
         background-color: $white;
         color: $gray;
@@ -77,10 +81,6 @@ ac-select {
       }
     }
   }
-
-  .ac-select__native {
-    display: none;
-  }
 }
 
 
@@ -88,27 +88,3 @@ ac-select {
 // --------------------------------------------------
 
 @include scrollbar('ac-select ul.ac-select__list');
-
-
-// Panel at top mode
-// --------------------------------------------------
-
-ac-select.ac-select--top {
-  ac-panel {
-    bottom: calc(100% + #{$spacer-tiny});
-  }
-}
-
-
-// Panel at bottom mode
-// --------------------------------------------------
-
-ac-select.ac-select--bottom {
-  ac-panel {
-    top: 100%;
-  }
-}
-
-
-
-
