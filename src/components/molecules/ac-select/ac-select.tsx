@@ -24,7 +24,7 @@ export class AcSelect implements FocusableComponent {
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
    */
-  static readonly MAX_ITEMS_TO_RENDER = 10;
+  static readonly MAX_ITEMS_TO_RENDER = 8;
 
   /**
    * The height of each item to render, used to calculate the size of the panel.
