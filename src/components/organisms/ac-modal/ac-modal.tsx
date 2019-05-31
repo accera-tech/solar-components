@@ -36,6 +36,9 @@ export class AcModal implements TransitionComponent {
 
   @Bind
   private close() {
+    if (this.host['dismiss']) {
+      return this.host['dismiss']();
+    }
     this.host.remove();
   }
 

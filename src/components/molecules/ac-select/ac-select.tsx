@@ -5,7 +5,6 @@ import { equals } from 'ramda';
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
 import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
 import { Bind } from '../../../utils/lang/bind';
-import { leftSpaceOnWindow } from '../../../utils/screen';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
@@ -24,7 +23,7 @@ export class AcSelect implements FocusableComponent {
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
    */
-  static readonly MAX_ITEMS_TO_RENDER = 8;
+  static readonly MAX_ITEMS_TO_RENDER = 6;
 
   /**
    * The height of each item to render, used to calculate the size of the panel.
@@ -104,11 +103,6 @@ export class AcSelect implements FocusableComponent {
    */
   @State() selectedText: string;
 
-  /**
-   * Set the initial panel direction.
-   */
-  @State() panelDirection: 'top' | 'bottom';
-
   componentDidLoad() {
     if (!this.options) {
       this.loadOptionsFromHTML();
@@ -155,17 +149,6 @@ export class AcSelect implements FocusableComponent {
   @Watch('isShowingPanel')
   isShowingPanelDidUpdate() {
     this.hasFocus = this.isShowingPanel;
-    if (this.isShowingPanel) {
-      const clientRect = this.host.getBoundingClientRect();
-      const spaces = leftSpaceOnWindow({
-        width: clientRect.width,
-        height: AcSelect.ITEM_HEIGHT * AcSelect.MAX_ITEMS_TO_RENDER,
-        x: clientRect.left,
-        y: clientRect.top
-      });
-
-      this.panelDirection = spaces.bottom <= 0 ? 'top' : 'bottom';
-    }
   }
 
   /**
@@ -263,14 +246,6 @@ export class AcSelect implements FocusableComponent {
       this.childOptions.item(index).selected = state;
       if (state) { this.childOptions.item(index).setAttribute('selected', ''); } else { this.childOptions.item(index).removeAttribute('selected'); }
     }
-  }
-
-  hostData() {
-    return {
-      class: {
-        [`ac-select--${this.panelDirection}`]: !!this.panelDirection,
-      }
-    };
   }
 
   render() {

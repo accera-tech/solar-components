@@ -250,7 +250,27 @@
   const showModalButton = document.querySelector('#showModalButton');
   showModalButton.addEventListener('click', () => {
     document.querySelector('ac-modal-controller')
-      .create({ title: 'Test Modal', component: `<ac-select label="Band"><option>teste</option></ac-select>` })
+      .create({ title: 'Test Modal', component: `
+          <ac-select label="Band">
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+            <option>teste</option>
+          </ac-select>
+      `})
       .then(console.log);
   });
 </script>
