@@ -25,6 +25,7 @@ ac-select {
   }
 }
 
+
 // Select's panel rendered in a portal
 // --------------------------------------------------
 
@@ -32,6 +33,7 @@ ac-select {
   ul.ac-select__list {
     margin: 0;
     padding: 8px 0;
+    overflow-x: hidden;
     overflow-y: auto;
     list-style: none;
 
@@ -58,6 +60,9 @@ ac-select {
       height: 27px;
       cursor: default;
       user-select: none;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
 
       &:before {
         content: "";
@@ -86,4 +91,4 @@ ac-select {
 // List's Scrollbar theming
 // --------------------------------------------------
 
-@include scrollbar("ul.ac-select__list");
+@include scrollbar('ul.ac-select__list');
