@@ -27,6 +27,12 @@ ac-header {
     .ac-header__content {
       display: flex;
       align-items: center;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .ac-header__actions {
+      flex: 0 0 auto;
     }
   }
 
