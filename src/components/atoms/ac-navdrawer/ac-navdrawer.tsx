@@ -12,8 +12,9 @@ import { Bind } from '../../../utils/lang/bind';
   shadow: true
 })
 export class AcNavdrawer {
-  @Element() host: HTMLAcNavdrawerElement;
   childMenus: HTMLAcMenuElement[];
+
+  @Element() host: HTMLAcNavdrawerElement;
 
   /**
    * The color theme.
@@ -23,16 +24,13 @@ export class AcNavdrawer {
   /**
    * The navdrawer mode.
    */
-  @Prop({ reflectToAttr: true, mutable: true }) compact: boolean;
+  @Prop({ mutable: true }) compact: boolean;
+
   @Watch('compact')
   iconOnlyDidUpdate() {
     for (const menu of this.childMenus) {
       menu.iconOnly = this.compact;
     }
-  }
-
-  loadItemsFromHTML() {
-    this.childMenus = Array.from(this.host.querySelectorAll('ac-menu'));
   }
 
   componentDidLoad() {
@@ -41,8 +39,12 @@ export class AcNavdrawer {
 
   componentDidUnload() {}
 
+  private loadItemsFromHTML() {
+    this.childMenus = Array.from(this.host.querySelectorAll('ac-menu'));
+  }
+
   @Bind
-  toggleMode() {
+  private toggleMode() {
     this.compact = !this.compact;
   }
 

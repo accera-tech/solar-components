@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component } from '@stencil/core';
 
 /**
  * Accera's full-featured FontAwesome SVG Icon webcomponent.
@@ -8,10 +8,6 @@ import { Component, Prop } from '@stencil/core';
   styleUrl: 'ac-card.scss',
 })
 export class AcCard {
-  /**
-   * The icon imported from @fortawesome/free-solid-svg-icons.
-   */
-  @Prop() icon;
 
   render() {
 

@@ -47,25 +47,34 @@ export class AcCheck implements FormFieldComponent {
   @Prop({ mutable: true }) checked: boolean;
 
   /**
+   * Error state and message of this field.
+   */
+  @Prop({ mutable: true }) error: string;
+
+  /**
+   * The validity state.
+   */
+  @Prop({ mutable: true }) validity: CustomValidityState;
+
+  /**
+   * Validation pipeline for this field.
+   */
+  @Prop({ mutable: true }) validator: ValidatorFn | ValidatorFn[];
+
+  /**
    * The type of this field.
    */
-  @Prop() type: 'radio' | 'checkbox' = 'checkbox';
+  @Prop({ reflectToAttr: true }) type: 'radio' | 'checkbox' = 'checkbox';
 
   /**
    * The native disabled mode.
    */
-  @Prop() disabled: boolean;
+  @Prop({ reflectToAttr: true }) disabled: boolean;
 
   /**
    * Mark this field as required.
    */
-  @Prop() required: string | boolean;
-
-  /**
-   * Error state and message of this field.
-   */
-  @Prop({ mutable: true }) error: string;
-  @Prop({ mutable: true }) validity: CustomValidityState;
+  @Prop({ reflectToAttr: true }) required: string | boolean;
 
   /**
    * Set the error state based on the error prop.
@@ -80,14 +89,14 @@ export class AcCheck implements FormFieldComponent {
     }
   }
 
-  /**
-   * Validation pipeline for this field.
-   */
-  @Prop() validator: ValidatorFn | ValidatorFn[];
-
   componentDidLoad() {}
   componentDidUnload() {}
   componentWillLoad() {}
+
+  @Bind
+  private handleChange() {
+    this.checked = !this.checked;
+  }
 
   hostData() {
     return {
@@ -99,11 +108,6 @@ export class AcCheck implements FormFieldComponent {
         'ac-check--error': !!this.error,
       }
     };
-  }
-
-  @Bind
-  handleChange() {
-    this.checked = !this.checked;
   }
 
   render() {

@@ -22,12 +22,12 @@ export class AcLayout implements FocusableComponent {
    * Collapse a nav drawer.
    */
   @Prop({ mutable: true, reflectToAttr: true }) collapsed: 'nav-left';
+  @Event() contentScroll: EventEmitter<{top: number, left: number}>;
+
   @Watch('collapsed')
   collapsedDidUpdate() {
     this.hasFocus = !!this.collapsed;
   }
-
-  @Event() contentScroll: EventEmitter<{top: number, left: number}>;
 
   componentDidLoad() {}
   componentDidUnload() {}
@@ -39,7 +39,7 @@ export class AcLayout implements FocusableComponent {
   }
 
   @Bind
-  handleContentScroll(ev) {
+  private handleContentScroll(ev) {
     this.contentScroll.emit({ top: ev.target.scrollTop, left: ev.target.scrollLeft });
   }
 

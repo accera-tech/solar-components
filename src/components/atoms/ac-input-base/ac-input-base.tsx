@@ -37,7 +37,7 @@ export class AcInputBase implements ComponentInterface {
   /**
    * The type of the internal input.
    */
-  @Prop() type: string;
+  @Prop({ reflectToAttr: true }) type: string;
 
   /**
    * The native HTMLInputElement pattern attribute.
@@ -47,12 +47,12 @@ export class AcInputBase implements ComponentInterface {
   /**
    * Enable readonly.
    */
-  @Prop() readonly: boolean;
+  @Prop({ reflectToAttr: true }) readonly: boolean;
 
   /**
    * The HTMLInputElement disabled attribute.
    */
-  @Prop() disabled: boolean;
+  @Prop({ reflectToAttr: true }) disabled: boolean;
 
   /**
    * The native HTMLInputElement required attribute.

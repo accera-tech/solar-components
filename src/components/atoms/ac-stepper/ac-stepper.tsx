@@ -24,6 +24,11 @@ export class AcStepper implements ComponentInterface {
   @Prop({ reflectToAttr: true, mutable: true }) done: number;
 
   /**
+   * Dispatched when the steps state changes.
+   */
+  @Event() change: EventEmitter<{ index: number }>;
+
+  /**
    * Increments the count of concluded steps.
    */
   @Method()
@@ -44,11 +49,6 @@ export class AcStepper implements ComponentInterface {
       this.change.emit({ index: this.done });
     }
   }
-
-  /**
-   * Dispatched when the steps state changes.
-   */
-  @Event() change: EventEmitter<{ index: number }>;
 
   render() {
     return [

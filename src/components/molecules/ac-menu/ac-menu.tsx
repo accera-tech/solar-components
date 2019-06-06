@@ -5,10 +5,12 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
   styleUrl: 'ac-menu.scss'
 })
 export class AcMenu {
-  @Element() host: HTMLAcMenuElement;
   childItems: HTMLAcMenuItemElement[];
 
+  @Element() host: HTMLAcMenuElement;
+
   @Prop() iconOnly: boolean;
+
   @Watch('iconOnly')
   iconOnlyDidUpdate() {
     for (const menuItem of this.childItems) {
@@ -16,12 +18,12 @@ export class AcMenu {
     }
   }
 
-  loadItemsFromHTML() {
-    this.childItems = Array.from(this.host.querySelectorAll('ac-menu-item'));
-  }
-
   componentDidLoad() {
     this.loadItemsFromHTML();
+  }
+
+  private loadItemsFromHTML() {
+    this.childItems = Array.from(this.host.querySelectorAll('ac-menu-item'));
   }
 
   render() {

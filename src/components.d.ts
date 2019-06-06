@@ -134,18 +134,8 @@ export namespace Components {
     'type'?: 'button' | 'submit' | 'reset';
   }
 
-  interface AcCard {
-    /**
-    * The icon imported from @fortawesome/free-solid-svg-icons.
-    */
-    'icon': any;
-  }
-  interface AcCardAttributes extends StencilHTMLAttributes {
-    /**
-    * The icon imported from @fortawesome/free-solid-svg-icons.
-    */
-    'icon'?: any;
-  }
+  interface AcCard {}
+  interface AcCardAttributes extends StencilHTMLAttributes {}
 
   interface AcCheck {
     /**
@@ -188,6 +178,9 @@ export namespace Components {
     * Validation pipeline for this field.
     */
     'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
     'validity': CustomValidityState;
     /**
     * The HTML field value.
@@ -235,6 +228,9 @@ export namespace Components {
     * Validation pipeline for this field.
     */
     'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
     'validity'?: CustomValidityState;
     /**
     * The HTML field value.

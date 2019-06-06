@@ -95,9 +95,11 @@ export class AcTabs {
 
   render() {
     return [
-      <span class="ac-tabs__wrapper"
-            ref={wrapper => this.wrapperElt = wrapper}
-            onScroll={this.handleWrapperScroll}>
+      <span
+        class="ac-tabs__wrapper"
+        ref={wrapper => this.wrapperElt = wrapper}
+        onScroll={this.handleWrapperScroll}
+      >
         <slot />
       </span>,
       <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet} />
