@@ -5,7 +5,6 @@ import { equals } from 'ramda';
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
 import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
 import { Bind } from '../../../utils/lang/bind';
-import { leftSpaceOnWindow } from '../../../utils/screen';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
