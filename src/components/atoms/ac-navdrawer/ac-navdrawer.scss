@@ -72,6 +72,12 @@
       transform: rotate(-60deg);
     }
   }
+
+  @include down-md {
+    .ac-navdrawer__toggle-button {
+      display: none;
+    }
+  }
 }
 
 
