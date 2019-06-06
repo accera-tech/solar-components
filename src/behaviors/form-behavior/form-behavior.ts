@@ -63,8 +63,8 @@ export class FormBehavior extends ComponentBehavior<any> {
   setValid() {
     log('Set valid', this);
     this.isValid = true;
-    this.component.host.classList.remove('formBehavior--invalid');
-    this.component.host.classList.add('formBehavior--valid');
+    this.component.host.classList.remove('form--invalid');
+    this.component.host.classList.add('form--valid');
   }
 
   /**
@@ -73,8 +73,8 @@ export class FormBehavior extends ComponentBehavior<any> {
   setInvalid() {
     log('Set invalid', this);
     this.isValid = false;
-    this.component.host.classList.remove('formBehavior--valid');
-    this.component.host.classList.add('formBehavior--invalid');
+    this.component.host.classList.remove('form--valid');
+    this.component.host.classList.add('form--invalid');
   }
 
   /**
@@ -84,8 +84,8 @@ export class FormBehavior extends ComponentBehavior<any> {
     log('Set unchecked', this);
     this.isUnchecked = true;
     this.isValid = false;
-    this.component.host.classList.remove('formBehavior--valid', 'formBehavior--invalid');
-    this.component.host.classList.add('formBehavior--unchecked');
+    this.component.host.classList.remove('form--valid', 'form--invalid');
+    this.component.host.classList.add('form--unchecked');
 
     // Prevent close the page with unsaved changes.
     if (!this.preventUnsavedIsAttached &&
@@ -109,7 +109,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   setChecked() {
     log('Set checked', this);
     this.isUnchecked = false;
-    this.component.host.classList.remove('formBehavior--unchecked');
+    this.component.host.classList.remove('form--unchecked');
   }
 
   /**
@@ -129,7 +129,7 @@ export class FormBehavior extends ComponentBehavior<any> {
     log('Set pristine', this);
     this.isValid = false;
     this.isUnchecked = false;
-    this.component.host.classList.remove('formBehavior--unchecked', 'formBehavior--valid', 'formBehavior--invalid');
+    this.component.host.classList.remove('form--unchecked', 'form--valid', 'form--invalid');
   }
 
   /**

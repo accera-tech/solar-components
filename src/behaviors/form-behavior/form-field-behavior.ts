@@ -71,7 +71,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    */
   setDirty() {
     log('Set dirty', this.name, this.formAttached);
-    this.component.host.classList.add('field--dirty');
+    this.component.host.classList.add('form-field--dirty');
     this.isDirty = true;
 
     if (this.formAttached) { this.formAttached.formBehavior.setUnchecked(); }
@@ -82,7 +82,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    */
   setTouched() {
     log('Set touched', this.name);
-    this.component.host.classList.add('field--touched');
+    this.component.host.classList.add('form-field--touched');
     this.isTouched = true;
   }
 
@@ -91,8 +91,8 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    */
   setValid() {
     log('Set valid', this.name);
-    this.component.host.classList.add('field--valid');
-    this.component.host.classList.remove('field--invalid');
+    this.component.host.classList.add('form-field--valid');
+    this.component.host.classList.remove('form-field--invalid');
 
     this.isValid = true;
   }
@@ -102,8 +102,8 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    */
   setInvalid() {
     log('Set invalid', this.name);
-    this.component.host.classList.add('field--invalid');
-    this.component.host.classList.remove('field--valid');
+    this.component.host.classList.add('form-field--invalid');
+    this.component.host.classList.remove('form-field--valid');
 
     this.isValid = false;
   }
@@ -114,7 +114,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
   cleanup() {
     log('Cleaning up', this.name);
     this.component.host.classList.remove(
-      'field--invalid', 'field--valid', 'field--touched', 'field--dirty'
+      'form-field--invalid', 'form-field--valid', 'form-field--touched', 'form-field--dirty'
     );
     this.component.value = undefined;
     this.component.error = undefined;
@@ -168,7 +168,11 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Add a validator to the validation pipeline.
    */
   addValidator(validator: ValidatorFunction) {
-    if (!this.component.validator) { this.component.validator = []; } else if (!(this.component.validator instanceof Array)) { this.component.validator = [ this.component.validator ]; }
+    if (!this.component.validator) {
+      this.component.validator = [];
+    } else if (!(this.component.validator instanceof Array)) {
+      this.component.validator = [ this.component.validator ];
+    }
     this.component.validator.push(validator);
 
     return this;
