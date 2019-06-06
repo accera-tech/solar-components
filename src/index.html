@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
-  <meta charset="utf-8">
+<!DOCTYPE html><html dir="ltr" lang="en"><head><meta charset="utf-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -28,6 +26,7 @@
 
   <section class="container-fluid p-2 p-md-5" slot="content">
     <ac-input label="Pesquisar por..."></ac-input>
+    <ac-input id="userPasswordInput" name="userPassword" type="password" validate-on-keyup=""></ac-input>
 
     <div class="row pt-4">
       <div class="col-6">
@@ -38,6 +37,7 @@
           </header>
           <section slot="content">
             <ac-button>Teste</ac-button>
+            <ac-button theme="primary">Teste</ac-button>
           </section>
         </ac-card>
       </div>
@@ -62,9 +62,27 @@
   async function main() {
     const modalCtrl = document.querySelector('ac-modal-controller');
 
-    const modal = await modalCtrl.create({ component: 'Test' });
+    const modal = await modalCtrl.create({
+      title: 'Test',
+      component: `
+      <div>
+        Test
+      </div>
+      <div slot="modal-actions">
+        <ac-button theme="success">Salvar</ac-button>
+      </div>
+      `
+    });
     modal.onDidDismiss()
       .then(console.log);
+
+
+    const userPasswordInput = document.getElementById('userPasswordInput');
+    userPasswordInput.validator = function (value) {
+      return {
+        passwordMinLength: value.length < 8,
+      }
+    };
   }
 
   let INIT = false;
@@ -73,5 +91,18 @@
     INIT = true;
   });
 </script>
+
+
+<script>
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    // auto-unregister service worker during dev mode
+    navigator.serviceWorker.getRegistration().then(function(registration) {
+      if (registration) {
+        registration.unregister().then(function() { location.reload(true) });
+      }
+    });
+  }
+</script>
+
 
 </body></html>

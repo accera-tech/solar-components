@@ -16,8 +16,8 @@ ac-input {
   }
 }
 
-ac-input.field--invalid {
+ac-input.form-field--invalid {
   .ac-input__helper-text {
-    color: $alert;
+    color: var-color("alert", "normal");
   }
 }

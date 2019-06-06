@@ -9,14 +9,12 @@ import '@stencil/core';
 
 
 import {
-  ValidatorFunction,
+  CustomValidityState,
+  ValidatorFn,
 } from './utils/validations/validations';
 import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  FormFieldBehavior,
-} from './behaviors/form-behavior';
 import {
   SelectOption,
 } from './components/molecules/ac-select/ac-select';
@@ -189,7 +187,8 @@ export namespace Components {
     /**
     * Validation pipeline for this field.
     */
-    'validator': ValidatorFunction | ValidatorFunction[];
+    'validator': ValidatorFn | ValidatorFn[];
+    'validity': CustomValidityState;
     /**
     * The HTML field value.
     */
@@ -235,7 +234,8 @@ export namespace Components {
     /**
     * Validation pipeline for this field.
     */
-    'validator'?: ValidatorFunction | ValidatorFunction[];
+    'validator'?: ValidatorFn | ValidatorFn[];
+    'validity'?: CustomValidityState;
     /**
     * The HTML field value.
     */
@@ -488,13 +488,14 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
-    * The actual error message.
+    * Set the component in the error state with a message.
     */
-    'error': string;
+    'error': string | boolean;
     /**
-    * Provide access to the form field logic.
+    * The FormFieldBehavior instance.
     */
-    'formFieldBehavior': FormFieldBehavior;
+    'formFieldBehavior': any;
+    'getNativeFormField': () => any;
     /**
     * Get the unmasked value.
     */
@@ -532,21 +533,17 @@ export namespace Components {
     */
     'name': string;
     /**
-    * The pattern of the input.
+    * The native HTMLInputElement pattern attribute.
     */
     'pattern': string;
     /**
-    * The message displayed if the pattern doesnt match.
+    * The native HTMLInputElement required attribute.
     */
-    'patternMessage': string;
-    /**
-    * Set this field as required. A validation error message can be provided as well.
-    */
-    'required': string | boolean;
+    'required': boolean;
     /**
     * Set focus state in the native input.
     */
-    'setFocus': () => void;
+    'setFocus': () => any;
     /**
     * Update the value and run validations as if the user change it manually. When to use each: input.value will only update the value, useful to set the initial value of the input. input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state to the form.
     */
@@ -556,9 +553,17 @@ export namespace Components {
     */
     'type': string;
     /**
-    * The validations that this field need. This validations is checked on: - Blur event - Form submit event
+    * Request check validation on each input key event.
     */
-    'validator': ValidatorFunction | ValidatorFunction[];
+    'validateOnKeyup': boolean;
+    /**
+    * The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * Get the last validity state from the checkValidity.
+    */
+    'validity': CustomValidityState;
     /**
     * The value of the internal input.
     */
@@ -582,13 +587,13 @@ export namespace Components {
     */
     'disabled'?: boolean;
     /**
-    * The actual error message.
+    * Set the component in the error state with a message.
     */
-    'error'?: string;
+    'error'?: string | boolean;
     /**
-    * Provide access to the form field logic.
+    * The FormFieldBehavior instance.
     */
-    'formFieldBehavior'?: FormFieldBehavior;
+    'formFieldBehavior'?: any;
     /**
     * The helper text to guide the user.
     */
@@ -622,25 +627,29 @@ export namespace Components {
     */
     'name'?: string;
     /**
-    * The pattern of the input.
+    * The native HTMLInputElement pattern attribute.
     */
     'pattern'?: string;
     /**
-    * The message displayed if the pattern doesnt match.
+    * The native HTMLInputElement required attribute.
     */
-    'patternMessage'?: string;
-    /**
-    * Set this field as required. A validation error message can be provided as well.
-    */
-    'required'?: string | boolean;
+    'required'?: boolean;
     /**
     * The type of the internal input.
     */
     'type'?: string;
     /**
-    * The validations that this field need. This validations is checked on: - Blur event - Form submit event
+    * Request check validation on each input key event.
     */
-    'validator'?: ValidatorFunction | ValidatorFunction[];
+    'validateOnKeyup'?: boolean;
+    /**
+    * The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present.
+    */
+    'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * Get the last validity state from the checkValidity.
+    */
+    'validity'?: CustomValidityState;
     /**
     * The value of the internal input.
     */
@@ -669,6 +678,15 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
+    * Set the field in the error state with a message.
+    */
+    'error': string | boolean;
+    /**
+    * The instance of the FormFieldBehavior.
+    */
+    'formFieldBehavior': any;
+    'getNativeFormField': () => Promise<HTMLInputElement>;
+    /**
     * The helper text to guide the user.
     */
     'helperText': string;
@@ -693,6 +711,18 @@ export namespace Components {
     */
     'options': SelectOption[];
     /**
+    * The native required attribute.
+    */
+    'required': boolean;
+    /**
+    * The validator functions.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity': CustomValidityState;
+    /**
     * The value of the internal input.
     */
     'value': any[] | any;
@@ -702,6 +732,14 @@ export namespace Components {
     * Set the disabled mode.
     */
     'disabled'?: boolean;
+    /**
+    * Set the field in the error state with a message.
+    */
+    'error'?: string | boolean;
+    /**
+    * The instance of the FormFieldBehavior.
+    */
+    'formFieldBehavior'?: any;
     /**
     * The helper text to guide the user.
     */
@@ -730,6 +768,18 @@ export namespace Components {
     * The options that will be displayed in the panel.
     */
     'options'?: SelectOption[];
+    /**
+    * The native required attribute.
+    */
+    'required'?: boolean;
+    /**
+    * The validator functions.
+    */
+    'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity'?: CustomValidityState;
     /**
     * The value of the internal input.
     */

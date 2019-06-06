@@ -3,29 +3,72 @@ import debug from 'debug/src/browser';
 import { Bind } from '../../utils/lang/bind';
 import { SerializeFormOptions, serializeForm } from '../../utils/serialize-form';
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
-import { ValidationError } from '../../utils/validations/validations';
+import { CustomValidityState } from '../../utils/validations/validations';
 
 import { FormFieldBehavior } from './form-field-behavior';
 
 const log = debug('solar:FormBehavior');
 
+/**
+ * Extend form features.
+ */
 export class FormBehavior extends ComponentBehavior<any> {
+  /**
+   * Instantiate a FormBehavior for a native Form element.
+   * @param host The target Form element.
+   */
+  static forNative(host: HTMLElement) {
+    return new FormBehavior({
+      host,
+      preventUnsaved: host.dataset.hasOwnProperty('preventUnsaved'),
+      componentDidUnload: null,
+      native: true
+    });
+  }
+
+  /**
+   * All field that compound this Form.
+   */
   private fields = new Map<string, FormFieldBehavior>();
+
+  /**
+   * Prevent user to leave the screen.
+   */
   private preventUnsavedIsAttached = false;
 
   /**
-   * True if this formBehavior is valid.
+   * True if this form is valid.
    */
   isValid: boolean;
 
   /**
-   * True if the user has changed any field from the formBehavior.
+   * True if the user has changed any field from the form.
    */
   isUnchecked: boolean;
 
   /**
+   * Runs all validations from formBehavior's fields.
+   * If it is valid, propagates the formSubmit event to other listeners
+   */
+  @Bind
+  private handleSubmit(ev) {
+    log('Submitting', this);
+    ev.preventDefault();
+    const currentValidation = !!this.isValid;
+
+    if (!currentValidation || this.isUnchecked) {
+      this.checkValidity()
+        .then(errors => {
+          if (Object.keys(errors).length === 0) {
+            this.component.host.dispatchEvent(new CustomEvent('formSubmit'));
+          }
+        });
+    }
+  }
+
+  /**
    * Attach a listener to 'submit' to the formBehavior,
-   * preventing the formBehavior submission if it is invalid.
+   * preventing the form submission if it is invalid.
    */
   attach() {
     log('Initializing', this);
@@ -37,28 +80,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 
   /**
-   * A event listener that runs all validations from formBehavior's fields.
-   * If it is valid, propagates the event to other listeners
-   */
-  @Bind
-  handleSubmit() {
-    log('Submitting', this);
-    // ev.preventDefault();
-    const currentValidation = !!this.isValid;
-
-    if (!currentValidation || this.isUnchecked) {
-      this.checkValidity()
-        .then(() => {
-          this.component.host.dispatchEvent(new CustomEvent('formSubmit'));
-        })
-        .catch(error => {
-          this.component.host.dispatchEvent(new CustomEvent('formInvalid', { detail: { error } }));
-        });
-    }
-  }
-
-  /**
-   * Set the formBehavior in the valid state.
+   * Set the form in the valid state.
    */
   setValid() {
     log('Set valid', this);
@@ -68,7 +90,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 
   /**
-   * Set the formBehavior in the invalid state.
+   * Set the form in the invalid state.
    */
   setInvalid() {
     log('Set invalid', this);
@@ -78,7 +100,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 
   /**
-   * Set the formBehavior in the unchecked state.
+   * Set the form in the unchecked state.
    */
   setUnchecked() {
     log('Set unchecked', this);
@@ -104,7 +126,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 
   /**
-   * Set the formBehavior in the checked state.
+   * Set the form in the checked state.
    */
   setChecked() {
     log('Set checked', this);
@@ -113,7 +135,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 
   /**
-   * Cleans all the states, errors and values of the formBehavior.
+   * Cleans all the states, errors and values of the form.
    */
   cleanup() {
     log('Cleaning', this);
@@ -123,7 +145,7 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 
   /**
-   * Set the formBehavior in the pristine state, preserving values, removing the validations and unchecked.
+   * Set the form in the pristine state, preserving values, removing the validations and unchecked.
    */
   pristine() {
     log('Set pristine', this);
@@ -151,40 +173,32 @@ export class FormBehavior extends ComponentBehavior<any> {
   /**
    * Runs all field validations from the formBehavior.
    */
-  async validate(): Promise<ValidationError[]> {
+  async checkValidity(): Promise<FormValidationErrors> {
     log('Validating formBehavior', this);
+
+    this.setChecked();
     const fieldsAsArray = Array.from(this.fields.values());
-    const errors = await Promise.all(fieldsAsArray
-      .map(f => f.validate()
-        .then(err => {
-          if (err) {
-            return {
-              message: err.message || err.toString(),
-              field: f.name,
-            };
+    const errors = {};
+
+    await Promise.all(fieldsAsArray
+      .map(f => f.checkValidity()
+        .then(state => {
+          if (!state.valid) {
+            errors[f.name] = state;
           }
         })
       ));
 
-    return errors.filter(err => !!err);
-  }
+    if (Object.keys(errors).length === 0) {
+      this.setValid();
+    } else {
+      this.setInvalid();
+      this.component.host.dispatchEvent(
+        new CustomEvent('formInvalid', { detail: errors })
+      );
+    }
 
-  /**
-   * Check the validation state of the field.
-   */
-  checkValidity(): Promise<ValidationError[]> {
-    this.setChecked();
-
-    return this.validate().then(errs => {
-      if (errs.length > 0) {
-        this.setInvalid();
-        throw new FormValidationError(errs);
-      } else {
-        this.setValid();
-      }
-
-      return errs;
-    });
+    return errors;
   }
 
   serialize(options?: SerializeFormOptions) {
@@ -193,14 +207,8 @@ export class FormBehavior extends ComponentBehavior<any> {
   }
 }
 
-/**
- * Represents an error of formBehavior validation.
- */
-export class FormValidationError extends Error {
-  errs: ValidationError[];
-
-  constructor(errs: ValidationError[]) {
-    super('This formBehavior is invalid');
-    this.errs = errs;
-  }
+export interface FormValidationErrors {
+  [key: string]: {
+    errors: CustomValidityState
+  };
 }

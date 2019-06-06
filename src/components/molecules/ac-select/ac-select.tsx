@@ -1,10 +1,12 @@
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Event, EventEmitter, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Method, Prop, State, Watch } from '@stencil/core';
 import { equals } from 'ramda';
 
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
 import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
+import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
+import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
@@ -16,10 +18,7 @@ import { AcPopper } from '../../portals/ac-popper/ac-popper';
   tag: 'ac-select',
   styleUrl: 'ac-select.scss',
 })
-export class AcSelect implements FocusableComponent {
-  private SelectPanel =
-    createControllerPortal<AcPanel & AcPopper>(document.getElementsByTagName('ac-panel-controller')[0]);
-
+export class AcSelect implements FocusableComponent, FormFieldComponent {
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
    */
@@ -29,6 +28,9 @@ export class AcSelect implements FocusableComponent {
    * The height of each item to render, used to calculate the size of the panel.
    */
   static readonly ITEM_HEIGHT = 30;
+
+  private SelectPanel =
+    createControllerPortal<AcPanel & AcPopper>(document.getElementsByTagName('ac-panel-controller')[0]);
 
   /**
    * A reference to the ac-input-base component.
@@ -44,14 +46,50 @@ export class AcSelect implements FocusableComponent {
    * The instance of the FocusBehavior used to close the panel when the user clicks outside.
    */
   focusBehavior = new FocusBehavior(this);
+
   hasFocus: boolean;
 
   @Element() host: HTMLAcSelectElement;
 
   /**
+   * The instance of the FormFieldBehavior.
+   */
+  @Prop() formFieldBehavior = new FormFieldBehavior(this);
+
+  /**
    * The label text of the this input group.
    */
   @Prop() label: string;
+
+  /**
+   * The helper text to guide the user.
+   */
+  @Prop() helperText: string;
+
+  /**
+   * Set the loading mode, showing a loading icon.
+   */
+  @Prop() loading: boolean;
+
+  /**
+   * Set the field in the error state with a message.
+   */
+  @Prop({ mutable: true }) error: string | boolean;
+
+  /**
+   * The validator functions.
+   */
+  @Prop({ mutable: true }) validator: ValidatorFn | ValidatorFn[];
+
+  /**
+   * The validity state.
+   */
+  @Prop({ mutable: true }) validity: CustomValidityState;
+
+  /**
+   * The options that will be displayed in the panel.
+   */
+  @Prop({ mutable: true }) options: SelectOption[];
 
   /**
    * The value of the internal input.
@@ -64,19 +102,9 @@ export class AcSelect implements FocusableComponent {
   @Prop({ reflectToAttr: true }) name: string;
 
   /**
-   * The helper text to guide the user.
-   */
-  @Prop() helperText: string;
-
-  /**
    * If true, the component will handle multiple selected items.
    */
-  @Prop() multiple: boolean;
-
-  /**
-   * The options that will be displayed in the panel.
-   */
-  @Prop({ mutable: true }) options: SelectOption[];
+  @Prop({ reflectToAttr: true }) multiple: boolean;
 
   /**
    * Set the disabled mode.
@@ -84,14 +112,9 @@ export class AcSelect implements FocusableComponent {
   @Prop({ reflectToAttr: true }) disabled: boolean;
 
   /**
-   * Set the loading mode, showing a loading icon.
+   * The native required attribute.
    */
-  @Prop() loading: boolean;
-
-  /**
-   * Fired when the user select/deselect an option.
-   */
-  @Event() change: EventEmitter<any>;
+  @Prop({ reflectToAttr: true }) required: boolean;
 
   /**
    * Used to toggle the panel view.
@@ -103,24 +126,10 @@ export class AcSelect implements FocusableComponent {
    */
   @State() selectedText: string;
 
-  componentDidLoad() {
-    if (!this.options) {
-      this.loadOptionsFromHTML();
-    } else {
-      this.optionsDidUpdate();
-    }
-  }
-
-  componentDidUnload() {}
-
   /**
-   * Toggle the panel view.
+   * Fired when the user select/deselect an option.
    */
-  whenBlur() {
-    if (this.isShowingPanel) {
-      this.togglePanel();
-    }
-  }
+  @Event() change: EventEmitter<any>;
 
   @Watch('value')
   valueDidUpdate(newValue: (number | string)[] | number | string,
@@ -151,10 +160,74 @@ export class AcSelect implements FocusableComponent {
     this.hasFocus = this.isShowingPanel;
   }
 
+  @Watch('error')
+  errorDidUpdate(error) {
+    console.log(error);
+  }
+
+  @Method()
+  getNativeFormField() {
+    return this.acInputBase.getNativeInput();
+  }
+
+  /**
+   * Toggle the panel view.
+   */
+  whenBlur() {
+    if (this.isShowingPanel) {
+      this.togglePanel();
+    }
+  }
+
+  componentDidLoad() {
+    if (!this.options) {
+      this.loadOptionsFromHTML();
+    } else {
+      this.optionsDidUpdate();
+    }
+  }
+
+  componentDidUnload() {}
+
+  /**
+   * Filter the options by the actual value. Used to update the options state by an external value update.
+   */
+  private getOptionsByValue(values: any[] | any): SelectOption[] {
+    const options = [];
+    if (this.options && values) {
+      if (values instanceof Array) {
+        this.options.forEach(o => {
+          o.selected = values.includes(o.value);
+          if (o.selected) { options.push(o); }
+        });
+      } else {
+        this.options.forEach(o => {
+          o.selected = values === o.value;
+          if (o.selected) { options.push(o); }
+        });
+      }
+    }
+    return options;
+  }
+
+  /**
+   * Update the selected options in the options elements children.
+   */
+  private setSelectedStateInDOM(index: number, state: boolean) {
+    if (this.childOptions && this.childOptions.length > 0) {
+      this.childOptions.item(index).selected = state;
+      if (state) {
+        this.childOptions.item(index).setAttribute('selected', '');
+      } else {
+        this.childOptions.item(index).removeAttribute('selected');
+      }
+    }
+  }
+
   /**
    * Generate the selectedText based on the selected options.
    */
-  formatSelectedText(selectedOptions: SelectOption[]) {
+  private formatSelectedText(selectedOptions: SelectOption[]) {
     if (this.options) {
       const count = selectedOptions.length;
       const total = this.options.length;
@@ -217,37 +290,6 @@ export class AcSelect implements FocusableComponent {
     this.isShowingPanel = this.multiple;
   }
 
-  /**
-   * Filter the options by the actual value. Used to update the options state by an external value update.
-   */
-  private getOptionsByValue(values: any[] | any): SelectOption[] {
-    const options = [];
-    if (this.options && values) {
-      if (values instanceof Array) {
-        this.options.forEach(o => {
-          o.selected = values.includes(o.value);
-          if (o.selected) { options.push(o); }
-        });
-      } else {
-        this.options.forEach(o => {
-          o.selected = values === o.value;
-          if (o.selected) { options.push(o); }
-        });
-      }
-    }
-    return options;
-  }
-
-  /**
-   * Update the selected options in the options elements children.
-   */
-  setSelectedStateInDOM(index: number, state: boolean) {
-    if (this.childOptions && this.childOptions.length > 0) {
-      this.childOptions.item(index).selected = state;
-      if (state) { this.childOptions.item(index).setAttribute('selected', ''); } else { this.childOptions.item(index).removeAttribute('selected'); }
-    }
-  }
-
   render() {
     const icon = this.isShowingPanel ? faChevronUp : faChevronDown;
     const SelectPanel = this.SelectPanel;
@@ -256,6 +298,8 @@ export class AcSelect implements FocusableComponent {
       <select
         name={this.name}
         multiple={this.multiple}
+        required={this.required}
+        disabled={this.disabled}
         class="ac-select__native"
         data-native
       >

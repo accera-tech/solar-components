@@ -1,9 +1,11 @@
 /**
  * Represents a validator function that will be consumed by the `formFieldBehavior.validate` method.
  */
-export type ValidatorFunction = ((value) => ValidationError | string) | ((value) => Promise<ValidationError | string>);
+export type ValidatorFn = ((value) => CustomValidityState | null) | ((value) => Promise<CustomValidityState | null>);
 
 /**
  * Represents a validation error returned by a validation check.
  */
-export type ValidationError = { message: string; field?: string } | void;
+export type CustomValidityState = {
+  [key in keyof ValidityState | string]: { message?: string } | boolean;
+}

@@ -1,8 +1,8 @@
 import debug from 'debug/src/browser';
 
+import { toArray } from '../../utils/lang/to-array';
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
-import { isRequired } from '../../utils/validations/isRequired';
-import { ValidationError, ValidatorFunction } from '../../utils/validations/validations';
+import { CustomValidityState } from '../../utils/validations/validations';
 
 import { FormBehavior } from './form-behavior';
 import { FormFieldComponent } from './form-field-component';
@@ -50,7 +50,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     if (this.formAttached) {
       log('Attaching', this.name, this.formAttached);
       if (!this.formAttached.formBehavior) {
-        this.formAttached.formBehavior = new FormBehavior({ host: this.formAttached, native: true });
+        this.formAttached.formBehavior = FormBehavior.forNative(this.formAttached);
       }
       this.formAttached.formBehavior.addField(this);
     }
@@ -124,57 +124,54 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
   }
 
   /**
-   * Runs the all the validations of the field and sets the error.
-   * The Required Field validation runs if the `required` prop of the component is present.
+   * Runs the all the validations of the field and sets the component's validity.
    */
-  async validate(): Promise<ValidationError> {
+  async checkValidity(value?: any): Promise<CustomValidityState> {
     log('Validating', this.name);
 
-    const { validator } = this.component;
+    let validityState: CustomValidityState = { valid: true };
+    const validators = toArray(this.component.validator);
+    const valueToAssert = value || this.component.value;
 
-    // Converting to Array
-    let validators = [];
-    if (validator instanceof Array) { validators = validator; } else if (validator) { validators = [ validator ]; }
-
-    let hasRequiredCheck = false;
-    if (this.component.required) {
-      hasRequiredCheck = true;
-      validators.unshift(isRequired(this.component.required));
-    }
-
-    if (!hasRequiredCheck && !this.component.value) {
-      return this.component.error = null;
+    if (this.component.getNativeFormField) {
+      const nativeValidity = (await this.component.getNativeFormField()).validity;
+      validityState.badInput = nativeValidity.badInput;
+      validityState.customError = nativeValidity.customError;
+      validityState.patternMismatch = nativeValidity.patternMismatch;
+      validityState.rangeOverflow = nativeValidity.rangeOverflow;
+      validityState.rangeUnderflow = nativeValidity.rangeUnderflow;
+      validityState.stepMismatch = nativeValidity.stepMismatch;
+      validityState.tooLong = nativeValidity.tooLong;
+      validityState.tooShort = nativeValidity.tooShort;
+      validityState.typeMismatch = nativeValidity.typeMismatch;
+      validityState.valid = nativeValidity.valid;
+      validityState.valueMissing = nativeValidity.valueMissing;
     }
 
     // Running all validator functions
     for (const fn of validators) {
-      if (fn) {
-        const exec = fn(this.component.value, this.formAttached);
-        let res;
-        res = exec instanceof Promise ? await exec : exec;
+      const exec = fn(valueToAssert, this, this.formAttached);
+      const state = exec instanceof Promise ? await exec : exec;
 
-        if (res) {
-          this.component.error = res.message || res;
-          log('Validation error', this.name, res);
-          return res.message ? res : { message: res };
-        }
+      if (state) {
+        validityState = { ...validityState, ...state };
+        validityState.valid = !Object.values(state).find(a => !!a);
       }
     }
 
-    this.component.error = null;
-  }
-
-  /**
-   * Add a validator to the validation pipeline.
-   */
-  addValidator(validator: ValidatorFunction) {
-    if (!this.component.validator) {
-      this.component.validator = [];
-    } else if (!(this.component.validator instanceof Array)) {
-      this.component.validator = [ this.component.validator ];
+    if (validityState.valid) {
+      this.component.error = false;
+      this.setValid();
+    } else {
+      this.component.error = true;
+      this.setInvalid();
+      this.component.host.dispatchEvent(
+        new CustomEvent('formFieldInvalid', { detail: validityState })
+      );
     }
-    this.component.validator.push(validator);
 
-    return this;
+    this.component.validity = validityState;
+
+    return validityState;
   }
 }

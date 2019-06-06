@@ -1,5 +1,5 @@
 import { ComponentBase } from '../../utils/stencil/component-behavior';
-import { ValidatorFunction } from '../../utils/validations/validations';
+import { CustomValidityState, ValidatorFn } from '../../utils/validations/validations';
 
 import { FormFieldBehavior } from './form-field-behavior';
 
@@ -7,6 +7,8 @@ import { FormFieldBehavior } from './form-field-behavior';
  * Represents a Component that implements the FormFieldBehavior structure.
  */
 export interface FormFieldComponent extends ComponentBase {
+
+  getNativeFormField?: () => Promise<HTMLInputElement | HTMLFieldSetElement | HTMLSelectElement | HTMLTextAreaElement>;
 
   /**
    * The field value of the component.
@@ -18,7 +20,7 @@ export interface FormFieldComponent extends ComponentBase {
    * The validators that ensure the field validity.
    * @Prop
    */
-  validator: ValidatorFunction | ValidatorFunction[];
+  validator: ValidatorFn | ValidatorFn[];
 
   /**
    * Provide access to the form field logic.
@@ -48,7 +50,7 @@ export interface FormFieldComponent extends ComponentBase {
    * The actual error message.
    * @Prop
    */
-  error?: string;
+  error?: string | boolean;
 
   /**
    * Watch updates of the `error` property.
@@ -57,4 +59,9 @@ export interface FormFieldComponent extends ComponentBase {
    * @Watch('error')
    */
   errorDidUpdate: (error: string) => void;
+
+  /**
+   * The validity state of the FormField.
+   */
+  validity: CustomValidityState;
 }

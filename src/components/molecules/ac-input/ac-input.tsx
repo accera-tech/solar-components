@@ -1,11 +1,10 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Method, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Listen, Method, Prop, State, Watch } from '@stencil/core';
 import vanillaMasker from 'vanilla-masker';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
-import { matchPattern } from '../../../utils/validations/matchPattern';
-import { ValidatorFunction } from '../../../utils/validations/validations';
+import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 
 /**
  * Accera's full-featured Input Field webcomponent.
@@ -15,11 +14,14 @@ import { ValidatorFunction } from '../../../utils/validations/validations';
   styleUrl: 'ac-input.scss',
 })
 export class AcInput implements FormFieldComponent {
-  acInputBase: HTMLAcInputBaseElement;
-
-  @Prop({ mutable: false, reflectToAttr: false }) formFieldBehavior: FormFieldBehavior = new FormFieldBehavior(this);
+  private acInputBase: HTMLAcInputBaseElement;
 
   @Element() host: HTMLAcInputElement;
+
+  /**
+   * The FormFieldBehavior instance.
+   */
+  @Prop({ mutable: false, reflectToAttr: false }) formFieldBehavior = new FormFieldBehavior(this);
 
   /**
    * The label text of the this input group.
@@ -27,24 +29,43 @@ export class AcInput implements FormFieldComponent {
   @Prop() label: string;
 
   /**
-   * The value of the internal input.
-   */
-  @Prop({ mutable: true }) value: any;
-
-  /**
    * The type of the internal input.
    */
   @Prop() type: string;
 
   /**
-   * The pattern of the input.
+   * The helper text to guide the user.
    */
-  @Prop({ reflectToAttr: true }) pattern: string;
+  @Prop() helperText: string;
 
   /**
-   * The message displayed if the pattern doesnt match.
+   * Request check validation on each input key event.
    */
-  @Prop({ reflectToAttr: true }) patternMessage: string;
+  @Prop() validateOnKeyup: boolean;
+
+  /**
+   * The value of the internal input.
+   */
+  @Prop({ mutable: true }) value: any;
+
+  /**
+   * Set the component in the error state with a message.
+   */
+  @Prop({ mutable: true }) error: string | boolean;
+
+  /**
+   * Get the last validity state from the checkValidity.
+   */
+  @Prop({ mutable: true }) validity: CustomValidityState;
+
+  /**
+   * The validations that this field need.
+   * This validations are checked on:
+   * - Blur event
+   * - Form submit event
+   * - Each keyUp event ONLY IF the validateOnKeyup property is present.
+   */
+  @Prop({ mutable: true }) validator: ValidatorFn | ValidatorFn[];
 
   /**
    * The mask of the input.
@@ -52,26 +73,24 @@ export class AcInput implements FormFieldComponent {
   @Prop({ reflectToAttr: true }) mask: string;
 
   /**
-   * The helper text to guide the user.
-   */
-  @Prop() helperText: string;
-
-  @Prop({ mutable: true }) error: string;
-
-  /**
    * The HTML input field's name.
    */
-  @Prop() name: string;
+  @Prop({ reflectToAttr: true }) name: string;
 
   /**
    * The disabled mode.
    */
-  @Prop() disabled: boolean;
+  @Prop({ reflectToAttr: true }) disabled: boolean;
 
   /**
-   * Set this field as required. A validation error message can be provided as well.
+   * The native HTMLInputElement required attribute.
    */
-  @Prop({ reflectToAttr: true }) required: string | boolean;
+  @Prop({ reflectToAttr: true }) required: boolean;
+
+  /**
+   * The native HTMLInputElement pattern attribute.
+   */
+  @Prop({ reflectToAttr: true }) pattern: string;
 
   /**
    * The native HTMLInputElement max attribute.
@@ -109,49 +128,25 @@ export class AcInput implements FormFieldComponent {
   @Prop({ reflectToAttr: true }) autocapitalize: string;
 
   /**
-   * The validations that this field need.
-   * This validations is checked on:
-   * - Blur event
-   * - Form submit event
-   */
-  @Prop({ mutable: true }) validator: ValidatorFunction | ValidatorFunction[];
-
-  /**
    * Used to toggle the password view.
    */
   @State() isShowingPassword: boolean;
-
-  async componentDidLoad() {
-    this.errorDidUpdate(this.error);
-
-    // Add pattern validation to the validation pipeline
-    if (this.pattern) {
-      if (this.validator instanceof Array) {
-        this.validator.unshift(matchPattern(this.pattern, this.patternMessage));
-      } else { this.validator = [ matchPattern(this.pattern, this.patternMessage), this.validator ]; }
-    }
-
-    if (this.mask) {
-      vanillaMasker(await this.acInputBase.getNativeInput()).maskPattern(this.mask);
-      // Masking the initial value
-      if (this.value) {
-        this.value = vanillaMasker.toPattern(this.value, this.mask);
-      }
-    }
-  }
-
-  componentDidUnload() {}
 
   /**
    * Set the error state based on the error prop.
    * @param error An error message.
    */
   @Watch('error')
-  errorDidUpdate(error: string) {
-    this.acInputBase.classList.add(error ? 'ac-input--alert' : 'ac-input--success');
-    this.acInputBase.classList.remove(error ? 'ac-input--success' : 'ac-input--alert');
-
-    if (error) { this.formFieldBehavior.setInvalid(); } else { this.formFieldBehavior.setValid(); }
+  errorDidUpdate(error) {
+    if (error) {
+      this.acInputBase.classList.add('ac-input--alert');
+      this.acInputBase.classList.remove('ac-input--success');
+      this.formFieldBehavior.setInvalid();
+    } else {
+      this.acInputBase.classList.add('ac-input--success');
+      this.acInputBase.classList.remove('ac-input--alert');
+      this.formFieldBehavior.setValid();
+    }
   }
 
   /**
@@ -162,6 +157,13 @@ export class AcInput implements FormFieldComponent {
     // Masking when value update programmatically
     if (this.mask) {
       this.value = vanillaMasker.toPattern(this.value, this.mask);
+    }
+  }
+
+  @Listen('keyup')
+  async handleKeyup() {
+    if (this.validateOnKeyup) {
+      this.formFieldBehavior.checkValidity((await this.getNativeFormField()).value);
     }
   }
 
@@ -178,7 +180,7 @@ export class AcInput implements FormFieldComponent {
 
     // @TODO: Review how to set the dirty state in the form for programmatically value changes.
     this.formFieldBehavior.setDirty();
-    this.formFieldBehavior.validate();
+    this.formFieldBehavior.checkValidity();
   }
 
   /**
@@ -195,8 +197,25 @@ export class AcInput implements FormFieldComponent {
    */
   @Method()
   setFocus() {
-    this.acInputBase.setFocus();
+    return this.acInputBase.setFocus();
   }
+
+  @Method()
+  getNativeFormField() {
+    return this.acInputBase.getNativeInput();
+  }
+
+  async componentDidLoad() {
+    if (this.mask) {
+      vanillaMasker(await this.acInputBase.getNativeInput()).maskPattern(this.mask);
+      // Masking the initial value
+      if (this.value) {
+        this.value = vanillaMasker.toPattern(this.value, this.mask);
+      }
+    }
+  }
+
+  componentDidUnload() {}
 
   /**
    * Toggle the password view.
@@ -214,7 +233,7 @@ export class AcInput implements FormFieldComponent {
     this.value = this.acInputBase.value;
 
     this.formFieldBehavior.setDirty();
-    this.formFieldBehavior.validate();
+    this.formFieldBehavior.checkValidity();
   }
 
   /**

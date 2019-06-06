@@ -2,7 +2,7 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
-import { ValidatorFunction } from '../../../utils/validations/validations';
+import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 
 /**
  * Accera's full-featured checkbox webcomponent.
@@ -65,6 +65,7 @@ export class AcCheck implements FormFieldComponent {
    * Error state and message of this field.
    */
   @Prop({ mutable: true }) error: string;
+  @Prop({ mutable: true }) validity: CustomValidityState;
 
   /**
    * Set the error state based on the error prop.
@@ -72,13 +73,17 @@ export class AcCheck implements FormFieldComponent {
    */
   @Watch('error')
   errorDidUpdate(error: string) {
-    if (error) { this.formFieldBehavior.setInvalid(); } else { this.formFieldBehavior.setValid(); }
+    if (error) {
+      this.formFieldBehavior.setInvalid();
+    } else {
+      this.formFieldBehavior.setValid();
+    }
   }
 
   /**
    * Validation pipeline for this field.
    */
-  @Prop() validator: ValidatorFunction | ValidatorFunction[];
+  @Prop() validator: ValidatorFn | ValidatorFn[];
 
   componentDidLoad() {}
   componentDidUnload() {}
