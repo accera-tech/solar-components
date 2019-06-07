@@ -7,7 +7,6 @@ import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-beha
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
-import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
 
@@ -35,12 +34,12 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   /**
    * A reference to the ac-input-base component.
    */
-  acInputBase: AcInputBase;
+  acInputBase: HTMLAcInputBaseElement;
 
   /**
-   * A list of option elements defined as a child of the select component.
+   * The native select element.
    */
-  childOptions: NodeListOf<HTMLOptionElement>;
+  nativeSelect: HTMLSelectElement;
 
   /**
    * The instance of the FocusBehavior used to close the panel when the user clicks outside.
@@ -138,6 +137,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
       const selectedOptions = this.getOptionsByValue(newValue);
       this.formatSelectedText(selectedOptions);
     }
+    this.formFieldBehavior.checkValidity();
   }
 
   @Watch('options')
@@ -162,12 +162,25 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
 
   @Watch('error')
   errorDidUpdate(error) {
-    console.log(error);
+    if (error) {
+      this.acInputBase.classList.add('ac-input--alert');
+      this.acInputBase.classList.remove('ac-input--success');
+      this.formFieldBehavior.setInvalid();
+    } else {
+      this.acInputBase.classList.add('ac-input--success');
+      this.acInputBase.classList.remove('ac-input--alert');
+      this.formFieldBehavior.setValid();
+    }
   }
 
   @Method()
-  getNativeFormField() {
-    return this.acInputBase.getNativeInput();
+  async getNativeFormField() {
+    return this.nativeSelect;
+  }
+
+  @Method()
+  async getSelectedOptions() {
+    return this.getOptionsByValue(this.value);
   }
 
   /**
@@ -177,6 +190,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     if (this.isShowingPanel) {
       this.togglePanel();
     }
+    this.formFieldBehavior.checkValidity();
   }
 
   componentDidLoad() {
@@ -211,20 +225,6 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   }
 
   /**
-   * Update the selected options in the options elements children.
-   */
-  private setSelectedStateInDOM(index: number, state: boolean) {
-    if (this.childOptions && this.childOptions.length > 0) {
-      this.childOptions.item(index).selected = state;
-      if (state) {
-        this.childOptions.item(index).setAttribute('selected', '');
-      } else {
-        this.childOptions.item(index).removeAttribute('selected');
-      }
-    }
-  }
-
-  /**
    * Generate the selectedText based on the selected options.
    */
   private formatSelectedText(selectedOptions: SelectOption[]) {
@@ -248,16 +248,23 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
    * Load the options elements from the children HTML.
    */
   private loadOptionsFromHTML() {
-    this.childOptions = this.host.querySelectorAll('option, optgroup');
-    this.options = Array.prototype.map.call(this.childOptions, o =>
+    const childOptions = this.host.querySelectorAll('option, optgroup');
+    this.options = Array.prototype.map.call(childOptions, o =>
       ({
         title: o.tagName === 'OPTGROUP' ? o.label : o.text,
         value: o.value,
-        selected: o.selected,
+        selected: o.hasAttribute('selected'),
         separator: o.tagName === 'OPTGROUP',
         group: o.parentElement.tagName === 'OPTGROUP' ? o.parentElement.label : null
       })
     ) as SelectOption[];
+  }
+
+  private renderOption(opt: SelectOption) {
+    console.log('RENDERING');
+    if (!opt.separator) {
+      return (<option selected={opt.selected} value={opt.value}>{opt.title}</option>);
+    }
   }
 
   /**
@@ -275,12 +282,10 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   private handleSelect(detail) {
     if (this.multiple) {
       this.options[detail.index].selected = !detail.item.selected; // Check the actual
-      this.setSelectedStateInDOM(detail.index, !detail.item.selected); // If has options defined from DOM, update it!
     } else {
       if (!detail.item.selected) {
         this.options.map((o, index) => {
           o.selected = index === detail.index; // Check only the new selected item
-          this.setSelectedStateInDOM(index, index === detail.index); // If has options defined from DOM, update it!
         });
       }
     }
@@ -295,7 +300,11 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     const SelectPanel = this.SelectPanel;
 
     return [
+      <div class="ac-select__phantom-dom">
+        <slot/>
+      </div>,
       <select
+        ref={nativeSelect => this.nativeSelect = nativeSelect}
         name={this.name}
         multiple={this.multiple}
         required={this.required}
@@ -303,7 +312,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         class="ac-select__native"
         data-native
       >
-        <slot/>
+        {this.options && this.options.map(this.renderOption)}
       </select>,
       <ac-input-base
         ref={acInputBase => {
@@ -363,7 +372,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
 /**
  * Defines an item of a Select.
  */
-export interface SelectOption {
+export interface SelectOption<T = {}> {
   /**
    * The title that will be displayed in the item
    */
@@ -372,7 +381,7 @@ export interface SelectOption {
   /**
    * The value of this item that will be handled by select listeners.
    */
-  value?: any;
+  value: number | string;
 
   /**
    * If true, this item will be displayed as a selected item.
@@ -388,4 +397,9 @@ export interface SelectOption {
    * The label of the options group of this item.
    */
   group?: string;
+
+  /**
+   * A custom data
+   */
+  data?: T
 }

@@ -20,7 +20,7 @@ ac-select {
     font-size: $font-tiny;
   }
 
-  .ac-select__native {
+  .ac-select__native, .ac-select__phantom-dom {
     display: none;
   }
 }

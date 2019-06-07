@@ -26,7 +26,20 @@
 
   <section class="container-fluid p-2 p-md-5" slot="content">
     <ac-input label="Pesquisar por..."></ac-input>
-    <ac-input id="userPasswordInput" name="userPassword" type="password" validate-on-keyup=""></ac-input>
+
+    <h3>Select With Html Options</h3>
+    <ac-select id="rockBandSelect" name="band" label="Band" multiple required>
+      <optgroup label="Rock Bands">
+        <option value="0">TNT</option>
+        <option value="1">Queen</option>
+        <option value="2">Metallica</option>
+        <option value="3">AC/DC</option>
+      </optgroup>
+      <optgroup label="Indie Bands">
+        <option value="4">Black Keys</option>
+        <option value="5">The Strokes</option>
+      </optgroup>
+    </ac-select>
 
     <div class="row pt-4">
       <div class="col-6">
@@ -76,12 +89,12 @@
     modal.onDidDismiss()
       .then(console.log);
 
-
-    const userPasswordInput = document.getElementById('userPasswordInput');
-    userPasswordInput.validator = function (value) {
+    const rockBandSelect = document.getElementById('rockBandSelect');
+    rockBandSelect.validator = function someValidator(value) {
+      console.log(value);
       return {
-        passwordMinLength: value.length < 8,
-      }
+        cantSelectThe4: value.includes('4')
+      };
     };
   }
 

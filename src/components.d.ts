@@ -681,7 +681,8 @@ export namespace Components {
     * The instance of the FormFieldBehavior.
     */
     'formFieldBehavior': any;
-    'getNativeFormField': () => Promise<HTMLInputElement>;
+    'getNativeFormField': () => Promise<HTMLSelectElement>;
+    'getSelectedOptions': () => Promise<SelectOption<{}>[]>;
     /**
     * The helper text to guide the user.
     */

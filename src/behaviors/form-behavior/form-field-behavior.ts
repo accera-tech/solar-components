@@ -127,14 +127,15 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Runs the all the validations of the field and sets the component's validity.
    */
   async checkValidity(value?: any): Promise<CustomValidityState> {
-    log('Validating', this.name);
+    const valueToAssert = value || this.component.value;
+    log('Validating', this.name, '=', valueToAssert);
 
     let validityState: CustomValidityState = { valid: true };
     const validators = toArray(this.component.validator);
-    const valueToAssert = value || this.component.value;
 
-    if (this.component.getNativeFormField) {
-      const nativeValidity = (await this.component.getNativeFormField()).validity;
+    const nativeFormField = this.component.getNativeFormField ? await this.component.getNativeFormField() : null;
+    if (nativeFormField) {
+      const nativeValidity = nativeFormField.validity;
       validityState.badInput = nativeValidity.badInput;
       validityState.customError = nativeValidity.customError;
       validityState.patternMismatch = nativeValidity.patternMismatch;
@@ -149,13 +150,27 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     }
 
     // Running all validator functions
+    const formBehavior = this.formAttached ? this.formAttached.formBehavior : null;
     for (const fn of validators) {
-      const exec = fn(valueToAssert, this, this.formAttached);
-      const state = exec instanceof Promise ? await exec : exec;
+      let state;
+      try {
+        const exec = fn(valueToAssert, this, formBehavior);
+        state = exec instanceof Promise ? await exec : exec;
+      } catch (err) {
+        log('Error in validator function', fn.name, err);
+      }
 
       if (state) {
+        // Assign the custom validity tokens.
         validityState = { ...validityState, ...state };
-        validityState.valid = !Object.values(state).find(a => !!a);
+
+        // If in the last verification it still valid
+        // so we gonna check the overall state again.
+        const { valid: stillValid, ...validityTokens } = validityState;
+        if (stillValid) {
+          validityState.valid = !Object.values(validityTokens)
+            .find(hasError => !!hasError);
+        }
       }
     }
 

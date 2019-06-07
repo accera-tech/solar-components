@@ -20,7 +20,7 @@ export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
 
       if (isClickingOutsideTheTarget
         && ev.target.dataset.toggle !== this.component.host.id) {
-        log('Clicked outside', this.component);
+        log('Clicked outside', this.component.host);
         this.component.whenBlur();
       }
     }

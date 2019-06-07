@@ -1,7 +1,10 @@
 /**
  * Represents a validator function that will be consumed by the `formFieldBehavior.validate` method.
  */
-export type ValidatorFn = ((value) => CustomValidityState | null) | ((value) => Promise<CustomValidityState | null>);
+import { FormBehavior, FormFieldBehavior } from '../../behaviors/form-behavior';
+
+export type ValidatorFn = (value, field: FormFieldBehavior, form: FormBehavior) =>
+  CustomValidityState | Promise<CustomValidityState | null> | null;
 
 /**
  * Represents a validation error returned by a validation check.
