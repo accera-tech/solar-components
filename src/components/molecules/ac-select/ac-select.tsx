@@ -230,7 +230,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   private formatSelectedText(selectedOptions: SelectOption[]) {
     if (this.options) {
       const count = selectedOptions.length;
-      const total = this.options.length;
+      const total = this.options.filter(o => !o.separator).length;
 
       if (count === 0) {
         this.selectedText = null;
@@ -261,7 +261,6 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   }
 
   private renderOption(opt: SelectOption) {
-    console.log('RENDERING');
     if (!opt.separator) {
       return (<option selected={opt.selected} value={opt.value}>{opt.title}</option>);
     }
