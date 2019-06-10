@@ -17,7 +17,7 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
 
   @Element() host: HTMLAcOverlayElement;
 
-  @Prop() vchildren;
+  @Prop({ mutable: true }) vchildren;
 
   /**
    * The backdrop theme.

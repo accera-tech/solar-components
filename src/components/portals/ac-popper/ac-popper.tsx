@@ -14,7 +14,7 @@ export class AcPopper implements PortalComponent, TransitionComponent, PopperCom
   popperBehavior = new PopperBehavior(this);
 
   @Element() host;
-  @Prop() vchildren;
+  @Prop({ mutable: true }) vchildren;
 
   @Prop() popperPivot: string | HTMLElement;
   @Prop() popperPlacement: Placement;

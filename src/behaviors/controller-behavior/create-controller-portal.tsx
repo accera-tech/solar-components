@@ -30,19 +30,17 @@ export function createControllerPortal<C>(controllerRef)
           if (refCallback) { refCallback(elt); }
           portal = elt.parentElement;
         });
+    } else if (!reset) {
+      portal.vchildren = <TargetTag {...restProps}>{children}</TargetTag>;
+      portal.forceUpdate();
     } else {
-
-      if (!reset) {
-        portal.vchildren = <TargetTag {...restProps}>{children}</TargetTag>;
-      } else {
-        // Clears the host if the reset prop is true
-        if (portal) {
-          if (onDidDismiss) {
-            onDidDismiss();
-          }
-          portal.remove();
-          portal = null;
+      // Clears the host if the reset prop is true
+      if (portal) {
+        if (onDidDismiss) {
+          onDidDismiss();
         }
+        portal.remove();
+        portal = null;
       }
     }
 

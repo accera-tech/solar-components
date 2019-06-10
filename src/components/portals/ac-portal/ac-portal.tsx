@@ -11,7 +11,7 @@ export class AcPortal implements PortalComponent, TransitionComponent {
   transitionBehavior = new TransitionBehavior(this);
 
   @Element() host;
-  @Prop() vchildren;
+  @Prop({ mutable: true }) vchildren;
 
   componentWillLoad() {}
   componentDidUnload() {}
