@@ -21,7 +21,7 @@ export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
       if (isClickingOutsideTheTarget
         && ev.target.dataset.toggle !== this.component.host.id) {
         log('Clicked outside', this.component.host);
-        this.component.whenBlur();
+        this.component.whenBlur(ev.target);
       }
     }
   };
@@ -53,7 +53,7 @@ export interface FocusableComponent extends ComponentBase {
   /**
    * Called when the behavior detects a click outside of the component.
    */
-  whenBlur: () => void;
+  whenBlur: (element: HTMLElement) => void;
 
   /**
    * Used to control the focus state.

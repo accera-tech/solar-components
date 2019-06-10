@@ -711,6 +711,7 @@ export namespace Components {
     * The native required attribute.
     */
     'required': boolean;
+    'setValue': (values: any) => Promise<void>;
     /**
     * The validator functions.
     */

@@ -28,7 +28,7 @@
     <ac-input label="Pesquisar por..."></ac-input>
 
     <h3>Select With Html Options</h3>
-    <ac-select id="rockBandSelect" name="band" label="Band" multiple required>
+    <ac-select id="rockBandSelect" name="band" label="Band" required multiple>
       <optgroup label="Rock Bands">
         <option value="0">TNT</option>
         <option value="1">Queen</option>
@@ -91,7 +91,6 @@
 
     const rockBandSelect = document.getElementById('rockBandSelect');
     rockBandSelect.validator = function someValidator(value) {
-      console.log(value);
       return {
         cantSelectThe4: value.includes('4')
       };

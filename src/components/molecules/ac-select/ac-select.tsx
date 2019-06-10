@@ -42,11 +42,21 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   nativeSelect: HTMLSelectElement;
 
   /**
+   * A reference to the ac-panel.
+   */
+  selectPanel: HTMLAcPanelElement;
+
+  /**
    * The instance of the FocusBehavior used to close the panel when the user clicks outside.
    */
   focusBehavior = new FocusBehavior(this);
 
   hasFocus: boolean;
+
+  /**
+   * Use to request a formFieldBehavior.checkValidity call.
+   */
+  requestCheckValidity: boolean;
 
   @Element() host: HTMLAcSelectElement;
 
@@ -134,23 +144,20 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   valueDidUpdate(newValue: (number | string)[] | number | string,
                  oldValue: (number | string)[] | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
-      const selectedOptions = this.getOptionsByValue(newValue);
-      this.formatSelectedText(selectedOptions);
+      this.formatSelectedText();
+      this.change.emit(this.value);
     }
-    this.formFieldBehavior.checkValidity();
   }
 
   @Watch('options')
   optionsDidUpdate() {
     if (this.options) {
-      let selectedOptions = this.options.filter(o => o.selected); // Get all selected
+      const selectedOptions = this.options.filter(o => o.selected); // Get all selected
       if (selectedOptions.length > 0) {
         const value = selectedOptions.map(o => o.value);
         this.value = this.multiple ? value : value[0]; // Array to a single value for Single select
-        this.formatSelectedText(selectedOptions);
       } else {
-        selectedOptions = this.getOptionsByValue(this.value);
-        this.formatSelectedText(selectedOptions);
+        this.value = null;
       }
     }
   }
@@ -183,14 +190,35 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     return this.getOptionsByValue(this.value);
   }
 
+  @Method()
+  async setValue(values) {
+    this.value = values;
+    this.requestCheckValidity = true;
+
+    if (values instanceof Array) {
+      this.options.forEach(o => {
+        o.selected = values.includes(o.value);
+      });
+    } else {
+      this.options.forEach(o => {
+        o.selected = values === o.value
+      });
+    }
+
+    this.options = [ ...this.options ];
+  }
+
   /**
    * Toggle the panel view.
    */
-  whenBlur() {
-    if (this.isShowingPanel) {
-      this.togglePanel();
+  whenBlur(element) {
+    // If the target element is'nt a child of the panel.
+    if (!this.selectPanel.contains(element)) {
+      if (this.isShowingPanel) {
+        this.togglePanel();
+      }
+      this.requestCheckValidity = true;
     }
-    this.formFieldBehavior.checkValidity();
   }
 
   componentDidLoad() {
@@ -203,6 +231,16 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
 
   componentDidUnload() {}
 
+  componentDidUpdate() {
+    // Forcing clear the value
+    this.nativeSelect.value = this.value ? this.nativeSelect.value : '';
+
+    if (this.requestCheckValidity) {
+      this.formFieldBehavior.checkValidity(this.value);
+      this.requestCheckValidity = false;
+    }
+  }
+
   /**
    * Filter the options by the actual value. Used to update the options state by an external value update.
    */
@@ -211,13 +249,11 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     if (this.options && values) {
       if (values instanceof Array) {
         this.options.forEach(o => {
-          o.selected = values.includes(o.value);
-          if (o.selected) { options.push(o); }
+          if (values.includes(o.value)) { options.push(o); }
         });
       } else {
         this.options.forEach(o => {
-          o.selected = values === o.value;
-          if (o.selected) { options.push(o); }
+          if (values === o.value) { options.push(o); }
         });
       }
     }
@@ -227,7 +263,8 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   /**
    * Generate the selectedText based on the selected options.
    */
-  private formatSelectedText(selectedOptions: SelectOption[]) {
+  private formatSelectedText() {
+    const selectedOptions = this.getOptionsByValue(this.value);
     if (this.options) {
       const count = selectedOptions.length;
       const total = this.options.filter(o => !o.separator).length;
@@ -253,17 +290,40 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
       ({
         title: o.tagName === 'OPTGROUP' ? o.label : o.text,
         value: o.value,
-        selected: o.hasAttribute('selected'),
+        selected: o.hasAttribute('selected') && o.selected,
         separator: o.tagName === 'OPTGROUP',
         group: o.parentElement.tagName === 'OPTGROUP' ? o.parentElement.label : null
       })
     ) as SelectOption[];
   }
 
-  private renderOption(opt: SelectOption) {
-    if (!opt.separator) {
-      return (<option selected={opt.selected} value={opt.value}>{opt.title}</option>);
-    }
+  private renderNativeOptions() {
+    return this.options.map(opt => {
+      if (!opt.separator) {
+        return (<option selected={opt.selected} value={opt.value}>{opt.title}</option>);
+      }
+    });
+  }
+
+  private renderOptions() {
+    return this.options.map((item, index) => {
+      if (item.separator) {
+        return (
+          <li class="ac-select__list-separator">
+            <label>{item.title}</label>
+          </li>
+        );
+      } else {
+        return (
+          <li
+            class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
+            onClick={() => this.handleSelect({ item, index })}
+          >
+            {item.title}
+          </li>
+        );
+      }
+    });
   }
 
   /**
@@ -283,15 +343,17 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
       this.options[detail.index].selected = !detail.item.selected; // Check the actual
     } else {
       if (!detail.item.selected) {
-        this.options.map((o, index) => {
+        this.options.forEach((o, index) => {
           o.selected = index === detail.index; // Check only the new selected item
         });
       }
     }
     this.options = [ ...this.options ];
 
-    this.change.emit(this.value);
+    // Close only if it's a single select
     this.isShowingPanel = this.multiple;
+
+    this.requestCheckValidity = true;
   }
 
   render() {
@@ -311,7 +373,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         class="ac-select__native"
         data-native
       >
-        {this.options && this.options.map(this.renderOption)}
+        {this.options && this.renderNativeOptions()}
       </select>,
       <ac-input-base
         ref={acInputBase => {
@@ -342,25 +404,15 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         {this.helperText}
       </span>,
 
-      <SelectPanel class="ac-select__panel" popperPivot={this.host} reset={!this.isShowingPanel}>
+      <SelectPanel
+        ref={selectPanel => this.selectPanel = selectPanel}
+        class="ac-select__panel"
+        popperPivot={this.host}
+        reset={!this.isShowingPanel}
+      >
         <slot name="item-top" slot="item-top" />
         <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
-          {this.options && this.options.map((item, index) => {
-            if (item.separator) { return (
-              <li class="ac-select__list-separator">
-                <label>{item.title}</label>
-              </li>
-            );
-            } else { return (
-              <li
-                class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
-                onClick={() => this.handleSelect({ item, index })}
-              >
-                {item.title}
-              </li>
-            );
-            }
-          })}
+          {this.options && this.renderOptions()}
         </ul>
         <slot name="item-bottom" slot="item-bottom" />
       </SelectPanel>
