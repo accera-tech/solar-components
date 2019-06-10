@@ -58,7 +58,7 @@ export interface FormFieldComponent extends ComponentBase {
    * @param error the actual error message.
    * @Watch('error')
    */
-  errorDidUpdate: (error: string) => void;
+  errorDidUpdate?: (error: string) => void;
 
   /**
    * The validity state of the FormField.

@@ -154,6 +154,7 @@ export namespace Components {
     * Error state and message of this field.
     */
     'error': string;
+    'getNativeFormField': () => Promise<HTMLInputElement>;
     /**
     * The helper text to guide the user.
     */

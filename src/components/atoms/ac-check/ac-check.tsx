@@ -1,4 +1,4 @@
-import { Component, Element, Prop, Watch } from '@stencil/core';
+import { Component, Element, Method, Prop } from '@stencil/core';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -12,6 +12,8 @@ import { CustomValidityState, ValidatorFn } from '../../../utils/validations/val
   styleUrl: 'ac-check.scss',
 })
 export class AcCheck implements FormFieldComponent {
+  nativeInput: HTMLInputElement;
+
   formFieldBehavior = new FormFieldBehavior(this);
 
   @Element() host: HTMLAcCheckElement;
@@ -76,22 +78,14 @@ export class AcCheck implements FormFieldComponent {
    */
   @Prop({ reflectToAttr: true }) required: string | boolean;
 
-  /**
-   * Set the error state based on the error prop.
-   * @param error An error message.
-   */
-  @Watch('error')
-  errorDidUpdate(error: string) {
-    if (error) {
-      this.formFieldBehavior.setInvalid();
-    } else {
-      this.formFieldBehavior.setValid();
-    }
-  }
-
   componentDidLoad() {}
   componentDidUnload() {}
   componentWillLoad() {}
+
+  @Method()
+  async getNativeFormField() {
+    return this.nativeInput;
+  }
 
   @Bind
   private handleChange() {
@@ -116,6 +110,7 @@ export class AcCheck implements FormFieldComponent {
     return [
       <div class="ac-check__container">
         <input
+          ref={nativeInput => this.nativeInput = nativeInput}
           id={nativeInputId}
           class="ac-check__native"
           type={this.type}
