@@ -27,10 +27,6 @@
 }
 
 @mixin make-row() {
-  @include up-md() {
-    margin-right: -$spacer-huge;
-    margin-left: -$spacer-huge;
-  }
   display: flex;
   flex-wrap: wrap;
   margin-right: -$spacer-small;
