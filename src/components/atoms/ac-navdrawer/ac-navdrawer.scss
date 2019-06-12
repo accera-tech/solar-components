@@ -1,6 +1,9 @@
 @import "../../../theme/variables";
+
+
 // General Navdrawer Style
 // --------------------------------------------------
+
 :host {
   display: flex;
   position: relative;
@@ -10,6 +13,7 @@
   transition: width $default-transition;
   background: $white;
   color: $black;
+
   .ac-navdrawer__header {
     display: flex;
     box-sizing: border-box;
@@ -20,12 +24,14 @@
     font-weight: bold;
     padding: 0px $spacer-medium;
   }
+
   .ac-navdrawer__content {
     display: flex;
     box-sizing: border-box;
     justify-content: center;
     height: 100%;
   }
+
   // Brand Button
   .ac-navdrawer__toggle-button {
     display: flex;
@@ -66,6 +72,7 @@
       transform: rotate(-60deg);
     }
   }
+
   @include down-md {
     .ac-navdrawer__toggle-button {
       display: none;
@@ -73,8 +80,10 @@
   }
 }
 
+
 // Primary Theme
 // --------------------------------------------------
+
 :host(.ac-navdrawer--primary) {
   @include define-theme-colors("primary");
   background: var-color("primary", "dark");
@@ -87,8 +96,10 @@
   }
 }
 
+
 // Secondary Theme
 // --------------------------------------------------
+
 :host(.ac-navdrawer--secondary) {
   @include define-theme-colors("secondary");
   background: var-color("secondary", "dark");
@@ -101,9 +112,11 @@
   }
 }
 
+
 // Compact mode
 // mode="compact"
 // --------------------------------------------------
+
 :host(.ac-navdrawer--compact) {
   width: 64px;
   .ac-navdrawer__header > * {
