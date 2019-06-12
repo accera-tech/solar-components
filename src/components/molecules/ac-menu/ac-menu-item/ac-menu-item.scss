@@ -1,6 +1,5 @@
 @import "../../../../theme/variables";
 @import "../../../atoms/ac-button/ac-button.vars";
-
 ac-menu-item {
   display: block;
   .ac-menu-item__native {
@@ -14,20 +13,18 @@ ac-menu-item {
     border-radius: $border-radius-default;
     background: transparent;
     cursor: pointer;
-
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: current-color("contrast", 0.2);
     }
     &:active {
       background-color: current-color("contrast", 0.4);
     }
-
     .ac-menu-item__text {
       width: 100%;
       font-size: $font-small;
       user-select: none;
     }
-
     .ac-menu-item__icon-start {
       margin-right: $spacer-small;
     }
@@ -41,11 +38,9 @@ ac-menu-item.ac-menu-item--icon-only {
     height: $ac-button__height;
     padding: 0;
     border-radius: 100%;
-
     .ac-menu-item__icon-start {
       margin-right: 0;
     }
-
     .ac-menu-item__text {
       display: none;
     }
