@@ -1,5 +1,7 @@
 @import "../../../../theme/variables";
 @import "../../../atoms/ac-button/ac-button.vars";
+
+
 ac-menu-item {
   display: block;
   .ac-menu-item__native {
@@ -20,11 +22,13 @@ ac-menu-item {
     &:active {
       background-color: current-color("contrast", 0.4);
     }
+
     .ac-menu-item__text {
       width: 100%;
       font-size: $font-small;
       user-select: none;
     }
+
     .ac-menu-item__icon-start {
       margin-right: $spacer-small;
     }
