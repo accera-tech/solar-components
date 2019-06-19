@@ -4,7 +4,7 @@
   ac-gauge#{$selector} {
     .ac-gauge__meter {
       path {
-        stroke: var-color($color-name, "darker");
+        stroke: var-color($color-name, "dark");
       }
     }
     .ac-gauge__bg {
