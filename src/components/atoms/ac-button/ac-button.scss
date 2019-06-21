@@ -58,13 +58,10 @@
     }
   }
 
-  ac-button#{$selector}.ac-button--loading{
+  ac-button#{$selector}.ac-button--loading {
     pointer-events: none;
     .ac-button__native {
       opacity: 0.5;
-    }
-    [slot=icon-start] {
-      display: none;
     }
   }
 }
@@ -100,6 +97,12 @@ ac-button {
     .ac-button__text {
       padding: 0 10px;
       white-space: nowrap;
+    }
+  }
+
+  &.ac-button--loading {
+    [slot=icon-start], [slot=icon-only] {
+      display: none;
     }
   }
 }

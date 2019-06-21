@@ -268,6 +268,15 @@ export namespace Components {
     'size'?: number;
   }
 
+  interface AcGauge {
+    'percent': number;
+    'theme': string;
+  }
+  interface AcGaugeAttributes extends StencilHTMLAttributes {
+    'percent'?: number;
+    'theme'?: string;
+  }
+
   interface AcHeader {
     'scrolled': boolean;
   }
@@ -987,6 +996,7 @@ declare global {
     'AcCard': Components.AcCard;
     'AcCheck': Components.AcCheck;
     'AcFaIcon': Components.AcFaIcon;
+    'AcGauge': Components.AcGauge;
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
     'AcNavdrawer': Components.AcNavdrawer;
@@ -1012,6 +1022,7 @@ declare global {
     'ac-card': Components.AcCardAttributes;
     'ac-check': Components.AcCheckAttributes;
     'ac-fa-icon': Components.AcFaIconAttributes;
+    'ac-gauge': Components.AcGaugeAttributes;
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-navdrawer': Components.AcNavdrawerAttributes;
@@ -1055,6 +1066,12 @@ declare global {
   var HTMLAcFaIconElement: {
     prototype: HTMLAcFaIconElement;
     new (): HTMLAcFaIconElement;
+  };
+
+  interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
+  var HTMLAcGaugeElement: {
+    prototype: HTMLAcGaugeElement;
+    new (): HTMLAcGaugeElement;
   };
 
   interface HTMLAcHeaderElement extends Components.AcHeader, HTMLStencilElement {}
@@ -1170,6 +1187,7 @@ declare global {
     'ac-card': HTMLAcCardElement
     'ac-check': HTMLAcCheckElement
     'ac-fa-icon': HTMLAcFaIconElement
+    'ac-gauge': HTMLAcGaugeElement
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-navdrawer': HTMLAcNavdrawerElement
@@ -1195,6 +1213,7 @@ declare global {
     'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
     'ac-fa-icon': HTMLAcFaIconElement;
+    'ac-gauge': HTMLAcGaugeElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;

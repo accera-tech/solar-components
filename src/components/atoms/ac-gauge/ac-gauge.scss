@@ -1,5 +1,8 @@
 @import "../../../theme/variables";
 
+/**
+ * Generate gauge variations by color palette.
+ */
 @mixin gauge-variations($selector, $color-name) {
   ac-gauge#{$selector} {
     .ac-gauge__meter {
@@ -7,60 +10,50 @@
         stroke: var-color($color-name, "dark");
       }
     }
+
     .ac-gauge__bg {
       path {
-        fill: var-color($color-name, "lighter");
         stroke: var-color($color-name, "light");
+        fill: var-color($color-name, "lighter");
       }
     }
+
     .ac-gauge__inner {
-      font-size: 23px;
       color: var-color($color-name, "dark");
-    }
-  }
-  ac-gauge#{$selector}.ac-gauge--void {
-    .ac-gauge__meter {
-      path {
-        stroke: #e6e6e6;
-      }
-    }
-    .ac-gauge__bg {
-      path {
-        fill: #f5f5f5;
-        stroke: #e6e6e6;
-      }
-    }
-    .ac-gauge__inner {
-      color: #a0a0a0;
+      font-size: 23px;
     }
   }
 }
 
+
+// General Gauge Style
+// --------------------------------------------------
+
 ac-gauge {
-  position: relative;
   display: inline-flex;
-  justify-content: center;
+  position: relative;
   align-items: center;
+  justify-content: center;
 
   .ac-gauge__meter {
     position: absolute;
     left: 0;
-    stroke-dasharray: 272%;
     transform: rotate(180deg);
     transition: stroke-dashoffset $slow-transition;
+    stroke-dasharray: 272%;
     path {
-      fill: none;
-      stroke-width: 100px;
-      stroke-miterlimit: 10;
       transition: fill $slow-transition, stroke $slow-transition;
+      stroke-width: 100px;
+      fill: none;
+      stroke-miterlimit: 10;
     }
   }
 
   .ac-gauge__bg {
     path {
+      transition: fill $slow-transition, stroke $slow-transition;
       stroke-width: 100px;
       stroke-miterlimit: 10;
-      transition: fill $slow-transition, stroke $slow-transition;
     }
   }
 
@@ -69,6 +62,33 @@ ac-gauge {
   }
 }
 
-// Gauge variantes
+
+// Gauge Theme Variations
+// --------------------------------------------------
+
 @include gauge-variations(".ac-gauge--primary", "primary");
 @include gauge-variations(".ac-gauge--secondary", "secondary");
+
+
+// Void state
+// percent="0"
+// --------------------------------------------------
+
+ac-gauge.ac-gauge--void {
+  .ac-gauge__meter {
+    path {
+      stroke: #e6e6e6;
+    }
+  }
+
+  .ac-gauge__bg {
+    path {
+      stroke: #e6e6e6;
+      fill: #f5f5f5;
+    }
+  }
+
+  .ac-gauge__inner {
+    color: #a0a0a0;
+  }
+}
