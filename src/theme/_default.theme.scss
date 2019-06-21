@@ -51,7 +51,9 @@ $theme: (
     normal:           $light-gray, // --color-light-base
     contrast:         darken($light-gray, 30%), // --color-light-contrast
     dark:             darken($light-gray, 10%), // --color-light-dark
+    dark:             darken($light-gray, 20%), // --color-light-darker
     light:            lighten($light-gray, 10%) // --color-light-light
+    lighter:          lighten($light-gray, 20%) // --color-light-lighter
   ),
   "disabled": (
     normal:           $ui_button--disabled__background, // --color-disabled-base
