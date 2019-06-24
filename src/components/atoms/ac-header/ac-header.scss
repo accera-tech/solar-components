@@ -13,8 +13,8 @@ ac-header {
   transition: background $slow-transition, box-shadow $slow-transition;
 
   @include down-md {
-    background: $white;
-    box-shadow: $z1-shadow;
+    background: var-color("primary", "normal");
+    color: var-color("primary", "contrast");
   }
 
   .ac-header__header-container {
@@ -24,10 +24,11 @@ ac-header {
     align-items: center;
     justify-content: space-between;
     min-height: $ac-header__min-height;
-    padding: $spacer-small $spacer-huge;
+    padding: 0 $spacer-huge;
 
-    @include down-md() {
-      padding: $spacer-small $spacer-small;
+    @include down-md {
+      min-height: $ac-header--mobile__min-height;
+      padding: 0 $spacer-small;
     }
 
     .ac-header__content {
@@ -50,6 +51,5 @@ ac-header {
 }
 
 ac-header.ac-header--scrolled {
-  background: $white;
   box-shadow: $z1-shadow;
 }
