@@ -1,0 +1,37 @@
+@import "../../../theme/variables";
+
+// Progress Variations by color palette.
+// ---------------------------------------
+
+@mixin progress-variations($selector, $color-name) {
+  ac-progress#{$selector} {
+    background: var-color($color-name, "lighter");
+    .ac-progress__meter {
+      background: var-color($color-name, "dark");
+    }
+  }
+}
+
+// General Progress Style.
+// ---------------------------------------
+
+ac-progress {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 8px;
+  border-radius: 8px;
+  .ac-progress__meter {
+    display: block;
+    position: absolute;
+    height: 100%;
+    transition: width $slow-transition;
+    border-radius: inherit;
+  }
+}
+
+// Progress Theme Variations.
+// ---------------------------------------
+
+@include progress-variations(".ac-progress--primary", "primary");
+@include progress-variations(".ac-progress--secondary", "secondary");
