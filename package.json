@@ -1,6 +1,6 @@
 {
   "name": "@accera/solar-components",
-  "version": "0.0.45-beta",
+  "version": "0.0.46-beta",
   "description": "Web Components implementation of Solar Design System",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",

@@ -145,7 +145,6 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
                  oldValue: (number | string)[] | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       this.formatSelectedText();
-      this.change.emit(this.value);
     }
   }
 
@@ -238,6 +237,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     if (this.requestCheckValidity) {
       this.formFieldBehavior.checkValidity(this.value);
       this.requestCheckValidity = false;
+      this.change.emit(this.value);
     }
   }
 
