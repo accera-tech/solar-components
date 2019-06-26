@@ -118,6 +118,7 @@ export class AcCheck implements FormFieldComponent {
           value={this.value}
           onChange={this.handleChange}
           disabled={this.disabled}
+          checked={this.checked}
         />
         <label class="ac-check__custom" htmlFor={nativeInputId}>
         </label>
