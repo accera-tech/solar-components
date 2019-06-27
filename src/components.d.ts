@@ -611,9 +611,17 @@ export namespace Components {
     */
     'name': string;
     /**
+    * Set the custom empty result text.
+    */
+    'noResultsText': string;
+    /**
     * The options that will be displayed in the panel.
     */
     'options': SelectOption[];
+    /**
+    * Set the search mode.
+    */
+    'searchable': boolean;
     /**
     * The value of the internal input.
     */
@@ -645,6 +653,10 @@ export namespace Components {
     */
     'name'?: string;
     /**
+    * Set the custom empty result text.
+    */
+    'noResultsText'?: string;
+    /**
     * Fired when the user select/deselect an option.
     */
     'onChange'?: (event: CustomEvent<any>) => void;
@@ -652,6 +664,10 @@ export namespace Components {
     * The options that will be displayed in the panel.
     */
     'options'?: SelectOption[];
+    /**
+    * Set the search mode.
+    */
+    'searchable'?: boolean;
     /**
     * The value of the internal input.
     */
