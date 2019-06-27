@@ -92,7 +92,7 @@ export class AcSelect implements FocusableComponent {
   /**
    * Set the custom empty result text.
    */
-  @Prop({ reflectToAttr: true }) emptyResultText: string = 'Empty';
+  @Prop({ reflectToAttr: true }) noResultsText: string = 'No results for';
 
   /**
    * Set the loading mode, showing a loading icon.
@@ -115,6 +115,8 @@ export class AcSelect implements FocusableComponent {
   @State() selectedText: string;
 
   @State() filteredOptions: SelectOption[];
+
+  @State() filter: string;
 
   componentDidLoad() {
     if (!this.options) {
@@ -162,6 +164,19 @@ export class AcSelect implements FocusableComponent {
   @Watch('isShowingPanel')
   isShowingPanelDidUpdate() {
     this.hasFocus = this.isShowingPanel;
+  }
+
+  @Watch('filter')
+  filterDidUpdate() {
+    if (this.filter) {
+      this.filteredOptions = this.options.filter(o =>
+        o.title
+          .toLowerCase()
+          .indexOf(this.filter.toLowerCase()) > -1
+      );
+    } else {
+      this.filteredOptions = null;
+    }
   }
 
   /**
@@ -237,22 +252,14 @@ export class AcSelect implements FocusableComponent {
 
     this.change.emit(this.value);
     this.isShowingPanel = this.multiple;
-    if (this.filteredOptions) this.filteredOptions = null;
+    this.filter = null;
   }
 
   @Bind
   @Debounced(200)
   private async handleDebouncedKeyUp() {
     const nativeInput = await this.acInputBase.getNativeInput();
-    this.filterBy(nativeInput.value);
-  }
-
-  private filterBy(text) {
-    this.filteredOptions = this.options.filter(o =>
-      o.title
-        .toLowerCase()
-        .indexOf(text.toLowerCase()) > -1
-    );
+    this.filter = nativeInput.value;
   }
 
   /**
@@ -351,7 +358,7 @@ export class AcSelect implements FocusableComponent {
             }
           })}
           {optionsToRender && optionsToRender.length === 0 &&
-            <li class="ac-select__empty-result">{this.emptyResultText}</li>
+            <li class="ac-select__empty-result">{this.noResultsText} {this.filter}</li>
           }
         </ul>
         <slot name="item-bottom" slot="item-bottom" />
