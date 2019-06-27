@@ -6,6 +6,7 @@ import { createControllerPortal } from '../../../behaviors/controller-behavior/c
 import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
+import { Debounced } from '../../../utils/lang/reactivity';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
@@ -121,6 +122,16 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   @Prop({ reflectToAttr: true }) disabled: boolean;
 
   /**
+   * Set the search mode.
+   */
+  @Prop({ reflectToAttr: true }) searchable: boolean;
+
+  /**
+   * Set the custom empty result text.
+   */
+  @Prop({ reflectToAttr: true }) noResultsText = 'No results for';
+
+  /**
    * The native required attribute.
    */
   @Prop({ reflectToAttr: true }) required: boolean;
@@ -134,6 +145,16 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
    * The text that will be displayed on the select input based on it value.
    */
   @State() selectedText: string;
+
+  /**
+   * The filtered options based on the filter.
+   */
+  @State() filteredOptions: SelectOption[];
+
+  /**
+   * The filter text used to search through the options.
+   */
+  @State() filter: string;
 
   /**
    * Fired when the user select/deselect an option.
@@ -176,6 +197,19 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
       this.acInputBase.classList.add('ac-input--success');
       this.acInputBase.classList.remove('ac-input--alert');
       this.formFieldBehavior.setValid();
+    }
+  }
+
+  @Watch('filter')
+  filterDidUpdate() {
+    if (this.filter) {
+      this.filteredOptions = this.options.filter(o =>
+        o.title
+          .toLowerCase()
+          .indexOf(this.filter.toLowerCase()) > -1
+      );
+    } else {
+      this.filteredOptions = null;
     }
   }
 
@@ -305,25 +339,33 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     });
   }
 
-  private renderOptions() {
-    return this.options.map((item, index) => {
-      if (item.separator) {
-        return (
-          <li class="ac-select__list-separator">
-            <label>{item.title}</label>
-          </li>
-        );
-      } else {
-        return (
-          <li
-            class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
-            onClick={() => this.handleSelect({ item, index })}
-          >
-            {item.title}
-          </li>
-        );
-      }
-    });
+  private renderOptions(options) {
+    if (options.length > 0) {
+      return options.map(item => {
+        if (item.separator) {
+          return (
+            <li class="ac-select__list-separator">
+              <label>{item.title}</label>
+            </li>
+          );
+        } else {
+          return (
+            <li
+              class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
+              onClick={() => this.handleSelect(item)}
+            >
+              {item.title}
+            </li>
+          );
+        }
+      });
+    } else {
+      return (
+        <li class="ac-select__empty-result">
+          {this.noResultsText} {this.filter}
+        </li>
+      );
+    }
   }
 
   /**
@@ -335,30 +377,46 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   }
 
   /**
+   * Open the panel.
+   */
+  @Bind
+  private openPanel() {
+    this.isShowingPanel = true;
+  }
+
+  /**
    * A listener that is dispatched when the user click on a select's option.
    */
   @Bind
-  private handleSelect(detail) {
+  private handleSelect(item) {
+    const selectedIndex = this.options.findIndex(o => o.value === item.value);
     if (this.multiple) {
-      this.options[detail.index].selected = !detail.item.selected; // Check the actual
+      this.options[selectedIndex].selected = !item.selected; // Check the current selected
     } else {
-      if (!detail.item.selected) {
+      if (!item.selected) {
         this.options.forEach((o, index) => {
-          o.selected = index === detail.index; // Check only the new selected item
+          o.selected = index === selectedIndex; // Check only the new selected item
         });
       }
     }
-    this.options = [ ...this.options ];
+    this.options = [ ...this.options ]; // Dispatch options update
 
-    // Close only if it's a single select
-    this.isShowingPanel = this.multiple;
-
+    this.isShowingPanel = this.multiple; // Close only if it's a single select
     this.requestCheckValidity = true;
+    this.filter = null;
+  }
+
+  @Bind
+  @Debounced(200)
+  private async handleDebouncedKeyUp() {
+    const nativeInput = await this.acInputBase.getNativeInput();
+    this.filter = nativeInput.value;
   }
 
   render() {
     const icon = this.isShowingPanel ? faChevronUp : faChevronDown;
     const SelectPanel = this.SelectPanel;
+    const optionsToRender = this.filteredOptions || this.options;
 
     return [
       <div class="ac-select__phantom-dom">
@@ -382,9 +440,10 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         label={this.label}
         type="text"
         value={this.selectedText}
-        onFocus={this.togglePanel}
+        onFocus={this.openPanel}
         disabled={this.disabled}
-        readonly
+        readonly={!this.searchable}
+        onKeyUp={this.handleDebouncedKeyUp}
       >
         <slot name="item-start" slot="item-start" />
         <slot name="input-label" slot="input-label" />
@@ -412,7 +471,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
       >
         <slot name="item-top" slot="item-top" />
         <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
-          {this.options && this.renderOptions()}
+          {optionsToRender && this.renderOptions(optionsToRender)}
         </ul>
         <slot name="item-bottom" slot="item-bottom" />
       </SelectPanel>

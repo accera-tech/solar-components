@@ -735,6 +735,10 @@ export namespace Components {
     */
     'name': string;
     /**
+    * Set the custom empty result text.
+    */
+    'noResultsText': string;
+    /**
     * The options that will be displayed in the panel.
     */
     'options': SelectOption[];
@@ -742,6 +746,10 @@ export namespace Components {
     * The native required attribute.
     */
     'required': boolean;
+    /**
+    * Set the search mode.
+    */
+    'searchable': boolean;
     'setValue': (values: any) => Promise<void>;
     /**
     * The validator functions.
@@ -790,6 +798,10 @@ export namespace Components {
     */
     'name'?: string;
     /**
+    * Set the custom empty result text.
+    */
+    'noResultsText'?: string;
+    /**
     * Fired when the user select/deselect an option.
     */
     'onChange'?: (event: CustomEvent<any>) => void;
@@ -801,6 +813,10 @@ export namespace Components {
     * The native required attribute.
     */
     'required'?: boolean;
+    /**
+    * Set the search mode.
+    */
+    'searchable'?: boolean;
     /**
     * The validator functions.
     */
