@@ -55,6 +55,11 @@ ac-select {
       }
     }
 
+    li.ac-select__empty-result {
+      color: $gray;
+      text-align: center;
+    }
+
     li.ac-select__list-separator {
       position: relative;
       height: 27px;

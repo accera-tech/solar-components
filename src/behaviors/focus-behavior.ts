@@ -10,6 +10,7 @@ const log = debug('solar:FocusBehavior');
 export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
   /**
    * Filter all the clicks in the body and calls the `whenBlur` from the component if match an outside click.
+   * Also, it's possible to mark elements with `data-focusignore={id}` to prevent it.
    * @param ev A Click Event.
    */
   private handleBodyClick = (ev: any) => {
@@ -19,7 +20,7 @@ export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
         : ev.target.closest(this.component.host.tagName.toLowerCase()) !== this.component.host;
 
       if (isClickingOutsideTheTarget
-        && ev.target.dataset.toggle !== this.component.host.id) {
+        && ev.target.dataset.focusignore !== this.component.host.id) {
         log('Clicked outside', this.component);
         this.component.whenBlur();
       }
