@@ -443,6 +443,27 @@ export namespace Components {
     'theme'?: string;
   }
 
+  interface AcProgress {
+    /**
+    * Set the bar's percentage.
+    */
+    'percent': number;
+    /**
+    * Set the theme color.
+    */
+    'theme': string;
+  }
+  interface AcProgressAttributes extends StencilHTMLAttributes {
+    /**
+    * Set the bar's percentage.
+    */
+    'percent'?: number;
+    /**
+    * Set the theme color.
+    */
+    'theme'?: string;
+  }
+
   interface AcStepper {
     /**
     * The number of concluded steps.
@@ -1000,6 +1021,7 @@ declare global {
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
     'AcNavdrawer': Components.AcNavdrawer;
+    'AcProgress': Components.AcProgress;
     'AcStepper': Components.AcStepper;
     'AcInput': Components.AcInput;
     'AcMenuItem': Components.AcMenuItem;
@@ -1026,6 +1048,7 @@ declare global {
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-navdrawer': Components.AcNavdrawerAttributes;
+    'ac-progress': Components.AcProgressAttributes;
     'ac-stepper': Components.AcStepperAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-menu-item': Components.AcMenuItemAttributes;
@@ -1090,6 +1113,12 @@ declare global {
   var HTMLAcNavdrawerElement: {
     prototype: HTMLAcNavdrawerElement;
     new (): HTMLAcNavdrawerElement;
+  };
+
+  interface HTMLAcProgressElement extends Components.AcProgress, HTMLStencilElement {}
+  var HTMLAcProgressElement: {
+    prototype: HTMLAcProgressElement;
+    new (): HTMLAcProgressElement;
   };
 
   interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
@@ -1191,6 +1220,7 @@ declare global {
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-navdrawer': HTMLAcNavdrawerElement
+    'ac-progress': HTMLAcProgressElement
     'ac-stepper': HTMLAcStepperElement
     'ac-input': HTMLAcInputElement
     'ac-menu-item': HTMLAcMenuItemElement
@@ -1217,6 +1247,7 @@ declare global {
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;
+    'ac-progress': HTMLAcProgressElement;
     'ac-stepper': HTMLAcStepperElement;
     'ac-input': HTMLAcInputElement;
     'ac-menu-item': HTMLAcMenuItemElement;

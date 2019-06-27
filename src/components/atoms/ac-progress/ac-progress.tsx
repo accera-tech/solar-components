@@ -5,11 +5,16 @@ import { Component, Prop } from '@stencil/core';
   styleUrl: 'ac-progress.scss',
   shadow: false
 })
-
 export class AcProgress {
 
+  /**
+   * Set the theme color.
+   */
   @Prop({ reflectToAttr: true }) theme = 'primary';
 
+  /**
+   * Set the bar's percentage.
+   */
   @Prop({ reflectToAttr: true, mutable: true }) percent: number;
 
   hostData() {
