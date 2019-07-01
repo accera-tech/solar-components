@@ -20,7 +20,7 @@ export class AcUpload {
   /**
    * Text introduced in Button upload.
    */
-  @Prop() buttontext: string;
+  @Prop() uploadButtonText: string;
 
   /**
    * State of focus, to control entries and exits of dragged files.
@@ -71,18 +71,16 @@ export class AcUpload {
   render() {
     return [
       <label
-        class="drop-area"
+        class="ac-upload--drop-area"
       >
-        <input class="input-upload" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
-        <div class="drop-area--content">
-          {
-            <slot name="text-area"/> ? <div class="text-area">
-              <slot name="text"/>
-            </div> : null
-          }
-          <ac-button theme="secondary" fill="solid" onClick={this.handleClick}>
+        <input class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
+        <div class="ac-upload--wrapper">
+            <div class="ac-upload--content">
+              <slot name="content" />
+            </div>
+          <ac-button class="ac-upload--button" theme={this.theme} onClick={this.handleClick}>
             <ac-fa-icon slot="icon-start" icon={faUpload} size={14}/>
-            {this.buttontext}
+            {this.uploadButtonText}
           </ac-button>
         </div>
       </label>

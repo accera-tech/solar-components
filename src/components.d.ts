@@ -447,11 +447,23 @@ export namespace Components {
   }
 
   interface AcProgress {
+    /**
+    * Set the bar's percentage.
+    */
     'percent': number;
+    /**
+    * Set the theme color.
+    */
     'theme': string;
   }
   interface AcProgressAttributes extends StencilHTMLAttributes {
+    /**
+    * Set the bar's percentage.
+    */
     'percent'?: number;
+    /**
+    * Set the theme color.
+    */
     'theme'?: string;
   }
 
@@ -726,6 +738,10 @@ export namespace Components {
     */
     'name': string;
     /**
+    * Set the custom empty result text.
+    */
+    'noResultsText': string;
+    /**
     * The options that will be displayed in the panel.
     */
     'options': SelectOption[];
@@ -733,6 +749,10 @@ export namespace Components {
     * The native required attribute.
     */
     'required': boolean;
+    /**
+    * Set the search mode.
+    */
+    'searchable': boolean;
     'setValue': (values: any) => Promise<void>;
     /**
     * The validator functions.
@@ -781,6 +801,10 @@ export namespace Components {
     */
     'name'?: string;
     /**
+    * Set the custom empty result text.
+    */
+    'noResultsText'?: string;
+    /**
     * Fired when the user select/deselect an option.
     */
     'onChange'?: (event: CustomEvent<any>) => void;
@@ -792,6 +816,10 @@ export namespace Components {
     * The native required attribute.
     */
     'required'?: boolean;
+    /**
+    * Set the search mode.
+    */
+    'searchable'?: boolean;
     /**
     * The validator functions.
     */
@@ -901,21 +929,17 @@ export namespace Components {
   }
 
   interface AcUpload {
-    /**
-    * Text introduced in Button upload.
-    */
-    'buttontext': string;
     'handleClick': () => void;
     /**
     * The theme color defined in the color palette. The default is primary.
     */
     'theme': string;
-  }
-  interface AcUploadAttributes extends StencilHTMLAttributes {
     /**
     * Text introduced in Button upload.
     */
-    'buttontext'?: string;
+    'uploadButtonText': string;
+  }
+  interface AcUploadAttributes extends StencilHTMLAttributes {
     /**
     * Event when a file is dropped.
     */
@@ -924,6 +948,10 @@ export namespace Components {
     * The theme color defined in the color palette. The default is primary.
     */
     'theme'?: string;
+    /**
+    * Text introduced in Button upload.
+    */
+    'uploadButtonText'?: string;
   }
 
   interface AcOverlay {
