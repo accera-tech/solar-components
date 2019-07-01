@@ -1,0 +1,43 @@
+@import "../../../theme/variables";
+
+ac-upload {
+  .drop-area {
+    display: block;
+    height: 100%;
+    border: 2px dashed #E6E6E6;
+    border-radius: 4px;
+    background: #F5F5F5;
+  }
+
+  .drop-area--content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    ac-button{
+      margin-bottom: 28px;
+    }
+    .text-area{
+      padding: 28px 28px 16px;
+      text-align: center;
+    }
+  }
+
+  .input-upload {
+    display: none;
+  }
+}
+
+ac-upload.ac-upload--focus {
+  .drop-area {
+    transition: border-color ease-in-out .2s,
+                background ease-in-out .2s;
+
+    border-color: var-color("primary", "normal");
+    background: var-color("primary", "normal", 0.1);
+  }
+}
+
+

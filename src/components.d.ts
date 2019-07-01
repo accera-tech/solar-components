@@ -34,6 +34,9 @@ import {
   AcPopper,
 } from './components/portals/ac-popper/ac-popper';
 import {
+  EventEmitter,
+} from '@stencil/core';
+import {
   Placement,
   PopperOptions,
 } from 'popper.js';
@@ -440,6 +443,15 @@ export namespace Components {
     /**
     * The color theme.
     */
+    'theme'?: string;
+  }
+
+  interface AcProgress {
+    'percent': number;
+    'theme': string;
+  }
+  interface AcProgressAttributes extends StencilHTMLAttributes {
+    'percent'?: number;
     'theme'?: string;
   }
 
@@ -888,6 +900,32 @@ export namespace Components {
     'onClose'?: (event: CustomEvent<void>) => void;
   }
 
+  interface AcUpload {
+    /**
+    * Text introduced in Button upload.
+    */
+    'buttontext': string;
+    'handleClick': () => void;
+    /**
+    * The theme color defined in the color palette. The default is primary.
+    */
+    'theme': string;
+  }
+  interface AcUploadAttributes extends StencilHTMLAttributes {
+    /**
+    * Text introduced in Button upload.
+    */
+    'buttontext'?: string;
+    /**
+    * Event when a file is dropped.
+    */
+    'onFileDrop'?: (event: CustomEvent<FileList>) => void;
+    /**
+    * The theme color defined in the color palette. The default is primary.
+    */
+    'theme'?: string;
+  }
+
   interface AcOverlay {
     /**
     * The backdrop theme.
@@ -1000,6 +1038,7 @@ declare global {
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
     'AcNavdrawer': Components.AcNavdrawer;
+    'AcProgress': Components.AcProgress;
     'AcStepper': Components.AcStepper;
     'AcInput': Components.AcInput;
     'AcMenuItem': Components.AcMenuItem;
@@ -1011,6 +1050,7 @@ declare global {
     'AcModal': Components.AcModal;
     'AcPanelController': Components.AcPanelController;
     'AcPanel': Components.AcPanel;
+    'AcUpload': Components.AcUpload;
     'AcOverlay': Components.AcOverlay;
     'AcPopper': Components.AcPopper;
     'AcPortal': Components.AcPortal;
@@ -1026,6 +1066,7 @@ declare global {
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
     'ac-navdrawer': Components.AcNavdrawerAttributes;
+    'ac-progress': Components.AcProgressAttributes;
     'ac-stepper': Components.AcStepperAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-menu-item': Components.AcMenuItemAttributes;
@@ -1037,6 +1078,7 @@ declare global {
     'ac-modal': Components.AcModalAttributes;
     'ac-panel-controller': Components.AcPanelControllerAttributes;
     'ac-panel': Components.AcPanelAttributes;
+    'ac-upload': Components.AcUploadAttributes;
     'ac-overlay': Components.AcOverlayAttributes;
     'ac-popper': Components.AcPopperAttributes;
     'ac-portal': Components.AcPortalAttributes;
@@ -1090,6 +1132,12 @@ declare global {
   var HTMLAcNavdrawerElement: {
     prototype: HTMLAcNavdrawerElement;
     new (): HTMLAcNavdrawerElement;
+  };
+
+  interface HTMLAcProgressElement extends Components.AcProgress, HTMLStencilElement {}
+  var HTMLAcProgressElement: {
+    prototype: HTMLAcProgressElement;
+    new (): HTMLAcProgressElement;
   };
 
   interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
@@ -1158,6 +1206,12 @@ declare global {
     new (): HTMLAcPanelElement;
   };
 
+  interface HTMLAcUploadElement extends Components.AcUpload, HTMLStencilElement {}
+  var HTMLAcUploadElement: {
+    prototype: HTMLAcUploadElement;
+    new (): HTMLAcUploadElement;
+  };
+
   interface HTMLAcOverlayElement extends Components.AcOverlay, HTMLStencilElement {}
   var HTMLAcOverlayElement: {
     prototype: HTMLAcOverlayElement;
@@ -1191,6 +1245,7 @@ declare global {
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
     'ac-navdrawer': HTMLAcNavdrawerElement
+    'ac-progress': HTMLAcProgressElement
     'ac-stepper': HTMLAcStepperElement
     'ac-input': HTMLAcInputElement
     'ac-menu-item': HTMLAcMenuItemElement
@@ -1202,6 +1257,7 @@ declare global {
     'ac-modal': HTMLAcModalElement
     'ac-panel-controller': HTMLAcPanelControllerElement
     'ac-panel': HTMLAcPanelElement
+    'ac-upload': HTMLAcUploadElement
     'ac-overlay': HTMLAcOverlayElement
     'ac-popper': HTMLAcPopperElement
     'ac-portal': HTMLAcPortalElement
@@ -1217,6 +1273,7 @@ declare global {
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;
+    'ac-progress': HTMLAcProgressElement;
     'ac-stepper': HTMLAcStepperElement;
     'ac-input': HTMLAcInputElement;
     'ac-menu-item': HTMLAcMenuItemElement;
@@ -1228,6 +1285,7 @@ declare global {
     'ac-modal': HTMLAcModalElement;
     'ac-panel-controller': HTMLAcPanelControllerElement;
     'ac-panel': HTMLAcPanelElement;
+    'ac-upload': HTMLAcUploadElement;
     'ac-overlay': HTMLAcOverlayElement;
     'ac-popper': HTMLAcPopperElement;
     'ac-portal': HTMLAcPortalElement;
