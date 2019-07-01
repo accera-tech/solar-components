@@ -55,14 +55,19 @@ ac-select {
       }
     }
 
+    li.ac-select__empty-result {
+      color: $gray;
+      text-align: center;
+    }
+
     li.ac-select__list-separator {
       position: relative;
       height: 27px;
-      cursor: default;
-      user-select: none;
+      overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      overflow: hidden;
+      cursor: default;
+      user-select: none;
 
       &:before {
         content: "";
@@ -91,4 +96,4 @@ ac-select {
 // List's Scrollbar theming
 // --------------------------------------------------
 
-@include scrollbar('ul.ac-select__list');
+@include scrollbar("ul.ac-select__list");

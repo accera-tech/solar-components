@@ -44,11 +44,6 @@ export class AcCheck implements FormFieldComponent {
   @Prop() direction: 'left' | 'right' = 'right';
 
   /**
-   * The actual checked state.
-   */
-  @Prop({ mutable: true }) checked: boolean;
-
-  /**
    * Error state and message of this field.
    */
   @Prop({ mutable: true }) error: string;
@@ -57,6 +52,11 @@ export class AcCheck implements FormFieldComponent {
    * The validity state.
    */
   @Prop({ mutable: true }) validity: CustomValidityState;
+
+  /**
+   * The actual checked state.
+   */
+  @Prop({ mutable: true, reflectToAttr: true }) checked: boolean;
 
   /**
    * Validation pipeline for this field.
