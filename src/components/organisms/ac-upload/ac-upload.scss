@@ -1,7 +1,8 @@
 @import "../../../theme/variables";
 
-ac-upload {
+:host {
   display: block;
+  width: 100%;
   .ac-upload--drop-area {
     display: block;
     height: 100%;
@@ -16,11 +17,11 @@ ac-upload {
       justify-content: center;
       height: 100%;
       .ac-upload--button {
-        margin-bottom: 28px;
+        padding: 16px 0px 16px;
       }
 
       .ac-upload--content {
-        padding: 28px 28px 16px;
+        padding: 0px 16px 0px;
         text-align: center;
       }
     }
@@ -30,8 +31,8 @@ ac-upload {
   }
 }
 
-ac-upload.ac-upload--focus {
-  .drop-area {
+:host(.ac-upload--focus) {
+  .ac-upload--drop-area {
     transition: border-color ease-in-out .2s,
                 background ease-in-out .2s;
     border-color: var-color("primary", "normal");

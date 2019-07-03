@@ -6,7 +6,7 @@ import { Bind } from '../../../utils/lang/bind';
 @Component({
   tag: 'ac-upload',
   styleUrl: 'ac-upload.scss',
-  shadow: false
+  shadow: true
 })
 
 export class AcUpload {
@@ -30,7 +30,7 @@ export class AcUpload {
   /**
    * Event when a file is dropped.
    */
-  @Event({ eventName: 'fileDrop' }) fileDrop: EventEmitter<FileList>;
+  @Event({ eventName: 'change' }) change: EventEmitter<FileList>;
 
   @Listen('dragover', { passive: false })
   onHighLight(e) {
@@ -44,7 +44,7 @@ export class AcUpload {
     e.preventDefault();
     e.stopPropagation();
     this.nativeInput.files = e.dataTransfer.files;
-    this.fileDrop.emit(e.dataTransfer.files);
+    this.change.emit(e.dataTransfer.files);
     this.focus = false;
   }
 
@@ -57,6 +57,16 @@ export class AcUpload {
   @Method()
   handleClick() {
     this.nativeInput.click();
+  }
+
+  @Method()
+  removeFiles() {
+    this.nativeInput.value = '';
+  }
+
+  @Bind
+  handleChange() {
+    this.change.emit(this.nativeInput.files);
   }
 
   hostData() {
@@ -73,7 +83,7 @@ export class AcUpload {
       <label
         class="ac-upload--drop-area"
       >
-        <input class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
+        <input onChange={this.handleChange} class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
         <div class="ac-upload--wrapper">
             <div class="ac-upload--content">
               <slot name="content" />

@@ -930,6 +930,7 @@ export namespace Components {
 
   interface AcUpload {
     'handleClick': () => void;
+    'removeFiles': () => void;
     /**
     * The theme color defined in the color palette. The default is primary.
     */
@@ -943,7 +944,7 @@ export namespace Components {
     /**
     * Event when a file is dropped.
     */
-    'onFileDrop'?: (event: CustomEvent<FileList>) => void;
+    'onChange'?: (event: CustomEvent<FileList>) => void;
     /**
     * The theme color defined in the color palette. The default is primary.
     */
