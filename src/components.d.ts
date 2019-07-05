@@ -939,6 +939,7 @@ export namespace Components {
     * Text introduced in Button upload.
     */
     'uploadButtonText': string;
+    'value': FileList;
   }
   interface AcUploadAttributes extends StencilHTMLAttributes {
     /**
@@ -953,6 +954,7 @@ export namespace Components {
     * Text introduced in Button upload.
     */
     'uploadButtonText'?: string;
+    'value'?: FileList;
   }
 
   interface AcOverlay {

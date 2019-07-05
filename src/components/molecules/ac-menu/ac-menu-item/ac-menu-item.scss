@@ -14,6 +14,8 @@ ac-menu-item {
     transition: background-color $slow-transition;
     border-radius: $border-radius-default;
     background: transparent;
+    color: var-color("white", "normal");
+    text-decoration: none;
     cursor: pointer;
     &:hover,
     &:focus {
