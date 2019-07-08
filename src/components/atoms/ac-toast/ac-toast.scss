@@ -1,0 +1,63 @@
+@import "../../../theme/variables";
+
+@mixin toast-variations($color-name) {
+  ac-toast.ac-toast--#{$color-name} {
+    display: flex;
+    flex-direction: column;
+    width: 392px;
+    height: 88px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    transition: transform $default-transition;
+    border-radius: 4px 4px 0 0;
+    background: var-color($color-name, "normal");
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.16);
+    color: white;
+
+    &.transition--before-enter {
+
+      transform: scale(0.7);
+    }
+
+    &.transition--before-leave {
+      transform: scale(0.7);
+    }
+  }
+
+  .ac-toast--content {
+    padding: 0 12px 0 16px;
+  }
+
+  .ac-toast__header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    padding-left: 16px;
+    overflow: hidden;
+    color: var-color($color-name, "contrast");
+  }
+
+  .ac-toast__header-bg {
+     position: absolute;
+     top: -6px;
+     right: -6px;
+     width: 36px;
+     opacity: 0.3;
+   }
+  .ac-toast__header-icon {
+    z-index: 1;
+    padding-right: 6px;
+    opacity: 0.6;
+    fill: var-color($color-name, "contrast");
+  }
+  .ac-toast--content__text {
+    color: #FFFFFF;
+  }
+}
+
+@include toast-variations("info");
+@include toast-variations("success");
+@include toast-variations("warning");
+@include toast-variations("alert");

@@ -16,11 +16,14 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  SelectOption,
-} from './components/molecules/ac-select/ac-select';
-import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
+import {
+  AcToast,
+} from './components/atoms/ac-toast/ac-toast';
+import {
+  SelectOption,
+} from './components/molecules/ac-select/ac-select';
 import {
   AcModal,
 } from './components/organisms/ac-modal/ac-modal';
@@ -500,6 +503,42 @@ export namespace Components {
     'steps'?: number;
   }
 
+  interface AcToastController {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound': string;
+    /**
+    * Set properties to the managed component.
+    */
+    'create': (props: ControllerComponentOptions<AcToast>) => Promise<any>;
+    /**
+    * Clear properties of the managed component.
+    */
+    'dismiss': (data: any) => Promise<any>;
+  }
+  interface AcToastControllerAttributes extends StencilHTMLAttributes {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound'?: string;
+  }
+
+  interface AcToast {
+    'close': () => void;
+    'message': string;
+    'time': number;
+    'title': string;
+    'type': 'alert' | 'success' | 'info' | 'warning';
+  }
+  interface AcToastAttributes extends StencilHTMLAttributes {
+    'message'?: string;
+    'onClose'?: (event: CustomEvent<void>) => void;
+    'time'?: number;
+    'title'?: string;
+    'type'?: 'alert' | 'success' | 'info' | 'warning';
+  }
+
   interface AcInput {
     /**
     * The native HTMLInputElement autocapitalize attribute.
@@ -964,12 +1003,13 @@ export namespace Components {
     'backdrop': 'dark' | 'light';
     'disableClose': boolean;
     'handleBackDropClick': () => void;
+    'noLayer': boolean;
     /**
     * Content position based on flex layout.
     */
-    'position': 'start start' | 'start center' | 'start end' |
-    'center start' | 'center center' | 'center end' |
-    'end start' | 'end center' | 'end end';
+    'position': 'start start' | 'start center' | 'start flex-end' |
+    'center start' | 'center center' | 'center flex-end' |
+    'flex-end start' | 'flex-end center' | 'flex-end flex-end';
     /**
     * Used to pass the custom children to the portal.
     */
@@ -981,13 +1021,14 @@ export namespace Components {
     */
     'backdrop'?: 'dark' | 'light';
     'disableClose'?: boolean;
+    'noLayer'?: boolean;
     'onBackDropClick'?: (event: CustomEvent<void>) => void;
     /**
     * Content position based on flex layout.
     */
-    'position'?: 'start start' | 'start center' | 'start end' |
-    'center start' | 'center center' | 'center end' |
-    'end start' | 'end center' | 'end end';
+    'position'?: 'start start' | 'start center' | 'start flex-end' |
+    'center start' | 'center center' | 'center flex-end' |
+    'flex-end start' | 'flex-end center' | 'flex-end flex-end';
     /**
     * Used to pass the custom children to the portal.
     */
@@ -1071,6 +1112,8 @@ declare global {
     'AcNavdrawer': Components.AcNavdrawer;
     'AcProgress': Components.AcProgress;
     'AcStepper': Components.AcStepper;
+    'AcToastController': Components.AcToastController;
+    'AcToast': Components.AcToast;
     'AcInput': Components.AcInput;
     'AcMenuItem': Components.AcMenuItem;
     'AcMenu': Components.AcMenu;
@@ -1099,6 +1142,8 @@ declare global {
     'ac-navdrawer': Components.AcNavdrawerAttributes;
     'ac-progress': Components.AcProgressAttributes;
     'ac-stepper': Components.AcStepperAttributes;
+    'ac-toast-controller': Components.AcToastControllerAttributes;
+    'ac-toast': Components.AcToastAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-menu-item': Components.AcMenuItemAttributes;
     'ac-menu': Components.AcMenuAttributes;
@@ -1175,6 +1220,18 @@ declare global {
   var HTMLAcStepperElement: {
     prototype: HTMLAcStepperElement;
     new (): HTMLAcStepperElement;
+  };
+
+  interface HTMLAcToastControllerElement extends Components.AcToastController, HTMLStencilElement {}
+  var HTMLAcToastControllerElement: {
+    prototype: HTMLAcToastControllerElement;
+    new (): HTMLAcToastControllerElement;
+  };
+
+  interface HTMLAcToastElement extends Components.AcToast, HTMLStencilElement {}
+  var HTMLAcToastElement: {
+    prototype: HTMLAcToastElement;
+    new (): HTMLAcToastElement;
   };
 
   interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
@@ -1278,6 +1335,8 @@ declare global {
     'ac-navdrawer': HTMLAcNavdrawerElement
     'ac-progress': HTMLAcProgressElement
     'ac-stepper': HTMLAcStepperElement
+    'ac-toast-controller': HTMLAcToastControllerElement
+    'ac-toast': HTMLAcToastElement
     'ac-input': HTMLAcInputElement
     'ac-menu-item': HTMLAcMenuItemElement
     'ac-menu': HTMLAcMenuElement
@@ -1306,6 +1365,8 @@ declare global {
     'ac-navdrawer': HTMLAcNavdrawerElement;
     'ac-progress': HTMLAcProgressElement;
     'ac-stepper': HTMLAcStepperElement;
+    'ac-toast-controller': HTMLAcToastControllerElement;
+    'ac-toast': HTMLAcToastElement;
     'ac-input': HTMLAcInputElement;
     'ac-menu-item': HTMLAcMenuItemElement;
     'ac-menu': HTMLAcMenuElement;

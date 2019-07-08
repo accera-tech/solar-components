@@ -24,13 +24,15 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
    */
   @Prop() backdrop: 'dark' | 'light' = 'dark';
 
+  @Prop() noLayer: boolean;
+
   /**
    * Content position based on flex layout.
    */
   @Prop() position:
-    'start start' | 'start center' | 'start end' |
-    'center start' | 'center center' | 'center end' |
-    'end start' | 'end center' | 'end end' = 'center center';
+    'start start' | 'start center' | 'start flex-end' |
+    'center start' | 'center center' | 'center flex-end' |
+    'flex-end start' | 'flex-end center' | 'flex-end flex-end' = 'center center';
 
   @Prop() disableClose: boolean;
 
@@ -50,6 +52,7 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
     return {
       class: {
         [`ac-overlay--backdrop-${this.backdrop}`]: !!this.backdrop,
+        'ac-overlay--no-layer': this.noLayer,
       },
       style: {
         justifyContent: this.position.split(' ')[0],
@@ -60,7 +63,7 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
 
   render() {
     return [
-      <div class="ac-overlay--layer" onClick={this.handleBackDropClick}/>,
+      !this.noLayer && <div class="ac-overlay--layer" onClick={this.handleBackDropClick}/>,
       <slot />
     ];
   }

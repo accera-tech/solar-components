@@ -1,4 +1,4 @@
-export const AcGaugeSvg = props => (
+export const AcNeogridOverlaySvg = props => (
   <svg viewBox="-50 -50 700 700" {...props}>
     <path
       d="M298.715,600a154.575,154.575 0,0 1,-19.827 -1.329A194.5,194.5 0,0

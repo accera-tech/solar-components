@@ -37,4 +37,11 @@ ac-overlay.ac-overlay--backdrop-dark {
   }
 }
 
+ac-overlay.ac-overlay--no-layer {
+  pointer-events: none;
+  & > * {
+    pointer-events: auto;
+  }
+}
+
 
