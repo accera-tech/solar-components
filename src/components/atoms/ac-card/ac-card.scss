@@ -5,7 +5,8 @@
 // --------------------------------------------------
 
 ac-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   border: 1px solid $ui-card__border-color;
   border-radius: $border-radius-default;
   background: $white;
@@ -16,6 +17,7 @@ ac-card {
   }
 
   & > [slot=content] {
+    height: 100%;
     padding: 16px 32px 24px;
   }
 

@@ -1,6 +1,6 @@
 import { Component, Prop } from '@stencil/core';
 
-import { AcGaugeSvg } from './ac-gauge-svg';
+import { AcNeogridOverlaySvg } from '../../utils/ac-neogrid-overlay-svg';
 
 @Component({
   tag: 'ac-gauge',
@@ -26,14 +26,14 @@ export class AcGauge {
   render() {
     const offset = 272 - (this.percent / 100) * 272;
     return [
-      <AcGaugeSvg
+      <AcNeogridOverlaySvg
         class="ac-gauge__meter"
         style={{
           strokeDashoffset: offset + '%',
           width: '100px',
         }}
       />,
-      <AcGaugeSvg
+      <AcNeogridOverlaySvg
         class="ac-gauge__bg"
         style={{ width: '100px' }}
       />,

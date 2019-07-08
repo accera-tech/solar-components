@@ -22,6 +22,8 @@ export class AcUpload {
    */
   @Prop() uploadButtonText: string;
 
+  @Prop({ mutable: true }) value: FileList;
+
   /**
    * State of focus, to control entries and exits of dragged files.
    */
@@ -44,7 +46,7 @@ export class AcUpload {
     e.preventDefault();
     e.stopPropagation();
     this.nativeInput.files = e.dataTransfer.files;
-    this.change.emit(e.dataTransfer.files);
+    this.handleChange();
     this.focus = false;
   }
 
@@ -66,6 +68,7 @@ export class AcUpload {
 
   @Bind
   handleChange() {
+    this.value = this.nativeInput.files;
     this.change.emit(this.nativeInput.files);
   }
 
