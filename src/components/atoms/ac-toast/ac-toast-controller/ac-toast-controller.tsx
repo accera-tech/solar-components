@@ -38,9 +38,9 @@ export class AcToastController implements ControllerComponent<AcToast, HTMLAcToa
 
     this.toastList.push(toast);
 
-    // setTimeout(() => {
-    //   wrapper.remove()
-    // }, props.time || 3000);
+    setTimeout(() => {
+      wrapper.remove()
+    }, props.time || 3000);
 
     return toast;
   }
