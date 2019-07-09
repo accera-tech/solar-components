@@ -1,0 +1,18 @@
+@import "../../../theme/variables";
+
+@include component-skeleton("ac-gauge") {
+  .ac-gauge__meter {
+    display: none;
+    fill: #ededed;
+  }
+
+  .ac-gauge__bg {
+    path {
+      stroke: none;
+      fill: #ededed;
+    }
+  }
+  .ac-gauge__inner {
+    display: none;
+  }
+}
