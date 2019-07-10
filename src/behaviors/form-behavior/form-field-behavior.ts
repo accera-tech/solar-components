@@ -127,7 +127,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
    * Runs the all the validations of the field and sets the component's validity.
    */
   async checkValidity(value?: any): Promise<CustomValidityState> {
-    const valueToAssert = value || this.component.value;
+    const valueToAssert = value || this.component.value || '';
     log('Validating', this.name, '=', valueToAssert);
 
     let validityState: CustomValidityState = { valid: true };
