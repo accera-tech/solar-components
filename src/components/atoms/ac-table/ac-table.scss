@@ -1,0 +1,97 @@
+@import "../../../theme/variables";
+
+  ac-table {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      th {
+        padding-bottom: 11px;
+        border-bottom: 2pt solid #F5F5F5;
+        text-align: start;
+        white-space: nowrap;
+
+        strong {
+          padding-right: 8px;
+          color: #646464;
+          font-weight: normal;
+          pointer-events: none;
+        }
+
+        i {
+          &:before {
+            color: #000A14;
+            font-size: 8px;
+          }
+
+          &:first-child {
+            transform: translateY(-4px);
+            transition: transform $slow-transition;
+
+          }
+        }
+
+        .order {
+          display: inline-flex;
+          position: relative;
+          align-items: flex-start;
+          justify-content: start;
+          pointer-events: none;
+
+          &.order-desc {
+            i {
+              &:first-child {
+                transform: rotate(180deg);
+              }
+            }
+
+          }
+        }
+
+        .order-space-icon {
+          visibility: hidden;
+        }
+      }
+    }
+
+    td {
+      padding: 8px 0 8px 0;
+      border-bottom: 1pt solid #F5F5F5;
+    }
+
+    tbody {
+      tr {
+        &:hover {
+          background-color: rgba(24, 84, 204, 0.05);
+          cursor: pointer;
+
+        }
+
+        td {
+          & > * {
+            display: flex;
+            flex-direction: column;
+
+            &.more-values {
+              & > * {
+                color: #646464;
+                font-size: 12px;
+
+                &:first-child {
+                  color: #1852CC;
+                  font-size: 14px;
+                }
+              }
+
+            }
+
+          }
+
+
+        }
+      }
+    }
+  }
+
