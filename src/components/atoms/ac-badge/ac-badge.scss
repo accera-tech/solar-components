@@ -1,0 +1,31 @@
+@import "../../../theme/variables";
+
+@mixin badge-variations($selector, $color-name) {
+  ac-badge#{$selector} {
+    .ac-badge-background {
+      background-color: var-color($color-name, normal, 0.2);
+      color: var-color($color-name, normal);
+    }
+  }
+}
+
+ac-badge {
+  .ac-badge-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 60px;
+    height: 20px;
+    border-radius: 14px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+@include badge-variations(".ac-badge--success", "success");
+@include badge-variations(".ac-badge--warning", "warning");
+@include badge-variations(".ac-badge--alert", "alert");
+@include badge-variations(".ac-badge--info", "info");
+
+
