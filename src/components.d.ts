@@ -16,6 +16,9 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {
+  Options,
+} from './components/atoms/ac-table/ac-table';
+import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
 import {
@@ -46,6 +49,17 @@ import {
 
 
 export namespace Components {
+
+  interface AcBadge {
+    'text': string;
+    'type': 'alert' | 'warning' | 'success';
+    'upperCase': boolean;
+  }
+  interface AcBadgeAttributes extends StencilHTMLAttributes {
+    'text'?: string;
+    'type'?: 'alert' | 'warning' | 'success';
+    'upperCase'?: boolean;
+  }
 
   interface AcButton {
     /**
@@ -503,6 +517,17 @@ export namespace Components {
     'steps'?: number;
   }
 
+  interface AcTable {
+    'fetch': any;
+    'options': Options;
+    'params': any;
+  }
+  interface AcTableAttributes extends StencilHTMLAttributes {
+    'fetch'?: any;
+    'options'?: Options;
+    'params'?: any;
+  }
+
   interface AcToastController {
     /**
     * An optional property used to refer the parent element that the component will be attached to.
@@ -741,6 +766,19 @@ export namespace Components {
     'iconOnly'?: boolean;
   }
 
+  interface AcPagination {
+    'afterLabel': string;
+    'nextLabel': string;
+    'selected': number;
+    'totalPages': number;
+  }
+  interface AcPaginationAttributes extends StencilHTMLAttributes {
+    'afterLabel'?: string;
+    'nextLabel'?: string;
+    'selected'?: number;
+    'totalPages'?: number;
+  }
+
   interface AcSelect {
     /**
     * Set the disabled mode.
@@ -878,22 +916,28 @@ export namespace Components {
     * If true, mark this tab as a selected tab.
     */
     'active': boolean;
+    'compact': boolean;
   }
   interface AcTabAttributes extends StencilHTMLAttributes {
     /**
     * If true, mark this tab as a selected tab.
     */
     'active'?: boolean;
+    'compact'?: boolean;
   }
 
   interface AcTabs {
+    'compact': boolean;
+    'selected': string | number;
     /**
     * The theme color defined in the color palette. The default is primary.
     */
     'theme': string;
   }
   interface AcTabsAttributes extends StencilHTMLAttributes {
+    'compact'?: boolean;
     'onTabChange'?: (event: CustomEvent<string>) => void;
+    'selected'?: string | number;
     /**
     * The theme color defined in the color palette. The default is primary.
     */
@@ -1102,6 +1146,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'AcBadge': Components.AcBadge;
     'AcButton': Components.AcButton;
     'AcCard': Components.AcCard;
     'AcCheck': Components.AcCheck;
@@ -1112,11 +1157,13 @@ declare global {
     'AcNavdrawer': Components.AcNavdrawer;
     'AcProgress': Components.AcProgress;
     'AcStepper': Components.AcStepper;
+    'AcTable': Components.AcTable;
     'AcToastController': Components.AcToastController;
     'AcToast': Components.AcToast;
     'AcInput': Components.AcInput;
     'AcMenuItem': Components.AcMenuItem;
     'AcMenu': Components.AcMenu;
+    'AcPagination': Components.AcPagination;
     'AcSelect': Components.AcSelect;
     'AcTab': Components.AcTab;
     'AcTabs': Components.AcTabs;
@@ -1132,6 +1179,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'ac-badge': Components.AcBadgeAttributes;
     'ac-button': Components.AcButtonAttributes;
     'ac-card': Components.AcCardAttributes;
     'ac-check': Components.AcCheckAttributes;
@@ -1142,11 +1190,13 @@ declare global {
     'ac-navdrawer': Components.AcNavdrawerAttributes;
     'ac-progress': Components.AcProgressAttributes;
     'ac-stepper': Components.AcStepperAttributes;
+    'ac-table': Components.AcTableAttributes;
     'ac-toast-controller': Components.AcToastControllerAttributes;
     'ac-toast': Components.AcToastAttributes;
     'ac-input': Components.AcInputAttributes;
     'ac-menu-item': Components.AcMenuItemAttributes;
     'ac-menu': Components.AcMenuAttributes;
+    'ac-pagination': Components.AcPaginationAttributes;
     'ac-select': Components.AcSelectAttributes;
     'ac-tab': Components.AcTabAttributes;
     'ac-tabs': Components.AcTabsAttributes;
@@ -1161,6 +1211,12 @@ declare global {
     'ac-layout': Components.AcLayoutAttributes;
   }
 
+
+  interface HTMLAcBadgeElement extends Components.AcBadge, HTMLStencilElement {}
+  var HTMLAcBadgeElement: {
+    prototype: HTMLAcBadgeElement;
+    new (): HTMLAcBadgeElement;
+  };
 
   interface HTMLAcButtonElement extends Components.AcButton, HTMLStencilElement {}
   var HTMLAcButtonElement: {
@@ -1222,6 +1278,12 @@ declare global {
     new (): HTMLAcStepperElement;
   };
 
+  interface HTMLAcTableElement extends Components.AcTable, HTMLStencilElement {}
+  var HTMLAcTableElement: {
+    prototype: HTMLAcTableElement;
+    new (): HTMLAcTableElement;
+  };
+
   interface HTMLAcToastControllerElement extends Components.AcToastController, HTMLStencilElement {}
   var HTMLAcToastControllerElement: {
     prototype: HTMLAcToastControllerElement;
@@ -1250,6 +1312,12 @@ declare global {
   var HTMLAcMenuElement: {
     prototype: HTMLAcMenuElement;
     new (): HTMLAcMenuElement;
+  };
+
+  interface HTMLAcPaginationElement extends Components.AcPagination, HTMLStencilElement {}
+  var HTMLAcPaginationElement: {
+    prototype: HTMLAcPaginationElement;
+    new (): HTMLAcPaginationElement;
   };
 
   interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
@@ -1325,6 +1393,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'ac-badge': HTMLAcBadgeElement
     'ac-button': HTMLAcButtonElement
     'ac-card': HTMLAcCardElement
     'ac-check': HTMLAcCheckElement
@@ -1335,11 +1404,13 @@ declare global {
     'ac-navdrawer': HTMLAcNavdrawerElement
     'ac-progress': HTMLAcProgressElement
     'ac-stepper': HTMLAcStepperElement
+    'ac-table': HTMLAcTableElement
     'ac-toast-controller': HTMLAcToastControllerElement
     'ac-toast': HTMLAcToastElement
     'ac-input': HTMLAcInputElement
     'ac-menu-item': HTMLAcMenuItemElement
     'ac-menu': HTMLAcMenuElement
+    'ac-pagination': HTMLAcPaginationElement
     'ac-select': HTMLAcSelectElement
     'ac-tab': HTMLAcTabElement
     'ac-tabs': HTMLAcTabsElement
@@ -1355,6 +1426,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'ac-badge': HTMLAcBadgeElement;
     'ac-button': HTMLAcButtonElement;
     'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
@@ -1365,11 +1437,13 @@ declare global {
     'ac-navdrawer': HTMLAcNavdrawerElement;
     'ac-progress': HTMLAcProgressElement;
     'ac-stepper': HTMLAcStepperElement;
+    'ac-table': HTMLAcTableElement;
     'ac-toast-controller': HTMLAcToastControllerElement;
     'ac-toast': HTMLAcToastElement;
     'ac-input': HTMLAcInputElement;
     'ac-menu-item': HTMLAcMenuItemElement;
     'ac-menu': HTMLAcMenuElement;
+    'ac-pagination': HTMLAcPaginationElement;
     'ac-select': HTMLAcSelectElement;
     'ac-tab': HTMLAcTabElement;
     'ac-tabs': HTMLAcTabsElement;
