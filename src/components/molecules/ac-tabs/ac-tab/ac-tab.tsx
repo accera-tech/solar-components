@@ -13,9 +13,11 @@ export class AcTab {
    */
   @Prop({ reflectToAttr: true }) active: boolean;
 
+  @Prop({ mutable: true }) compact: boolean;
+
   render() {
     return (
-      <slot />
+      <slot/>
     );
   }
 }

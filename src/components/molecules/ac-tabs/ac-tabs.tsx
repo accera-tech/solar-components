@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Prop, Watch } from '@stencil/core';
 
 import { addClass, addStyle, animate, removeClass, wait } from '../../../utils/animation';
 import { Bind } from '../../../utils/lang/bind';
@@ -23,12 +23,22 @@ export class AcTabs {
    */
   @Prop() theme: string;
 
+  @Prop() compact: boolean;
+
+  @Prop({ mutable: true }) selected: string | number;
+
   @Event() tabChange: EventEmitter<string>;
 
+  @Watch('selected')
+  onDidSelectedUpdate() {
+    console.log(this.selected);
+    const tab = this.childTabs.find(tab => tab.id == this.selected);
+    this.select(tab);
+  }
+
   componentDidLoad() {
-    setTimeout(() => {
-      this.loadTabsFromHTML();
-    }, 500);
+    // @TODO: Change it to componentDidRender hook.
+    setTimeout(() => this.loadTabsFromHTML(), 0);
   }
 
   /**
@@ -36,13 +46,20 @@ export class AcTabs {
    */
   private loadTabsFromHTML() {
     this.childTabs = Array.from(this.host.querySelectorAll('ac-tab'));
-    this.currentTab = this.childTabs.find(tab => tab.active);
+    if (!this.currentTab) {
+      this.currentTab = this.childTabs[0];
+    }
 
-    this.childTabs.forEach(tab =>
-      tab.addEventListener('click', () => this.select(tab))
-    );
+    this.childTabs.forEach(tab => {
+      tab.addEventListener('click', () => this.select(tab));
+      if (this.theme) {
+        tab.classList.add(`ac-tab--${this.theme}`);
+      }
+      if (this.compact) {
+        tab.classList.add(`ac-tab--compact`);
+      }
+    });
 
-    if (this.theme) { this.childTabs.forEach(tab => tab.classList.add(`ac-tab--${this.theme}`)); }
     return this.moveBulletToCurrentTab();
   }
 
@@ -70,7 +87,7 @@ export class AcTabs {
     const bulletLeftWithScroll = bulletLeft + this.wrapperElt.scrollLeft;
 
     return animate(this.bulletElt)
-      .then(addStyle({ left: bulletLeftWithScroll + 'px' }))
+      .then(addStyle({left: bulletLeftWithScroll + 'px'}))
       .then(addClass('ac-tabs__bullet--moving'))
       .then(wait(-200))
       .then(removeClass('ac-tabs__bullet--moving'));
@@ -88,7 +105,8 @@ export class AcTabs {
     return {
       attribute: 'nav',
       class: {
-        [`ac-tabs--${this.theme}`]: this.theme !== undefined
+        [`ac-tabs--${this.theme}`]: this.theme !== undefined,
+        'ac-tabs--compact': this.compact
       }
     };
   }
@@ -100,9 +118,9 @@ export class AcTabs {
         ref={wrapper => this.wrapperElt = wrapper}
         onScroll={this.handleWrapperScroll}
       >
-        <slot />
+        <slot/>
       </span>,
-      <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet} />
+      <span class="ac-tabs__bullet" style={{left: '0px'}} ref={bullet => this.bulletElt = bullet}/>
     ];
   }
 }

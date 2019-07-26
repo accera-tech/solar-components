@@ -16,10 +16,10 @@ ac-tab {
 
   cursor: pointer;
   user-select: none;
-}
 
-ac-tab[active] {
-  color: var-color("secondary", "normal");
+  &[active] {
+    color: var-color("secondary", "normal");
+  }
 }
 
 
@@ -28,8 +28,14 @@ ac-tab[active] {
 
 ac-tab.ac-tab--secondary {
   color: var-color("secondary", "normal");
+
+  &[active] {
+    color: var-color("primary", "normal");
+  }
 }
 
-ac-tab[active] {
-  color: var-color("primary", "normal");
+ac-tab.ac-tab--compact {
+  padding: $spacer-small 4px;
+  font-weight: normal;
+
 }
