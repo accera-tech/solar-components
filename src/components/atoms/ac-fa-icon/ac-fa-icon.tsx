@@ -38,7 +38,7 @@ export class AcFaIcon {
     const { icon } = this.icon;
 
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${icon[0]} ${icon[1]}`} height={this.size}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${icon[0]} ${icon[1]}`} height={this.size} width={this.size}>
         <path d={icon[4]} />
       </svg>
     );

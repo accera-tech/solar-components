@@ -1,7 +1,13 @@
+@import "../../../theme/variables";
+
 :host {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include browser-ie {
+    display: block;
+  }
 }
 
 

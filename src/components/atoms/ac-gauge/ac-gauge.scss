@@ -60,6 +60,17 @@ ac-gauge {
   .ac-gauge__inner {
     position: absolute;
   }
+
+  @include browser-ie {
+    .ac-gauge__meter {
+      top: 0;
+    }
+    .ac-gauge__inner {
+      top: 40%;
+      left: 40%;
+      //margin: -11px
+    }
+  }
 }
 
 
