@@ -1013,6 +1013,7 @@ export namespace Components {
 
   interface AcUpload {
     'handleClick': () => void;
+    'inputName': string;
     'removeFiles': () => void;
     /**
     * The theme color defined in the color palette. The default is primary.
@@ -1025,6 +1026,7 @@ export namespace Components {
     'value': FileList;
   }
   interface AcUploadAttributes extends StencilHTMLAttributes {
+    'inputName'?: string;
     /**
     * Event when a file is dropped.
     */
