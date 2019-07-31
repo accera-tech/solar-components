@@ -13,6 +13,7 @@
 
     .ac-gauge__bg {
       path {
+        width: 100%;
         stroke: var-color($color-name, "light");
         fill: var-color($color-name, "lighter");
       }
@@ -41,6 +42,7 @@ ac-gauge {
     transform: rotate(180deg);
     transition: stroke-dashoffset $slow-transition;
     stroke-dasharray: 272%;
+
     path {
       transition: fill $slow-transition, stroke $slow-transition;
       stroke-width: 100px;
@@ -61,14 +63,20 @@ ac-gauge {
     position: absolute;
   }
 
-  @include browser-ie {
+}
+
+@include browser-ie {
+  ac-gauge {
+    display: flex;
+    flex-direction: column;
+
     .ac-gauge__meter {
       top: 0;
     }
+
     .ac-gauge__inner {
       top: 40%;
       left: 40%;
-      //margin: -11px
     }
   }
 }
