@@ -26,4 +26,14 @@ ac-panel {
     transform: translateY(-10px) scaleY(0.5);
     opacity: 0;
   }
+
 }
+
+ac-panel {
+  @include browser-ie {
+    &.transition--before-enter {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  }
