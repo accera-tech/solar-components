@@ -1,0 +1,27 @@
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  Utilities
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin gauge-variations($selector, $color-name) {
+  ac-gauge#{$selector} {
+    .ac-gauge__meter {
+      path {
+        stroke: var-color($color-name, "dark");
+      }
+    }
+
+    .ac-gauge__bg {
+      path {
+        stroke: var-color($color-name, "light");
+        fill: var-color($color-name, "lighter");
+      }
+    }
+
+    .ac-gauge__inner {
+      color: var-color($color-name, "dark");
+      font-size: 23px;
+    }
+  }
+}

@@ -1,8 +1,9 @@
 @import "../../../theme/variables";
+@import "ac-check.vars";
 
-
-// General Checkbox Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-check {
   display: inline-block;
@@ -10,13 +11,14 @@ ac-check {
   .ac-check__container {
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     .ac-check__label {
       margin: 0;
-      padding-left: 8px;
-      color: $ui-label__color;
-      font-size: 16px;
-      cursor: pointer;
+      padding-left: $spacer-tiny;
+      color: var-color("neutral", "darker");
+      font-size: $font-medium;
+      line-height: 1;
       user-select: none;
     }
   }
@@ -28,29 +30,32 @@ ac-check {
   .ac-check__custom {
     position: relative;
     box-sizing: border-box;
-    width: 16px;
-    height: 16px;
+    width: $ac-check__height;
+    height: $ac-check__height;
     margin: 0;
-    border: 2px solid $ui-check__border-color;
+    border: 2px solid var-color("neutral", "light");
     outline: none;
-
-    background: $white;
-    cursor: pointer;
+    background: var-color("neutral", "contrast");
   }
 
   .ac-check__helper-text {
-
     display: block;
     margin-top: $spacer-tiny;
-    padding-left: 24px;
-    color: $ui-helper-text__color;
+    padding-left: $spacer-medium;
+    color: var-color("neutral", "darker");
     font-size: $font-tiny;
-    cursor: pointer;
     user-select: none;
   }
 }
 
-// Checkbox mode.
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Type Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Checkbox (type="checkbox") (default)
+// ---------------------------------------------------------
+
 ac-check.ac-check--checkbox {
   .ac-check__custom {
     border-radius: $border-radius-default;
@@ -70,7 +75,10 @@ ac-check.ac-check--checkbox {
   }
 }
 
-// Radio button mode.
+
+// Radio (type="radio")
+// ---------------------------------------------------------
+
 ac-check.ac-check--radio {
   .ac-check__custom {
     border-radius: 100%;
@@ -92,8 +100,11 @@ ac-check.ac-check--radio {
 }
 
 
-// Checked mode
-// checked
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Checked mode (checked)
 // --------------------------------------------------
 
 ac-check {
@@ -109,62 +120,65 @@ ac-check {
   }
 }
 
-// Checkbox mode.
+
+// Checkbox Checked mode (checked)
+// --------------------------------------------------
+
 ac-check.ac-check--checkbox {
   .ac-check__native:checked + .ac-check__custom {
     &:before {
       height: 5px;
       transform: rotate(-45deg);
-      border-color: $white;
+      border-color: var-color("neutral", "contrast");
     }
   }
 }
 
-// Radio button mode.
+
+// Radio Checked mode (checked)
+// --------------------------------------------------
+
 ac-check.ac-check--radio {
   .ac-check__native:checked + .ac-check__custom {
     &:before {
       transform: scale(1);
-      background-color: $white;
+      background-color: var-color("neutral", "contrast");
     }
   }
 }
 
 
-// Disabled mode
-// disabled
+// Disabled mode (disabled)
 // --------------------------------------------------
 
 ac-check.ac-check--disabled {
   cursor: not-allowed;
 
-  .ac-check__container,
-  .ac-check__helper-text {
+  .ac-check__container {
     pointer-events: none;
   }
   .ac-check__label {
-    color: $ui-label--disabled__color;
+    color: var-color("neutral", "normal");
   }
   .ac-check__custom {
-    border-color: $ui-check--disabled__border-color;
-    background: $ui-check--disabled__background-color;
+    border-color: var-color("neutral", "light");
+    background: var-color("neutral", "lighter");
   }
 
   .ac-check__native:checked {
     + .ac-check__custom {
-      border-color: $gray;
-      background: $gray;
+      border-color: var-color("neutral", "normal");
+      background: var-color("neutral", "normal");
 
       + .ac-check__label {
-        color: $ui-label--disabled__color;
+        color: var-color("neutral", "dark");
       }
     }
   }
 }
 
 
-// Error mode
-// error
+// Error mode (error="")
 // --------------------------------------------------
 
 ac-check.ac-check--error {
@@ -193,8 +207,7 @@ ac-check.ac-check--error {
 }
 
 
-// Label in left mode
-// label-left
+// Label in Left mode (direction="left")
 // --------------------------------------------------
 
 ac-check.ac-check--label-left {
@@ -203,10 +216,10 @@ ac-check.ac-check--label-left {
   }
 
   .ac-check__label {
-    padding-right: 8px;
+    padding-right: $spacer-tiny;
   }
   .ac-check__helper-text {
-    padding-right: 24px;
+    padding-right: $spacer-medium;
     padding-left: 0;
     text-align: right;
   }

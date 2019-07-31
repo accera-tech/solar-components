@@ -3,9 +3,10 @@ import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 /**
- * Accera's full-featured modal webcomponent.
+ * Accera's full-featured modal web-component.
  */
 @Component({
   tag: 'ac-modal',
@@ -45,7 +46,7 @@ export class AcModal implements TransitionComponent {
       <header class="ac-modal__header">
         <h1>{this.title}</h1>
         <ac-button fill="clear" theme="primary" icon-only onClick={this.close}>
-          <ac-fa-icon icon={faTimes} />
+          <AcFaIcon icon={faTimes} />
         </ac-button>
       </header>,
       <section class="ac-modal__content">

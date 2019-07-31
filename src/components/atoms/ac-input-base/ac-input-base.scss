@@ -1,28 +1,16 @@
 @import "../../../theme/variables";
 @import "ac-input-base.vars";
 
-/**
-* generate buttons variations
-*/
-@mixin input-variations($selector, $color-name) {
-  ac-input-base.ac-input--focus {
-    border-color: var-color($color-name, "normal");
-    label.ac-input__label {
-      color: var-color($color-name, "normal");
-    }
-  }
-}
-
-
-// General Input Base Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-input-base {
   display: $ac-input-base__display;
   min-height: $ac-input-base__min-height;
-  border: 2px solid $ui-input__border-color;
-  border-radius: 4px;
-  background-color: white;
+  border: 2px solid var-color("neutral", "light");
+  border-radius: $border-radius-default;
+  background-color: var-color("neutral", "contrast");
 
   .ac-input__input-container {
     display: flex;
@@ -32,10 +20,10 @@ ac-input-base {
     label.ac-input__label {
       position: absolute;
       top: 50%;
-      left: 16px;
+      left: $spacer-small;
       transform: translateY(-50%);
       transition: font-size $default-transition, top $default-transition;
-      color: $ui-label__color;
+      color: var-color("neutral", "darker");
       font-size: $font-small;
       pointer-events: none;
       user-select: none;
@@ -45,10 +33,10 @@ ac-input-base {
       box-sizing: border-box;
       width: 100%;
       height: $ac-input-base__min-height;
-      padding: 24px 16px 8px;
+      padding: $spacer-medium $spacer-small $spacer-tiny;
       border: none;
       background-color: transparent;
-      color: $ui-input__color;
+      color: var-color("neutral", "inverted");
       font-size: $font-small;
 
       &:focus {
@@ -62,16 +50,37 @@ ac-input-base {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      min-width: 44px;
-      height: calc(100% - 8px);
-      margin: $spacer-tiny / 2;
+      min-width: $ac-input-base__min-height;
+      height: 100%;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Mode Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Compact mode (mode="compact")
+// ---------------------------------------------------------
+
+ac-input-base.ac-input--compact {
+  min-height: $ac-input-base--compact__min-height;
+  border: 0;
+
+  .ac-input__input-container {
+    input.ac-input__native {
+      height: $ac-input-base--compact__min-height;
     }
   }
 }
 
 
-// Input filled by a value or in Focus mode
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// State modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Focused or Filled
+// ---------------------------------------------------------
 
 ac-input-base.ac-input--focus, ac-input-base.ac-input--filled {
   label.ac-input__label {
@@ -81,8 +90,8 @@ ac-input-base.ac-input--focus, ac-input-base.ac-input--filled {
 }
 
 
-// Alert/Error mode
-// --------------------------------------------------
+// Error mode
+// ---------------------------------------------------------
 
 ac-input-base.ac-input--alert {
   border-color: var-color("alert", "normal");
@@ -93,34 +102,24 @@ ac-input-base.ac-input--alert {
 }
 
 
-// Disabled mode
-// --------------------------------------------------
+// Disabled mode (disabled)
+// ---------------------------------------------------------
 
 ac-input-base.ac-input--disabled {
-  background-color: $ui-input--disabled__background-color;
+  background-color: var-color("neutral", "lighter");
   input.ac-input__native {
-    color: $ui-input--disabled__color;
+    color: var-color("neutral", "darker");
     cursor: not-allowed;
   }
 
   label.ac-input__label {
-    color: $ui-label--disabled__color;
+    color: var-color("neutral", "normal");
   }
 }
 
 
-// Compact mode
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
 
-ac-input-base.ac-input--compact {
-  min-height: $ac-input-base--compact__min-height;
-  border: 0px;
-
-  .ac-input__input-container {
-    input.ac-input__native {
-      height: $ac-input-base--compact__min-height;
-    }
-  }
-}
-
-@include input-variations("ac-input-base", "primary");
+@include input-variations("primary");

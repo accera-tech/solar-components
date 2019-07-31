@@ -1,8 +1,10 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Component, ComponentInterface, Element, Prop } from '@stencil/core';
 
+import { AcFaIcon } from '../../utils/ac-fa-icon';
+
 /**
- * Accera's full-featured button webcomponent.
+ * Accera's full-featured button web-component.
  */
 @Component({
   tag: 'ac-button',
@@ -18,30 +20,22 @@ export class AcButton implements ComponentInterface {
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
 
   /**
-   * When hover this button, present a tooltip text.
-   */
-  @Prop() tooltip?: string;
-
-  /**
    * The theme color defined in the color palette. The default is white.
    */
   @Prop() theme?: string;
 
   /**
    * The size of the button:
-   * * small - height: 36px
-   * * big - height: 50px
-   * * default - 44px
    */
-  @Prop() size?: 'small' | 'big';
+  @Prop() size?: 'small' | 'compact' | 'large';
 
   /**
    * Fill mode:
    * * flat - No borders and no raising
    * * solid - Raised button, default
-   * * clear - No background and no borders
+   * * clear - No background and borders
    */
-  @Prop() fill: 'clear' | 'solid' | 'flat' = 'solid';
+  @Prop() fill: 'clear' | 'solid' | 'flat' | 'internal' = 'solid';
 
   /**
    * Button in width mode.
@@ -104,10 +98,10 @@ export class AcButton implements ComponentInterface {
       >
         {/* If is a textual button and its loading, shows a loading icon in the icon-start slot */}
         { !this.iconOnly && this.loading
-          ? <ac-fa-icon icon={faSpinner} size={14} anim="spin" />
+          ? <AcFaIcon icon={faSpinner} size={14} anim="spin" />
           : <slot name="icon-start" /> }
         <span class="ac-button__text">
-          {this.iconOnly && this.loading && <ac-fa-icon icon={faSpinner} size={12} anim="spin" />}
+          {this.iconOnly && this.loading && <AcFaIcon icon={faSpinner} size={12} anim="spin" />}
           {/* If is a icon only button and its loading, hides the main icon */}
           {!this.iconOnly || (this.iconOnly && !this.loading) ? <slot /> : null}
         </span>

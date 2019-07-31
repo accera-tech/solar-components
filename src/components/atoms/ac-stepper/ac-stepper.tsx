@@ -2,9 +2,10 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Component, ComponentInterface, Event, EventEmitter, Method, Prop } from '@stencil/core';
 
 import { count } from '../../../utils/lang/count';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 /**
- * Accera's full-featured stepper webcomponent.
+ * Accera's full-featured stepper web-component.
  */
 @Component({
   tag: 'ac-stepper',
@@ -58,7 +59,7 @@ export class AcStepper implements ComponentInterface {
         </li>
       ),
       <li class={'ac-stepper__step ' + (this.done === this.steps ? 'ac-stepper__step--active' : '')}>
-        <ac-fa-icon icon={faCheck} />
+        <AcFaIcon icon={faCheck} />
       </li>
     ];
   }

@@ -18,20 +18,6 @@
 }
 
 
-// Container MODS
-//
-// Used to create a symmetric spacing between rows and cols in containers
-
-.container, .container-fluid {
-  & > .row {
-    @include up-md() {
-      margin-right: -$spacer-huge;
-      margin-left: -$spacer-huge;
-    }
-  }
-}
-
-
 // Row
 //
 // Rows contain and clear the floats of your columns.

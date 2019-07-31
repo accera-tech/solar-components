@@ -20,7 +20,7 @@ export class AcProgress {
   hostData() {
     return {
       class: {
-        [`ac-progress--${this.theme}`]: this.theme !== undefined
+        [`ac-progress--${this.theme}`]: !!this.theme
       }
     };
   }

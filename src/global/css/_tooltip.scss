@@ -1,6 +1,9 @@
 @import "../../theme/variables";
 
-/* tooltip */
+// ---------------------------------------------------------------------------------------------------------------------
+// Tooltip Util
+// ---------------------------------------------------------------------------------------------------------------------
+
 [tooltip] {
   position: relative;
   outline: none;
@@ -12,7 +15,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    transition: all ease 0.25s;
+    transition: $default-transition;
     opacity: 0;
 
   }
@@ -21,10 +24,10 @@
     content: attr(tooltip);
     bottom: 120%;
     max-width: 300px;
-    padding: 8px;
+    padding: $spacer-tiny;
     border-radius: $border-radius-default;
-    background-color: $black;
-    color: $white;
+    background-color: var-color("neutral", "inverter");
+    color: var-color("neutral", "contrast");
     white-space: nowrap;
   }
 
@@ -34,7 +37,7 @@
     width: $spacer-tiny;
     height: $spacer-tiny;
     border-radius: 50%;
-    background-color: $black;
+    background-color: var-color("neutral", "inverter");
   }
 
   &:hover {

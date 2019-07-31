@@ -1,7 +1,7 @@
 import { Component } from '@stencil/core';
 
 /**
- * Accera's full-featured FontAwesome SVG Icon webcomponent.
+ * Accera's full-featured FontAwesome SVG Icon web-component.
  */
 @Component({
   tag: 'ac-card',

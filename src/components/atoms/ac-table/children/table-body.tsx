@@ -13,7 +13,7 @@ export const TableBody = props => {
     {
       (!props.rows || props.rows.length === 0) ?
       <tr>
-        <td colSpan={props.columns.length}>Nenhum registro encontrado.</td>
+        <td colSpan={props.columns.length}>{props.noResultsLabel || 'No Results Found.'}</td>
       </tr> : null
     }
     </tbody>

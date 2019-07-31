@@ -7,9 +7,9 @@
   <script src="/build/solar.js"></script>
 </head>
 <body>
-<ac-layout>
+<ac-layout id="mainLayout">
   <ac-header slot="header">
-    <span class="ac-skeleton--text">Solar Components</span>
+    <span>Solar Components</span>
   </ac-header>
   <ac-navdrawer slot="nav-left" theme="primary" mode="compact">
     <ac-menu slot="content">
@@ -49,8 +49,7 @@
             <span class="text-subtitle">Subtitle</span>
           </header>
           <section slot="content">
-            <ac-button>Teste</ac-button>
-            <ac-button theme="primary">Teste</ac-button>
+            <ac-gauge percent="0" />
           </section>
         </ac-card>
       </div>
@@ -62,11 +61,40 @@
             <span class="text-subtitle">Subtitle</span>
           </header>
           <section slot="content">
-            <ac-button>Teste</ac-button>
+            <ac-button theme="primary">
+              Teste
+            </ac-button>
+            <ac-button theme="primary" loading>
+              Teste
+            </ac-button>
+            <ac-button theme="primary" disabled>
+              Teste
+            </ac-button>
+            <ac-button theme="primary" fill="clear">
+              Teste
+            </ac-button>
+            <ac-button theme="primary" fill="clear" disabled>
+              Teste
+            </ac-button>
+            <ac-button theme="primary" size="small">
+              Teste
+            </ac-button>
+            <ac-check label="Ative aqui" helper-text="Testando texto de ajuda"></ac-check>
+            <ac-check label="teste" helper-text="Testando texto de ajuda" disabled></ac-check>
+            <ac-check label="teste" helper-text="Testando texto de ajuda" disabled checked></ac-check>
+          </section>
+        </ac-card>
+      </div>
+
+      <div class="col-6">
+        <ac-card>
+          <section slot="content">
+            <ac-stepper steps="2" done="1"></ac-stepper>
           </section>
         </ac-card>
       </div>
     </div>
+    <ac-toast title="Teste" message="Teste" type="alert"></ac-toast>
   </section>
 </ac-layout>
 <ac-modal-controller></ac-modal-controller>

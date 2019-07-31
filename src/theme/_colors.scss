@@ -1,61 +1,43 @@
-$turquoise: #41ABAF;
-$blue: #499DD3;
-$vibrant-blue: #0080FF;
-$lemon: #A1C200;
-$dark-blue: #007B91;
-$orange: #FF6900;
-$vibrant-orange: #FF5E00;
-$dark-yellow: #F59B00;
-$gray: #C8C8C8;
-$light-gray: #F5F5F5;
-$info: #1FB6FF;
-$success: #13CE66;
-$warning: #FFC82C;
-$alert: #FF4949;
-$white: #FFFFFF;
-$black: #000A14;
-$accent-blue: #00466F;
-$accent-red: #F0000A;
+// ---------------------------------------------------------------------------------------------------------------------
+// Colors Definitions
+// ---------------------------------------------------------------------------------------------------------------------
 
-$grays: (
-  normal: #C8C8C8,
-  lighter: #F5F5F5,
-  light: #E1E1E1,
-  dark: #A0A0A0,
-  darker: #646464,
-);
+// Branding
+// --------------------------------------------------
 
-// UI Label
-$ui-label__color: #646464;
-$ui-label--disabled__color: #C8C8C8;
+$brand__dark-blue: #00466F;
+$brand__red: #F0000A;
+$brand__orange: #EF773F;
+$brand__lemon: #C9D759;
+$brand__lazuli: #C9D759;
+$brand__lilac: #A064FF;
+$brand__purple: #6A2568;
+$brand__desire: #E64451;
 
-// UI HelperText
-$ui-helper-text__color: #A0A0A0;
 
-// UI Button
-$ui-button--disabled__background: #E1E1E1;
-$ui-button--disabled__color: #C8C8C8;
+// Functional
+// --------------------------------------------------
 
-// UI Input
-$ui-input__border-color: #E1E1E1;
-$ui-input__color: #282828;
-$ui-input--disabled__background-color: #F5F5F5;
-$ui-input--disabled__color: #646464;
+$functional__info: #00B4F0;
+$functional__success: #14C86E;
+$functional__warning: #F8AB2B;
+$functional__alert: #F0000A;
 
-// UI Check
-$ui-check__border-color: #C8C8C8;
-$ui-check--hover__border-color: #A0A0A0;
-$ui-check--disabled__border-color: #E1E1E1;
-$ui-check--disabled__background-color: #F5F5F5;
 
-// UI Panel
-$ui-panel__border-color: #E1E1E1;
+// Neutral
+// --------------------------------------------------
 
-// UI Card
-$ui-card__border-color: rgba(0,0,0,.08);
+$neutral__gray: #C8C8C8;
+$neutral__white: #FFFFFF;
+$neutral__black: #111111;
 
-// UI Tabs
-$ui-tabs__border-bottom-color: rgba(0,0,0,.08);
 
-// UI Layout
-$ui-layout__background-color: #f5f5f5
+// Shadows
+// --------------------------------------------------
+
+$z1-shadow: 0 4px 8px rgba(0,0,0, 0.08);
+$z2-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+$z2-shadow--center: 0 0 16px rgba(0, 0, 0, 0.08);
+$z3-shadow: 0 16px 32px rgba(0,0,0, 0.08);
+$z3-shadow--left: 16px 0px 32px rgba(0,0,0, 0.08);
+$z3-shadow--right: -16px 0px 32px rgba(0,0,0, 0.08);

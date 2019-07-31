@@ -3,7 +3,7 @@ import { Component, ComponentInterface, Element, Method, Prop, State } from '@st
 import { Bind } from '../../../utils/lang/bind';
 
 /**
- * Accera's full-featured Input webcomponent.
+ * Accera's full-featured Input web-component.
  */
 @Component({
   tag: 'ac-input-base',
@@ -112,13 +112,11 @@ export class AcInputBase implements ComponentInterface {
   @Bind
   private handleFocus() {
     this.hasFocus = true;
-    this.host.dispatchEvent(new (window as any).Event('focus'));
   }
 
   @Bind
   private handleBlur() {
     this.hasFocus = false;
-    this.host.dispatchEvent(new (window as any).Event('blur'));
   }
 
   @Bind

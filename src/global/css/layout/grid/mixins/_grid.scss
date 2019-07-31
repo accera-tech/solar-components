@@ -29,8 +29,8 @@
 @mixin make-row() {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -$spacer-small;
-  margin-left: -$spacer-small;
+  margin-right: -$spacer-tiny;
+  margin-left: -$spacer-tiny;
 }
 
 @mixin make-col-ready() {

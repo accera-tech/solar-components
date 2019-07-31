@@ -5,8 +5,7 @@ import {
   ControllerComponent,
   ControllerComponentOptions, HTMLStencilControlledElement,
 } from '../../../../behaviors/controller-behavior/controller-behavior';
-
-import { AcToast } from './../ac-toast';
+import { AcToast } from '../ac-toast';
 
 @Component({
   tag: 'ac-toast-controller',

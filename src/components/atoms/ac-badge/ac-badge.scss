@@ -1,13 +1,9 @@
 @import "../../../theme/variables";
+@import "ac-badge.vars";
 
-@mixin badge-variations($selector, $color-name) {
-  ac-badge#{$selector} {
-    .ac-badge-background {
-      background-color: var-color($color-name, normal, 0.2);
-      color: var-color($color-name, normal);
-    }
-  }
-}
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-badge {
   .ac-badge-background {
@@ -22,6 +18,11 @@ ac-badge {
     text-align: center;
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
 
 @include badge-variations(".ac-badge--success", "success");
 @include badge-variations(".ac-badge--warning", "warning");

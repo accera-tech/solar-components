@@ -13,9 +13,6 @@ import {
   ValidatorFn,
 } from './utils/validations/validations';
 import {
-  IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
-import {
   Options,
 } from './components/atoms/ac-table/ac-table';
 import {
@@ -71,9 +68,9 @@ export namespace Components {
     */
     'expand': 'block' | 'circle';
     /**
-    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
+    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
-    'fill': 'clear' | 'solid' | 'flat';
+    'fill': 'clear' | 'solid' | 'flat' | 'internal';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -87,9 +84,9 @@ export namespace Components {
     */
     'loading': boolean;
     /**
-    * The size of the button: * small - height: 36px * big - height: 50px * default - 44px
+    * The size of the button:
     */
-    'size'?: 'small' | 'big';
+    'size'?: 'small' | 'compact' | 'large';
     /**
     * The HTML5 native anchor target to handle the href property.
     */
@@ -98,10 +95,6 @@ export namespace Components {
     * The theme color defined in the color palette. The default is white.
     */
     'theme'?: string;
-    /**
-    * When hover this button, present a tooltip text.
-    */
-    'tooltip'?: string;
     /**
     * The HTML5 button type. See https://mdn.io/button
     */
@@ -117,9 +110,9 @@ export namespace Components {
     */
     'expand'?: 'block' | 'circle';
     /**
-    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and no borders
+    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
-    'fill'?: 'clear' | 'solid' | 'flat';
+    'fill'?: 'clear' | 'solid' | 'flat' | 'internal';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -133,9 +126,9 @@ export namespace Components {
     */
     'loading'?: boolean;
     /**
-    * The size of the button: * small - height: 36px * big - height: 50px * default - 44px
+    * The size of the button:
     */
-    'size'?: 'small' | 'big';
+    'size'?: 'small' | 'compact' | 'large';
     /**
     * The HTML5 native anchor target to handle the href property.
     */
@@ -144,10 +137,6 @@ export namespace Components {
     * The theme color defined in the color palette. The default is white.
     */
     'theme'?: string;
-    /**
-    * When hover this button, present a tooltip text.
-    */
-    'tooltip'?: string;
     /**
     * The HTML5 button type. See https://mdn.io/button
     */
@@ -257,35 +246,6 @@ export namespace Components {
     * The HTML field value.
     */
     'value'?: string;
-  }
-
-  interface AcFaIcon {
-    /**
-    * Set an animation defined in the ac-fa-icon.scss
-    */
-    'anim': string;
-    /**
-    * The icon imported from @fortawesome/free-solid-svg-icons.
-    */
-    'icon': IconDefinition;
-    /**
-    * The size of the icon in px.
-    */
-    'size': number;
-  }
-  interface AcFaIconAttributes extends StencilHTMLAttributes {
-    /**
-    * Set an animation defined in the ac-fa-icon.scss
-    */
-    'anim'?: string;
-    /**
-    * The icon imported from @fortawesome/free-solid-svg-icons.
-    */
-    'icon'?: IconDefinition;
-    /**
-    * The size of the icon in px.
-    */
-    'size'?: number;
   }
 
   interface AcGauge {
@@ -444,7 +404,7 @@ export namespace Components {
 
   interface AcNavdrawer {
     /**
-    * The navdrawer mode.
+    * Compact mode.
     */
     'compact': boolean;
     /**
@@ -454,7 +414,7 @@ export namespace Components {
   }
   interface AcNavdrawerAttributes extends StencilHTMLAttributes {
     /**
-    * The navdrawer mode.
+    * Compact mode.
     */
     'compact'?: boolean;
     /**
@@ -519,11 +479,13 @@ export namespace Components {
 
   interface AcTable {
     'fetch': any;
+    'noResultsLabel': string;
     'options': Options;
     'params': any;
   }
   interface AcTableAttributes extends StencilHTMLAttributes {
     'fetch'?: any;
+    'noResultsLabel'?: string;
     'options'?: Options;
     'params'?: any;
   }
@@ -552,14 +514,12 @@ export namespace Components {
   interface AcToast {
     'close': () => void;
     'message': string;
-    'time': number;
     'title': string;
     'type': 'alert' | 'success' | 'info' | 'warning';
   }
   interface AcToastAttributes extends StencilHTMLAttributes {
     'message'?: string;
     'onClose'?: (event: CustomEvent<void>) => void;
-    'time'?: number;
     'title'?: string;
     'type'?: 'alert' | 'success' | 'info' | 'warning';
   }
@@ -767,15 +727,39 @@ export namespace Components {
   }
 
   interface AcPagination {
-    'afterLabel': string;
+    /**
+    * Used to localize the Next button label.
+    */
     'nextLabel': string;
+    /**
+    * Used to localize the Previous button label.
+    */
+    'previousLabel': string;
+    /**
+    * The selected page.
+    */
     'selected': number;
+    /**
+    * The amount of pages.
+    */
     'totalPages': number;
   }
   interface AcPaginationAttributes extends StencilHTMLAttributes {
-    'afterLabel'?: string;
+    /**
+    * Used to localize the Next button label.
+    */
     'nextLabel'?: string;
+    /**
+    * Used to localize the Previous button label.
+    */
+    'previousLabel'?: string;
+    /**
+    * The selected page.
+    */
     'selected'?: number;
+    /**
+    * The amount of pages.
+    */
     'totalPages'?: number;
   }
 
@@ -916,6 +900,9 @@ export namespace Components {
     * If true, mark this tab as a selected tab.
     */
     'active': boolean;
+    /**
+    * Set this tab in compact mode.
+    */
     'compact': boolean;
   }
   interface AcTabAttributes extends StencilHTMLAttributes {
@@ -923,6 +910,9 @@ export namespace Components {
     * If true, mark this tab as a selected tab.
     */
     'active'?: boolean;
+    /**
+    * Set this tab in compact mode.
+    */
     'compact'?: boolean;
   }
 
@@ -1152,7 +1142,6 @@ declare global {
     'AcButton': Components.AcButton;
     'AcCard': Components.AcCard;
     'AcCheck': Components.AcCheck;
-    'AcFaIcon': Components.AcFaIcon;
     'AcGauge': Components.AcGauge;
     'AcHeader': Components.AcHeader;
     'AcInputBase': Components.AcInputBase;
@@ -1185,7 +1174,6 @@ declare global {
     'ac-button': Components.AcButtonAttributes;
     'ac-card': Components.AcCardAttributes;
     'ac-check': Components.AcCheckAttributes;
-    'ac-fa-icon': Components.AcFaIconAttributes;
     'ac-gauge': Components.AcGaugeAttributes;
     'ac-header': Components.AcHeaderAttributes;
     'ac-input-base': Components.AcInputBaseAttributes;
@@ -1236,12 +1224,6 @@ declare global {
   var HTMLAcCheckElement: {
     prototype: HTMLAcCheckElement;
     new (): HTMLAcCheckElement;
-  };
-
-  interface HTMLAcFaIconElement extends Components.AcFaIcon, HTMLStencilElement {}
-  var HTMLAcFaIconElement: {
-    prototype: HTMLAcFaIconElement;
-    new (): HTMLAcFaIconElement;
   };
 
   interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
@@ -1399,7 +1381,6 @@ declare global {
     'ac-button': HTMLAcButtonElement
     'ac-card': HTMLAcCardElement
     'ac-check': HTMLAcCheckElement
-    'ac-fa-icon': HTMLAcFaIconElement
     'ac-gauge': HTMLAcGaugeElement
     'ac-header': HTMLAcHeaderElement
     'ac-input-base': HTMLAcInputBaseElement
@@ -1432,7 +1413,6 @@ declare global {
     'ac-button': HTMLAcButtonElement;
     'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
-    'ac-fa-icon': HTMLAcFaIconElement;
     'ac-gauge': HTMLAcGaugeElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input-base': HTMLAcInputBaseElement;

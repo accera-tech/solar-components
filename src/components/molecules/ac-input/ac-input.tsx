@@ -5,9 +5,10 @@ import vanillaMasker from 'vanilla-masker';
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 /**
- * Accera's full-featured Input Field webcomponent.
+ * Accera's full-featured Input Field web-component.
  */
 @Component({
   tag: 'ac-input',
@@ -189,7 +190,11 @@ export class AcInput implements FormFieldComponent {
   @Method()
   async getRawValue(type = 'text') {
     if (!this.value) { return null; }
-    if (type === 'text') { return this.value.toString().replace(/[^a-z0-9 ]+/ig, ''); } else { return vanillaMasker.toNumber(this.value); }
+    if (type === 'text') {
+      return this.value.toString().replace(/[^a-z0-9 ]+/ig, '');
+    } else {
+      return vanillaMasker.toNumber(this.value);
+    }
   }
 
   /**
@@ -272,7 +277,7 @@ export class AcInput implements FormFieldComponent {
         <slot name="input-label" slot="input-label" />
         {this.type === 'password'
           ? <ac-button slot="item-end" onClick={this.togglePassword} icon-only>
-              <ac-fa-icon icon={icon} size={14} />
+              <AcFaIcon icon={icon} size={14} />
             </ac-button>
           : <slot name="item-end" slot="item-end" />}
       </ac-input-base>,

@@ -32,8 +32,9 @@ export class AcLayout implements FocusableComponent {
   componentDidLoad() {}
   componentDidUnload() {}
 
-  whenBlur() {
-    if (this.collapsed) {
+  whenBlur(element) {
+    console.log(element, element.dataset);
+    if (!element.dataset.navdrawer && this.collapsed) {
       this.collapsed = null;
     }
   }

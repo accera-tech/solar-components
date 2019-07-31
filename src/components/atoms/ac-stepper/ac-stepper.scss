@@ -1,7 +1,8 @@
 @import "../../../theme/variables";
 
-// General Stepper Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-stepper {
   display: flex;
@@ -25,17 +26,19 @@ ac-stepper {
       content: "";
       position: absolute;
       width: 44px;
+      height: 1px;
       margin-left: -44px;
-      border: 0.5px solid var-color("secondary", "normal");
+      background: var-color("secondary", "normal");
     }
 
     &.ac-stepper__step--active {
       border-color: var-color("primary", "normal");
       background-color: var-color("primary", "normal");
-      fill: $white;
-      color: $white;
+      fill: var-color("neutral", "contrast");
+      color: var-color("neutral", "contrast");
       &:after {
-        border: 1px solid var-color("primary", "normal");
+        height: 2px;
+        background: var-color("primary", "normal");
       }
     }
 

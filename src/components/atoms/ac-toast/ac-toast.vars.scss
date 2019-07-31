@@ -1,0 +1,18 @@
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  Utilities
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin toast-variations($color-name) {
+  ac-toast.ac-toast--#{$color-name} {
+    background: var-color($color-name, "normal");
+
+    .ac-toast__header {
+      color: var-color($color-name, "contrast");
+    }
+    .ac-toast__header-icon {
+      fill: var-color($color-name, "contrast");
+    }
+  }
+}

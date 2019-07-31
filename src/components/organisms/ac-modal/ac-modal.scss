@@ -1,5 +1,9 @@
 @import "../../../theme/variables";
 
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
+
 ac-modal {
   @include down-sm() {
     width: 100%;
@@ -26,16 +30,16 @@ ac-modal {
   min-height: 240px;
   transition: transform $default-transition;
   border-radius: 4px;
-  background-color: $white;
-  box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
+  background-color: var-color("neutral", "contrast");
+  box-shadow: $z3-shadow;
 
   .ac-modal__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid $light-gray;
-    color: $black;
+    padding: $spacer-small 20px;
+    border-bottom: 1px solid var-color("neutral", "light");
+    color: var-color("neutral", "inverted");
 
     h1 {
       margin: 0;

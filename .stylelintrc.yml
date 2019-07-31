@@ -7,6 +7,7 @@ plugins:
   - stylelint-order
 
 rules:
+  max-line-length: 120
   at-rule-empty-line-before:
     - always
     - except:
@@ -34,8 +35,8 @@ rules:
 
 
   order/order:
-    - custom-properties
     - dollar-variables
+    - custom-properties
     - declarations
     - rules
 

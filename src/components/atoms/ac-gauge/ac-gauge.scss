@@ -1,34 +1,9 @@
 @import "../../../theme/variables";
+@import "ac-gauge.vars";
 
-/**
- * Generate gauge variations by color palette.
- */
-@mixin gauge-variations($selector, $color-name) {
-  ac-gauge#{$selector} {
-    .ac-gauge__meter {
-      path {
-        stroke: var-color($color-name, "dark");
-      }
-    }
-
-    .ac-gauge__bg {
-      path {
-        width: 100%;
-        stroke: var-color($color-name, "light");
-        fill: var-color($color-name, "lighter");
-      }
-    }
-
-    .ac-gauge__inner {
-      color: var-color($color-name, "dark");
-      font-size: 23px;
-    }
-  }
-}
-
-
-// General Gauge Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-gauge {
   display: inline-flex;
@@ -82,32 +57,36 @@ ac-gauge {
 }
 
 
-// Gauge Theme Variations
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
 
-@include gauge-variations(".ac-gauge--primary", "primary");
-@include gauge-variations(".ac-gauge--secondary", "secondary");
-
-
-// Void state
-// percent="0"
+// Void mode (percent=0)
 // --------------------------------------------------
 
 ac-gauge.ac-gauge--void {
   .ac-gauge__meter {
     path {
-      stroke: #e6e6e6;
+      stroke: var-color("neutral", "light") !important;
     }
   }
 
   .ac-gauge__bg {
     path {
-      stroke: #e6e6e6;
-      fill: #f5f5f5;
+      stroke: var-color("neutral", "light") !important;
+      fill: var-color("neutral", "lighter") !important;
     }
   }
 
   .ac-gauge__inner {
-    color: #a0a0a0;
+    color: var-color("neutral", "darker") !important;
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
+
+@include gauge-variations(".ac-gauge--primary", "primary");
+@include gauge-variations(".ac-gauge--secondary", "secondary");

@@ -1,8 +1,8 @@
 @import "../../../theme/variables";
 
-
-// General Panel Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-panel {
   display: flex;
@@ -12,10 +12,10 @@ ac-panel {
 
   transform-origin: 0 0;
   transition: opacity $default-transition, transform $default-transition;
-  border: 1px solid $ui-panel__border-color;
+  border: 1px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
-  background: $white;
-  box-shadow: $z5-shadow;
+  background: var-color("neutral", "contrast");
+  box-shadow: $z3-shadow;
 
   &.transition--before-enter {
     transform: translateY(-10px) scaleY(0.5);
