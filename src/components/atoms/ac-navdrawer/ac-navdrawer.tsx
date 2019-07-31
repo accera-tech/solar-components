@@ -67,9 +67,9 @@ export class AcNavdrawer {
       <nav class="ac-navdrawer__content">
         <slot name="content" />
       </nav>,
-      <button class="ac-navdrawer__toggle-button" onClick={this.toggleMode}>
+      <div class="ac-navdrawer__toggle-button" onClick={this.toggleMode}>
         <ac-fa-icon icon={this.compact ? faChevronRight : faChevronLeft} size={14} />
-      </button>
+      </div>
     ];
   }
 }

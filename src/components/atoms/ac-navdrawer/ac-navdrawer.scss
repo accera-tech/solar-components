@@ -21,8 +21,8 @@
     justify-content: space-between;
     width: 100%;
     min-height: 64px;
-    font-weight: bold;
     padding: 0px $spacer-medium;
+    font-weight: bold;
   }
 
   .ac-navdrawer__content {
@@ -48,7 +48,6 @@
     outline: none !important;
     cursor: pointer;
     & > * {
-      position: absolute;
       z-index: 1;
     }
     &:after,
