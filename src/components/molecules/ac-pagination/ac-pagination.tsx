@@ -11,13 +11,25 @@ import { count } from '../../../utils/lang/count';
 
 export class AcPagination {
 
-  @Prop({ mutable: true }) totalPages = 16;
+  /**
+   * The amount of pages.
+   */
+  @Prop({ mutable: true }) totalPages: number;
 
+  /**
+   * The selected page.
+   */
   @Prop({ mutable: true }) selected = 1;
 
-  @Prop() nextLabel = 'Próximo';
+  /**
+   * Used to localize the Next button label.
+   */
+  @Prop() nextLabel = 'Next';
 
-  @Prop() afterLabel = 'Anterior';
+  /**
+   * Used to localize the Previous button label.
+   */
+  @Prop() previousLabel = 'Previous';
 
   @Listen('tabChange')
   handleChangePage(ev) {
@@ -49,7 +61,7 @@ export class AcPagination {
       <ac-tabs compact selected={this.selected}>
         <div onClick={this.handleAfterPage}>
           <ac-fa-icon icon={faAngleLeft} size={14}/>
-          <span>{this.afterLabel}</span>
+          <span>{this.previousLabel}</span>
         </div>
         {
           ...count(this.totalPages).map(i =>

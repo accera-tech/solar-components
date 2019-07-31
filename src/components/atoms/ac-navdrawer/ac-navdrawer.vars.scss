@@ -1,0 +1,21 @@
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  Utilities
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin navdrawer-variations($color-name) {
+  ac-navdrawer.ac-navdrawer--#{$color-name} {
+    @include define-theme-colors($color-name);
+    background: var-color($color-name, "dark");
+    color: var-color($color-name, "contrast");
+    .ac-navdrawer__toggle-button {
+      .ac-navdrawer__toggle-button-bg {
+        fill: var-color($color-name, "normal");
+      }
+      .ac-navdrawer__toggle-button-icon {
+        fill: var-color($color-name, "contrast");
+      }
+    }
+  }
+}

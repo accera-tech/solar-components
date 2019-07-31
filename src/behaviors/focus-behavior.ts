@@ -8,6 +8,20 @@ const log = debug('solar:FocusBehavior');
  * Implements a Focus logic in a component, providing a control for blur clicks.
  */
 export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
+
+  /**
+   * Check if a target node branch has a data-toggle that match the host id.
+   */
+  static checkBypassNode(host, target) {
+    let isBypassNode = false;
+    if (host.id) {
+      const bypassNode = host.parentElement
+        .querySelector(`[data-toggle="${host.id}"]`);
+      isBypassNode = bypassNode ? bypassNode.contains(target) : false;
+    }
+    return isBypassNode;
+  }
+
   /**
    * Filter all the clicks in the body and calls the `whenBlur` from the component if match an outside click.
    * @param ev A Click Event.
@@ -18,8 +32,7 @@ export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
         ev.target.closest(this.component.focusTarget.tagName.toLowerCase()) !== this.component.focusTarget
         : ev.target.closest(this.component.host.tagName.toLowerCase()) !== this.component.host;
 
-      if (isClickingOutsideTheTarget
-        && ev.target.dataset.toggle !== this.component.host.id) {
+      if (isClickingOutsideTheTarget && !FocusBehavior.checkBypassNode(this.component.host, ev.target)) {
         log('Clicked outside', this.component.host);
         this.component.whenBlur(ev.target);
       }

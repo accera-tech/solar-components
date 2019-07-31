@@ -1,12 +1,14 @@
 @import "../../../theme/variables";
 
 // ---------------------------------------------------------------------------------------------------------------------
-// General Style
+//  Utilities
 // ---------------------------------------------------------------------------------------------------------------------
 
-ac-menu {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 $spacer-tiny;
+@mixin progress-variations($selector, $color-name) {
+  ac-progress#{$selector} {
+    background: var-color($color-name, "lighter");
+    .ac-progress__meter {
+      background: var-color($color-name, "normal");
+    }
+  }
 }

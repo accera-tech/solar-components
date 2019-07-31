@@ -2,6 +2,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Component, Event, EventEmitter, Listen, Method, Prop, State } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 @Component({
   tag: 'ac-upload',
@@ -16,7 +17,7 @@ export class AcUpload {
    */
   @Prop({ reflectToAttr: true }) theme = 'primary';
 
-  @Prop() inputName: string;
+  @Prop() name: string;
 
   /**
    * Text introduced in Button upload.
@@ -87,13 +88,19 @@ export class AcUpload {
       <label
         class="ac-upload--drop-area"
       >
-        <input onChange={this.handleChange} name={this.inputName} class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
+        <input
+          name={this.name}
+          class="ac-upload--native-input"
+          type="file"
+          ref={nativeInput => this.nativeInput = nativeInput}
+          onChange={this.handleChange}
+        />
         <div class="ac-upload--wrapper">
             <div class="ac-upload--content">
               <slot name="content" />
             </div>
           <ac-button class="ac-upload--button" theme={this.theme} onClick={this.handleClick}>
-            <ac-fa-icon slot="icon-start" icon={faUpload} size={14}/>
+            <AcFaIcon slot="icon-start" icon={faUpload} size={14}/>
             {this.uploadButtonText}
           </ac-button>
         </div>

@@ -5,8 +5,6 @@ import { withKnobs, text, select, radios } from "@storybook/addon-knobs";
 storiesOf('Form Field', module)
     .addDecorator(withKnobs)
     .add('Basic Input', () => {
-
-        
         const label = text('Label', 'Example');
         const type = select('Type', ['number', 'text', 'date', 'password'], 'date');
         const min = text('Min', '0');

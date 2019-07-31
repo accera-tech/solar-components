@@ -5,7 +5,7 @@ import { Bind } from '../../../utils/lang/bind';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 
 /**
- * Accera's full-featured checkbox webcomponent.
+ * Accera's full-featured checkbox web-component.
  */
 @Component({
   tag: 'ac-check',
@@ -105,13 +105,10 @@ export class AcCheck implements FormFieldComponent {
   }
 
   render() {
-    const nativeInputId = this.name + '_' + this.value;
-
     return [
-      <div class="ac-check__container">
+      <label class="ac-check__container">
         <input
           ref={nativeInput => this.nativeInput = nativeInput}
-          id={nativeInputId}
           class="ac-check__native"
           type={this.type}
           name={this.name}
@@ -120,11 +117,11 @@ export class AcCheck implements FormFieldComponent {
           disabled={this.disabled}
           checked={this.checked}
         />
-        <label class="ac-check__custom" htmlFor={nativeInputId}>
-        </label>
-        {this.label && <label class="ac-check__label" htmlFor={nativeInputId}>{this.label}</label>}
-      </div>,
-      (this.error || this.helperText) && <label class="ac-check__helper-text" htmlFor={nativeInputId}>{this.error || this.helperText}</label>
+        <div class="ac-check__custom">
+        </div>
+        {this.label && <div class="ac-check__label">{this.label}</div>}
+      </label>,
+      (this.error || this.helperText) && <label class="ac-check__helper-text">{this.error || this.helperText}</label>
     ];
   }
 }

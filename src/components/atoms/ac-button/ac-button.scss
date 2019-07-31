@@ -1,77 +1,12 @@
 @import "../../../theme/variables";
 @import "ac-button.vars";
 
-/**
- * Generate button variations by color palette.
- */
-@mixin button-variations($selector, $color-name) {
-  // Solid Style (default)
-  // fill="solid"
-  // --------------------------------------------------
-
-  ac-button#{$selector} {
-    .ac-button__native {
-      background-color: var-color($color-name, "normal");
-      fill: var-color($color-name, "contrast");
-      color: var-color($color-name, "contrast");
-      &:active {
-        box-shadow: 0 1px 2px rgba(0,0,0, .16), inset 0 -1px 0 rgba(0,0,0, .2) !important;
-      }
-
-      @if ($selector == "") {
-        &:focus {
-          box-shadow: 0 0 0 2px var-color("primary", "normal"), inset 0 -3px 0 rgba(0,0,0, 0.2);
-        }
-        &:hover {
-          background-color: var-color($color-name, "dark");
-        }
-      }
-
-      @else {
-        &:focus {
-          box-shadow: 0 0 0 2px var-color($color-name, "contrast"), inset 0 -3px 0 rgba(0,0,0, 0.2);
-        }
-        &:hover {
-          background-color: var-color($color-name, "dark");
-        }
-      }
-    }
-  }
-
-
-  // Clear Style
-  // fill="clear"
-  // --------------------------------------------------
-
-  ac-button#{$selector}.ac-button--clear {
-    .ac-button__native {
-      background: transparent;
-      fill: var-color($color-name, "normal");
-      color: var-color($color-name, "normal");
-      &:hover, &:focus {
-        background-color: var-color($color-name, "normal", 0.2);
-        box-shadow: none;
-      }
-      &:active {
-        background-color: var-color($color-name, "dark", 0.4) !important;
-      }
-    }
-  }
-
-  ac-button#{$selector}.ac-button--loading {
-    pointer-events: none;
-    .ac-button__native {
-      opacity: 0.5;
-    }
-  }
-}
-
-
-// General Button Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-button {
-  display: $ac-button__display;
+  display: inline-block;
   -webkit-appearance: none;
 
   .ac-button__native {
@@ -80,13 +15,16 @@ ac-button {
     align-items: center;
     min-width: $ac-button__height;
     height: $ac-button__height;
-    padding: $spacer-tiny $spacer-small;
-    transition: box-shadow $slow-transition, outline $slow-transition, background-color $slow-transition, color $slow-transition;
+    padding: $spacer-tiny $spacer-tiny;
+    transition: box-shadow $slow-transition,
+                outline $slow-transition,
+                background-color $slow-transition,
+                color $slow-transition;
     border-radius: $border-radius-default;
     outline: none;
     font-family: inherit;
     font-size: $font-small;
-    font-weight: normal;
+    font-weight: bold;
     line-height: 1;
     text-align: center;
     text-decoration: none;
@@ -95,47 +33,134 @@ ac-button {
     -webkit-appearance: none;
 
     .ac-button__text {
-      padding: 0 10px;
+      padding: 0 $spacer-tiny;
       white-space: nowrap;
     }
   }
+}
 
-  &.ac-button--loading {
-    [slot=icon-start], [slot=icon-only] {
-      display: none;
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Size Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Small (size="small")
+// ---------------------------------------------------------
+
+ac-button.ac-button--small {
+  .ac-button__native {
+    min-width: $ac-button--small__height;
+    height: $ac-button--small__height;
+    padding: $spacer-tiny $spacer-tiny;
+    font-size: $font-tiny;
+    .ac-button__text {
+      padding: 0 $spacer-tiny/2;
     }
   }
 }
 
 
-// Small Size
-// size="small"
-// --------------------------------------------------
+// Tiny (size="compact")
+// ---------------------------------------------------------
 
-ac-button.ac-button--small {
+ac-button.ac-button--compact {
   .ac-button__native {
-    min-width: 36px;
-    height: 36px;
-    padding: 11px;
-    font-size: $font-tiny;
+    min-width: $ac-button--compact__height;
+    height: $ac-button--compact__height;
   }
 }
 
 
-// Big Size
-// size="big"
-// --------------------------------------------------
+// Big (size="large")
+// ---------------------------------------------------------
 
-ac-button.ac-button--big {
+ac-button.ac-button--large {
   .ac-button__native {
-    min-width: 50px;
-    height: 50px;
+    min-width: $ac-button--large__height;
+    height: $ac-button--large__height;
   }
 }
 
 
-// Icon Only mode
-// icon-only
+// ---------------------------------------------------------------------------------------------------------------------
+// Fill Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Solid (fill="solid) (default)
+// ---------------------------------------------------------
+
+ac-button.ac-button--solid {
+  .ac-button__native {
+    border: 1px solid rgba(0,0,0,.12);
+    background: current-color("normal");
+    box-shadow: $z1-shadow,
+                inset 0 -2px 0 rgba(0,0,0,.12);
+    fill: current-color("contrast");
+    color: current-color("contrast");
+    &:hover {
+      background: current-color("dark");
+      box-shadow: 0 0 0 transparent,
+                  inset 0 -2px 0 rgba(0,0,0,.12);
+    }
+    &:focus {
+      box-shadow: 0 0 0 4px rgba(0,0,0, .08),
+                  inset 0 -2px 0 rgba(0,0,0, .12);
+    }
+    &:active {
+      transition: box-shadow $fast-transition;
+      box-shadow: 0 0 0 8px rgba(0,0,0, .08),
+      inset 0 0 0 rgba(0,0,0, .12);
+    }
+  }
+}
+
+
+// Clear (fill="clear")
+// ---------------------------------------------------------
+
+ac-button.ac-button--clear {
+  .ac-button__native {
+    border: 0;
+    background: transparent;
+    box-shadow: none !important;
+    fill: current-color("contrast");
+    color: current-color("contrast");
+  }
+}
+
+
+// Flat (fill="flat")
+// ---------------------------------------------------------
+
+ac-button.ac-button--flat {
+  .ac-button__native {
+    border: 0;
+    box-shadow: none !important;
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Expand Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Block (expand="block")
+// --------------------------------------------------
+
+ac-button.ac-button--block {
+  width: 100%;
+  .ac-button__native {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Icon Only mode (icon-only)
 // --------------------------------------------------
 
 ac-button.ac-button--icon-only {
@@ -152,93 +177,44 @@ ac-button.ac-button--icon-only {
 }
 
 
-// General Solid Style
-// fill="solid"
-// --------------------------------------------------
-
-ac-button.ac-button--solid {
-  .ac-button__native {
-    border: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,.12), inset 0 -3px 0 rgba(0,0,0,.2);
-  }
-}
-
-
-// General Clear Style
-// fill="clear"
-// --------------------------------------------------
-
-ac-button.ac-button--clear {
-  .ac-button__native {
-    border: 0;
-    background: transparent;
-  }
-}
-
-
-// General Flat Style
-// fill="flat"
-// --------------------------------------------------
-
-ac-button.ac-button--flat {
-  .ac-button__native {
-    border: 0;
-    &:focus {
-      box-shadow: 0 0 0 2px var-color("primary", "normal");
-    }
-  }
-}
-
-
-// Disabled mode
-// disable
+// Disabled mode (disable)
 // --------------------------------------------------
 
 ac-button.ac-button--disabled {
   pointer-events: none;
   .ac-button__native {
+    background: var-color("neutral", "light") !important;
+    fill: var-color("neutral", "normal") !important;
+    color: var-color("neutral", "normal") !important;
     cursor: not-allowed;
+    pointer-events: all;
+    & > * {
+      pointer-events: none;
+    }
   }
 }
 
 
-// Block mode
-// expand="block"
+// Loading mode (loading)
 // --------------------------------------------------
 
-ac-button.ac-button--block {
-  width: 100%;
+ac-button.ac-button--loading {
   .ac-button__native {
-    justify-content: center;
-    width: 100%;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  [slot=icon-start], [slot=icon-only] {
+    display: none;
   }
 }
 
 
-// Block mode
-// expand="circle"
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
 
-ac-button.ac-button--circle {
-  .ac-button__native {
-    justify-content: center;
-    width: $ac-button__height;
-    height: $ac-button__height;
-    border-radius: 100%;
-  }
-}
-
-
-// Button Theme Variations
-// --------------------------------------------------
-
-@include button-variations(".ac-button--primary", "primary");
-@include button-variations(".ac-button--secondary", "secondary");
-@include button-variations(".ac-button--info", "info");
-@include button-variations(".ac-button--success", "success");
-@include button-variations(".ac-button--warning", "warning");
-@include button-variations(".ac-button--alert", "alert");
-@include button-variations("", "white");
-@include button-variations(".ac-button--light", "light");
-@include button-variations(".ac-button--disabled", "disabled");
-@include button-variations(".ac-button--black", "black");
+@include button-variations("primary");
+@include button-variations("info");
+@include button-variations("success");
+@include button-variations("warning");
+@include button-variations("alert");

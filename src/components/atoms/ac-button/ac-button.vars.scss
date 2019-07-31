@@ -1,3 +1,58 @@
-$ac-button__display: inline-block;
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Spec Variables
+// ---------------------------------------------------------------------------------------------------------------------
+
+$ac-button--large__height: 50px;
 $ac-button__height: 44px;
 $ac-button--small__height: 36px;
+$ac-button--compact__height: 42px;
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  Utilities
+// ---------------------------------------------------------------------------------------------------------------------
+
+/// Generate button variations by color palette.
+@mixin button-variations($color-name) {
+  // Solid Style (default)
+  // ---------------------------------------------------------
+
+  ac-button.ac-button--#{$color-name} {
+    .ac-button__native {
+      background-color: var-color($color-name, "normal");
+      fill: var-color($color-name, "contrast");
+      color: var-color($color-name, "contrast");
+      &:hover {
+        background-color: var-color($color-name, "dark");
+      }
+      &:focus {
+        box-shadow: 0 0 0 4px var-color($color-name, "normal", .2),
+        inset 0 -2px 0 rgba(0,0,0, .12);
+      }
+      &:active {
+        box-shadow: 0 0 0 8px var-color($color-name, "normal", .2),
+        inset 0 0 0 rgba(0,0,0, .12);
+      }
+    }
+  }
+
+
+  // Clear Style (default)
+  // ---------------------------------------------------------
+
+  ac-button.ac-button--#{$color-name}.ac-button--clear {
+    .ac-button__native {
+      background: transparent;
+      fill: var-color($color-name, "normal");
+      color: var-color($color-name, "normal");
+      &:hover, &:focus {
+        background-color: var-color($color-name, "normal", 0.2);
+      }
+      &:active {
+        background-color: var-color($color-name, "dark", 0.4);
+      }
+    }
+  }
+}

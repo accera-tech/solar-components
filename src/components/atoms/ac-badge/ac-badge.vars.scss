@@ -1,12 +1,14 @@
 @import "../../../theme/variables";
 
 // ---------------------------------------------------------------------------------------------------------------------
-// General Style
+//  Utilities
 // ---------------------------------------------------------------------------------------------------------------------
 
-ac-menu {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 $spacer-tiny;
+@mixin badge-variations($selector, $color-name) {
+  ac-badge#{$selector} {
+    .ac-badge-background {
+      background-color: var-color($color-name, normal, 0.2);
+      color: var-color($color-name, normal);
+    }
+  }
 }

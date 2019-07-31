@@ -1,39 +1,50 @@
 @import "../../../theme/variables";
 @import "./ac-header.vars";
 
-
-// General Header Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-header {
-  display: $ac-header__display;
+  display: block;
   z-index: $z-header;
   box-sizing: border-box;
+  align-items: center;
   width: $ac-header__width;
   transition: background $slow-transition, box-shadow $slow-transition;
 
   @include down-md {
+    @include define-theme-colors("primary");
     background: var-color("primary", "normal");
     color: var-color("primary", "contrast");
   }
 
   .ac-header__header-container {
     display: flex;
-    box-sizing: border-box;
-    align-content: center;
     align-items: center;
     justify-content: space-between;
-    min-height: $ac-header__min-height;
-    padding: 0 $spacer-huge;
+    width: 100%;
 
-    @include down-md {
-      min-height: $ac-header--mobile__min-height;
-      padding: 0 $spacer-small;
+    .ac-header__menu-button {
+      display: none;
+
+      @include down-md {
+        display: block;
+      }
     }
 
     .ac-header__content {
       display: flex;
       align-items: center;
+      width: 100%;
+      min-height: $ac-header__min-height;
+      padding: 0 $spacer-huge;
+
+      @include down-md {
+        justify-content: center;
+        min-height: $ac-header--mobile__min-height;
+        padding: 0 $spacer-small;
+      }
     }
   }
 
@@ -42,13 +53,21 @@ ac-header {
   // through the sub-header slot.
   // --------------------------------------------------
 
-  ac-tabs[slot="sub-header"] {
+  & > ac-tabs[slot="sub-header"] {
     @include up-md() {
       padding: 0 24px;
     }
     border-bottom: 0;
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Scrolled mode
+// --------------------------------------------------
 
 ac-header.ac-header--scrolled {
   box-shadow: $z1-shadow;

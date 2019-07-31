@@ -10,11 +10,12 @@ import { TableHeader } from './children/table-header';
   tag: 'ac-table',
   styleUrl: 'ac-table.scss'
 })
-
 export class AcTable {
   @Prop({ mutable: true }) options: Options;
 
   @Prop({ mutable: true }) fetch: any;
+
+  @Prop({ mutable: true }) noResultsLabel: string;
 
   @Prop({ mutable: true }) params = {
     ordering: 'asc',
@@ -68,6 +69,7 @@ export class AcTable {
           rows={this.options.rows}
           columns={this.options.header}
           onSelect={this.selectRow}
+          noResultsLabel={this.noResultsLabel}
         />
       </table>,
       <ac-pagination total-rows={this.params.filters.totalRows} limit-rows={this.params.filters.limitRows}/>

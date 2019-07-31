@@ -2,6 +2,8 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { Component, Element, Prop, Watch } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
+import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
 
 /**
  * Accera's Sidebar webcomponent.
@@ -9,7 +11,6 @@ import { Bind } from '../../../utils/lang/bind';
 @Component({
   tag: 'ac-navdrawer',
   styleUrl: 'ac-navdrawer.scss',
-  shadow: true
 })
 export class AcNavdrawer {
   childMenus: HTMLAcMenuElement[];
@@ -22,12 +23,12 @@ export class AcNavdrawer {
   @Prop() theme: string;
 
   /**
-   * The navdrawer mode.
+   * Compact mode.
    */
   @Prop({ mutable: true }) compact: boolean;
 
   @Watch('compact')
-  iconOnlyDidUpdate() {
+  compactDidUpdate() {
     for (const menu of this.childMenus) {
       menu.iconOnly = this.compact;
     }
@@ -68,7 +69,12 @@ export class AcNavdrawer {
         <slot name="content" />
       </nav>,
       <div class="ac-navdrawer__toggle-button" onClick={this.toggleMode}>
-        <ac-fa-icon icon={this.compact ? faChevronRight : faChevronLeft} size={14} />
+        <AcNeogridShape class="ac-navdrawer__toggle-button-bg" />
+        <AcFaIcon
+          class="ac-navdrawer__toggle-button-icon"
+          icon={this.compact ? faChevronRight : faChevronLeft}
+          size={14}
+        />
       </div>
     ];
   }

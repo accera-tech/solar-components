@@ -1,8 +1,8 @@
 @import "../../../theme/variables";
 
-
-// General Button Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-layout {
   display: flex;
@@ -11,6 +11,10 @@ ac-layout {
     height: 100vh;
     border: 0;
     background: transparent;
+
+    ac-navdrawer {
+      border-radius: 0 $border-radius-default $border-radius-default 0;
+    }
   }
 
   .ac-layout__content-container {
@@ -20,7 +24,7 @@ ac-layout {
     height: 100vh;
     overflow: auto;
     transition: filter $default-transition;
-    background: $ui-layout__background-color;
+    background: var-color("neutral", "lighter");
   }
 
   @include down-md {
@@ -41,9 +45,12 @@ ac-layout {
 }
 
 
-// Nav Left collapsed
-// collapsed="nav-left"
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// Collapsed Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Nav Left Collapsed (collapsed="nav-left")
+// ---------------------------------------------------------
 
 ac-layout.ac-layout--nav-left-collapsed {
   @include down-md {
@@ -53,6 +60,10 @@ ac-layout.ac-layout--nav-left-collapsed {
     }
     .ac-layout__content-container {
       filter: brightness(0.4);
+    }
+
+    ac-navdrawer {
+        box-shadow: $z3-shadow--left;
     }
   }
 }

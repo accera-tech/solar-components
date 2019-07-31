@@ -1,19 +1,16 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Component, Element, Event, EventEmitter, Method, Prop } from '@stencil/core';
 
-import { TransitionBehavior } from '../../../behaviors/transition-behavior';
+import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
-import { AcNeogridOverlaySvg } from '../../utils/ac-neogrid-overlay-svg';
-
-// import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
+import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
 
 @Component({
   tag: 'ac-toast',
   styleUrl: 'ac-toast.scss'
 })
-export class AcToast {
-  // transitionBehavior = new TransitionBehavior(this);
-
+export class AcToast implements TransitionComponent {
   transitionBehavior = new TransitionBehavior(this);
 
   @Prop() type: 'alert' | 'success' | 'info' | 'warning';
@@ -21,8 +18,6 @@ export class AcToast {
   @Prop() title: string;
 
   @Prop() message: string;
-
-  @Prop() time: number;
 
   @Element() host: HTMLAcToastElement;
 
@@ -54,11 +49,15 @@ export class AcToast {
     return [
       <header class="ac-toast__header">
         <h3>{this.title}</h3>
-        <ac-fa-icon class="ac-toast__header-icon" icon={faTimes} onClick={this.close} />
-        <AcNeogridOverlaySvg onClick={this.close} class="ac-toast__header-bg" />
+        <AcFaIcon
+          class="ac-toast__header-icon"
+          icon={faTimes}
+          onClick={this.close}
+        />
+        <AcNeogridShape onClick={this.close} class="ac-toast__header-bg" />
       </header>,
-      <section class="ac-toast--content">
-        <span class="ac-toast--content__text">{this.message}</span>
+      <section class="ac-toast__content">
+        <span class="ac-toast__content-text">{this.message}</span>
       </section>
 
     ];

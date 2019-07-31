@@ -1,7 +1,12 @@
 @import "../../theme/variables";
 
+// ---------------------------------------------------------------------------------------------------------------------
+// Global Text Style Reset
+// ---------------------------------------------------------------------------------------------------------------------
+
 * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 h1, h2, h3, h4, h5, h6, p, small {
@@ -11,13 +16,13 @@ h1, h2, h3, h4, h5, h6, p, small {
 }
 
 h1 {
-  color: $black;
+  color: var-color("neutral", "inverter");
   font-size: $font-huge;
   font-weight: 900;
 }
 
 h2 {
-  color: $black;
+  color: var-color("neutral", "inverter");
   font-size: $font-large;
 }
 
@@ -53,8 +58,13 @@ small {
 }
 
 strong, b {
-  color: $black;
+  color: var-color("neutral", "inverter");
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Text Utils
+// ---------------------------------------------------------------------------------------------------------------------
 
 .font-italic {
   font-style: italic;
@@ -91,6 +101,11 @@ strong, b {
 .text-subtitle-light {
   color: rgba(255, 255, 255, 0.5);
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Text Color Utils
+// ---------------------------------------------------------------------------------------------------------------------
 
 @each $color in map-keys($theme) {
   @each $variation in map-keys(map_get($theme, $color)) {

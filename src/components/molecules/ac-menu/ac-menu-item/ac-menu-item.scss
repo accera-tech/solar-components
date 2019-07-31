@@ -1,6 +1,9 @@
 @import "../../../../theme/variables";
 @import "../../../atoms/ac-button/ac-button.vars";
 
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-menu-item {
   display: block;
@@ -14,7 +17,7 @@ ac-menu-item {
     transition: background-color $slow-transition;
     border-radius: $border-radius-default;
     background: transparent;
-    color: var-color("white", "normal");
+    color: current-color("contrast");
     text-decoration: none;
     cursor: pointer;
     &:hover,
@@ -36,6 +39,14 @@ ac-menu-item {
     }
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Icon Only mode (icon-only)
+// --------------------------------------------------
 
 ac-menu-item.ac-menu-item--icon-only {
   .ac-menu-item__native {

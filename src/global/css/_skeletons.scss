@@ -1,24 +1,43 @@
 @import "../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Global Skeleton Definitions
+// ---------------------------------------------------------------------------------------------------------------------
+
 @import "../../components/atoms/ac-input-base/ac-input-base.skeleton";
-@import "../../components/atoms/ac-header/ac-header.skeleton";
 @import "../../components/molecules/ac-select/ac-select.skeleton";
 @import "../../components/atoms/ac-gauge/ac-gauge.skeleton";
 @import "../../components/molecules/ac-input/ac-input.skeleton";
 @import "../../components/molecules/ac-tabs/ac-tabs.skeleton";
 @import "../../components/molecules/ac-tabs/ac-tab/ac-tab.skeleton";
 
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Global Utils
+// ---------------------------------------------------------------------------------------------------------------------
+
 @keyframes skeleton-background {
   0% {
-    background-position: -1000px 0px;
+    background-position: -1000px 0;
   }
   100% {
-    background-position: 1000px 0px;
+    background-position: 1000px 0;
   }
 }
+
+
+// Default Text Skeleton.
+// Can be used in div, uses display: block.
+// ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--text {
   @include skeleton-before-strategy();
 }
+
+
+// Default Inline Text Skeleton.
+// Can be used in span, uses display: inline.
+// ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--text--inline {
   @include skeleton-before-strategy();
@@ -26,6 +45,10 @@
   position: relative;
   width: calc(1em * 10);
 }
+
+
+// Circle Shape Skeleton
+// ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--circle {
   @include skeleton-base(skeleton-background);
@@ -37,6 +60,10 @@
   }
 }
 
+
+// Skeleton Background Only
+// ---------------------------------------------------------
+
 .ac-skeleton .ac-skeleton--bg {
   @include skeleton-base(skeleton-background);
   color: transparent;
@@ -45,6 +72,11 @@
     display: none;
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Text Defaults
+// ---------------------------------------------------------------------------------------------------------------------
 
 @include text-skeleton(h1, $font-huge);
 @include text-skeleton(h2, $font-large);

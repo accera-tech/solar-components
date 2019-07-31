@@ -1,29 +1,29 @@
 @import "../../../theme/variables";
 
-
-// General Card Style
-// --------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
 
 ac-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid $ui-card__border-color;
+  border: 1px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
-  background: $white;
-  box-shadow: $z8-shadow;
+  background: var-color("neutral", "contrast");
+  box-shadow: $z3-shadow;
 
   & > [slot=header] {
-    padding: 24px 32px 16px;
+    padding: $spacer-medium $spacer-large $spacer-small;
   }
 
   & > [slot=content] {
     height: 100%;
-    padding: 16px 32px 24px;
+    padding: $spacer-small $spacer-large $spacer-medium;
   }
 
   & > [slot=actions] {
     display: flex;
     justify-content: end;
-    padding: 16px 32px 24px;
+    padding: $spacer-small $spacer-large $spacer-medium;
   }
 }

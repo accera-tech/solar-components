@@ -13,6 +13,9 @@ export class AcTab {
    */
   @Prop({ reflectToAttr: true }) active: boolean;
 
+  /**
+   * Set this tab in compact mode.
+   */
   @Prop({ mutable: true }) compact: boolean;
 
   render() {

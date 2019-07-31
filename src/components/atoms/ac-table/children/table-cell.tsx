@@ -6,7 +6,7 @@ const buildContent = props => {
     default:
       return props.value;
   }
-}
+};
 
 export const TableCell = props => {
   const content = buildContent(props);

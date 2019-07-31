@@ -10,6 +10,7 @@ import { Debounced } from '../../../utils/lang/reactivity';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -451,12 +452,13 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
           slot="item-end"
           theme={this.isShowingPanel ? 'primary' : 'light'}
           fill="flat"
+          size="compact"
           disabled={this.disabled}
           loading={this.loading}
           onClick={this.togglePanel}
           icon-only
         >
-          <ac-fa-icon icon={icon} size={12} />
+          <AcFaIcon icon={icon} size={12} />
         </ac-button>
       </ac-input-base>,
       <span class="ac-input__helper-text">
