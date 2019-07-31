@@ -6,7 +6,6 @@ import { Bind } from '../../../utils/lang/bind';
 @Component({
   tag: 'ac-upload',
   styleUrl: 'ac-upload.scss',
-  shadow: true
 })
 
 export class AcUpload {
@@ -16,6 +15,8 @@ export class AcUpload {
    * The theme color defined in the color palette. The default is primary.
    */
   @Prop({ reflectToAttr: true }) theme = 'primary';
+
+  @Prop() inputName: string;
 
   /**
    * Text introduced in Button upload.
@@ -86,7 +87,7 @@ export class AcUpload {
       <label
         class="ac-upload--drop-area"
       >
-        <input onChange={this.handleChange} class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
+        <input onChange={this.handleChange} name={this.inputName} class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
         <div class="ac-upload--wrapper">
             <div class="ac-upload--content">
               <slot name="content" />

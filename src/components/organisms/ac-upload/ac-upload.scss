@@ -1,6 +1,6 @@
 @import "../../../theme/variables";
 
-:host {
+ac-upload {
   display: block;
   width: 100%;
   .ac-upload--drop-area {
@@ -21,6 +21,7 @@
       }
 
       .ac-upload--content {
+        width: 100%;
         padding: 0px 16px 0px;
         text-align: center;
       }
@@ -31,13 +32,17 @@
   }
 }
 
-:host(.ac-upload--focus) {
+ac-upload.ac-upload--focus {
   .ac-upload--drop-area {
     transition: border-color ease-in-out .2s,
                 background ease-in-out .2s;
     border-color: var-color("primary", "normal");
     background: var-color("primary", "normal", 0.1);
   }
+}
+
+@include browser-ie {
+
 }
 
 
