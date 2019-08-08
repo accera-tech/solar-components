@@ -38,9 +38,14 @@ export class AcButton implements ComponentInterface {
   @Prop() fill: 'clear' | 'solid' | 'flat' | 'internal' = 'solid';
 
   /**
-   * Button in width mode.
+   * Button width.
    */
-  @Prop() expand: 'block' | 'circle';
+  @Prop() expand: 'block' | undefined;
+
+  /**
+   * Button shape.
+   */
+  @Prop() shape: 'round' | 'undefined';
 
   /**
    * An optional link to open when click on it.
@@ -76,6 +81,7 @@ export class AcButton implements ComponentInterface {
         [`ac-button--${this.size}`]: this.size !== undefined,
         [`ac-button--${this.fill}`]: this.fill !== undefined,
         [`ac-button--${this.expand}`]: this.expand !== undefined,
+        [`ac-button--${this.shape}`]: this.shape !== undefined,
         'ac-button--icon-only': this.iconOnly,
         'ac-button--disabled': this.disabled,
         'ac-button--loading' : this.loading,
