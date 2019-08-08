@@ -12,11 +12,11 @@ export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
   /**
    * Check if a target node branch has a data-toggle that match the host id.
    */
-  static checkBypassNode(host, target) {
+  static checkBypassNode(focusElt, target) {
     let isBypassNode = false;
-    if (host.id) {
-      const bypassNode = host.parentElement
-        .querySelector(`[data-toggle="${host.id}"]`);
+    if (focusElt.id) {
+      const bypassNode = document.body
+        .querySelector(`[data-toggle="${focusElt.id}"]`);
       isBypassNode = bypassNode ? bypassNode.contains(target) : false;
     }
     return isBypassNode;
@@ -28,12 +28,11 @@ export class FocusBehavior extends ComponentBehavior<FocusableComponent> {
    */
   private handleBodyClick = (ev: any) => {
     if (this.component.hasFocus) {
-      const isClickingOutsideTheTarget = this.component.focusTarget ?
-        ev.target.closest(this.component.focusTarget.tagName.toLowerCase()) !== this.component.focusTarget
-        : ev.target.closest(this.component.host.tagName.toLowerCase()) !== this.component.host;
+      const focusElt = this.component.focusTarget || this.component.host;
 
-      if (isClickingOutsideTheTarget && !FocusBehavior.checkBypassNode(this.component.host, ev.target)) {
-        log('Clicked outside', this.component.host);
+      const isClickingOutsideTheTarget = ev.target.closest(focusElt.tagName.toLowerCase()) !== focusElt;
+      if (isClickingOutsideTheTarget && !FocusBehavior.checkBypassNode(focusElt, ev.target)) {
+        log('Clicked outside', focusElt);
         this.component.whenBlur(ev.target);
       }
     }
