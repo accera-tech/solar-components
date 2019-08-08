@@ -52,7 +52,7 @@ export class AcHeader {
         { this.hasNavdrawer &&
           <ac-button
             class="ac-header__menu-button"
-            expand="circle"
+            shape="round"
             fill="clear"
             data-toggle="mainNavdrawer"
             icon-only

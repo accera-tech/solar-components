@@ -7,6 +7,7 @@
 
 ac-header {
   display: block;
+  position: relative;
   z-index: $z-header;
   box-sizing: border-box;
   align-items: center;
@@ -24,6 +25,7 @@ ac-header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    overflow: hidden;
 
     .ac-header__menu-button {
       display: none;
@@ -39,11 +41,24 @@ ac-header {
       width: 100%;
       min-height: $ac-header__min-height;
       padding: 0 $spacer-huge;
+    }
 
-      @include down-md {
+    .ac-header__actions {
+      padding-right: $spacer-huge;
+    }
+
+    @include down-md {
+      min-height: $ac-header--mobile__min-height;
+
+      .ac-header__content {
+        position: absolute;
+        z-index: -1;
         justify-content: center;
-        min-height: $ac-header--mobile__min-height;
         padding: 0 $spacer-small;
+      }
+
+      .ac-header__actions {
+        padding-right: $spacer-small;
       }
     }
   }
@@ -55,7 +70,7 @@ ac-header {
 
   & > ac-tabs[slot="sub-header"] {
     @include up-md() {
-      padding: 0 24px;
+      padding: 0 $spacer-medium;
     }
     border-bottom: 0;
   }
