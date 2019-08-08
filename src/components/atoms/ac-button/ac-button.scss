@@ -214,6 +214,7 @@ ac-button.ac-button--loading {
 // ---------------------------------------------------------------------------------------------------------------------
 
 @include button-variations("primary");
+@include button-variations("secondary");
 @include button-variations("info");
 @include button-variations("success");
 @include button-variations("warning");
