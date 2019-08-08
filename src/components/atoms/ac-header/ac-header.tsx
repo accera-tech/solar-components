@@ -54,7 +54,7 @@ export class AcHeader {
             class="ac-header__menu-button"
             expand="circle"
             fill="clear"
-            data-toggle="mainLayout"
+            data-toggle="mainNavdrawer"
             icon-only
             onClick={this.handleMenuClick}
           >
