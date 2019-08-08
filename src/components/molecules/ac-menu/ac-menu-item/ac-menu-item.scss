@@ -11,32 +11,61 @@ ac-menu-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: $ac-button__height;
-    max-height: $ac-button__height;
+    height: 36px;
     padding: 0 $spacer-small;
-    transition: background-color $slow-transition;
+    transition:
+      background-color $slow-transition,
+      color $slow-transition,
+      fill $slow-transition;
     border-radius: $border-radius-default;
     background: transparent;
-    color: current-color("contrast");
+    fill: current-color("contrast", 0.8);
+    color: current-color("contrast", 0.8);
     text-decoration: none;
     cursor: pointer;
     &:hover,
     &:focus {
-      background-color: current-color("contrast", 0.2);
+      background-color: current-color("contrast", 0.04);
+      color: current-color("contrast");
     }
     &:active {
-      background-color: current-color("contrast", 0.4);
+      background-color: current-color("contrast", 0.08);
     }
 
     .ac-menu-item__text {
       width: 100%;
       font-size: $font-small;
+      white-space: nowrap;
       user-select: none;
     }
 
     .ac-menu-item__icon-start {
       margin-right: $spacer-small;
     }
+  }
+
+  .ac-menu-item__submenu {
+    height: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $slow-transition, opacity $slow-transition;
+    opacity: 0;
+
+    ac-menu-item {
+      .ac-menu-item__text {
+        margin-left: 14px;
+        color: current-color("contrast", 0.6);
+      }
+      [slot="submenu"] {
+        ac-menu-item .ac-menu-item__text {
+          margin-left: 14px + $spacer-small;
+        }
+      }
+    }
+  }
+
+  .ac-menu-item__submenu-icon {
+    transition: transform $slow-transition;
   }
 }
 
@@ -61,5 +90,23 @@ ac-menu-item.ac-menu-item--icon-only {
     .ac-menu-item__text {
       display: none;
     }
+  }
+
+  .ac-menu-item__submenu-icon {
+    display: none !important;
+  }
+}
+
+
+// Collapsed mode (collapsed)
+// --------------------------------------------------
+
+ac-menu-item.ac-menu-item--collapsed {
+  & > .ac-menu-item__submenu {
+    max-height: 100vh;
+    opacity: 1;
+  }
+  & > .ac-menu-item__native .ac-menu-item__submenu-icon {
+    transform: rotate(180deg);
   }
 }

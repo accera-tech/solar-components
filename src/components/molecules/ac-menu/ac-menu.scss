@@ -9,4 +9,8 @@ ac-menu {
   flex-direction: column;
   width: 100%;
   padding: 0 $spacer-tiny;
+
+  ac-menu-item {
+    margin-bottom: $spacer-tiny;
+  }
 }
