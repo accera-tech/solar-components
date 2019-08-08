@@ -1,4 +1,5 @@
 @import "../metrics";
+@import "color.utils";
 
 /**
  * Applies the scrollbar theme to a selector.
@@ -9,12 +10,12 @@
     height: $spacer-tiny;
   }
   #{$selector}::-webkit-scrollbar-track {
-    background: rgba(0,0,0,.2);
+    background: current-color("contrast", 0.2);
   }
   #{$selector}::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,.3);
+    background: current-color("contrast", 0.3);
   }
   #{$selector}::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,0,0,.4);
+    background: current-color("contrast", 0.4);
   }
 }
