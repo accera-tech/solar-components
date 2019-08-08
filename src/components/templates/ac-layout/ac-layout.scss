@@ -6,14 +6,14 @@
 
 ac-layout {
   display: flex;
+  background: var-color("neutral", "lighter");
 
   .ac-layout__nav-left-container {
     height: 100vh;
     border: 0;
-    background: transparent;
 
     ac-navdrawer {
-      border-radius: 0 $border-radius-default $border-radius-default 0;
+      border-radius: 0 ($border-radius-default * 2) ($border-radius-default * 2) 0;
     }
   }
 
@@ -70,7 +70,7 @@ ac-layout.ac-layout--nav-left-collapsed {
 
 
 // Layout Content's Scrollbar theming
-// --------------------------------------------------
+// ---------------------------------------------------------
 
 @include scrollbar("ac-layout .ac-layout__content-container");
 @include scrollbar("ac-layout .ac-layout__content-scroll");

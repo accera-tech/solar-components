@@ -29,7 +29,9 @@ export class AcLayout implements FocusableComponent {
     this.hasFocus = !!this.collapsed;
   }
 
-  componentDidLoad() {}
+  componentDidLoad() {
+    this.focusTarget = this.host.querySelector('.ac-layout__nav-left-container ac-navdrawer');
+  }
   componentDidUnload() {}
 
   whenBlur(element) {
@@ -54,7 +56,7 @@ export class AcLayout implements FocusableComponent {
 
   render() {
     return [
-      <div class="ac-layout__nav-left-container" ref={elt => this.focusTarget = elt}>
+      <div class="ac-layout__nav-left-container">
         <slot name="nav-left" />
       </div>,
       <div class="ac-layout__content-container">
