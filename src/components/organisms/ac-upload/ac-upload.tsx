@@ -46,7 +46,9 @@ export class AcUpload {
   onDrop(e: DragEvent) {
     e.preventDefault();
     e.stopPropagation();
+    console.log(e)
     this.nativeInput.files = e.dataTransfer.files;
+    console.log(this.nativeInput.files);
     this.handleChange();
     this.focus = false;
   }
