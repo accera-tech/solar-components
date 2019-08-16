@@ -60,7 +60,6 @@ ac-table {
   }
 
   td {
-    padding: $spacer-small 0 $spacer-small 0;
     border-bottom: 1px solid var-color("neutral", "lighter");
   }
 
@@ -77,6 +76,16 @@ ac-table {
           flex-direction: column;
         }
       }
+    }
+  }
+  tbody {
+    .table-body--loading {
+      display: flex;
+      position: absolute;
+      align-items: center;
+      justify-content: center;
+      height: 50%;
+      background-color: var-color("neutral", "contrast", 0.8);
     }
   }
 }

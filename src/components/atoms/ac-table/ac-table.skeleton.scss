@@ -1,0 +1,12 @@
+@import "../../../theme/variables";
+
+@include component-skeleton("ac-table") {
+  @include skeleton-base("skeleton-background");
+
+  display: flex;
+  min-height: 100px;
+  border: none;
+  border-radius: $border-radius-default;
+
+
+}
