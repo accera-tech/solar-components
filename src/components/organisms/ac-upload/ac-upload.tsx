@@ -33,7 +33,7 @@ export class AcUpload {
   /**
    * Event when a file is dropped.
    */
-  @Event({ eventName: 'change' }) change: EventEmitter<FileList>;
+  @Event({ eventName: 'uploadFile' }) change: EventEmitter<FileList>;
 
   @Listen('dragover', { passive: false })
   onHighLight(e) {
@@ -87,11 +87,17 @@ export class AcUpload {
       <label
         class="ac-upload--drop-area"
       >
-        <input onChange={this.handleChange} name={this.name} class="ac-upload--native-input" type="file" ref={nativeInput => this.nativeInput = nativeInput}/>
+        <input
+          onChange={this.handleChange}
+          name={this.name}
+          class="ac-upload--native-input"
+          type="file"
+          ref={nativeInput => this.nativeInput = nativeInput}
+        />
         <div class="ac-upload--wrapper">
-            <div class="ac-upload--content">
-              <slot name="content" />
-            </div>
+          <div class="ac-upload--content">
+            <slot name="content"/>
+          </div>
           <ac-button class="ac-upload--button" theme={this.theme} onClick={this.handleClick}>
             <ac-fa-icon slot="icon-start" icon={faUpload} size={14}/>
             {this.uploadButtonText}
