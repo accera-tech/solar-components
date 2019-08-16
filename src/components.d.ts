@@ -47,6 +47,19 @@ import {
 
 export namespace Components {
 
+  interface AcAvatar {
+    'image': string;
+    'mode': 'list-item' | undefined;
+    'subtitle': string;
+    'title': string;
+  }
+  interface AcAvatarAttributes extends StencilHTMLAttributes {
+    'image'?: string;
+    'mode'?: 'list-item' | undefined;
+    'subtitle'?: string;
+    'title'?: string;
+  }
+
   interface AcBadge {
     'text': string;
     'type': 'alert' | 'warning' | 'success';
@@ -64,9 +77,9 @@ export namespace Components {
     */
     'disabled'?: boolean;
     /**
-    * Button in width mode.
+    * Button width.
     */
-    'expand': 'block' | 'circle';
+    'expand': 'block' | undefined;
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
@@ -83,6 +96,10 @@ export namespace Components {
     * Set the loading mode, showing a loading icon.
     */
     'loading': boolean;
+    /**
+    * Button shape.
+    */
+    'shape': 'round' | 'undefined';
     /**
     * The size of the button:
     */
@@ -106,9 +123,9 @@ export namespace Components {
     */
     'disabled'?: boolean;
     /**
-    * Button in width mode.
+    * Button width.
     */
-    'expand'?: 'block' | 'circle';
+    'expand'?: 'block' | undefined;
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
@@ -125,6 +142,10 @@ export namespace Components {
     * Set the loading mode, showing a loading icon.
     */
     'loading'?: boolean;
+    /**
+    * Button shape.
+    */
+    'shape'?: 'round' | 'undefined';
     /**
     * The size of the button:
     */
@@ -250,10 +271,12 @@ export namespace Components {
 
   interface AcGauge {
     'percent': number;
+    'size': number;
     'theme': string;
   }
   interface AcGaugeAttributes extends StencilHTMLAttributes {
     'percent'?: number;
+    'size'?: number;
     'theme'?: string;
   }
 
@@ -479,15 +502,20 @@ export namespace Components {
 
   interface AcTable {
     'fetch': any;
+    'loading': boolean;
     'noResultsLabel': string;
     'options': Options;
     'params': any;
+    'selectRow': any;
   }
   interface AcTableAttributes extends StencilHTMLAttributes {
     'fetch'?: any;
+    'loading'?: boolean;
     'noResultsLabel'?: string;
+    'onChangeOrder'?: (event: CustomEvent) => void;
     'options'?: Options;
     'params'?: any;
+    'selectRow'?: any;
   }
 
   interface AcToastController {
@@ -711,12 +739,16 @@ export namespace Components {
   }
 
   interface AcMenuItem {
+    'collapsed': boolean;
     'href': string;
     'iconOnly': boolean;
+    'submenu': boolean;
   }
   interface AcMenuItemAttributes extends StencilHTMLAttributes {
+    'collapsed'?: boolean;
     'href'?: string;
     'iconOnly'?: boolean;
+    'submenu'?: boolean;
   }
 
   interface AcMenu {
@@ -749,6 +781,10 @@ export namespace Components {
     * Used to localize the Next button label.
     */
     'nextLabel'?: string;
+    /**
+    * Event emitted when changed tab
+    */
+    'onChange'?: (event: CustomEvent) => void;
     /**
     * Used to localize the Previous button label.
     */
@@ -1020,7 +1056,7 @@ export namespace Components {
     /**
     * Event when a file is dropped.
     */
-    'onChange'?: (event: CustomEvent<FileList>) => void;
+    'onUploadFile'?: (event: CustomEvent<FileList>) => void;
     /**
     * The theme color defined in the color palette. The default is primary.
     */
@@ -1138,6 +1174,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'AcAvatar': Components.AcAvatar;
     'AcBadge': Components.AcBadge;
     'AcButton': Components.AcButton;
     'AcCard': Components.AcCard;
@@ -1170,6 +1207,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'ac-avatar': Components.AcAvatarAttributes;
     'ac-badge': Components.AcBadgeAttributes;
     'ac-button': Components.AcButtonAttributes;
     'ac-card': Components.AcCardAttributes;
@@ -1201,6 +1239,12 @@ declare global {
     'ac-layout': Components.AcLayoutAttributes;
   }
 
+
+  interface HTMLAcAvatarElement extends Components.AcAvatar, HTMLStencilElement {}
+  var HTMLAcAvatarElement: {
+    prototype: HTMLAcAvatarElement;
+    new (): HTMLAcAvatarElement;
+  };
 
   interface HTMLAcBadgeElement extends Components.AcBadge, HTMLStencilElement {}
   var HTMLAcBadgeElement: {
@@ -1377,6 +1421,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'ac-avatar': HTMLAcAvatarElement
     'ac-badge': HTMLAcBadgeElement
     'ac-button': HTMLAcButtonElement
     'ac-card': HTMLAcCardElement
@@ -1409,6 +1454,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'ac-avatar': HTMLAcAvatarElement;
     'ac-badge': HTMLAcBadgeElement;
     'ac-button': HTMLAcButtonElement;
     'ac-card': HTMLAcCardElement;

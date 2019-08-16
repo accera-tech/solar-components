@@ -1,8 +1,12 @@
-<!DOCTYPE html><html dir="ltr" lang="en"><head><meta charset="utf-8">
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="/build/solar.css">
   <script src="/build/solar.js"></script>
 </head>
@@ -20,6 +24,19 @@
       <ac-menu-item>
         <i class="fa fa-edit" slot="icon-start"></i>
         Edit
+      </ac-menu-item>
+
+      <ac-menu-item submenu>
+        <i class="fa fa-edit" slot="icon-start"></i>
+        Edit
+        <ac-menu-item slot="submenu">
+          <i class="fa fa-edit" slot="icon-start"></i>
+          teste 1
+        </ac-menu-item>
+        <ac-menu-item slot="submenu">
+          <i class="fa fa-edit" slot="icon-start"></i>
+          teste 2
+        </ac-menu-item>
       </ac-menu-item>
     </ac-menu>
   </ac-navdrawer>
@@ -49,7 +66,7 @@
             <span class="text-subtitle">Subtitle</span>
           </header>
           <section slot="content">
-            <ac-gauge percent="0" />
+            <ac-gauge percent="0"/>
           </section>
         </ac-card>
       </div>
@@ -90,6 +107,8 @@
         <ac-card>
           <section slot="content">
             <ac-stepper steps="2" done="1"></ac-stepper>
+            <ac-table id="table">
+            </ac-table>
           </section>
         </ac-card>
       </div>
@@ -114,6 +133,7 @@
       </div>
       `
     });
+
     modal.onDidDismiss()
       .then(console.log);
 
@@ -123,26 +143,35 @@
         cantSelectThe4: value.includes('4')
       };
     };
+
+    const table = document.getElementById('table');
+    table.options.header = [
+      {label: 'teste', key: 'teste'}
+    ]
+
+    let INIT = false;
+    window.addEventListener('appload', () => {
+      if (!INIT) main();
+      INIT = true;
+    })
   }
 
-  let INIT = false;
-  window.addEventListener('appload', () => {
-    if (!INIT) main();
-    INIT = true;
-  });
 </script>
 
 
 <script>
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     // auto-unregister service worker during dev mode
-    navigator.serviceWorker.getRegistration().then(function(registration) {
+    navigator.serviceWorker.getRegistration().then(function (registration) {
       if (registration) {
-        registration.unregister().then(function() { location.reload(true) });
+        registration.unregister().then(function () {
+          location.reload(true)
+        });
       }
     });
   }
 </script>
 
 
-</body></html>
+</body>
+</html>
