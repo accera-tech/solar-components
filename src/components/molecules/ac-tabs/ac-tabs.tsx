@@ -31,20 +31,29 @@ export class AcTabs {
 
   @Watch('selected')
   onDidSelectedUpdate() {
-    console.log(this.selected);
     const tab = this.childTabs.find(tab => tab.id == this.selected);
     this.select(tab);
   }
 
-  componentDidLoad() {
-    // @TODO: Change it to componentDidRender hook.
-    setTimeout(() => this.loadTabsFromHTML(), 0);
+  @Watch('compact')
+  onDidCompactUpdate() {
+    this.childTabs.forEach(tab => {
+      tab.compact = this.compact
+    });
   }
 
+  componentDidLoad() {
+    // @TODO: Change it to componentDidRender hook.
+    setTimeout(() => this.loadTabsFromHTML(this.selected), 0);
+  }
+
+  componentDidUpdate() {
+    this.loadTabsFromHTML();
+  }
   /**
    * Load the tabs from the children.
    */
-  private loadTabsFromHTML() {
+  private loadTabsFromHTML(selected ?: number | string) {
     this.childTabs = Array.from(this.host.querySelectorAll('ac-tab'));
     if (!this.currentTab) {
       this.currentTab = this.childTabs[0];
@@ -52,12 +61,12 @@ export class AcTabs {
 
     this.childTabs.forEach(tab => {
       tab.addEventListener('click', () => this.select(tab));
-      if (this.theme) {
-        tab.classList.add(`ac-tab--${this.theme}`);
-      }
-      if (this.compact) {
-        tab.classList.add(`ac-tab--compact`);
-      }
+    });
+
+    this.childTabs.forEach(tab => {
+      tab.compact = this.compact;
+      // tslint:disable-next-line:no-unused-expression
+      selected && selected == tab.id ? tab.active = true : null
     });
 
     return this.moveBulletToCurrentTab();
@@ -87,7 +96,7 @@ export class AcTabs {
     const bulletLeftWithScroll = bulletLeft + this.wrapperElt.scrollLeft;
 
     return animate(this.bulletElt)
-      .then(addStyle({left: bulletLeftWithScroll + 'px'}))
+      .then(addStyle({ left: bulletLeftWithScroll + 'px' }))
       .then(addClass('ac-tabs__bullet--moving'))
       .then(wait(-200))
       .then(removeClass('ac-tabs__bullet--moving'));
@@ -120,7 +129,7 @@ export class AcTabs {
       >
         <slot/>
       </span>,
-      <span class="ac-tabs__bullet" style={{left: '0px'}} ref={bullet => this.bulletElt = bullet}/>
+      <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet}/>
     ];
   }
 }
