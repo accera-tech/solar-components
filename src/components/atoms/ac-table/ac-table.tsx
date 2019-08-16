@@ -1,4 +1,4 @@
-import { Component, Prop, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, Watch } from '@stencil/core';
 
 import { sortArray } from '../../../utils/collections/sort-array';
 import { Bind } from '../../../utils/lang/bind';
@@ -11,18 +11,41 @@ import { TableHeader } from './children/table-header';
   styleUrl: 'ac-table.scss'
 })
 export class AcTable {
+  /*
+  * Event to be issued when there is a change in orders.
+  */
+  @Event({ eventName: 'changeOrder' }) change: EventEmitter;
+  /*
+  *  Header and Rows, can be modified directly or using the fetch method.
+  */
   @Prop({ mutable: true }) options: Options;
-
+  /*
+  *  The fetch method is a callback that should return options.
+  */
   @Prop({ mutable: true }) fetch: any;
-
+  /*
+  * The selectRow is callback with row, use for actions with row.
+  */
+  @Prop({ mutable: true }) selectRow: any;
+  /*
+  * Table has skeleton, but use loading after you have already set the Header.
+  */
+  @Prop({ mutable: true }) loading: boolean;
+  /*
+  * label for results not found.
+  */
   @Prop({ mutable: true }) noResultsLabel: string;
-
+  /*
+  * When the parameters are changed and there is a fetch method, a new request is triggered.
+  */
   @Prop({ mutable: true }) params = {
     ordering: 'asc',
-    property: {},
+    property: '',
+    selected: 1,
     filters: {
-      limitRows: 10,
-      totalRows: 158,
+      limitRows: '',
+      totalRows: '',
+      search: ''
     }
   };
 
@@ -30,7 +53,7 @@ export class AcTable {
   onParamsDidUpdate() {
     if (this.fetch) {
       this.update();
-    } else {
+    } else if (!this.fetch && this.options) {
       this.options = {
         ...this.options,
         rows: sortArray(this.options.rows, this.params.ordering, this.params.property)
@@ -45,34 +68,37 @@ export class AcTable {
       property: ev.target.id,
       ordering: this.params.ordering === 'asc' ? 'desc' : 'asc',
     };
+    this.change.emit();
   }
 
   @Bind
   async update() {
-    const options = await this.fetch(this.params);
-    this.options = ({
-      ...this.options,
-      rows: options.rows,
-    });
+    this.fetch(this.params).then(rows => {
+      this.options = ({
+        ...this.options,
+        rows: rows.rows
+      });
+    })
   }
 
-  @Bind
-  selectRow(row) {
-    console.log(row);
+  @Watch('fetch')
+  onAddFetch() {
+    this.update();
   }
 
   render() {
     return [
+      this.options &&
       <table class="table">
-        <TableHeader columns={this.options.header} click={this.changeOrder} order={this.params}/>
+        <TableHeader columns={this.options ? this.options.header : null} click={this.changeOrder} order={this.params}/>
         <TableBody
           rows={this.options.rows}
           columns={this.options.header}
           onSelect={this.selectRow}
           noResultsLabel={this.noResultsLabel}
+          loading={this.loading}
         />
-      </table>,
-      <ac-pagination total-rows={this.params.filters.totalRows} limit-rows={this.params.filters.limitRows}/>
+      </table>
     ];
   }
 }
