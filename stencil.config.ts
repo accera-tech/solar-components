@@ -5,7 +5,8 @@ import { sass } from '@stencil/sass';
 export const config: Config = {
   namespace: 'solar',
   globalStyle: 'src/global/css/main.scss',
-  outputTargets:[
+  globalScript: 'src/global/solar-global.ts',
+  outputTargets: [
     {
       type: 'dist',
     },
@@ -16,7 +17,6 @@ export const config: Config = {
   ],
   copy: [
     { src: 'theme', dest: 'scss' },
-    { src: 'global/js/react', dest: 'react' }
   ],
   plugins: [
     sass(),
