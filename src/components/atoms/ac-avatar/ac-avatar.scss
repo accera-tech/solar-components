@@ -8,29 +8,36 @@ ac-avatar {
   display: flex;
   align-items: center;
 
-  .ac-avatar__image {
-    min-width: 36px;
-    min-height: 36px;
-    border-radius: 100%;
-    background-size: contain;
-    box-shadow: $z1-shadow;
-  }
-
-  .ac-avatar__text {
+  .ac-avatar__native {
     display: flex;
-    flex-direction: column;
-    padding-left: $spacer-tiny;
-    white-space: nowrap;
+    align-items: center;
 
-    .ac-avatar__title {
-      font-size: $font-small;
-      font-weight: bold;
-      text-transform: capitalize;
+    .ac-avatar__image {
+      // @TODO: Use global vars.
+      min-width: 36px;
+      min-height: 36px;
+      border-radius: 100%;
+      background-size: contain;
+      box-shadow: $z1-shadow;
     }
 
-    .ac-avatar__subtitle {
-      font-size: $font-tiny;
-      color: current-color("contrast", 0.6);
+    .ac-avatar__text {
+      display: flex;
+      flex-direction: column;
+      padding-left: $spacer-tiny;
+      white-space: nowrap;
+
+      .ac-avatar__title {
+        color: current-color("contrast") !important;
+        font-size: $font-small;
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+
+      .ac-avatar__subtitle {
+        color: current-color("contrast", 0.6) !important;
+        font-size: $font-tiny;
+      }
     }
   }
 }

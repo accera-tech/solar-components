@@ -14,6 +14,10 @@ export class AcAvatar {
 
   @Prop() subtitle: string;
 
+  @Prop() href: string;
+
+  @Prop() target: string;
+
   hostData() {
     return {
       class: {
@@ -22,12 +26,14 @@ export class AcAvatar {
     };
   }
   render() {
-    return [
-      <div class="ac-avatar__image" style={{ backgroundImage: `url(${this.image})` }} />,
-      <div class="ac-avatar__text">
-        <span class="ac-avatar__title">{this.title}</span>
-        <span class="ac-avatar__subtitle">{this.subtitle}</span>
-      </div>
-    ]
+    return (
+      <a class="ac-avatar__native" href={this.href} target={this.target}>
+        <div class="ac-avatar__image" style={{ backgroundImage: `url(${this.image})` }} />
+        <div class="ac-avatar__text">
+          <span class="ac-avatar__title">{this.title}</span>
+          <span class="ac-avatar__subtitle">{this.subtitle}</span>
+        </div>
+      </a>
+    );
   }
 }
