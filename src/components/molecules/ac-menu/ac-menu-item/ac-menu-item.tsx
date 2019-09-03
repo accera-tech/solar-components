@@ -12,6 +12,12 @@ export class AcMenu {
 
   @Prop() iconOnly: boolean;
 
+  @Prop() active: boolean;
+
+  @Prop() disabled: boolean;
+
+  @Prop() hidden: boolean;
+
   @Prop() submenu: boolean;
 
   @Prop({ mutable: true }) collapsed: boolean;
@@ -21,8 +27,10 @@ export class AcMenu {
   hostData() {
     return {
       class: {
+        'ac-menu-item--active': this.active,
         'ac-menu-item--icon-only': this.iconOnly,
-        'ac-menu-item--collapsed': this.collapsed
+        'ac-menu-item--collapsed': this.collapsed,
+        'ac-menu-item--hidden': this.hidden,
       }
     };
   }
