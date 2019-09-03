@@ -74,9 +74,9 @@ $theme: (
     normal:           $neutral__white,                      // --color-theme-normal
     contrast:         $neutral__black,                      // --color-theme-contrast
     inverted:         $neutral__white,                      // --color-theme-inverted
-    dark:             darken($neutral__white, 10%),         // --color-theme-dark
-    darker:           darken($neutral__white, 20%),         // --color-theme-darker
-    light:            $neutral__white,                      // --color-theme-light
-    lighter:          $neutral__white                       // --color-theme-lighter
+    dark:             #A0A0A0,         // --color-theme-dark
+    darker:           #646464,         // --color-theme-darker
+    light:            #E6E6E6,                      // --color-theme-light
+    lighter:          #F5F5F5                      // --color-theme-lighter
   )
 );
