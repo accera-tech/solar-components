@@ -62,8 +62,7 @@ export class AcNavdrawer {
   render() {
     return [
       <div class="ac-navdrawer__header">
-        <slot name="header-title" />
-        <slot name="header-actions" />
+        <slot name="header" />
       </div>,
       <nav class="ac-navdrawer__content">
         <slot name="content" />

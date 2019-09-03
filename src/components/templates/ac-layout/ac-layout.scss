@@ -27,6 +27,10 @@ ac-layout {
     background: var-color("neutral", "lighter");
   }
 
+  .ac-layout__content-scroll {
+    position: relative;
+  }
+
   @include down-md {
     // Fixed header on medium devices
     .ac-layout__content-scroll {

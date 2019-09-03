@@ -14,18 +14,11 @@ ac-header {
   width: $ac-header__width;
   transition: background $slow-transition, box-shadow $slow-transition;
 
-  @include down-md {
-    @include define-theme-colors("primary");
-    background: var-color("primary", "normal");
-    color: var-color("primary", "contrast");
-  }
-
   .ac-header__header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    overflow: hidden;
 
     .ac-header__menu-button {
       display: none;
@@ -69,10 +62,12 @@ ac-header {
   // --------------------------------------------------
 
   & > ac-tabs[slot="sub-header"] {
+    border-width: 0;
+
     @include up-md() {
       padding: 0 $spacer-medium;
+      border-width: 1px;
     }
-    border-bottom: 0;
   }
 }
 
@@ -87,3 +82,11 @@ ac-header {
 ac-header.ac-header--scrolled {
   box-shadow: $z1-shadow;
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
+
+@include header-variations("primary");
+@include header-variations("secondary");

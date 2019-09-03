@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Prop, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Listen, Prop, Watch } from '@stencil/core';
 
 import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -14,6 +14,7 @@ import { Bind } from '../../../utils/lang/bind';
 export class AcLayout implements FocusableComponent {
   @Element() host: HTMLAcLayoutElement;
 
+  contentElt: HTMLElement;
   focusBehavior = new FocusBehavior(this);
   focusTarget: HTMLElement;
   hasFocus: boolean;
@@ -35,15 +36,15 @@ export class AcLayout implements FocusableComponent {
   componentDidUnload() {}
 
   whenBlur(element) {
-    console.log(element, element.dataset);
     if (!element.dataset.navdrawer && this.collapsed) {
       this.collapsed = null;
     }
   }
 
+  @Listen('window:resize')
   @Bind
-  private handleContentScroll(ev) {
-    this.contentScroll.emit({ top: ev.target.scrollTop, left: ev.target.scrollLeft });
+  handleContentScroll() {
+    this.contentScroll.emit({ top: this.contentElt.scrollTop, left: this.contentElt.scrollLeft });
   }
 
   hostData() {
@@ -62,7 +63,11 @@ export class AcLayout implements FocusableComponent {
       <div class="ac-layout__content-container">
         <slot name="header" />
 
-        <div class="ac-layout__content-scroll" onScroll={this.handleContentScroll}>
+        <div
+          class="ac-layout__content-scroll"
+          ref={contentElt => this.contentElt = contentElt}
+          onScroll={this.handleContentScroll}
+        >
           <slot name="content" />
         </div>
       </div>

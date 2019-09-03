@@ -23,7 +23,8 @@ ac-navdrawer {
     justify-content: space-between;
     width: 100%;
     min-height: 64px;
-    padding: 0 $spacer-medium;
+    padding: 0;
+    overflow: hidden;
     font-weight: bold;
   }
 
@@ -33,6 +34,7 @@ ac-navdrawer {
     justify-content: center;
     height: 100%;
     max-height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
   }
 
@@ -42,7 +44,7 @@ ac-navdrawer {
     position: absolute;
     z-index: $z-fab;
     top: 26px;
-    left: calc(100% - 5px);
+    left: calc(100% + 2px);
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -51,6 +53,8 @@ ac-navdrawer {
       position: absolute;
       width: 33px;
       height: 33px;
+      stroke-width: 50px;
+      stroke: var-color("neutral", "lighter");
     }
     .ac-navdrawer__toggle-button-icon {
       z-index: 1;
@@ -87,9 +91,6 @@ ac-navdrawer {
 ac-navdrawer.ac-navdrawer--compact {
   width: 64px;
   border-radius: 0;
-  .ac-navdrawer__header > * {
-    display: none;
-  }
 }
 
 

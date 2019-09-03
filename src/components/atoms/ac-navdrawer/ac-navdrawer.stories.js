@@ -7,7 +7,7 @@ storiesOf('Nav drawer', module)
     .add('normal', () => {
         return `
         <ac-navdrawer theme="primary">
-        <span slot="header-title">Teste</span>
+        <span slot="header">Teste</span>
         </ac-navdrawer>
         `;
     }, { notes }
@@ -17,4 +17,3 @@ storiesOf('Nav drawer', module)
 
 
 
-    

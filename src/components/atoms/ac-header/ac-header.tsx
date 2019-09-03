@@ -16,15 +16,22 @@ export class AcHeader {
 
   @Element() host: HTMLAcHeaderElement;
 
+  @Prop() theme: string;
+
   @Prop({ reflectToAttr: true, mutable: true }) scrolled: boolean;
 
   @State() hasNavdrawer: boolean;
 
   componentDidLoad() {
-    const closestLayout = this.host.parentElement.closest('ac-layout');
-    if (closestLayout) {
-      this.parentLayout = closestLayout as HTMLAcLayoutElement;
-      this.hasNavdrawer = !!closestLayout.querySelector('ac-navdrawer');
+    // @TODO: Use dependency injection.
+    const parentLayout =
+      this.host.parentElement.tagName === 'AC-LAYOUT' ?
+        this.host.parentElement :
+        this.host.parentElement.parentElement.tagName === 'AC-LAYOUT' ? this.host.parentElement.parentElement : null;
+
+    if (parentLayout) {
+      this.parentLayout = parentLayout as any;
+      this.hasNavdrawer = !!this.parentLayout.querySelector('ac-navdrawer');
     }
   }
 
@@ -41,6 +48,7 @@ export class AcHeader {
   hostData() {
     return {
       class: {
+        [`ac-header--${this.theme}`]: this.theme,
         'ac-header--scrolled': this.scrolled,
       }
     };
@@ -49,7 +57,7 @@ export class AcHeader {
   render() {
     return [
       <header class="ac-header__header-container">
-        { this.hasNavdrawer &&
+        { this.hasNavdrawer ?
           <ac-button
             class="ac-header__menu-button"
             shape="round"
@@ -60,6 +68,7 @@ export class AcHeader {
           >
             <AcMenuIcon />
           </ac-button>
+          : <span />
         }
         <div class="ac-header__content">
           <slot />
