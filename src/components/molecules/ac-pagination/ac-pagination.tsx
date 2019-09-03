@@ -1,8 +1,10 @@
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
-import { Component, Listen, Prop } from '@stencil/core';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight';
+import { Component, Event, EventEmitter, Listen, Prop, Watch } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
 import { count } from '../../../utils/lang/count';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 @Component({
   tag: 'ac-pagination',
@@ -10,6 +12,8 @@ import { count } from '../../../utils/lang/count';
 })
 
 export class AcPagination {
+  private skipPagesNext: HTMLDivElement;
+  private skipPagesPrevious: HTMLDivElement;
 
   /**
    * The amount of pages.
@@ -31,10 +35,15 @@ export class AcPagination {
    */
   @Prop() previousLabel = 'Previous';
 
+  /**
+   *  Event emitted when changed tab
+   */
+  @Event({ eventName: 'change' }) change: EventEmitter;
+
   @Listen('tabChange')
   handleChangePage(ev) {
     this.selected = parseInt(ev.detail);
-    console.log(this.selected)
+    this.change.emit(this.selected);
   }
 
   @Bind
@@ -51,29 +60,44 @@ export class AcPagination {
     }
   }
 
-  @Bind
-  options() {
+  @Watch('totalPages')
+  @Watch('selected')
+  definePages() {
+    if (this.selected === 1 && this.skipPagesPrevious) {
+      this.skipPagesPrevious.classList.add('skip-pages__disable');
+    } else if (this.skipPagesPrevious) {
+      this.skipPagesPrevious.classList.remove('skip-pages__disable');
+    }
+    if (this.selected === this.totalPages && this.skipPagesNext) {
+      this.skipPagesNext.classList.add('skip-pages__disable');
+    } else if (this.skipPagesNext) {
+      this.skipPagesNext.classList.remove('skip-pages__disable');
 
+    }
   }
 
   render() {
     return [
-      <ac-tabs compact selected={this.selected}>
-        <div onClick={this.handleAfterPage}>
-          <ac-fa-icon icon={faAngleLeft} size={14}/>
+      this.totalPages > 0 &&
+      <ac-tabs selected={this.selected} compact>
+        <div
+          class="skip-pages skip-pages__disable"
+          onClick={this.handleAfterPage}
+          ref={skipPagesPrevious => this.skipPagesPrevious = skipPagesPrevious as HTMLDivElement}
+        >
+          <AcFaIcon class="skip-pages--icon" icon={faAngleLeft} size={12}/>
           <span>{this.previousLabel}</span>
         </div>
         {
           ...count(this.totalPages).map(i =>
-            <ac-tab id={i + 1}>{i + 1}</ac-tab>
+            <ac-tab id={i + 1} compact>{i + 1}</ac-tab>
           )
         }
-        <div>
-          <ac-fa-icon icon={faAngleLeft} size={14} />
+        <div class="skip-pages" ref={skipPagesNext => this.skipPagesNext = skipPagesNext as any}>
           <span onClick={this.handleNextPage}>{this.nextLabel}</span>
+          <AcFaIcon class="skip-pages--icon" icon={faAngleRight} size={12}/>
         </div>
-      </ac-tabs>,
-
+      </ac-tabs>
     ]
   }
 }

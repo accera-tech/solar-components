@@ -13,6 +13,8 @@ export class AcGauge {
 
   @Prop({ reflectToAttr: true, mutable: true }) percent: number;
 
+  @Prop() size: number;
+
   hostData() {
     return {
       class: {
@@ -29,12 +31,12 @@ export class AcGauge {
         class="ac-gauge__meter"
         style={{
           strokeDashoffset: offset + '%',
-          width: '100px',
+          width: `${this.size ? this.size : 100}px`,
         }}
       />,
       <AcNeogridShape
         class="ac-gauge__bg"
-        style={{ width: '100px' }}
+        style={{ width: `${this.size ? this.size : 100}px` }}
       />,
       <div class="ac-gauge__inner">
         <slot name="icon" />

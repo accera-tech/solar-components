@@ -16,7 +16,15 @@ export class AcTab {
   /**
    * Set this tab in compact mode.
    */
-  @Prop({ mutable: true }) compact: boolean;
+  @Prop() compact: boolean;
+
+  hostData() {
+    return {
+      class: {
+        'ac-tab--compact': this.compact
+      }
+    }
+  }
 
   render() {
     return (

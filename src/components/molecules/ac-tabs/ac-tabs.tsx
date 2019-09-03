@@ -36,15 +36,25 @@ export class AcTabs {
     this.select(tab);
   }
 
+  @Watch('compact')
+  onDidCompactUpdate() {
+    this.childTabs.forEach(tab => {
+      tab.compact = this.compact
+    });
+  }
+
   componentDidLoad() {
     // @TODO: Change it to componentDidRender hook.
     this.loadTabsFromHTML();
   }
 
+  componentDidUpdate() {
+    this.loadTabsFromHTML();
+  }
   /**
    * Load the tabs from the children.
    */
-  private loadTabsFromHTML() {
+  private loadTabsFromHTML(selected ?: number | string) {
     this.childTabs = Array.from(this.host.querySelectorAll('ac-tab'));
     if (!this.currentTab) {
       this.currentTab = this.childTabs[0];
@@ -52,12 +62,12 @@ export class AcTabs {
 
     this.childTabs.forEach(tab => {
       tab.addEventListener('click', () => this.select(tab));
-      if (this.theme) {
-        tab.classList.add(`ac-tab--${this.theme}`);
-      }
-      if (this.compact) {
-        tab.classList.add(`ac-tab--compact`);
-      }
+    });
+
+    this.childTabs.forEach(tab => {
+      tab.compact = this.compact;
+      // tslint:disable-next-line:no-unused-expression
+      selected && selected == tab.id ? tab.active = true : null
     });
 
     setTimeout(() => this.moveBulletToCurrentTab(), 100);
@@ -120,7 +130,7 @@ export class AcTabs {
       >
         <slot/>
       </span>,
-      <span class="ac-tabs__bullet" style={{left: '0px'}} ref={bullet => this.bulletElt = bullet}/>
+      <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet}/>
     ];
   }
 }

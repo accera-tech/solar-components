@@ -1,0 +1,33 @@
+@import "../../../theme/variables";
+
+ac-pagination {
+  display: flex;
+
+  ac-tabs {
+    & > * {
+      align-items: center;
+
+    }
+  }
+  .skip-pages {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    color: var-color("primary", "normal");
+    cursor: pointer;
+    .skip-pages--icon {
+      padding: 0 8px;
+      fill: var-color("primary", "normal");
+    }
+  }
+  .skip-pages__disable {
+      color: var-color("neutral", "light");
+      cursor: default;
+      .skip-pages--icon {
+        fill: var-color("neutral", "light");
+      }
+    
+
+  }
+}
+
