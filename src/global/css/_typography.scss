@@ -9,56 +9,54 @@
   "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-h1, h2, h3, h4, h5, h6, p, small {
-  margin: 0;
-  padding: 0;
-  line-height: calc(100% + #{$spacer-tiny});
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1em 0;
+  padding: 2em 0 0 0;
+  line-height: 1.4;
 }
 
 h1 {
-  color: var-color("neutral", "inverter");
+  color: current-color("contrast");
   font-size: $font-huge;
-  font-weight: 900;
+  font-weight: bold;
 }
 
 h2 {
-  color: var-color("neutral", "inverter");
+  color: current-color("contrast");
   font-size: $font-large;
 }
 
 h3 {
+  color: current-color("contrast");
   font-size: $font-medium;
 }
 
 h4 {
+  color: current-color("contrast");
   font-size: $font-small;
 }
 
 h5 {
+  color: current-color("contrast");
   font-size: $font-tiny;
   text-transform: uppercase;
 }
 
 h6 {
+  color: current-color("contrast");
   font-size: $font-tiny;
 }
 
 p {
-  padding: 0;
   font-size: $font-small;
 }
 
-p + div {
-  margin-top: $spacer-huge;
-}
-
 small {
-  padding: 0;
   font-size: $font-tiny;
 }
 
 strong, b {
-  color: var-color("neutral", "inverter");
+  color: current-color("contrast");
 }
 
 
@@ -75,19 +73,11 @@ strong, b {
 }
 
 .font-regular {
-  font-weight: 400;
-}
-
-.font-semibold {
-  font-weight: 600;
+  font-weight: normal;
 }
 
 .font-bold {
-  font-weight: 700;
-}
-
-.font-extrabold {
-  font-weight: 800;
+  font-weight: bold;
 }
 
 .font-black {
@@ -95,11 +85,7 @@ strong, b {
 }
 
 .text-subtitle {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.text-subtitle-light {
-  color: rgba(255, 255, 255, 0.5);
+  color: current-color("contrast", 0.5);
 }
 
 
