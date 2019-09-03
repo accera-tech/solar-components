@@ -140,12 +140,13 @@ export class AcInput implements FormFieldComponent {
   @Watch('error')
   errorDidUpdate(error) {
     if (error) {
-      this.acInputBase.classList.add('ac-input--alert');
-      this.acInputBase.classList.remove('ac-input--success');
+      if (error === 'true') {
+        this.error = true;
+      }
+      this.acInputBase.error = true;
       this.formFieldBehavior.setInvalid();
     } else {
-      this.acInputBase.classList.add('ac-input--success');
-      this.acInputBase.classList.remove('ac-input--alert');
+      this.acInputBase.error = false;
       this.formFieldBehavior.setValid();
     }
   }
@@ -189,11 +190,12 @@ export class AcInput implements FormFieldComponent {
    */
   @Method()
   async getRawValue(type = 'text') {
-    if (!this.value) { return null; }
+    const value = (await this.acInputBase.getNativeInput()).value;
+    if (!value) { return null; }
     if (type === 'text') {
-      return this.value.toString().replace(/[^a-z0-9 ]+/ig, '');
+      return value.toString().replace(/[^a-z0-9 ]+/ig, '');
     } else {
-      return vanillaMasker.toNumber(this.value);
+      return vanillaMasker.toNumber(value);
     }
   }
 
@@ -211,6 +213,7 @@ export class AcInput implements FormFieldComponent {
   }
 
   async componentDidLoad() {
+    this.errorDidUpdate(this.error);
     if (this.mask) {
       vanillaMasker(await this.acInputBase.getNativeInput()).maskPattern(this.mask);
       // Masking the initial value
@@ -262,7 +265,7 @@ export class AcInput implements FormFieldComponent {
         pattern={this.pattern}
         value={this.value}
         disabled={this.disabled}
-        required={!!this.required}
+        required={this.required}
         max={this.max}
         min={this.min}
         maxlength={this.maxlength}
@@ -276,7 +279,7 @@ export class AcInput implements FormFieldComponent {
         <slot name="item-start" slot="item-start" />
         <slot name="input-label" slot="input-label" />
         {this.type === 'password'
-          ? <ac-button slot="item-end" onClick={this.togglePassword} icon-only>
+          ? <ac-button slot="item-end" onClick={this.togglePassword} icon-only fill="flat">
               <AcFaIcon icon={icon} size={14} />
             </ac-button>
           : <slot name="item-end" slot="item-end" />}

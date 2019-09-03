@@ -8,6 +8,8 @@
 ac-input-base {
   display: $ac-input-base__display;
   min-height: $ac-input-base__min-height;
+  max-height: $ac-input-base__min-height;
+  overflow: hidden;
   border: 2px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
   background-color: var-color("neutral", "contrast");
@@ -17,14 +19,14 @@ ac-input-base {
     position: relative;
     width: 100%;
 
-    label.ac-input__label {
+    .ac-input__label {
       position: absolute;
-      top: 50%;
+      top: 12px;
       left: $spacer-small;
-      transform: translateY(-50%);
       transition: font-size $default-transition, top $default-transition;
       color: var-color("neutral", "darker");
       font-size: $font-small;
+      line-height: 1;
       pointer-events: none;
       user-select: none;
     }
@@ -32,12 +34,12 @@ ac-input-base {
     input.ac-input__native {
       box-sizing: border-box;
       width: 100%;
-      height: $ac-input-base__min-height;
-      padding: $spacer-medium $spacer-small $spacer-tiny;
+      padding: 20px $spacer-small $spacer-tiny;
       border: none;
       background-color: transparent;
       color: var-color("neutral", "inverted");
       font-size: $font-small;
+      line-height: 1;
 
       &:focus {
         outline: none;
@@ -46,30 +48,25 @@ ac-input-base {
   }
 
   .ac-input__item-start, .ac-input__item-end {
-    & > * {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      min-width: $ac-input-base__min-height;
-      height: 100%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    & > ac-input-base {
+      border: 0;
+      border-top: 2px;
     }
   }
-}
 
-// ---------------------------------------------------------------------------------------------------------------------
-// Mode Property
-// ---------------------------------------------------------------------------------------------------------------------
-
-// Compact mode (mode="compact")
-// ---------------------------------------------------------
-
-ac-input-base.ac-input--compact {
-  min-height: $ac-input-base--compact__min-height;
-  border: 0;
-
-  .ac-input__input-container {
-    input.ac-input__native {
-      height: $ac-input-base--compact__min-height;
+  .ac-input__item-start {
+    & > i, & > svg {
+      margin: 0 0 0 $spacer-small;
+    }
+  }
+  .ac-input__item-end {
+    & > ac-button .ac-button__native {
+      border: 0;
+      border-left: 2px solid var-color("neutral", "light");
+      border-radius: 0;
     }
   }
 }
@@ -82,37 +79,59 @@ ac-input-base.ac-input--compact {
 // Focused or Filled
 // ---------------------------------------------------------
 
-ac-input-base.ac-input--focus, ac-input-base.ac-input--filled {
-  label.ac-input__label {
-    top: 25%;
+ac-input-base.ac-input-base--focus,
+ac-input-base.ac-input-base--filled {
+  .ac-input__label {
+    top: 4px;
     font-size: $font-tiny;
   }
 }
 
 
-// Error mode
+// Small size (size=small)
 // ---------------------------------------------------------
 
-ac-input-base.ac-input--alert {
-  border-color: var-color("alert", "normal");
-  background-color: white;
-  label.ac-input__label {
-    color: var-color("alert", "normal");
+ac-input-base.ac-input-base--small {
+  min-height: $ac-input-base--small__min-height;
+  max-height: $ac-input-base--small__min-height;
+
+  .ac-input__input-container {
+    input.ac-input__native {
+      padding: $spacer-tiny $spacer-small $spacer-tiny;
+    }
   }
 }
 
 
-// Disabled mode (disabled)
+// Error (error)
 // ---------------------------------------------------------
 
-ac-input-base.ac-input--disabled {
+ac-input-base.ac-input-base--error {
+  border-color: var-color("alert", "normal");
+  background-color: white;
+  .ac-input__label {
+    color: var-color("alert", "normal");
+  }
+
+  .ac-input__item-end {
+    & > ac-button .ac-button__native {
+      border-color: var-color("alert", "normal");
+    }
+  }
+}
+
+
+// Disabled (disabled)
+// ---------------------------------------------------------
+
+ac-input-base.ac-input-base--disabled {
   background-color: var-color("neutral", "lighter");
   input.ac-input__native {
     color: var-color("neutral", "darker");
     cursor: not-allowed;
   }
 
-  label.ac-input__label {
+  .ac-input__label {
     color: var-color("neutral", "normal");
   }
 }
@@ -123,3 +142,6 @@ ac-input-base.ac-input--disabled {
 // ---------------------------------------------------------------------------------------------------------------------
 
 @include input-variations("primary");
+@include input-variations("info");
+@include input-variations("success");
+@include input-variations("warning");

@@ -25,9 +25,19 @@ export class AcInputBase implements ComponentInterface {
   @Prop() label: string;
 
   /**
-   * The render mode of the input.
+   * Error mode.
    */
-  @Prop() mode: 'compact';
+  @Prop({ reflectToAttr: true }) error: boolean;
+
+  /**
+   * The theme color defined in the color palette.
+   */
+  @Prop() theme = 'primary';
+
+  /**
+   * The input's size.
+   */
+  @Prop() size?: 'small' | 'large';
 
   /**
    * The value of the internal input.
@@ -94,6 +104,11 @@ export class AcInputBase implements ComponentInterface {
    */
   @Prop({ reflectToAttr: true }) autocapitalize: string;
 
+  /**
+   * The native HTMLInputElement placeholder attribute.
+   */
+  @Prop({ reflectToAttr: true }) placeholder: string;
+
   @State() hasFocus: boolean;
 
   @Method()
@@ -105,12 +120,14 @@ export class AcInputBase implements ComponentInterface {
    * Set focus state in the native input.
    */
   @Method()
-  setFocus() {
+  async setFocus() {
     this.nativeInput.focus();
   }
 
   @Bind
   private handleFocus() {
+    // @TODO: Check why events handled by stencil dont propagate itself. So, create a decorator that wrapper this line.
+    this.host.dispatchEvent(new Event('focus'));
     this.hasFocus = true;
   }
 
@@ -127,10 +144,12 @@ export class AcInputBase implements ComponentInterface {
   hostData() {
     return {
       class: {
-        [`ac-input--${this.mode}`]: !!this.mode,
-        'ac-input--disabled': this.disabled,
-        'ac-input--focus': this.hasFocus,
-        'ac-input--filled': !!this.value && this.value !== '',
+        [`ac-input-base--${this.theme}`]: !!this.theme,
+        [`ac-input-base--${this.size}`]: !!this.size,
+        'ac-input-base--filled': !!this.value && this.value !== '',
+        'ac-input-base--disabled': this.disabled,
+        'ac-input-base--error': this.error,
+        'ac-input-base--focus': this.hasFocus,
       }
     };
   }
@@ -142,11 +161,11 @@ export class AcInputBase implements ComponentInterface {
         <slot name="item-start" />
       </div>,
       <span class="ac-input__input-container">
-        <label
+        <span
           class="ac-input__label"
         >
           <slot name="input-label" /> {this.label}
-        </label>
+        </span>
         <input
           ref={input => this.nativeInput = input}
           class="ac-input__native"
@@ -164,9 +183,11 @@ export class AcInputBase implements ComponentInterface {
           autofocus={this.autofocus}
           autocomplete={this.autocomplete}
           autocapitalize={this.autocapitalize}
+          placeholder={this.placeholder}
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          step={this.type === 'number' ? 0.00000000000001 : undefined}
         />
       </span>,
       <div class="ac-input__item-end">

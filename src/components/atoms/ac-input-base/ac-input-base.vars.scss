@@ -4,8 +4,8 @@
 // Spec Variables
 // ---------------------------------------------------------------------------------------------------------------------
 
-$ac-input-base__min-height: 48px;
-$ac-input-base--compact__min-height: 44px;
+$ac-input-base__min-height: 44px;
+$ac-input-base--small__min-height: 36px;
 $ac-input-base__display: flex;
 
 
@@ -14,10 +14,16 @@ $ac-input-base__display: flex;
 // ---------------------------------------------------------------------------------------------------------------------
 
 @mixin input-variations($color-name) {
-  ac-input-base.ac-input--focus {
+  ac-input-base.ac-input-base--#{$color-name}.ac-input-base--focus {
     border-color: var-color($color-name, "normal");
-    label.ac-input__label {
+    .ac-input__label {
       color: var-color($color-name, "normal");
+    }
+
+    .ac-input__item-end {
+      & > ac-button .ac-button__native {
+        border-color: var-color($color-name, "normal");
+      }
     }
   }
 }
