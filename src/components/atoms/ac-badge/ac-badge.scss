@@ -6,19 +6,26 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-badge {
-  .ac-badge-background {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 60px;
-    height: 20px;
-    border-radius: 14px;
-    font-size: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: $spacer-small;
+  height: $spacer-small;
+  border-radius: 100px;
+  font-size: $font-xtiny;
+  font-weight: bold;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+ac-badge.ac-badge--floating {
+  position: absolute;
+  z-index: $z-fab;
+  right: 0;
+  bottom: 0;
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Theme Variations

@@ -6,22 +6,24 @@ import { Component, Prop } from '@stencil/core';
 })
 
 export class AcBadge {
-  @Prop() type: 'alert' | 'warning' | 'success';
+  @Prop() theme: 'alert' | 'warning' | 'success' | 'info';
 
-  @Prop() text: string;
+  @Prop() floating: boolean;
 
-  @Prop() upperCase: boolean;
   hostData() {
     return {
       attribute: 'badge',
       class: {
-        [`ac-badge--${this.type}`]: this.type !== undefined,
+        [`ac-badge--${this.theme}`]: this.theme !== undefined,
+        'ac-badge--floating': this.floating,
       }
     };
   }
   render() {
     return [
-      <div class="ac-badge-background">{this.upperCase ? this.text.toUpperCase() : this.text }</div>
+      <a class="ac-badge__native">
+        <slot />
+      </a>
     ]
   }
 }

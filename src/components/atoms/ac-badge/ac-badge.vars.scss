@@ -6,8 +6,8 @@
 
 @mixin badge-variations($selector, $color-name) {
   ac-badge#{$selector} {
-    .ac-badge-background {
-      background-color: var-color($color-name, normal, 0.2);
+    background-color: var-color($color-name, normal, 0.2);
+    .ac-badge__native {
       color: var-color($color-name, normal);
     }
   }
