@@ -42,10 +42,12 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
     wrapper.popperOptions = {
       onCreate: (data: any) => {
         data.instance.popper.style.width = data.offsets.reference.width + 'px';
+        data.instance.popper.style.top = data.placement === 'bottom' ? '8px' : '-8px';
         data.instance.scheduleUpdate();
       },
       onUpdate: (data: any) => {
         data.instance.popper.style.width = data.offsets.reference.width + 'px';
+        data.instance.popper.style.top = data.placement === 'bottom' ? '8px' : '-8px';
       },
       modifiers: {
         preventOverflow: {
