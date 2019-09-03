@@ -22,4 +22,10 @@ export class AcPopper implements PortalComponent, TransitionComponent, PopperCom
 
   componentWillLoad() {}
   componentDidUnload() {}
+
+  render() {
+    return [
+      <slot />
+    ];
+  }
 }
