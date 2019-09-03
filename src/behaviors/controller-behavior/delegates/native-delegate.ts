@@ -39,12 +39,8 @@ export class NativeDelegate implements FrameworkDelegate {
   }
 
   // @ts-ignore
-  detachViewFromDom(element: any, props, wrapper): Promise<void> {
-    if (wrapper) {
-      return wrapper.remove();
-    } else {
+  detachViewFromDom(element: any, props): Promise<void> {
       return element.remove();
-    }
   }
 }
 

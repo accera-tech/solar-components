@@ -48,27 +48,29 @@ import {
 export namespace Components {
 
   interface AcAvatar {
+    'href': string;
     'image': string;
     'mode': 'list-item' | undefined;
     'subtitle': string;
+    'target': string;
     'title': string;
   }
   interface AcAvatarAttributes extends StencilHTMLAttributes {
+    'href'?: string;
     'image'?: string;
     'mode'?: 'list-item' | undefined;
     'subtitle'?: string;
+    'target'?: string;
     'title'?: string;
   }
 
   interface AcBadge {
-    'text': string;
-    'type': 'alert' | 'warning' | 'success';
-    'upperCase': boolean;
+    'floating': boolean;
+    'theme': 'alert' | 'warning' | 'success' | 'info';
   }
   interface AcBadgeAttributes extends StencilHTMLAttributes {
-    'text'?: string;
-    'type'?: 'alert' | 'warning' | 'success';
-    'upperCase'?: boolean;
+    'floating'?: boolean;
+    'theme'?: 'alert' | 'warning' | 'success' | 'info';
   }
 
   interface AcButton {
@@ -83,7 +85,7 @@ export namespace Components {
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
-    'fill': 'clear' | 'solid' | 'flat' | 'internal';
+    'fill': 'clear' | 'solid' | 'flat';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -99,11 +101,11 @@ export namespace Components {
     /**
     * Button shape.
     */
-    'shape': 'round' | 'undefined';
+    'shape': 'round' | undefined;
     /**
-    * The size of the button:
+    * The size of the button.
     */
-    'size'?: 'small' | 'compact' | 'large';
+    'size'?: 'small' | 'large';
     /**
     * The HTML5 native anchor target to handle the href property.
     */
@@ -111,7 +113,7 @@ export namespace Components {
     /**
     * The theme color defined in the color palette. The default is white.
     */
-    'theme'?: string;
+    'theme': any;
     /**
     * The HTML5 button type. See https://mdn.io/button
     */
@@ -129,7 +131,7 @@ export namespace Components {
     /**
     * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
-    'fill'?: 'clear' | 'solid' | 'flat' | 'internal';
+    'fill'?: 'clear' | 'solid' | 'flat';
     /**
     * An optional link to open when click on it. Turns the button into a anchor element.
     */
@@ -145,11 +147,11 @@ export namespace Components {
     /**
     * Button shape.
     */
-    'shape'?: 'round' | 'undefined';
+    'shape'?: 'round' | undefined;
     /**
-    * The size of the button:
+    * The size of the button.
     */
-    'size'?: 'small' | 'compact' | 'large';
+    'size'?: 'small' | 'large';
     /**
     * The HTML5 native anchor target to handle the href property.
     */
@@ -157,7 +159,7 @@ export namespace Components {
     /**
     * The theme color defined in the color palette. The default is white.
     */
-    'theme'?: string;
+    'theme'?: any;
     /**
     * The HTML5 button type. See https://mdn.io/button
     */
@@ -282,9 +284,11 @@ export namespace Components {
 
   interface AcHeader {
     'scrolled': boolean;
+    'theme': string;
   }
   interface AcHeaderAttributes extends StencilHTMLAttributes {
     'scrolled'?: boolean;
+    'theme'?: string;
   }
 
   interface AcInputBase {
@@ -304,6 +308,10 @@ export namespace Components {
     * The HTMLInputElement disabled attribute.
     */
     'disabled': boolean;
+    /**
+    * Error mode.
+    */
+    'error': boolean;
     'getNativeInput': () => Promise<HTMLInputElement>;
     /**
     * The label text of the this input group.
@@ -326,10 +334,6 @@ export namespace Components {
     */
     'minlength': number;
     /**
-    * The render mode of the input.
-    */
-    'mode': 'compact';
-    /**
     * The native HTMLInputElement name attribute.
     */
     'name': string;
@@ -337,6 +341,10 @@ export namespace Components {
     * The native HTMLInputElement pattern attribute.
     */
     'pattern': string;
+    /**
+    * The native HTMLInputElement placeholder attribute.
+    */
+    'placeholder': string;
     /**
     * Enable readonly.
     */
@@ -348,7 +356,15 @@ export namespace Components {
     /**
     * Set focus state in the native input.
     */
-    'setFocus': () => void;
+    'setFocus': () => Promise<void>;
+    /**
+    * The input's size.
+    */
+    'size'?: 'small' | 'large';
+    /**
+    * The theme color defined in the color palette.
+    */
+    'theme': string;
     /**
     * The type of the internal input.
     */
@@ -376,6 +392,10 @@ export namespace Components {
     */
     'disabled'?: boolean;
     /**
+    * Error mode.
+    */
+    'error'?: boolean;
+    /**
     * The label text of the this input group.
     */
     'label'?: string;
@@ -396,10 +416,6 @@ export namespace Components {
     */
     'minlength'?: number;
     /**
-    * The render mode of the input.
-    */
-    'mode'?: 'compact';
-    /**
     * The native HTMLInputElement name attribute.
     */
     'name'?: string;
@@ -408,6 +424,10 @@ export namespace Components {
     */
     'pattern'?: string;
     /**
+    * The native HTMLInputElement placeholder attribute.
+    */
+    'placeholder'?: string;
+    /**
     * Enable readonly.
     */
     'readonly'?: boolean;
@@ -415,6 +435,14 @@ export namespace Components {
     * The native HTMLInputElement required attribute.
     */
     'required'?: boolean;
+    /**
+    * The input's size.
+    */
+    'size'?: 'small' | 'large';
+    /**
+    * The theme color defined in the color palette.
+    */
+    'theme'?: string;
     /**
     * The type of the internal input.
     */
@@ -739,13 +767,19 @@ export namespace Components {
   }
 
   interface AcMenuItem {
+    'active': boolean;
     'collapsed': boolean;
+    'disabled': boolean;
+    'hidden': boolean;
     'href': string;
     'iconOnly': boolean;
     'submenu': boolean;
   }
   interface AcMenuItemAttributes extends StencilHTMLAttributes {
+    'active'?: boolean;
     'collapsed'?: boolean;
+    'disabled'?: boolean;
+    'hidden'?: boolean;
     'href'?: string;
     'iconOnly'?: boolean;
     'submenu'?: boolean;
@@ -753,9 +787,18 @@ export namespace Components {
 
   interface AcMenu {
     'iconOnly': boolean;
+    'noResultsLabel': string;
+    'searchLabel': string;
+    'searchable': boolean;
+    'selected': string | number;
   }
   interface AcMenuAttributes extends StencilHTMLAttributes {
     'iconOnly'?: boolean;
+    'noResultsLabel'?: string;
+    'onMenuChange'?: (event: CustomEvent<string>) => void;
+    'searchLabel'?: string;
+    'searchable'?: boolean;
+    'selected'?: string | number;
   }
 
   interface AcPagination {
@@ -837,7 +880,7 @@ export namespace Components {
     /**
     * Set the custom empty result text.
     */
-    'noResultsText': string;
+    'noResultsLabel': string;
     /**
     * The options that will be displayed in the panel.
     */
@@ -900,7 +943,7 @@ export namespace Components {
     /**
     * Set the custom empty result text.
     */
-    'noResultsText'?: string;
+    'noResultsLabel'?: string;
     /**
     * Fired when the user select/deselect an option.
     */
@@ -1170,6 +1213,13 @@ export namespace Components {
     'collapsed'?: 'nav-left';
     'onContentScroll'?: (event: CustomEvent<{top: number, left: number}>) => void;
   }
+
+  interface AcLogin {
+    'backgroundImageSrc': string;
+  }
+  interface AcLoginAttributes extends StencilHTMLAttributes {
+    'backgroundImageSrc'?: string;
+  }
 }
 
 declare global {
@@ -1204,6 +1254,7 @@ declare global {
     'AcPopper': Components.AcPopper;
     'AcPortal': Components.AcPortal;
     'AcLayout': Components.AcLayout;
+    'AcLogin': Components.AcLogin;
   }
 
   interface StencilIntrinsicElements {
@@ -1237,6 +1288,7 @@ declare global {
     'ac-popper': Components.AcPopperAttributes;
     'ac-portal': Components.AcPortalAttributes;
     'ac-layout': Components.AcLayoutAttributes;
+    'ac-login': Components.AcLoginAttributes;
   }
 
 
@@ -1420,6 +1472,12 @@ declare global {
     new (): HTMLAcLayoutElement;
   };
 
+  interface HTMLAcLoginElement extends Components.AcLogin, HTMLStencilElement {}
+  var HTMLAcLoginElement: {
+    prototype: HTMLAcLoginElement;
+    new (): HTMLAcLoginElement;
+  };
+
   interface HTMLElementTagNameMap {
     'ac-avatar': HTMLAcAvatarElement
     'ac-badge': HTMLAcBadgeElement
@@ -1451,6 +1509,7 @@ declare global {
     'ac-popper': HTMLAcPopperElement
     'ac-portal': HTMLAcPortalElement
     'ac-layout': HTMLAcLayoutElement
+    'ac-login': HTMLAcLoginElement
   }
 
   interface ElementTagNameMap {
@@ -1484,6 +1543,7 @@ declare global {
     'ac-popper': HTMLAcPopperElement;
     'ac-portal': HTMLAcPortalElement;
     'ac-layout': HTMLAcLayoutElement;
+    'ac-login': HTMLAcLoginElement;
   }
 
 

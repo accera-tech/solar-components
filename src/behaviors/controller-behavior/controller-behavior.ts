@@ -71,10 +71,14 @@ export class ControllerBehavior<C, E extends HTMLStencilElement> extends Compone
           if (element._resolveWillDismiss) {
             await element._resolveWillDismiss(data);
           }
+          if (wrapper) {
+            await delegate.detachViewFromDom(wrapper, props);
+          } else {
+            await delegate.detachViewFromDom(element, props);
+          }
           if (element._resolveDismiss) {
             await element._resolveDismiss(data);
           }
-          await delegate.detachViewFromDom(element, props, wrapper);
         }
       };
 
@@ -140,6 +144,7 @@ export interface ControlledElementFields {
   onDidDismiss?: <T>() => Promise<T>;
   onWillDismiss?: <T>() => Promise<T>;
   dismiss?: (data: any) => Promise<void>;
+  present?: () => Promise<void>;
 }
 
 /**
