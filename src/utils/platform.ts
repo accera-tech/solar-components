@@ -1,4 +1,4 @@
-export function platformIsIE() {
+export function isIE() {
 
   const ua = window.navigator.userAgent;
   const msie = ua.indexOf('MSIE ');
