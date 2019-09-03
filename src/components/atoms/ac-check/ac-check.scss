@@ -11,14 +11,14 @@ ac-check {
   .ac-check__container {
     display: flex;
     align-items: center;
-    cursor: pointer;
 
     .ac-check__label {
       margin: 0;
-      padding-left: $spacer-tiny;
+      padding: 0 0 0 $spacer-tiny;
       color: var-color("neutral", "darker");
       font-size: $font-medium;
       line-height: 1;
+      cursor: pointer;
       user-select: none;
     }
   }
@@ -33,9 +33,11 @@ ac-check {
     width: $ac-check__height;
     height: $ac-check__height;
     margin: 0;
+    padding: 0;
     border: 2px solid var-color("neutral", "light");
     outline: none;
     background: var-color("neutral", "contrast");
+    cursor: pointer;
   }
 
   .ac-check__helper-text {
