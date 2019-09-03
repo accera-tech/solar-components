@@ -22,14 +22,14 @@ export const AcFaIcon: FunctionalComponent<AcFaIconProps> = props => {
   const parentClasses = anim ? `icon--anim-${anim} ` + classList : classList;
 
   return (
-    <div
-      class={parentClasses}
-      style={{ display: 'flex', justifyContent: 'center', ...style }}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       {...restProps}
+      class={parentClasses}
+      viewBox={`0 0 ${icon.icon[0]} ${icon.icon[1]}`}
+      height={size || 16}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${icon.icon[0]} ${icon.icon[1]}`} height={size || 16}>
-        <path d={icon.icon[4]} />
-      </svg>
-    </div>
+      <path d={icon.icon[4]} />
+    </svg>
   );
 };

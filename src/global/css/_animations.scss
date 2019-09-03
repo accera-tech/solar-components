@@ -4,9 +4,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 .icon--anim-spin {
-  svg {
-    animation: anim-spin 2s infinite linear;
-  }
+  animation: anim-spin 2s infinite linear;
 }
 
 @keyframes anim-spin {
