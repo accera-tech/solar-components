@@ -22,12 +22,12 @@ export class AcButton implements ComponentInterface {
   /**
    * The theme color defined in the color palette. The default is white.
    */
-  @Prop() theme?: string;
+  @Prop() theme;
 
   /**
-   * The size of the button:
+   * The size of the button.
    */
-  @Prop() size?: 'small' | 'compact' | 'large';
+  @Prop() size?: 'small' | 'large';
 
   /**
    * Fill mode:
@@ -35,7 +35,7 @@ export class AcButton implements ComponentInterface {
    * * solid - Raised button, default
    * * clear - No background and borders
    */
-  @Prop() fill: 'clear' | 'solid' | 'flat' | 'internal' = 'solid';
+  @Prop() fill: 'clear' | 'solid' | 'flat' = 'solid';
 
   /**
    * Button width.
@@ -45,7 +45,7 @@ export class AcButton implements ComponentInterface {
   /**
    * Button shape.
    */
-  @Prop() shape: 'round' | 'undefined';
+  @Prop() shape: 'round' | undefined;
 
   /**
    * An optional link to open when click on it.
@@ -102,14 +102,10 @@ export class AcButton implements ComponentInterface {
         disabled={this.disabled}
         class="ac-button__native"
       >
-        {/* If is a textual button and its loading, shows a loading icon in the icon-start slot */}
-        { !this.iconOnly && this.loading
-          ? <AcFaIcon icon={faSpinner} size={14} anim="spin" />
-          : <slot name="icon-start" /> }
+        {this.loading && <AcFaIcon icon={faSpinner} size={14} anim="spin" />}
+        <slot name="icon-start" />
         <span class="ac-button__text">
-          {this.iconOnly && this.loading && <AcFaIcon icon={faSpinner} size={12} anim="spin" />}
-          {/* If is a icon only button and its loading, hides the main icon */}
-          {!this.iconOnly || (this.iconOnly && !this.loading) ? <slot /> : null}
+          <slot />
         </span>
         <slot name="icon-end" />
       </TagType>

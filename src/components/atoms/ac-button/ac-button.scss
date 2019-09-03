@@ -60,17 +60,6 @@ ac-button.ac-button--small {
 }
 
 
-// Tiny (size="compact")
-// ---------------------------------------------------------
-
-ac-button.ac-button--compact {
-  .ac-button__native {
-    min-width: $ac-button--compact__height;
-    height: $ac-button--compact__height;
-  }
-}
-
-
 // Big (size="large")
 // ---------------------------------------------------------
 
@@ -156,7 +145,11 @@ ac-button.ac-button--block {
 }
 
 
-// Block (expand="round")
+// ---------------------------------------------------------------------------------------------------------------------
+// Shape Property
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Round (shape="round")
 // --------------------------------------------------
 
 ac-button.ac-button--round {
@@ -175,14 +168,11 @@ ac-button.ac-button--round {
 
 ac-button.ac-button--icon-only {
   .ac-button__native {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     padding: 0;
-    .ac-button__text {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 0;
-    }
   }
 }
 
@@ -213,8 +203,14 @@ ac-button.ac-button--loading {
     opacity: 0.5;
     pointer-events: none;
   }
-  [slot=icon-start], [slot=icon-only] {
+  [slot=icon-start] {
     display: none;
+  }
+
+  &.ac-button--icon-only {
+    .ac-button__text {
+      display: none;
+    }
   }
 }
 
