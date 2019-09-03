@@ -31,14 +31,14 @@ export class AcTabs {
 
   @Watch('selected')
   onDidSelectedUpdate() {
-    console.log(this.selected);
+    // tslint:disable-next-line:triple-equals
     const tab = this.childTabs.find(tab => tab.id == this.selected);
     this.select(tab);
   }
 
   componentDidLoad() {
     // @TODO: Change it to componentDidRender hook.
-    setTimeout(() => this.loadTabsFromHTML(), 0);
+    this.loadTabsFromHTML();
   }
 
   /**
@@ -60,7 +60,7 @@ export class AcTabs {
       }
     });
 
-    return this.moveBulletToCurrentTab();
+    setTimeout(() => this.moveBulletToCurrentTab(), 100);
   }
 
   /**
@@ -87,7 +87,7 @@ export class AcTabs {
     const bulletLeftWithScroll = bulletLeft + this.wrapperElt.scrollLeft;
 
     return animate(this.bulletElt)
-      .then(addStyle({left: bulletLeftWithScroll + 'px'}))
+      .then(addStyle({ left: bulletLeftWithScroll + 'px' }))
       .then(addClass('ac-tabs__bullet--moving'))
       .then(wait(-200))
       .then(removeClass('ac-tabs__bullet--moving'));

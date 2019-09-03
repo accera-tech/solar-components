@@ -7,7 +7,7 @@
 
 ac-tab {
   padding: $ac-tab__padding;
-  color: var-color("primary", "normal");
+  color: current-color("contrast", 0.8);
   font-size: $ac-tab__font-size;
   font-weight: 700;
   line-height: 1;
@@ -33,7 +33,6 @@ ac-tab {
 ac-tab.ac-tab--compact {
   padding: $spacer-small 4px;
   font-weight: normal;
-
 }
 
 
@@ -42,8 +41,6 @@ ac-tab.ac-tab--compact {
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-tab.ac-tab--secondary {
-  color: var-color("secondary", "normal");
-
   &[active] {
     color: var-color("primary", "normal");
   }
