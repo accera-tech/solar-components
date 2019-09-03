@@ -4,7 +4,7 @@
 // Tooltip Util
 // ---------------------------------------------------------------------------------------------------------------------
 
-[tooltip] {
+[tooltip], [tooltip-bottom] {
   position: relative;
   outline: none;
 
@@ -17,27 +17,23 @@
     transform: translateX(-50%);
     transition: $default-transition;
     opacity: 0;
-
   }
 
   &:before {
-    content: attr(tooltip);
-    bottom: 120%;
     max-width: 300px;
     padding: $spacer-tiny;
     border-radius: $border-radius-default;
-    background-color: var-color("neutral", "inverter");
+    background-color: var-color("neutral", "inverted");
     color: var-color("neutral", "contrast");
     white-space: nowrap;
   }
 
   &:after {
     content: "";
-    top: -14px;
     width: $spacer-tiny;
     height: $spacer-tiny;
     border-radius: 50%;
-    background-color: var-color("neutral", "inverter");
+    background-color: var-color("neutral", "inverted");
   }
 
   &:hover {
@@ -46,5 +42,25 @@
       visibility: visible;
       opacity: 1;
     }
+  }
+}
+
+[tooltip] {
+  &:before {
+    content: attr(tooltip);
+    bottom: 120%;
+  }
+  &:after {
+    top: -14px;
+  }
+}
+
+[tooltip-bottom] {
+  &:before {
+    content: attr(tooltip-bottom);
+    bottom: -100%;
+  }
+  &:after {
+    bottom: -14px;
   }
 }
