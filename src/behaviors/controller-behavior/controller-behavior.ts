@@ -1,5 +1,6 @@
 import { VNode } from '@stencil/core/dist/declarations';
 
+import { FieldsOf } from '../../utils/lang/types';
 import { ComponentBase, ComponentBehavior } from '../../utils/stencil/component-behavior';
 
 import { FrameworkDelegate } from './delegates/framework-delegate';
@@ -53,7 +54,8 @@ export class ControllerBehavior<C, E extends HTMLStencilElement> extends Compone
       });
     } else {
       // Using delegate
-      const element = await delegate.createComponent<E & HTMLStencilControlledElement<C, E>>(this.component.target, props);
+      const element =
+        await delegate.createComponent<E & HTMLStencilControlledElement<C, E>>(this.component.target, props);
 
       element.controller = this.component;
       element._resolveDismiss = null;
@@ -72,7 +74,7 @@ export class ControllerBehavior<C, E extends HTMLStencilElement> extends Compone
           if (element._resolveDismiss) {
             await element._resolveDismiss(data);
           }
-          await delegate.detachViewFromDom(element, props);
+          await delegate.detachViewFromDom(element, props, wrapper);
         }
       };
 
@@ -126,7 +128,7 @@ export interface ControllerComponent<C, E extends HTMLStencilElement> extends Co
 /**
  * Represents the custom props that can be passed to a controlled component.
  */
-export type ControllerComponentOptions<C> = ComponentFields<C> & {
+export type ControllerComponentOptions<C> = FieldsOf<C> & {
   component?: any;
   componentProps?: any;
   wrapper?: any;
@@ -147,8 +149,4 @@ export type HTMLStencilControlledElement<C, E extends HTMLStencilElement> = E & 
   _resolveDismiss: (data) => void;
   _resolveWillDismiss: (data) => void;
   controller: ControllerComponent<C, E>;
-};
-
-type ComponentFields<C> = {
-  [key in keyof C]?: C[key];
 };

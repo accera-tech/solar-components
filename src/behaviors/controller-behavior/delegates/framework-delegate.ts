@@ -20,6 +20,7 @@ export interface FrameworkDelegate {
    * Detach an element from the dom.
    * @param element The element to detach.
    * @param props The element props.
+   * @param wrapper The wrapper element.
    */
-  detachViewFromDom(element, props): Promise<void>;
+  detachViewFromDom(element, props, wrapper?): Promise<void>;
 }

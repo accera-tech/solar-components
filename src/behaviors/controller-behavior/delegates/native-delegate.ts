@@ -9,7 +9,13 @@ export class NativeDelegate implements FrameworkDelegate {
 
     const element = document.createElement(tag) as E;
     if (props) {
-      Object.assign(element, props);
+      Object.keys(props).forEach(key => {
+        if (typeof props[key] === 'string') {
+          element.setAttribute(key, props[key]);
+        } else {
+          element[key] = props[key];
+        }
+      });
     }
 
     if (component) {
@@ -32,8 +38,13 @@ export class NativeDelegate implements FrameworkDelegate {
     await element.componentOnReady();
   }
 
-  detachViewFromDom(element: any): Promise<void> {
-    return element.remove();
+  // @ts-ignore
+  detachViewFromDom(element: any, props, wrapper): Promise<void> {
+    if (wrapper) {
+      return wrapper.remove();
+    } else {
+      return element.remove();
+    }
   }
 }
 
