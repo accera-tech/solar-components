@@ -130,7 +130,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   /**
    * Set the custom empty result text.
    */
-  @Prop({ reflectToAttr: true }) noResultsText = 'No results for';
+  @Prop({ reflectToAttr: true }) noResultsLabel = 'No results for';
 
   /**
    * The native required attribute.
@@ -167,20 +167,25 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
                  oldValue: (number | string)[] | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       this.formatSelectedText();
+      this.change.emit(this.value);
     }
   }
 
   @Watch('options')
-  optionsDidUpdate() {
-    if (this.options) {
-      const selectedOptions = this.options.filter(o => o.selected); // Get all selected
+  optionsDidUpdate(newOptions, oldOptions) {
+    if (newOptions) {
+      const selectedOptions = newOptions.filter(o => o.selected); // Get all selected
       if (selectedOptions.length > 0) {
         const value = selectedOptions.map(o => o.value);
         this.value = this.multiple ? value : value[0]; // Array to a single value for Single select
       } else {
-        this.value = null;
+        // @TODO: Use defaultValue/initialValue property.
+        this.value = !oldOptions ? this.value : null;
       }
     }
+
+    // Forcing update the value whatever it takes.
+    this.formatSelectedText();
   }
 
   @Watch('isShowingPanel')
@@ -191,12 +196,10 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   @Watch('error')
   errorDidUpdate(error) {
     if (error) {
-      this.acInputBase.classList.add('ac-input--alert');
-      this.acInputBase.classList.remove('ac-input--success');
+      this.acInputBase.error = true;
       this.formFieldBehavior.setInvalid();
     } else {
-      this.acInputBase.classList.add('ac-input--success');
-      this.acInputBase.classList.remove('ac-input--alert');
+      this.acInputBase.error = false;
       this.formFieldBehavior.setValid();
     }
   }
@@ -259,7 +262,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     if (!this.options) {
       this.loadOptionsFromHTML();
     } else {
-      this.optionsDidUpdate();
+      this.optionsDidUpdate(this.options, null);
     }
   }
 
@@ -272,7 +275,6 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     if (this.requestCheckValidity) {
       this.formFieldBehavior.checkValidity(this.value);
       this.requestCheckValidity = false;
-      this.change.emit(this.value);
     }
   }
 
@@ -333,9 +335,13 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   }
 
   private renderNativeOptions() {
+    const valueAsArray: any[] = this.value ?
+      this.value instanceof Array ? this.value : [this.value]
+      : [];
+
     return this.options.map(opt => {
       if (!opt.separator) {
-        return (<option selected={opt.selected} value={opt.value}>{opt.title}</option>);
+        return (<option selected={valueAsArray.includes(opt.value)} value={opt.value}>{opt.title}</option>);
       }
     });
   }
@@ -346,7 +352,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         if (item.separator) {
           return (
             <li class="ac-select__list-separator">
-              <label>{item.title}</label>
+              <span class="ac-select__list-separator-title">{item.title}</span>
             </li>
           );
         } else {
@@ -363,7 +369,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     } else {
       return (
         <li class="ac-select__empty-result">
-          {this.noResultsText} {this.filter}
+          {this.noResultsLabel} {this.filter}
         </li>
       );
     }
@@ -374,7 +380,11 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
    */
   @Bind
   private togglePanel() {
-    this.isShowingPanel = !this.loading && !this.isShowingPanel;
+    if (!this.loading && !this.isShowingPanel) {
+      this.acInputBase.setFocus();
+    } else {
+      this.closePanel();
+    }
   }
 
   /**
@@ -383,6 +393,14 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   @Bind
   private openPanel() {
     this.isShowingPanel = true;
+  }
+
+  /**
+   * Open the panel.
+   */
+  @Bind
+  private closePanel() {
+    this.isShowingPanel = false;
   }
 
   /**
@@ -452,7 +470,6 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
           slot="item-end"
           theme={this.isShowingPanel ? 'primary' : 'light'}
           fill="flat"
-          size="compact"
           disabled={this.disabled}
           loading={this.loading}
           onClick={this.togglePanel}
@@ -461,9 +478,11 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
           <AcFaIcon icon={icon} size={12} style={{ width: '100%' }}/>
         </ac-button>
       </ac-input-base>,
-      <span class="ac-input__helper-text">
-        {this.helperText}
-      </span>,
+      this.error || this.helperText
+        ? <span class="ac-select__helper-text">
+            {this.error || this.helperText}
+          </span>
+        : null,
 
       <SelectPanel
         ref={selectPanel => this.selectPanel = selectPanel}

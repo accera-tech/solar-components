@@ -13,7 +13,7 @@ ac-select {
     display: none !important;
   }
 
-  .ac-input__helper-text {
+  .ac-select__helper-text {
     display: block;
     margin-top: $spacer-tiny;
     color: var-color("neutral", "darker");
@@ -24,6 +24,21 @@ ac-select {
     display: none;
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Error mode (FormFieldBehavior)
+// --------------------------------------------------
+
+ac-select.form-field--invalid {
+  .ac-select__helper-text {
+    color: var-color("alert", "normal");
+  }
+}
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Extra Global Styles
@@ -79,7 +94,7 @@ ac-select {
         background-color: var-color("neutral", "normal");
       }
 
-      label {
+      .ac-select__list-separator-title {
         display: inline-block;
         position: absolute;
         padding: 12px $spacer-tiny 0 $spacer-small;
