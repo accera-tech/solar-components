@@ -12,3 +12,19 @@ export type ValidatorFn = (value, field: FormFieldBehavior, form: FormBehavior) 
 export type CustomValidityState = {
   [key in keyof ValidityState | string]: { message?: string } | boolean;
 }
+
+export interface ValidationMessagesConfig {
+  badInputMessage?: string;
+  customErrorMessage?: string;
+  patternMismatchMessage?: string;
+  rangeOverflowMessage?: string;
+  rangeUnderflowMessage?: string;
+  stepMismatchMessage?: string;
+  tooLongMessage?: string;
+  tooShortMessage?: string;
+  typeMismatchMessage?: string;
+  validMessage?: string;
+  valueMissingMessage?: string;
+
+  [key: string]: string
+}

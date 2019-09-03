@@ -1,12 +1,15 @@
 import debug from 'debug/src/browser';
 
+import { Bind } from '../../utils/lang/bind';
+import { dashToCamelCase } from '../../utils/lang/string';
 import { toArray } from '../../utils/lang/to-array';
 import { ComponentBehavior } from '../../utils/stencil/component-behavior';
-import { CustomValidityState } from '../../utils/validations/validations';
+import { CustomValidityState, ValidatorFn } from '../../utils/validations/validations';
 
 import { FormBehavior } from './form-behavior';
 import { FormFieldComponent } from './form-field-component';
 import { HTMLCustomFormElement } from './html-custom-form-element';
+
 const log = debug('solar:FormFieldBehavior');
 
 /**
@@ -54,6 +57,8 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
       }
       this.formAttached.formBehavior.addField(this);
     }
+
+    this.component.host.addEventListener('invalid', this.checkValidity);
   }
 
   /**
@@ -64,6 +69,8 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
       log('Detaching', this.name, this.formAttached);
       this.formAttached.formBehavior.removeField(this);
     }
+
+    this.component.host.removeEventListener('invalid', this.checkValidity);
   }
 
   /**
@@ -126,6 +133,7 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
   /**
    * Runs the all the validations of the field and sets the component's validity.
    */
+  @Bind
   async checkValidity(value?: any): Promise<CustomValidityState> {
     const valueToAssert = value || this.component.value || '';
     log('Validating', this.name, '=', valueToAssert);
@@ -175,10 +183,10 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     }
 
     if (validityState.valid) {
-      this.component.error = false;
+      this.component.error = null;
       this.setValid();
     } else {
-      this.component.error = true;
+      this.component.error = this.buildErrorMessageByValidityState(validityState) || true;
       this.setInvalid();
       this.component.host.dispatchEvent(
         new CustomEvent('formFieldInvalid', { detail: validityState })
@@ -188,5 +196,50 @@ export class FormFieldBehavior extends ComponentBehavior<FormFieldComponent> {
     this.component.validity = validityState;
 
     return validityState;
+  }
+
+  /**
+   * Add a validator to the validation pipeline.
+   * @param validator The validation function.
+   */
+  addValidator(validator: ValidatorFn) {
+    if (!this.component.validator) {
+      this.component.validator = [];
+    } else if (!(this.component.validator instanceof Array)) {
+      this.component.validator = [ this.component.validator ];
+    }
+    this.component.validator.push(validator);
+
+    return this;
+  }
+
+  getCustomErrorMessagesFromInlineAttrs() {
+    const attrs = this.component.host.attributes;
+
+    return Object.keys(attrs)
+      .map(key => attrs[key].name)
+      .filter(key => key.indexOf('-message') > -1)
+      .reduce((acc, key) => {
+        acc[dashToCamelCase(key)] = attrs[key].value;
+        return acc;
+      }, {});
+  }
+
+  getErrorMessages() {
+    return this.getCustomErrorMessagesFromInlineAttrs();
+  }
+
+  buildErrorMessageByValidityState(validityState: CustomValidityState) {
+    const messages = this.getErrorMessages();
+
+    for (const token in validityState) {
+      if (validityState[token] && token !== 'valid') {
+        if (typeof validityState[token] === 'string') {
+          return validityState[token];
+        } else {
+          return messages[token + 'Message'];
+        }
+      }
+    }
   }
 }
