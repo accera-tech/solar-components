@@ -2,7 +2,7 @@
 @import "../../atoms/ac-input-base/ac-input-base.vars";
 
 @include component-skeleton("ac-input") {
-  @include skeleton-base("skeleton-background");
+  @include skeleton-background("skeleton-background");
   display: $ac-input-base__display;
   min-height: $ac-input-base__min-height;
   border: none;

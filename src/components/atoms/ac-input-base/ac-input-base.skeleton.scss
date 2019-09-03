@@ -2,13 +2,13 @@
 @import "ac-input-base.vars";
 
 @include component-skeleton("ac-input-base") {
-  @include skeleton-base("skeleton-background");
+  @include skeleton-background("skeleton-background");
   display: $ac-input-base__display;
   min-height: $ac-input-base__min-height;
   border: none;
   border-radius: $border-radius-default;
 
   &[mode="compact"] {
-    min-height: $ac-input-base--compact__min-height;
+    min-height: $ac-input-base--small__min-height;
   }
 }

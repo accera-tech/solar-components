@@ -5,11 +5,13 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 @import "../../components/atoms/ac-input-base/ac-input-base.skeleton";
-@import "../../components/molecules/ac-select/ac-select.skeleton";
+@import "../../components/atoms/ac-navdrawer/ac-navdrawer.skeleton";
 @import "../../components/atoms/ac-gauge/ac-gauge.skeleton";
+@import "../../components/molecules/ac-select/ac-select.skeleton";
 @import "../../components/molecules/ac-input/ac-input.skeleton";
 @import "../../components/molecules/ac-tabs/ac-tabs.skeleton";
 @import "../../components/molecules/ac-tabs/ac-tab/ac-tab.skeleton";
+@import "../../components/templates/ac-layout/ac-layout.skeleton";
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -31,7 +33,7 @@
 // ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--text {
-  @include skeleton-before-strategy();
+  @include cover-text-with-pseudo-skeleton();
 }
 
 
@@ -40,7 +42,7 @@
 // ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--text--inline {
-  @include skeleton-before-strategy();
+  @include cover-text-with-pseudo-skeleton();
   display: inline-flex;
   position: relative;
   width: calc(1em * 10);
@@ -51,7 +53,7 @@
 // ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--circle {
-  @include skeleton-base(skeleton-background);
+  @include skeleton-background(skeleton-background);
   border-radius: 100%;
   color: transparent;
 
@@ -65,7 +67,7 @@
 // ---------------------------------------------------------
 
 .ac-skeleton .ac-skeleton--bg {
-  @include skeleton-base(skeleton-background);
+  @include skeleton-background(skeleton-background);
   color: transparent;
 
   * {
@@ -78,9 +80,9 @@
 // Text Defaults
 // ---------------------------------------------------------------------------------------------------------------------
 
-@include text-skeleton(h1, $font-huge);
-@include text-skeleton(h2, $font-large);
-@include text-skeleton(h3, $font-medium);
-@include text-skeleton(h4, $font-small);
-@include text-skeleton(h5, $font-tiny);
-@include text-skeleton(h6, $font-tiny);
+@include create-skeleton-for-text(h1, $font-huge);
+@include create-skeleton-for-text(h2, $font-large);
+@include create-skeleton-for-text(h3, $font-medium);
+@include create-skeleton-for-text(h4, $font-small);
+@include create-skeleton-for-text(h5, $font-tiny);
+@include create-skeleton-for-text(h6, $font-tiny);

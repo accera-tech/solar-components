@@ -1,0 +1,27 @@
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Component Skeleton
+// ---------------------------------------------------------------------------------------------------------------------
+
+ac-layout {
+  visibility: visible;
+
+  [slot="content"], [slot="header"] {
+    transition: opacity $default-transition;
+  }
+}
+
+@include component-before-mount("ac-layout") {
+  [slot="content"], [slot="header"] {
+    @include hide-content();
+
+    opacity: 0;
+  }
+}
+
+@include component-after-mount("ac-layout") {
+  [slot="content"], [slot="header"] {
+    opacity: 1;
+  }
+}

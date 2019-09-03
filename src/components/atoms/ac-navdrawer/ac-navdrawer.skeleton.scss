@@ -1,0 +1,26 @@
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Component Skeleton
+// ---------------------------------------------------------------------------------------------------------------------
+
+ac-navdrawer {
+  visibility: visible;
+  [slot="content"], [slot="header"] {
+    transition: opacity $default-transition;
+  }
+}
+
+@include component-before-mount("ac-navdrawer") {
+  [slot="content"], [slot="header"] {
+    @include hide-content();
+
+    opacity: 0;
+  }
+}
+
+@include component-after-mount("ac-navdrawer") {
+  [slot="content"], [slot="header"] {
+    opacity: 1;
+  }
+}

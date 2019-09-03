@@ -1,44 +1,70 @@
-@mixin component-skeleton($selector) {
-  .ac-skeleton #{$selector}, #{$selector}:not(.hydrated) {
-    @content
-  ;
-}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Lifecycle Hooks
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin component-before-mount($selector) {
+  #{$selector}:not(.hydrated) {
+    @content;
+  }
 }
 
-@mixin skeleton-base($animation-name) {
-  visibility: visible !important;
-  animation: $animation-name 3s linear 0s infinite normal none running;
-  border-radius: 3px;
-  background: rgba(0,0,0, .08) linear-gradient(90deg, rgba(255, 255, 255, .2) 8%, rgba(0, 0, 0, .04) 38%, rgba(255, 255, 255, .2) 60%) 0% 0% / 1000px;
-  * {
+@mixin component-after-mount($selector) {
+  #{$selector}.hydrated {
+    @content;
+  }
+}
+
+// @TODO: Refact usages to Lifecycle Hooks + ac-skeleton class
+@mixin component-skeleton($selector) {
+  .ac-skeleton #{$selector} {
+    @content;
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Skeleton Utils
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin hide-content() {
+  & > * {
     display: none !important;
   }
 }
 
-// @TODO: Review this approach.
-@mixin skeleton-before-strategy() {
+@mixin skeleton-background($animation-name) {
+  visibility: visible !important;
+  animation: $animation-name 3s linear 0s infinite normal none running;
+  border-radius: $border-radius-default;
+  background:
+    rgba(0,0,0, .08) linear-gradient(90deg, rgba(255, 255, 255, .2) 8%,
+    rgba(0, 0, 0, .04) 38%, rgba(255, 255, 255, .2) 60%) 0% 0% / 1000px;
+
+  @include hide-content();
+}
+
+@mixin cover-text-with-pseudo-skeleton() {
+  @include hide-content();
+
   display: flex;
   position: relative;
   align-items: center;
-  color: transparent;
+  color: transparent !important;
   user-select: none;
-  * {
-    display: none !important;
-  }
   &:before {
-    @include skeleton-base(skeleton-background);
+    @include skeleton-background(skeleton-background);
     content: "";
     display: block;
     position: absolute;
     width: 100%;
     height: 1em;
-    border-radius: $border-radius-default;
   }
 }
 
-@mixin text-skeleton($selector, $font-size) {
+@mixin create-skeleton-for-text($selector, $font-size) {
   .ac-skeleton #{$selector} {
-    @include skeleton-before-strategy();
+    @include cover-text-with-pseudo-skeleton();
     &:before {
       width: $font-size * 10;
       height: $font-size;
