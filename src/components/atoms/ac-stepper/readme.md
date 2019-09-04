@@ -159,17 +159,17 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                                                  | Type     |
-| -------- | --------- | -------------------------------------------------------------------------------------------- | -------- |
-| `done`   | `done`    | The number of concluded steps.                                                               | `number` |
-| `steps`  | `steps`   | The count of steps to be displayed. TODO: It mighty support an array of steps in the future. | `number` |
+| Property | Attribute | Description                                                                                  | Type     | Default     |
+| -------- | --------- | -------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `done`   | `done`    | The number of concluded steps.                                                               | `number` | `undefined` |
+| `steps`  | `steps`   | The count of steps to be displayed. TODO: It mighty support an array of steps in the future. | `number` | `undefined` |
 
 
 ## Events
 
-| Event    | Detail            | Description                              |
-| -------- | ----------------- | ---------------------------------------- |
-| `change` | { index: number } | Dispatched when the steps state changes. |
+| Event    | Description                              | Type                             |
+| -------- | ---------------------------------------- | -------------------------------- |
+| `change` | Dispatched when the steps state changes. | `CustomEvent<{ index: number }>` |
 
 
 ## Methods

@@ -159,9 +159,10 @@
 
 ## Properties
 
-| Property | Attribute | Description                               | Type      |
-| -------- | --------- | ----------------------------------------- | --------- |
-| `active` | `active`  | If true, mark this tab as a selected tab. | `boolean` |
+| Property  | Attribute | Description                               | Type      | Default     |
+| --------- | --------- | ----------------------------------------- | --------- | ----------- |
+| `active`  | `active`  | If true, mark this tab as a selected tab. | `boolean` | `undefined` |
+| `compact` | `compact` | Set this tab in compact mode.             | `boolean` | `undefined` |
 
 
 ----------------------------------------------

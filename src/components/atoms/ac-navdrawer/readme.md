@@ -159,23 +159,10 @@
 
 ## Properties
 
-| Property    | Attribute   | Description                                                 | Type      |
-| ----------- | ----------- | ----------------------------------------------------------- | --------- |
-| `collapsed` | `collapsed` | In modal mode, it used to control if the drawers is opened. | `boolean` |
-| `theme`     | `theme`     | The color theme.                                            | `string`  |
-
-
-## Methods
-
-### `toggle() => void`
-
-Toggle opened state of the modal drawer.
-
-#### Returns
-
-Type: `void`
-
-
+| Property  | Attribute | Description      | Type      | Default     |
+| --------- | --------- | ---------------- | --------- | ----------- |
+| `compact` | `compact` | Compact mode.    | `boolean` | `undefined` |
+| `theme`   | `theme`   | The color theme. | `string`  | `undefined` |
 
 
 ----------------------------------------------

@@ -38847,33 +38847,44 @@
 
 ## Properties
 
-| Property            | Attribute         | Description                                                                                            | Type                                                                                                                                                                               |
-| ------------------- | ----------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `autocapitalize`    | `autocapitalize`  | The native HTMLInputElement autocapitalize attribute.                                                  | `string`                                                                                                                                                                           |
-| `autocomplete`      | `autocomplete`    | The native HTMLInputElement autocomplete attribute.                                                    | `string`                                                                                                                                                                           |
-| `autofocus`         | `autofocus`       | The native HTMLInputElement autofocus attribute.                                                       | `boolean`                                                                                                                                                                          |
-| `disabled`          | `disabled`        | The disabled mode.                                                                                     | `boolean`                                                                                                                                                                          |
-| `error`             | `error`           | The actual error message.                                                                              | `string`                                                                                                                                                                           |
-| `formFieldBehavior` | --                | Provide access to the form field logic.                                                                | `FormFieldBehavior`                                                                                                                                                                |
-| `helperText`        | `helper-text`     | The helper text to guide the user.                                                                     | `string`                                                                                                                                                                           |
-| `label`             | `label`           | The label text of the this input group.                                                                | `string`                                                                                                                                                                           |
-| `mask`              | `mask`            | The mask of the input.                                                                                 | `string`                                                                                                                                                                           |
-| `max`               | `max`             | The native HTMLInputElement max attribute.                                                             | `number`                                                                                                                                                                           |
-| `maxlength`         | `maxlength`       | The native HTMLInputElement maxlength attribute.                                                       | `number`                                                                                                                                                                           |
-| `min`               | `min`             | The native HTMLInputElement min attribute.                                                             | `number`                                                                                                                                                                           |
-| `minlength`         | `minlength`       | The native HTMLInputElement min attribute.                                                             | `number`                                                                                                                                                                           |
-| `name`              | `name`            | The HTML input field's name.                                                                           | `string`                                                                                                                                                                           |
-| `patternMessage`    | `pattern-message` | The message displayed if the pattern doesnt match.                                                     | `string`                                                                                                                                                                           |
-| `pattern`           | `pattern`         | The pattern of the input.                                                                              | `string`                                                                                                                                                                           |
-| `required`          | --                | Set this field as required. A validation error message can be provided as well.                        | `boolean \| string`                                                                                                                                                                |
-| `type`              | `type`            | The type of the internal input.                                                                        | `string`                                                                                                                                                                           |
-| `validator`         | --                | The validations that this field need. This validations is checked on: - Blur event - Form submit event | `(value: any) => Promise<string \| void \| { message: string; field?: string; }> \| (value: any) => string \| void \| { message: string; field?: string; } \| ValidatorFunction[]` |
-| `value`             | --                | The value of the internal input.                                                                       | `any`                                                                                                                                                                              |
+| Property            | Attribute             | Description                                                                                                                                                                 | Type                                                                                                                                   | Default                       |
+| ------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `autocapitalize`    | `autocapitalize`      | The native HTMLInputElement autocapitalize attribute.                                                                                                                       | `string`                                                                                                                               | `undefined`                   |
+| `autocomplete`      | `autocomplete`        | The native HTMLInputElement autocomplete attribute.                                                                                                                         | `string`                                                                                                                               | `undefined`                   |
+| `autofocus`         | `autofocus`           | The native HTMLInputElement autofocus attribute.                                                                                                                            | `boolean`                                                                                                                              | `undefined`                   |
+| `disabled`          | `disabled`            | The disabled mode.                                                                                                                                                          | `boolean`                                                                                                                              | `undefined`                   |
+| `error`             | `error`               | Set the component in the error state with a message.                                                                                                                        | `boolean \| string`                                                                                                                    | `undefined`                   |
+| `formFieldBehavior` | `form-field-behavior` | The FormFieldBehavior instance.                                                                                                                                             | `any`                                                                                                                                  | `new FormFieldBehavior(this)` |
+| `helperText`        | `helper-text`         | The helper text to guide the user.                                                                                                                                          | `string`                                                                                                                               | `undefined`                   |
+| `label`             | `label`               | The label text of the this input group.                                                                                                                                     | `string`                                                                                                                               | `undefined`                   |
+| `mask`              | `mask`                | The mask of the input.                                                                                                                                                      | `string`                                                                                                                               | `undefined`                   |
+| `max`               | `max`                 | The native HTMLInputElement max attribute.                                                                                                                                  | `number`                                                                                                                               | `undefined`                   |
+| `maxlength`         | `maxlength`           | The native HTMLInputElement maxlength attribute.                                                                                                                            | `number`                                                                                                                               | `undefined`                   |
+| `min`               | `min`                 | The native HTMLInputElement min attribute.                                                                                                                                  | `number`                                                                                                                               | `undefined`                   |
+| `minlength`         | `minlength`           | The native HTMLInputElement min attribute.                                                                                                                                  | `number`                                                                                                                               | `undefined`                   |
+| `name`              | `name`                | The HTML input field's name.                                                                                                                                                | `string`                                                                                                                               | `undefined`                   |
+| `pattern`           | `pattern`             | The native HTMLInputElement pattern attribute.                                                                                                                              | `string`                                                                                                                               | `undefined`                   |
+| `required`          | `required`            | The native HTMLInputElement required attribute.                                                                                                                             | `boolean`                                                                                                                              | `undefined`                   |
+| `type`              | `type`                | The type of the internal input.                                                                                                                                             | `string`                                                                                                                               | `undefined`                   |
+| `validateOnKeyup`   | `validate-on-keyup`   | Request check validation on each input key event.                                                                                                                           | `boolean`                                                                                                                              | `undefined`                   |
+| `validator`         | --                    | The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present. | `((value: any, field: FormFieldBehavior, form: FormBehavior) => CustomValidityState \| Promise<CustomValidityState>) \| ValidatorFn[]` | `undefined`                   |
+| `validity`          | --                    | Get the last validity state from the checkValidity.                                                                                                                         | `{ [x: string]: boolean \| { message?: string; }; }`                                                                                   | `undefined`                   |
+| `value`             | `value`               | The value of the internal input.                                                                                                                                            | `any`                                                                                                                                  | `undefined`                   |
 
 
 ## Methods
 
-### `getRawValue(type?: string) => any`
+### `getNativeFormField() => any`
+
+
+
+#### Returns
+
+Type: `any`
+
+
+
+### `getRawValue(type?: string) => Promise<any>`
 
 Get the unmasked value.
 
@@ -38885,17 +38896,17 @@ Get the unmasked value.
 
 #### Returns
 
-Type: `any`
+Type: `Promise<any>`
 
 
 
-### `setFocus() => void`
+### `setFocus() => any`
 
 Set focus state in the native input.
 
 #### Returns
 
-Type: `void`
+Type: `any`
 
 
 

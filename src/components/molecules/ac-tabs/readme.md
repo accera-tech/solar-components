@@ -159,16 +159,18 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                           | Type     |
-| -------- | --------- | --------------------------------------------------------------------- | -------- |
-| `theme`  | `theme`   | The theme color defined in the color palette. The default is primary. | `string` |
+| Property   | Attribute  | Description                                                           | Type               | Default     |
+| ---------- | ---------- | --------------------------------------------------------------------- | ------------------ | ----------- |
+| `compact`  | `compact`  |                                                                       | `boolean`          | `undefined` |
+| `selected` | `selected` |                                                                       | `number \| string` | `undefined` |
+| `theme`    | `theme`    | The theme color defined in the color palette. The default is primary. | `string`           | `undefined` |
 
 
 ## Events
 
-| Event       | Detail | Description |
-| ----------- | ------ | ----------- |
-| `tabChange` | string |             |
+| Event       | Description | Type                  |
+| ----------- | ----------- | --------------------- |
+| `tabChange` |             | `CustomEvent<string>` |
 
 
 ----------------------------------------------

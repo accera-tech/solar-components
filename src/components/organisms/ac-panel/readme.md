@@ -38845,6 +38845,13 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event   | Description                       | Type                |
+| ------- | --------------------------------- | ------------------- |
+| `close` | Dispatched when the modal closes. | `CustomEvent<void>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

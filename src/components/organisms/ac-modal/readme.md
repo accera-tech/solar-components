@@ -159,38 +159,16 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                                                   | Type     |
-| -------- | --------- | --------------------------------------------------------------------------------------------- | -------- |
-| `bound`  | `bound`   | An optional property used to refer the parent element that the component will be attached to. | `string` |
+| Property | Attribute | Description                                    | Type     | Default     |
+| -------- | --------- | ---------------------------------------------- | -------- | ----------- |
+| `title`  | `title`   | The title that will be displayed on the modal. | `string` | `undefined` |
 
 
-## Methods
+## Events
 
-### `clear() => Promise<void[]>`
-
-Clear all modals that are displayed.
-
-#### Returns
-
-Type: `Promise<void[]>`
-
-
-
-### `set(props: ControllerProps<AcModal>) => any`
-
-Setup a new modal on the screen.
-
-#### Parameters
-
-| Name    | Type                       | Description |
-| ------- | -------------------------- | ----------- |
-| `props` | `ControllerProps<AcModal>` |             |
-
-#### Returns
-
-Type: `any`
-
-
+| Event   | Description                       | Type                |
+| ------- | --------------------------------- | ------------------- |
+| `close` | Dispatched when the modal closes. | `CustomEvent<void>` |
 
 
 ----------------------------------------------
