@@ -48,6 +48,7 @@ h6 {
 }
 
 p {
+  color: current-color("contrast", 0.6);
   font-size: $font-small;
 }
 
