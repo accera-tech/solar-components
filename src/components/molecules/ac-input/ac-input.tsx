@@ -157,7 +157,7 @@ export class AcInput implements FormFieldComponent {
   @Watch('value')
   valueDidUpdate() {
     // Masking when value update programmatically
-    if (this.mask) {
+    if (this.value && this.mask) {
       this.value = vanillaMasker.toPattern(this.value, this.mask);
     }
   }
