@@ -26,4 +26,8 @@ ac-card {
     justify-content: end;
     padding: $spacer-small $spacer-large $spacer-medium;
   }
+
+  & > ac-tabs[slot=header] {
+    padding: 0 $spacer-medium;
+  }
 }

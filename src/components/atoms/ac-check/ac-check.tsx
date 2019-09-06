@@ -1,4 +1,4 @@
-import { Component, Element, Method, Prop } from '@stencil/core';
+import { Component, Element, Method, Prop, h, Host } from '@stencil/core';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -76,11 +76,18 @@ export class AcCheck implements FormFieldComponent {
   /**
    * Mark this field as required.
    */
-  @Prop({ reflectToAttr: true }) required: string | boolean;
+  @Prop({ reflectToAttr: true }) required: boolean;
 
-  componentDidLoad() {}
-  componentDidUnload() {}
-  componentWillLoad() {}
+  // @Event({ eventName: 'changeChecked' }) change: EventEmitter;
+
+  componentDidLoad() {
+  }
+
+  componentDidUnload() {
+  }
+
+  componentWillLoad() {
+  }
 
   @Method()
   async getNativeFormField() {
@@ -92,35 +99,33 @@ export class AcCheck implements FormFieldComponent {
     this.checked = !this.checked;
   }
 
-  hostData() {
-    return {
-      attribute: 'input',
-      class: {
-        [`ac-check--label-${this.direction}`]: this.direction !== undefined,
-        [`ac-check--${this.type}`]: this.type !== undefined,
-        'ac-check--disabled': this.disabled,
-        'ac-check--error': !!this.error,
-      }
-    };
-  }
-
   render() {
-    return [
-      <label class="ac-check__container">
-        <input
-          ref={nativeInput => this.nativeInput = nativeInput}
-          class="ac-check__native"
-          type={this.type}
-          name={this.name}
-          value={this.value}
-          onChange={this.handleChange}
-          disabled={this.disabled}
-        />
-        <div class="ac-check__custom">
-        </div>
-        {this.label && <div class="ac-check__label">{this.label}</div>}
-      </label>,
-      (this.error || this.helperText) && <label class="ac-check__helper-text">{this.error || this.helperText}</label>
-    ];
+    return (
+      <Host
+        class={{
+          [`ac-check--label-${this.direction}`]: this.direction !== undefined,
+          [`ac-check--${this.type}`]: this.type !== undefined,
+          'ac-check--disabled': this.disabled,
+          'ac-check--error': !!this.error,
+        }}
+      >
+        <label class="ac-check__container">
+          <input
+            ref={nativeInput => this.nativeInput = nativeInput}
+            class="ac-check__native"
+            type={this.type}
+            name={this.name}
+            value={this.value}
+            onChange={this.handleChange}
+            disabled={this.disabled}
+          />
+          <div class="ac-check__custom">
+          </div>
+          {this.label && <div class="ac-check__label">{this.label}</div>}
+        </label>
+        {(this.error || this.helperText) &&
+        <label class="ac-check__helper-text">{this.error || this.helperText}</label>}
+      </Host>
+    );
   }
 }

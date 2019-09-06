@@ -1,5 +1,5 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';

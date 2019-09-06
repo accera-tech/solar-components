@@ -1,5 +1,5 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Listen, Method, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
 import vanillaMasker from 'vanilla-masker';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
@@ -177,7 +177,7 @@ export class AcInput implements FormFieldComponent {
    * to the form.
    */
   @Method()
-  setValue(value) {
+  async setValue(value) {
     this.value = value;
 
     // @TODO: Review how to set the dirty state in the form for programmatically value changes.
@@ -203,12 +203,12 @@ export class AcInput implements FormFieldComponent {
    * Set focus state in the native input.
    */
   @Method()
-  setFocus() {
+  async setFocus() {
     return this.acInputBase.setFocus();
   }
 
   @Method()
-  getNativeFormField() {
+  async getNativeFormField() {
     return this.acInputBase.getNativeInput();
   }
 

@@ -1,5 +1,5 @@
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { Component, Event, EventEmitter, Listen, Method, Prop, State } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Listen, Method, Prop, State, h } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
 
@@ -60,52 +60,50 @@ export class AcUpload {
 
   @Bind
   @Method()
-  handleClick() {
+  async handleClick() {
     this.nativeInput.click();
   }
 
   @Method()
-  removeFiles() {
+  async removeFiles() {
     this.nativeInput.value = '';
   }
 
   @Bind
-  handleChange() {
+  async handleChange() {
     this.value = this.nativeInput.files;
     this.change.emit(this.nativeInput.files);
   }
 
-  hostData() {
-    return {
-      class: {
-        [`ac-upload--${this.theme}`]: this.theme !== undefined,
-        'ac-upload--focus': this.focus,
-      }
-    }
-  }
-
   render() {
-    return [
-      <label
-        class="ac-upload--drop-area"
+    return (
+      <Host
+        class={{
+          [`ac-upload--${this.theme}`]: this.theme !== undefined,
+          'ac-upload--focus': this.focus,
+        }}
       >
-        <input
-          onChange={this.handleChange}
-          name={this.name}
-          class="ac-upload--native-input"
-          type="file"
-          ref={nativeInput => this.nativeInput = nativeInput}
-        />
-        <div class="ac-upload--wrapper">
-          <div class="ac-upload--content">
-            <slot name="content"/>
+        <label
+          class="ac-upload--drop-area"
+        >
+          <input
+            onChange={this.handleChange}
+            name={this.name}
+            class="ac-upload--native-input"
+            type="file"
+            ref={nativeInput => this.nativeInput = nativeInput}
+          />
+          <div class="ac-upload--wrapper">
+            <div class="ac-upload--content">
+              <slot name="content"/>
+            </div>
+            <ac-button class="ac-upload--button" theme={this.theme} onClick={this.handleClick}>
+              <ac-fa-icon slot="icon-start" icon={faUpload} size={14}/>
+              {this.uploadButtonText}
+            </ac-button>
           </div>
-          <ac-button class="ac-upload--button" theme={this.theme} onClick={this.handleClick}>
-            <ac-fa-icon slot="icon-start" icon={faUpload} size={14}/>
-            {this.uploadButtonText}
-          </ac-button>
-        </div>
-      </label>
-    ];
+        </label>
+      </Host>
+    );
   }
 }

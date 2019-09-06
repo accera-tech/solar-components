@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'ac-progress',
@@ -17,23 +17,21 @@ export class AcProgress {
    */
   @Prop({ reflectToAttr: true, mutable: true }) percent: number;
 
-  hostData() {
-    return {
-      class: {
-        [`ac-progress--${this.theme}`]: !!this.theme
-      }
-    };
-  }
-
   render() {
     return (
-      <div
-        class="ac-progress__meter"
-        style={{
-          width: this.percent + '%',
+      <Host
+        class={{
+          [`ac-progress--${this.theme}`]: !!this.theme
         }}
       >
-      </div>
+        <div
+          class="ac-progress__meter"
+          style={{
+            width: this.percent + '%',
+          }}
+        >
+        </div>
+      </Host>
     );
   }
 }

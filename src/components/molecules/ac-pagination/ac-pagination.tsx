@@ -1,6 +1,6 @@
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight';
-import { Component, Event, EventEmitter, Listen, Prop, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, Listen, Prop, Watch, h } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
 import { count } from '../../../utils/lang/count';
@@ -38,12 +38,12 @@ export class AcPagination {
   /**
    *  Event emitted when changed tab
    */
-  @Event({ eventName: 'change' }) change: EventEmitter;
+  @Event({ eventName: 'paginationChange' }) paginationChange: EventEmitter;
 
   @Listen('tabChange')
   handleChangePage(ev) {
     this.selected = parseInt(ev.detail);
-    this.change.emit(this.selected);
+    this.paginationChange.emit(this.selected);
   }
 
   @Bind

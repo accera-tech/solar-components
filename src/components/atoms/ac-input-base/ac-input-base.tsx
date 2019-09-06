@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, Method, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, Host, Method, Prop, State, h } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
 
@@ -141,31 +141,29 @@ export class AcInputBase implements ComponentInterface {
     this.value = this.nativeInput.value;
   }
 
-  hostData() {
-    return {
-      class: {
-        [`ac-input-base--${this.theme}`]: !!this.theme,
-        [`ac-input-base--${this.size}`]: !!this.size,
-        'ac-input-base--filled': !!this.value && this.value !== '',
-        'ac-input-base--disabled': this.disabled,
-        'ac-input-base--error': this.error,
-        'ac-input-base--focus': this.hasFocus,
-      }
-    };
-  }
-
   render() {
 
-    return [
-      <div class="ac-input__item-start">
-        <slot name="item-start" />
-      </div>,
-      <span class="ac-input__input-container">
-        <span
+    return (
+      <Host
+        class={{
+          [`ac-input-base--${this.theme}`]: !!this.theme,
+          [`ac-input-base--${this.size}`]: !!this.size,
+          'ac-input-base--filled': !!this.value && this.value !== '',
+          'ac-input-base--disabled': this.disabled,
+          'ac-input-base--error': this.error,
+          'ac-input-base--focus': this.hasFocus,
+        }}
+      >
+        <div class="ac-input__item-start">
+          <slot name="item-start"/>
+        </div>
+        <span class="ac-input__input-container">
+        <label
           class="ac-input__label"
         >
-          <slot name="input-label" /> {this.label}
-        </span>
+          <slot name="input-label"/>
+          {this.label}
+        </label>
         <input
           ref={input => this.nativeInput = input}
           class="ac-input__native"
@@ -189,10 +187,11 @@ export class AcInputBase implements ComponentInterface {
           onBlur={this.handleBlur}
           step={this.type === 'number' ? 0.00000000000001 : undefined}
         />
-      </span>,
-      <div class="ac-input__item-end">
-        <slot name="item-end"/>
-      </div>
-    ];
+      </span>
+        <div class="ac-input__item-end">
+          <slot name="item-end"/>
+        </div>
+      </Host>
+    );
   }
 }

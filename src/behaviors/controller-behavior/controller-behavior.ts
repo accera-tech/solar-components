@@ -1,4 +1,5 @@
-import { VNode } from '@stencil/core/dist/declarations';
+import { VNode } from '@stencil/core/dist/declarations/vdom';
+import { HTMLStencilElement } from '@stencil/core/internal';
 
 import { FieldsOf } from '../../utils/lang/types';
 import { ComponentBase, ComponentBehavior } from '../../utils/stencil/component-behavior';

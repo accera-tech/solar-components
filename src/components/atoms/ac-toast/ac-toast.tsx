@@ -1,5 +1,5 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Event, EventEmitter, Method, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Method, Prop, h } from '@stencil/core';
 
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -32,21 +32,17 @@ export class AcToast implements TransitionComponent {
 
   @Bind
   @Method()
-  private close() {
+  async close() {
     this.host.remove();
   }
 
-  hostData() {
-    return {
-      attribute: 'toast',
-      class: {
-        [`ac-toast--${this.type}`]: this.type !== undefined,
-      }
-    };
-  }
-
   render() {
-    return [
+    return (
+      <Host
+        class={{
+          [`ac-toast--${this.type}`]: this.type !== undefined,
+        }}
+      >
       <header class="ac-toast__header">
         <h3>{this.title}</h3>
         <AcFaIcon
@@ -55,11 +51,11 @@ export class AcToast implements TransitionComponent {
           onClick={this.close}
         />
         <AcNeogridShape onClick={this.close} class="ac-toast__header-bg" />
-      </header>,
+      </header>
       <section class="ac-toast__content">
         <span class="ac-toast__content-text">{this.message}</span>
       </section>
-
-    ];
+      </Host>
+    );
   }
 }

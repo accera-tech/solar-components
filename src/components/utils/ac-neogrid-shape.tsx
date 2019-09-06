@@ -1,3 +1,5 @@
+import { h } from '@stencil/core';
+
 export const AcNeogridShape = props => (
   <svg viewBox="-50 -50 700 700" {...props}>
     <path

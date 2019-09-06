@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 /**
  * Accera's tab webcomponent. Used within AcTabs.
@@ -18,17 +18,15 @@ export class AcTab {
    */
   @Prop() compact: boolean;
 
-  hostData() {
-    return {
-      class: {
-        'ac-tab--compact': this.compact
-      }
-    }
-  }
-
   render() {
     return (
-      <slot/>
+      <Host
+        class={{
+        'ac-tab--compact': this.compact
+      }}
+      >
+        <slot/>
+      </Host>
     );
   }
 }

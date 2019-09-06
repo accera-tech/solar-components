@@ -1,3 +1,5 @@
+import { h } from '@stencil/core';
+
 const buildContent = props => {
   const type = props.type;
   switch (type) {

@@ -1,4 +1,4 @@
-import { Component, Element, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, Host, Listen, Prop, State, h } from '@stencil/core';
 
 import { Bind } from '../../../utils/lang/bind';
 import { AcMenuIcon } from '../../utils/ac-menu-icon';
@@ -35,7 +35,7 @@ export class AcHeader {
     }
   }
 
-  @Listen('window:contentScroll')
+  @Listen('contentScroll', { target: 'window' })
   handleLayoutContentScroll(ev) {
     this.scrolled = ev.detail.top > 0;
   }
@@ -45,19 +45,15 @@ export class AcHeader {
     this.parentLayout.collapsed = 'nav-left';
   }
 
-  hostData() {
-    return {
-      class: {
-        [`ac-header--${this.theme}`]: this.theme,
-        'ac-header--scrolled': this.scrolled,
-      }
-    };
-  }
-
   render() {
-    return [
-      <header class="ac-header__header-container">
-        { this.hasNavdrawer ?
+    return (
+      <Host
+        class={{
+          'ac-header--scrolled': this.scrolled,
+        }}
+      >
+        <header class="ac-header__header-container">
+          {this.hasNavdrawer ?
           <ac-button
             class="ac-header__menu-button"
             shape="round"
@@ -68,16 +64,17 @@ export class AcHeader {
           >
             <AcMenuIcon />
           </ac-button>
-          : <span />
-        }
-        <div class="ac-header__content">
-          <slot />
-        </div>
-        <div class="ac-header__actions">
-          <slot name="actions" />
-        </div>
-      </header>,
-      <slot name="sub-header" />
-    ];
+            : <span />
+          }
+          <div class="ac-header__content">
+            <slot/>
+          </div>
+          <div class="ac-header__actions">
+            <slot name="actions"/>
+          </div>
+        </header>
+        <slot name="sub-header"/>
+      </Host>
+    );
   }
 }

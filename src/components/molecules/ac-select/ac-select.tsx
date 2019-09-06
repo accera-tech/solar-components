@@ -1,5 +1,5 @@
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Event, EventEmitter, Method, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Method, Prop, State, Watch, h } from '@stencil/core';
 import { equals } from 'ramda';
 
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
@@ -160,14 +160,13 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   /**
    * Fired when the user select/deselect an option.
    */
-  @Event() change: EventEmitter<any>;
+  @Event() selectChange: EventEmitter<any>;
 
   @Watch('value')
   valueDidUpdate(newValue: (number | string)[] | number | string,
                  oldValue: (number | string)[] | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       this.formatSelectedText();
-      this.change.emit(this.value);
     }
   }
 
@@ -275,6 +274,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     if (this.requestCheckValidity) {
       this.formFieldBehavior.checkValidity(this.value);
       this.requestCheckValidity = false;
+      this.selectChange.emit(this.value);
     }
   }
 

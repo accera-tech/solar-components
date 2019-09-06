@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Prop, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
 import { addClass, addStyle, animate, removeClass, wait } from '../../../utils/animation';
 import { Bind } from '../../../utils/lang/bind';
@@ -69,7 +69,7 @@ export class AcTabs {
       // tslint:disable-next-line:no-unused-expression
       selected && selected == tab.id ? tab.active = true : null
     });
-
+    this.selected = this.currentTab.id;
     setTimeout(() => this.moveBulletToCurrentTab(), 100);
   }
 
@@ -82,6 +82,7 @@ export class AcTabs {
       tab.active = true;
       this.currentTab = tab;
       await this.moveBulletToCurrentTab();
+      this.selected = this.currentTab.id;
       this.tabChange.emit(this.currentTab.id);
     }
   }
@@ -111,26 +112,23 @@ export class AcTabs {
     this.bulletElt.style.transform = `translateX(-${this.wrapperElt.scrollLeft}px)`;
   }
 
-  hostData() {
-    return {
-      attribute: 'nav',
-      class: {
+  render() {
+    return (
+      <Host
+        class={{
         [`ac-tabs--${this.theme}`]: this.theme !== undefined,
         'ac-tabs--compact': this.compact
-      }
-    };
-  }
-
-  render() {
-    return [
+      }}
+      >
       <span
         class="ac-tabs__wrapper"
         ref={wrapper => this.wrapperElt = wrapper}
         onScroll={this.handleWrapperScroll}
       >
         <slot/>
-      </span>,
-      <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet}/>
-    ];
+      </span>
+        <span class="ac-tabs__bullet" style={{ left: '0px' }} ref={bullet => this.bulletElt = bullet}/>
+      </Host>
+    );
   }
 }

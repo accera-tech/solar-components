@@ -38,7 +38,7 @@ export interface FormFieldComponent extends ComponentBase {
    * If this field component is required.
    * @Prop
    */
-  required: string | boolean;
+  required: boolean;
 
   /**
    * If this field is in the disabled state.

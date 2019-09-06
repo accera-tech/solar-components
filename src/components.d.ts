@@ -5,25 +5,14 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   CustomValidityState,
   ValidatorFn,
 } from './utils/validations/validations';
 import {
-  Options,
-} from './components/atoms/ac-table/ac-table';
-import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
-import {
-  AcToast,
-} from './components/atoms/ac-toast/ac-toast';
-import {
-  SelectOption,
-} from './components/molecules/ac-select/ac-select';
 import {
   AcModal,
 } from './components/organisms/ac-modal/ac-modal';
@@ -37,16 +26,20 @@ import {
   AcPopper,
 } from './components/portals/ac-popper/ac-popper';
 import {
-  EventEmitter,
-} from '@stencil/core';
-import {
   Placement,
   PopperOptions,
 } from 'popper.js';
-
+import {
+  SelectOption,
+} from './components/molecules/ac-select/ac-select';
+import {
+  Options,
+} from './components/atoms/ac-table/ac-table';
+import {
+  AcToast,
+} from './components/atoms/ac-toast/ac-toast';
 
 export namespace Components {
-
   interface AcAvatar {
     'href': string;
     'image': string;
@@ -55,24 +48,10 @@ export namespace Components {
     'target': string;
     'title': string;
   }
-  interface AcAvatarAttributes extends StencilHTMLAttributes {
-    'href'?: string;
-    'image'?: string;
-    'mode'?: 'list-item' | undefined;
-    'subtitle'?: string;
-    'target'?: string;
-    'title'?: string;
-  }
-
   interface AcBadge {
     'floating': boolean;
     'theme': 'alert' | 'warning' | 'success' | 'info';
   }
-  interface AcBadgeAttributes extends StencilHTMLAttributes {
-    'floating'?: boolean;
-    'theme'?: 'alert' | 'warning' | 'success' | 'info';
-  }
-
   interface AcButton {
     /**
     * The HTML5 native disable prop.
@@ -119,56 +98,7 @@ export namespace Components {
     */
     'type': 'button' | 'submit' | 'reset';
   }
-  interface AcButtonAttributes extends StencilHTMLAttributes {
-    /**
-    * The HTML5 native disable prop.
-    */
-    'disabled'?: boolean;
-    /**
-    * Button width.
-    */
-    'expand'?: 'block' | undefined;
-    /**
-    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
-    */
-    'fill'?: 'clear' | 'solid' | 'flat';
-    /**
-    * An optional link to open when click on it. Turns the button into a anchor element.
-    */
-    'href'?: string;
-    /**
-    * Icon only mode, with a square button, centered icon.
-    */
-    'iconOnly'?: boolean;
-    /**
-    * Set the loading mode, showing a loading icon.
-    */
-    'loading'?: boolean;
-    /**
-    * Button shape.
-    */
-    'shape'?: 'round' | undefined;
-    /**
-    * The size of the button.
-    */
-    'size'?: 'small' | 'large';
-    /**
-    * The HTML5 native anchor target to handle the href property.
-    */
-    'target'?: '_blank' | '_self' | '_parent' | '_top' | string;
-    /**
-    * The theme color defined in the color palette. The default is white.
-    */
-    'theme'?: any;
-    /**
-    * The HTML5 button type. See https://mdn.io/button
-    */
-    'type'?: 'button' | 'submit' | 'reset';
-  }
-
   interface AcCard {}
-  interface AcCardAttributes extends StencilHTMLAttributes {}
-
   interface AcCheck {
     /**
     * The actual checked state.
@@ -202,7 +132,7 @@ export namespace Components {
     /**
     * Mark this field as required.
     */
-    'required': string | boolean;
+    'required': boolean;
     /**
     * The type of this field.
     */
@@ -220,77 +150,201 @@ export namespace Components {
     */
     'value': string;
   }
-  interface AcCheckAttributes extends StencilHTMLAttributes {
+  interface AcDatePicker {
+    'altField': string;
+    'altFieldDateFormat': string;
+    'autoClose': boolean;
+    'classes': string;
+    'clear': () => Promise<void>;
+    'clearButton': boolean;
+    'dateFormat': string;
+    'dateTimeSeparator': string;
+    'destroy': () => Promise<void>;
+    'disableNavWhenOutOfRange': boolean;
     /**
-    * The actual checked state.
+    * If this field is in the disabled state.
     */
-    'checked'?: boolean;
+    'disabled': boolean;
+    'firstDay': string;
     /**
-    * Set the label direction.
+    * The FormFieldBehavior instance.
     */
-    'direction'?: 'left' | 'right';
+    'formFieldBehavior': any;
+    'formattedValue': string;
+    'getElement': () => Promise<HTMLElement>;
+    'getSelectedDates': () => Promise<Date[]>;
+    'hide': () => Promise<void>;
+    'hoursStep': number;
+    'inline': boolean;
+    'isShowing': boolean;
+    'keyboardNav': boolean;
+    'label': string;
+    'language': string;
+    'maxDate': string;
+    'maxHours': number;
+    'maxMinutes': number;
+    'minDate': string;
+    'minHours': number;
+    'minMinutes': number;
+    'minView': string;
+    'minutesStep': number;
+    'monthsField': string;
+    'moveToOtherMonthsOnSelect': boolean;
+    'moveToOtherYearsOnSelect': boolean;
+    'multipleDates': boolean | number;
+    'multipleDatesSeparator': string;
     /**
-    * The native disabled mode.
+    * The form field name.
     */
-    'disabled'?: boolean;
+    'name': string;
+    'next': () => Promise<void>;
+    'offset': number;
+    'onlyTimepicker': boolean;
+    'position': string;
+    'prev': () => Promise<void>;
+    'range': boolean;
+    'removeDate': (date: Date) => Promise<void>;
     /**
-    * Error state and message of this field.
+    * If this field component is required.
     */
-    'error'?: string;
+    'required': boolean;
+    'selectDate': (date: Date) => Promise<void>;
+    'selectOtherMonths': boolean;
+    'selectOtherYears': boolean;
+    'setDate': (date: Date) => Promise<void>;
+    'setView': (view: string) => Promise<void>;
+    'showEvent': string;
+    'showOtherMonths': boolean;
+    'showOtherYears': boolean;
+    'startDate': Date;
+    'timeFormat': string;
+    'timepicker': boolean;
+    'todayButton': boolean;
+    'toggleSelected': boolean;
+    'update': (field: string, value: any) => Promise<void>;
     /**
-    * The helper text to guide the user.
+    * The validators that ensure the field validity.
     */
-    'helperText'?: string;
+    'validator': ValidatorFn | ValidatorFn[];
     /**
-    * The textual label of this field.
+    * The validity state of the FormField.
     */
-    'label'?: string;
+    'validity': CustomValidityState;
     /**
-    * The HTML field name.
+    * The field value of the component.
     */
-    'name'?: string;
-    /**
-    * Mark this field as required.
-    */
-    'required'?: string | boolean;
-    /**
-    * The type of this field.
-    */
-    'type'?: 'radio' | 'checkbox';
-    /**
-    * Validation pipeline for this field.
-    */
-    'validator'?: ValidatorFn | ValidatorFn[];
-    /**
-    * The validity state.
-    */
-    'validity'?: CustomValidityState;
-    /**
-    * The HTML field value.
-    */
-    'value'?: string;
+    'value': Date | Date[];
+    'view': string;
+    'weekends': number[];
   }
-
   interface AcGauge {
     'percent': number;
     'size': number;
     'theme': string;
   }
-  interface AcGaugeAttributes extends StencilHTMLAttributes {
-    'percent'?: number;
-    'size'?: number;
-    'theme'?: string;
-  }
-
   interface AcHeader {
     'scrolled': boolean;
     'theme': string;
   }
-  interface AcHeaderAttributes extends StencilHTMLAttributes {
-    'scrolled'?: boolean;
-    'theme'?: string;
+  interface AcInput {
+    /**
+    * The native HTMLInputElement autocapitalize attribute.
+    */
+    'autocapitalize': string;
+    /**
+    * The native HTMLInputElement autocomplete attribute.
+    */
+    'autocomplete': string;
+    /**
+    * The native HTMLInputElement autofocus attribute.
+    */
+    'autofocus': boolean;
+    /**
+    * The disabled mode.
+    */
+    'disabled': boolean;
+    /**
+    * Set the component in the error state with a message.
+    */
+    'error': string | boolean;
+    /**
+    * The FormFieldBehavior instance.
+    */
+    'formFieldBehavior': any;
+    'getNativeFormField': () => Promise<any>;
+    /**
+    * Get the unmasked value.
+    */
+    'getRawValue': (type?: string) => Promise<any>;
+    /**
+    * The helper text to guide the user.
+    */
+    'helperText': string;
+    /**
+    * The label text of the this input group.
+    */
+    'label': string;
+    /**
+    * The mask of the input.
+    */
+    'mask': string;
+    /**
+    * The native HTMLInputElement max attribute.
+    */
+    'max': number;
+    /**
+    * The native HTMLInputElement maxlength attribute.
+    */
+    'maxlength': number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'min': number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'minlength': number;
+    /**
+    * The HTML input field's name.
+    */
+    'name': string;
+    /**
+    * The native HTMLInputElement pattern attribute.
+    */
+    'pattern': string;
+    /**
+    * The native HTMLInputElement required attribute.
+    */
+    'required': boolean;
+    /**
+    * Set focus state in the native input.
+    */
+    'setFocus': () => Promise<any>;
+    /**
+    * Update the value and run validations as if the user change it manually. When to use each: input.value will only update the value, useful to set the initial value of the input. input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state to the form.
+    */
+    'setValue': (value: any) => Promise<void>;
+    /**
+    * The type of the internal input.
+    */
+    'type': string;
+    /**
+    * Request check validation on each input key event.
+    */
+    'validateOnKeyup': boolean;
+    /**
+    * The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * Get the last validity state from the checkValidity.
+    */
+    'validity': CustomValidityState;
+    /**
+    * The value of the internal input.
+    */
+    'value': any;
   }
-
   interface AcInputBase {
     /**
     * The native HTMLInputElement autocapitalize attribute.
@@ -374,85 +428,51 @@ export namespace Components {
     */
     'value': any;
   }
-  interface AcInputBaseAttributes extends StencilHTMLAttributes {
+  interface AcLayout {
     /**
-    * The native HTMLInputElement autocapitalize attribute.
+    * Collapse a nav drawer.
     */
-    'autocapitalize'?: string;
-    /**
-    * The native HTMLInputElement autocomplete attribute.
-    */
-    'autocomplete'?: string;
-    /**
-    * The native HTMLInputElement autofocus attribute.
-    */
-    'autofocus'?: boolean;
-    /**
-    * The HTMLInputElement disabled attribute.
-    */
-    'disabled'?: boolean;
-    /**
-    * Error mode.
-    */
-    'error'?: boolean;
-    /**
-    * The label text of the this input group.
-    */
-    'label'?: string;
-    /**
-    * The native HTMLInputElement max attribute.
-    */
-    'max'?: number;
-    /**
-    * The native HTMLInputElement maxlength attribute.
-    */
-    'maxlength'?: number;
-    /**
-    * The native HTMLInputElement min attribute.
-    */
-    'min'?: number;
-    /**
-    * The native HTMLInputElement min attribute.
-    */
-    'minlength'?: number;
-    /**
-    * The native HTMLInputElement name attribute.
-    */
-    'name'?: string;
-    /**
-    * The native HTMLInputElement pattern attribute.
-    */
-    'pattern'?: string;
-    /**
-    * The native HTMLInputElement placeholder attribute.
-    */
-    'placeholder'?: string;
-    /**
-    * Enable readonly.
-    */
-    'readonly'?: boolean;
-    /**
-    * The native HTMLInputElement required attribute.
-    */
-    'required'?: boolean;
-    /**
-    * The input's size.
-    */
-    'size'?: 'small' | 'large';
-    /**
-    * The theme color defined in the color palette.
-    */
-    'theme'?: string;
-    /**
-    * The type of the internal input.
-    */
-    'type'?: string;
-    /**
-    * The value of the internal input.
-    */
-    'value'?: any;
+    'collapsed': 'nav-left';
   }
-
+  interface AcLogin {
+    'backgroundImageSrc': string;
+  }
+  interface AcMenu {
+    'iconOnly': boolean;
+    'noResultsLabel': string;
+    'searchLabel': string;
+    'searchable': boolean;
+    'selected': string | number;
+  }
+  interface AcMenuItem {
+    'active': boolean;
+    'collapsed': boolean;
+    'disabled': boolean;
+    'hidden': boolean;
+    'href': string;
+    'iconOnly': boolean;
+    'submenu': boolean;
+  }
+  interface AcModal {
+    /**
+    * The title that will be displayed on the modal.
+    */
+    'title': string;
+  }
+  interface AcModalController {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound': string;
+    /**
+    * Setup a new modal on the screen.
+    */
+    'create': (props: ControllerComponentOptions<AcModal & AcOverlay>) => Promise<any>;
+    /**
+    * Clear all modals that are displayed.
+    */
+    'dismiss': (data: any) => Promise<any>;
+  }
   interface AcNavdrawer {
     /**
     * Compact mode.
@@ -463,17 +483,82 @@ export namespace Components {
     */
     'theme': string;
   }
-  interface AcNavdrawerAttributes extends StencilHTMLAttributes {
+  interface AcOverlay {
     /**
-    * Compact mode.
+    * The backdrop theme.
     */
-    'compact'?: boolean;
+    'backdrop': 'dark' | 'light';
+    'disableClose': boolean;
+    'handleBackDropClick': () => Promise<void>;
+    'noLayer': boolean;
     /**
-    * The color theme.
+    * Content position based on flex layout.
     */
-    'theme'?: string;
+    'position': 'start start' | 'start center' | 'start flex-end' |
+    'center start' | 'center center' | 'center flex-end' |
+    'flex-end start' | 'flex-end center' | 'flex-end flex-end';
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren': any;
   }
-
+  interface AcPagination {
+    /**
+    * Used to localize the Next button label.
+    */
+    'nextLabel': string;
+    /**
+    * Used to localize the Previous button label.
+    */
+    'previousLabel': string;
+    /**
+    * The selected page.
+    */
+    'selected': number;
+    /**
+    * The amount of pages.
+    */
+    'totalPages': number;
+  }
+  interface AcPanel {}
+  interface AcPanelController {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound': string;
+    /**
+    * Setup a new modal on the screen.
+    */
+    'create': (props: ControllerComponentOptions<AcPanel & AcPopper>) => Promise<any>;
+    /**
+    * Clear all modals that are displayed.
+    */
+    'dismiss': (elt?: any) => Promise<any>;
+  }
+  interface AcPopper {
+    /**
+    * Popper.js's options.
+    */
+    'popperOptions': PopperOptions;
+    /**
+    * Pivot element used to place the popper.
+    */
+    'popperPivot': string | HTMLElement;
+    /**
+    * Popper.js's placement.
+    */
+    'popperPlacement': Placement;
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren': any;
+  }
+  interface AcPortal {
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren': any;
+  }
   interface AcProgress {
     /**
     * Set the bar's percentage.
@@ -484,17 +569,71 @@ export namespace Components {
     */
     'theme': string;
   }
-  interface AcProgressAttributes extends StencilHTMLAttributes {
+  interface AcSelect {
     /**
-    * Set the bar's percentage.
+    * Set the disabled mode.
     */
-    'percent'?: number;
+    'disabled': boolean;
     /**
-    * Set the theme color.
+    * Set the field in the error state with a message.
     */
-    'theme'?: string;
+    'error': string | boolean;
+    /**
+    * The instance of the FormFieldBehavior.
+    */
+    'formFieldBehavior': any;
+    'getNativeFormField': () => Promise<HTMLSelectElement>;
+    'getSelectedOptions': () => Promise<SelectOption<{}>[]>;
+    /**
+    * The helper text to guide the user.
+    */
+    'helperText': string;
+    /**
+    * The label text of the this input group.
+    */
+    'label': string;
+    /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading': boolean;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple': boolean;
+    /**
+    * The name of the internal input.
+    */
+    'name': string;
+    /**
+    * Set the custom empty result text.
+    */
+    'noResultsLabel': string;
+    /**
+    * The options that will be displayed in the panel.
+    */
+    'options': SelectOption[];
+    /**
+    * The native required attribute.
+    */
+    'required': boolean;
+    /**
+    * Set the search mode.
+    */
+    'searchable': boolean;
+    'setValue': (values: any) => Promise<void>;
+    /**
+    * The validator functions.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity': CustomValidityState;
+    /**
+    * The value of the internal input.
+    */
+    'value': any[] | any;
   }
-
   interface AcStepper {
     /**
     * The number of concluded steps.
@@ -503,49 +642,48 @@ export namespace Components {
     /**
     * Increments the count of concluded steps.
     */
-    'next': () => void;
+    'next': () => Promise<void>;
     /**
     * Decrement the count of concluded steps.
     */
-    'previous': () => void;
+    'previous': () => Promise<void>;
     /**
     * The count of steps to be displayed. TODO: It mighty support an array of steps in the future.
     */
     'steps': number;
   }
-  interface AcStepperAttributes extends StencilHTMLAttributes {
+  interface AcTab {
     /**
-    * The number of concluded steps.
+    * If true, mark this tab as a selected tab.
     */
-    'done'?: number;
+    'active': boolean;
     /**
-    * Dispatched when the steps state changes.
+    * Set this tab in compact mode.
     */
-    'onChange'?: (event: CustomEvent<{ index: number }>) => void;
-    /**
-    * The count of steps to be displayed. TODO: It mighty support an array of steps in the future.
-    */
-    'steps'?: number;
+    'compact': boolean;
   }
-
   interface AcTable {
     'fetch': any;
     'loading': boolean;
     'noResultsLabel': string;
     'options': Options;
-    'params': any;
+    'params': { ordering: string; property: string; selected: number; filters: { limitRows: string; totalRows: string; search: string; }; };
     'selectRow': any;
   }
-  interface AcTableAttributes extends StencilHTMLAttributes {
-    'fetch'?: any;
-    'loading'?: boolean;
-    'noResultsLabel'?: string;
-    'onChangeOrder'?: (event: CustomEvent) => void;
-    'options'?: Options;
-    'params'?: any;
-    'selectRow'?: any;
+  interface AcTabs {
+    'compact': boolean;
+    'selected': string | number;
+    /**
+    * The theme color defined in the color palette. The default is primary.
+    */
+    'theme': string;
   }
-
+  interface AcToast {
+    'close': () => Promise<void>;
+    'message': string;
+    'title': string;
+    'type': 'alert' | 'success' | 'info' | 'warning';
+  }
   interface AcToastController {
     /**
     * An optional property used to refer the parent element that the component will be attached to.
@@ -560,126 +698,455 @@ export namespace Components {
     */
     'dismiss': (data: any) => Promise<any>;
   }
-  interface AcToastControllerAttributes extends StencilHTMLAttributes {
+  interface AcUpload {
+    'handleClick': () => Promise<void>;
+    'name': string;
+    'removeFiles': () => Promise<void>;
     /**
-    * An optional property used to refer the parent element that the component will be attached to.
+    * The theme color defined in the color palette. The default is primary.
     */
-    'bound'?: string;
+    'theme': string;
+    /**
+    * Text introduced in Button upload.
+    */
+    'uploadButtonText': string;
+    'value': FileList;
   }
+}
 
-  interface AcToast {
-    'close': () => void;
-    'message': string;
-    'title': string;
-    'type': 'alert' | 'success' | 'info' | 'warning';
+declare global {
+
+
+  interface HTMLAcAvatarElement extends Components.AcAvatar, HTMLStencilElement {}
+  var HTMLAcAvatarElement: {
+    prototype: HTMLAcAvatarElement;
+    new (): HTMLAcAvatarElement;
+  };
+
+  interface HTMLAcBadgeElement extends Components.AcBadge, HTMLStencilElement {}
+  var HTMLAcBadgeElement: {
+    prototype: HTMLAcBadgeElement;
+    new (): HTMLAcBadgeElement;
+  };
+
+  interface HTMLAcButtonElement extends Components.AcButton, HTMLStencilElement {}
+  var HTMLAcButtonElement: {
+    prototype: HTMLAcButtonElement;
+    new (): HTMLAcButtonElement;
+  };
+
+  interface HTMLAcCardElement extends Components.AcCard, HTMLStencilElement {}
+  var HTMLAcCardElement: {
+    prototype: HTMLAcCardElement;
+    new (): HTMLAcCardElement;
+  };
+
+  interface HTMLAcCheckElement extends Components.AcCheck, HTMLStencilElement {}
+  var HTMLAcCheckElement: {
+    prototype: HTMLAcCheckElement;
+    new (): HTMLAcCheckElement;
+  };
+
+  interface HTMLAcDatePickerElement extends Components.AcDatePicker, HTMLStencilElement {}
+  var HTMLAcDatePickerElement: {
+    prototype: HTMLAcDatePickerElement;
+    new (): HTMLAcDatePickerElement;
+  };
+
+  interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
+  var HTMLAcGaugeElement: {
+    prototype: HTMLAcGaugeElement;
+    new (): HTMLAcGaugeElement;
+  };
+
+  interface HTMLAcHeaderElement extends Components.AcHeader, HTMLStencilElement {}
+  var HTMLAcHeaderElement: {
+    prototype: HTMLAcHeaderElement;
+    new (): HTMLAcHeaderElement;
+  };
+
+  interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
+  var HTMLAcInputElement: {
+    prototype: HTMLAcInputElement;
+    new (): HTMLAcInputElement;
+  };
+
+  interface HTMLAcInputBaseElement extends Components.AcInputBase, HTMLStencilElement {}
+  var HTMLAcInputBaseElement: {
+    prototype: HTMLAcInputBaseElement;
+    new (): HTMLAcInputBaseElement;
+  };
+
+  interface HTMLAcLayoutElement extends Components.AcLayout, HTMLStencilElement {}
+  var HTMLAcLayoutElement: {
+    prototype: HTMLAcLayoutElement;
+    new (): HTMLAcLayoutElement;
+  };
+
+  interface HTMLAcLoginElement extends Components.AcLogin, HTMLStencilElement {}
+  var HTMLAcLoginElement: {
+    prototype: HTMLAcLoginElement;
+    new (): HTMLAcLoginElement;
+  };
+
+  interface HTMLAcMenuElement extends Components.AcMenu, HTMLStencilElement {}
+  var HTMLAcMenuElement: {
+    prototype: HTMLAcMenuElement;
+    new (): HTMLAcMenuElement;
+  };
+
+  interface HTMLAcMenuItemElement extends Components.AcMenuItem, HTMLStencilElement {}
+  var HTMLAcMenuItemElement: {
+    prototype: HTMLAcMenuItemElement;
+    new (): HTMLAcMenuItemElement;
+  };
+
+  interface HTMLAcModalElement extends Components.AcModal, HTMLStencilElement {}
+  var HTMLAcModalElement: {
+    prototype: HTMLAcModalElement;
+    new (): HTMLAcModalElement;
+  };
+
+  interface HTMLAcModalControllerElement extends Components.AcModalController, HTMLStencilElement {}
+  var HTMLAcModalControllerElement: {
+    prototype: HTMLAcModalControllerElement;
+    new (): HTMLAcModalControllerElement;
+  };
+
+  interface HTMLAcNavdrawerElement extends Components.AcNavdrawer, HTMLStencilElement {}
+  var HTMLAcNavdrawerElement: {
+    prototype: HTMLAcNavdrawerElement;
+    new (): HTMLAcNavdrawerElement;
+  };
+
+  interface HTMLAcOverlayElement extends Components.AcOverlay, HTMLStencilElement {}
+  var HTMLAcOverlayElement: {
+    prototype: HTMLAcOverlayElement;
+    new (): HTMLAcOverlayElement;
+  };
+
+  interface HTMLAcPaginationElement extends Components.AcPagination, HTMLStencilElement {}
+  var HTMLAcPaginationElement: {
+    prototype: HTMLAcPaginationElement;
+    new (): HTMLAcPaginationElement;
+  };
+
+  interface HTMLAcPanelElement extends Components.AcPanel, HTMLStencilElement {}
+  var HTMLAcPanelElement: {
+    prototype: HTMLAcPanelElement;
+    new (): HTMLAcPanelElement;
+  };
+
+  interface HTMLAcPanelControllerElement extends Components.AcPanelController, HTMLStencilElement {}
+  var HTMLAcPanelControllerElement: {
+    prototype: HTMLAcPanelControllerElement;
+    new (): HTMLAcPanelControllerElement;
+  };
+
+  interface HTMLAcPopperElement extends Components.AcPopper, HTMLStencilElement {}
+  var HTMLAcPopperElement: {
+    prototype: HTMLAcPopperElement;
+    new (): HTMLAcPopperElement;
+  };
+
+  interface HTMLAcPortalElement extends Components.AcPortal, HTMLStencilElement {}
+  var HTMLAcPortalElement: {
+    prototype: HTMLAcPortalElement;
+    new (): HTMLAcPortalElement;
+  };
+
+  interface HTMLAcProgressElement extends Components.AcProgress, HTMLStencilElement {}
+  var HTMLAcProgressElement: {
+    prototype: HTMLAcProgressElement;
+    new (): HTMLAcProgressElement;
+  };
+
+  interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
+  var HTMLAcSelectElement: {
+    prototype: HTMLAcSelectElement;
+    new (): HTMLAcSelectElement;
+  };
+
+  interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
+  var HTMLAcStepperElement: {
+    prototype: HTMLAcStepperElement;
+    new (): HTMLAcStepperElement;
+  };
+
+  interface HTMLAcTabElement extends Components.AcTab, HTMLStencilElement {}
+  var HTMLAcTabElement: {
+    prototype: HTMLAcTabElement;
+    new (): HTMLAcTabElement;
+  };
+
+  interface HTMLAcTableElement extends Components.AcTable, HTMLStencilElement {}
+  var HTMLAcTableElement: {
+    prototype: HTMLAcTableElement;
+    new (): HTMLAcTableElement;
+  };
+
+  interface HTMLAcTabsElement extends Components.AcTabs, HTMLStencilElement {}
+  var HTMLAcTabsElement: {
+    prototype: HTMLAcTabsElement;
+    new (): HTMLAcTabsElement;
+  };
+
+  interface HTMLAcToastElement extends Components.AcToast, HTMLStencilElement {}
+  var HTMLAcToastElement: {
+    prototype: HTMLAcToastElement;
+    new (): HTMLAcToastElement;
+  };
+
+  interface HTMLAcToastControllerElement extends Components.AcToastController, HTMLStencilElement {}
+  var HTMLAcToastControllerElement: {
+    prototype: HTMLAcToastControllerElement;
+    new (): HTMLAcToastControllerElement;
+  };
+
+  interface HTMLAcUploadElement extends Components.AcUpload, HTMLStencilElement {}
+  var HTMLAcUploadElement: {
+    prototype: HTMLAcUploadElement;
+    new (): HTMLAcUploadElement;
+  };
+  interface HTMLElementTagNameMap {
+    'ac-avatar': HTMLAcAvatarElement;
+    'ac-badge': HTMLAcBadgeElement;
+    'ac-button': HTMLAcButtonElement;
+    'ac-card': HTMLAcCardElement;
+    'ac-check': HTMLAcCheckElement;
+    'ac-date-picker': HTMLAcDatePickerElement;
+    'ac-gauge': HTMLAcGaugeElement;
+    'ac-header': HTMLAcHeaderElement;
+    'ac-input': HTMLAcInputElement;
+    'ac-input-base': HTMLAcInputBaseElement;
+    'ac-layout': HTMLAcLayoutElement;
+    'ac-login': HTMLAcLoginElement;
+    'ac-menu': HTMLAcMenuElement;
+    'ac-menu-item': HTMLAcMenuItemElement;
+    'ac-modal': HTMLAcModalElement;
+    'ac-modal-controller': HTMLAcModalControllerElement;
+    'ac-navdrawer': HTMLAcNavdrawerElement;
+    'ac-overlay': HTMLAcOverlayElement;
+    'ac-pagination': HTMLAcPaginationElement;
+    'ac-panel': HTMLAcPanelElement;
+    'ac-panel-controller': HTMLAcPanelControllerElement;
+    'ac-popper': HTMLAcPopperElement;
+    'ac-portal': HTMLAcPortalElement;
+    'ac-progress': HTMLAcProgressElement;
+    'ac-select': HTMLAcSelectElement;
+    'ac-stepper': HTMLAcStepperElement;
+    'ac-tab': HTMLAcTabElement;
+    'ac-table': HTMLAcTableElement;
+    'ac-tabs': HTMLAcTabsElement;
+    'ac-toast': HTMLAcToastElement;
+    'ac-toast-controller': HTMLAcToastControllerElement;
+    'ac-upload': HTMLAcUploadElement;
   }
-  interface AcToastAttributes extends StencilHTMLAttributes {
-    'message'?: string;
-    'onClose'?: (event: CustomEvent<void>) => void;
+}
+
+declare namespace LocalJSX {
+  interface AcAvatar extends JSXBase.HTMLAttributes<HTMLAcAvatarElement> {
+    'href'?: string;
+    'image'?: string;
+    'mode'?: 'list-item' | undefined;
+    'subtitle'?: string;
+    'target'?: string;
     'title'?: string;
-    'type'?: 'alert' | 'success' | 'info' | 'warning';
   }
-
-  interface AcInput {
+  interface AcBadge extends JSXBase.HTMLAttributes<HTMLAcBadgeElement> {
+    'floating'?: boolean;
+    'theme'?: 'alert' | 'warning' | 'success' | 'info';
+  }
+  interface AcButton extends JSXBase.HTMLAttributes<HTMLAcButtonElement> {
     /**
-    * The native HTMLInputElement autocapitalize attribute.
+    * The HTML5 native disable prop.
     */
-    'autocapitalize': string;
+    'disabled'?: boolean;
     /**
-    * The native HTMLInputElement autocomplete attribute.
+    * Button width.
     */
-    'autocomplete': string;
+    'expand'?: 'block' | undefined;
     /**
-    * The native HTMLInputElement autofocus attribute.
+    * Fill mode: * flat - No borders and no raising * solid - Raised button, default * clear - No background and borders
     */
-    'autofocus': boolean;
+    'fill'?: 'clear' | 'solid' | 'flat';
     /**
-    * The disabled mode.
+    * An optional link to open when click on it. Turns the button into a anchor element.
     */
-    'disabled': boolean;
+    'href'?: string;
     /**
-    * Set the component in the error state with a message.
+    * Icon only mode, with a square button, centered icon.
     */
-    'error': string | boolean;
+    'iconOnly'?: boolean;
     /**
-    * The FormFieldBehavior instance.
+    * Set the loading mode, showing a loading icon.
     */
-    'formFieldBehavior': any;
-    'getNativeFormField': () => any;
+    'loading'?: boolean;
     /**
-    * Get the unmasked value.
+    * Button shape.
     */
-    'getRawValue': (type?: string) => Promise<any>;
+    'shape'?: 'round' | undefined;
+    /**
+    * The size of the button.
+    */
+    'size'?: 'small' | 'large';
+    /**
+    * The HTML5 native anchor target to handle the href property.
+    */
+    'target'?: '_blank' | '_self' | '_parent' | '_top' | string;
+    /**
+    * The theme color defined in the color palette. The default is white.
+    */
+    'theme'?: any;
+    /**
+    * The HTML5 button type. See https://mdn.io/button
+    */
+    'type'?: 'button' | 'submit' | 'reset';
+  }
+  interface AcCard extends JSXBase.HTMLAttributes<HTMLAcCardElement> {}
+  interface AcCheck extends JSXBase.HTMLAttributes<HTMLAcCheckElement> {
+    /**
+    * The actual checked state.
+    */
+    'checked'?: boolean;
+    /**
+    * Set the label direction.
+    */
+    'direction'?: 'left' | 'right';
+    /**
+    * The native disabled mode.
+    */
+    'disabled'?: boolean;
+    /**
+    * Error state and message of this field.
+    */
+    'error'?: string;
     /**
     * The helper text to guide the user.
     */
-    'helperText': string;
+    'helperText'?: string;
     /**
-    * The label text of the this input group.
+    * The textual label of this field.
     */
-    'label': string;
+    'label'?: string;
     /**
-    * The mask of the input.
+    * The HTML field name.
     */
-    'mask': string;
+    'name'?: string;
     /**
-    * The native HTMLInputElement max attribute.
+    * Mark this field as required.
     */
-    'max': number;
+    'required'?: boolean;
     /**
-    * The native HTMLInputElement maxlength attribute.
+    * The type of this field.
     */
-    'maxlength': number;
+    'type'?: 'radio' | 'checkbox';
     /**
-    * The native HTMLInputElement min attribute.
+    * Validation pipeline for this field.
     */
-    'min': number;
+    'validator'?: ValidatorFn | ValidatorFn[];
     /**
-    * The native HTMLInputElement min attribute.
+    * The validity state.
     */
-    'minlength': number;
+    'validity'?: CustomValidityState;
     /**
-    * The HTML input field's name.
+    * The HTML field value.
     */
-    'name': string;
-    /**
-    * The native HTMLInputElement pattern attribute.
-    */
-    'pattern': string;
-    /**
-    * The native HTMLInputElement required attribute.
-    */
-    'required': boolean;
-    /**
-    * Set focus state in the native input.
-    */
-    'setFocus': () => any;
-    /**
-    * Update the value and run validations as if the user change it manually. When to use each: input.value will only update the value, useful to set the initial value of the input. input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state to the form.
-    */
-    'setValue': (value: any) => void;
-    /**
-    * The type of the internal input.
-    */
-    'type': string;
-    /**
-    * Request check validation on each input key event.
-    */
-    'validateOnKeyup': boolean;
-    /**
-    * The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present.
-    */
-    'validator': ValidatorFn | ValidatorFn[];
-    /**
-    * Get the last validity state from the checkValidity.
-    */
-    'validity': CustomValidityState;
-    /**
-    * The value of the internal input.
-    */
-    'value': any;
+    'value'?: string;
   }
-  interface AcInputAttributes extends StencilHTMLAttributes {
+  interface AcDatePicker extends JSXBase.HTMLAttributes<HTMLAcDatePickerElement> {
+    'altField'?: string;
+    'altFieldDateFormat'?: string;
+    'autoClose'?: boolean;
+    'classes'?: string;
+    'clearButton'?: boolean;
+    'dateFormat'?: string;
+    'dateTimeSeparator'?: string;
+    'disableNavWhenOutOfRange'?: boolean;
+    /**
+    * If this field is in the disabled state.
+    */
+    'disabled'?: boolean;
+    'firstDay'?: string;
+    /**
+    * The FormFieldBehavior instance.
+    */
+    'formFieldBehavior'?: any;
+    'formattedValue'?: string;
+    'hoursStep'?: number;
+    'inline'?: boolean;
+    'isShowing'?: boolean;
+    'keyboardNav'?: boolean;
+    'label'?: string;
+    'language'?: string;
+    'maxDate'?: string;
+    'maxHours'?: number;
+    'maxMinutes'?: number;
+    'minDate'?: string;
+    'minHours'?: number;
+    'minMinutes'?: number;
+    'minView'?: string;
+    'minutesStep'?: number;
+    'monthsField'?: string;
+    'moveToOtherMonthsOnSelect'?: boolean;
+    'moveToOtherYearsOnSelect'?: boolean;
+    'multipleDates'?: boolean | number;
+    'multipleDatesSeparator'?: string;
+    /**
+    * The form field name.
+    */
+    'name'?: string;
+    'offset'?: number;
+    'onOnChangeDecade'?: (event: CustomEvent<any>) => void;
+    'onOnChangeMonth'?: (event: CustomEvent<any>) => void;
+    'onOnChangeView'?: (event: CustomEvent<any>) => void;
+    'onOnChangeYear'?: (event: CustomEvent<any>) => void;
+    'onOnHide'?: (event: CustomEvent<any>) => void;
+    'onOnRenderCell'?: (event: CustomEvent<any>) => void;
+    'onOnSelect'?: (event: CustomEvent<any>) => void;
+    'onOnShow'?: (event: CustomEvent<any>) => void;
+    'onlyTimepicker'?: boolean;
+    'position'?: string;
+    'range'?: boolean;
+    /**
+    * If this field component is required.
+    */
+    'required'?: boolean;
+    'selectOtherMonths'?: boolean;
+    'selectOtherYears'?: boolean;
+    'showEvent'?: string;
+    'showOtherMonths'?: boolean;
+    'showOtherYears'?: boolean;
+    'startDate'?: Date;
+    'timeFormat'?: string;
+    'timepicker'?: boolean;
+    'todayButton'?: boolean;
+    'toggleSelected'?: boolean;
+    /**
+    * The validators that ensure the field validity.
+    */
+    'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state of the FormField.
+    */
+    'validity'?: CustomValidityState;
+    /**
+    * The field value of the component.
+    */
+    'value'?: Date | Date[];
+    'view'?: string;
+    'weekends'?: number[];
+  }
+  interface AcGauge extends JSXBase.HTMLAttributes<HTMLAcGaugeElement> {
+    'percent'?: number;
+    'size'?: number;
+    'theme'?: string;
+  }
+  interface AcHeader extends JSXBase.HTMLAttributes<HTMLAcHeaderElement> {
+    'scrolled'?: boolean;
+    'theme'?: string;
+  }
+  interface AcInput extends JSXBase.HTMLAttributes<HTMLAcInputElement> {
     /**
     * The native HTMLInputElement autocapitalize attribute.
     */
@@ -765,17 +1232,103 @@ export namespace Components {
     */
     'value'?: any;
   }
-
-  interface AcMenuItem {
-    'active': boolean;
-    'collapsed': boolean;
-    'disabled': boolean;
-    'hidden': boolean;
-    'href': string;
-    'iconOnly': boolean;
-    'submenu': boolean;
+  interface AcInputBase extends JSXBase.HTMLAttributes<HTMLAcInputBaseElement> {
+    /**
+    * The native HTMLInputElement autocapitalize attribute.
+    */
+    'autocapitalize'?: string;
+    /**
+    * The native HTMLInputElement autocomplete attribute.
+    */
+    'autocomplete'?: string;
+    /**
+    * The native HTMLInputElement autofocus attribute.
+    */
+    'autofocus'?: boolean;
+    /**
+    * The HTMLInputElement disabled attribute.
+    */
+    'disabled'?: boolean;
+    /**
+    * Error mode.
+    */
+    'error'?: boolean;
+    /**
+    * The label text of the this input group.
+    */
+    'label'?: string;
+    /**
+    * The native HTMLInputElement max attribute.
+    */
+    'max'?: number;
+    /**
+    * The native HTMLInputElement maxlength attribute.
+    */
+    'maxlength'?: number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'min'?: number;
+    /**
+    * The native HTMLInputElement min attribute.
+    */
+    'minlength'?: number;
+    /**
+    * The native HTMLInputElement name attribute.
+    */
+    'name'?: string;
+    /**
+    * The native HTMLInputElement pattern attribute.
+    */
+    'pattern'?: string;
+    /**
+    * The native HTMLInputElement placeholder attribute.
+    */
+    'placeholder'?: string;
+    /**
+    * Enable readonly.
+    */
+    'readonly'?: boolean;
+    /**
+    * The native HTMLInputElement required attribute.
+    */
+    'required'?: boolean;
+    /**
+    * The input's size.
+    */
+    'size'?: 'small' | 'large';
+    /**
+    * The theme color defined in the color palette.
+    */
+    'theme'?: string;
+    /**
+    * The type of the internal input.
+    */
+    'type'?: string;
+    /**
+    * The value of the internal input.
+    */
+    'value'?: any;
   }
-  interface AcMenuItemAttributes extends StencilHTMLAttributes {
+  interface AcLayout extends JSXBase.HTMLAttributes<HTMLAcLayoutElement> {
+    /**
+    * Collapse a nav drawer.
+    */
+    'collapsed'?: 'nav-left';
+    'onContentScroll'?: (event: CustomEvent<{ top: number, left: number }>) => void;
+  }
+  interface AcLogin extends JSXBase.HTMLAttributes<HTMLAcLoginElement> {
+    'backgroundImageSrc'?: string;
+  }
+  interface AcMenu extends JSXBase.HTMLAttributes<HTMLAcMenuElement> {
+    'iconOnly'?: boolean;
+    'noResultsLabel'?: string;
+    'onMenuChange'?: (event: CustomEvent<string>) => void;
+    'searchLabel'?: string;
+    'searchable'?: boolean;
+    'selected'?: string | number;
+  }
+  interface AcMenuItem extends JSXBase.HTMLAttributes<HTMLAcMenuItemElement> {
     'active'?: boolean;
     'collapsed'?: boolean;
     'disabled'?: boolean;
@@ -784,42 +1337,52 @@ export namespace Components {
     'iconOnly'?: boolean;
     'submenu'?: boolean;
   }
-
-  interface AcMenu {
-    'iconOnly': boolean;
-    'noResultsLabel': string;
-    'searchLabel': string;
-    'searchable': boolean;
-    'selected': string | number;
+  interface AcModal extends JSXBase.HTMLAttributes<HTMLAcModalElement> {
+    /**
+    * Dispatched when the modal closes.
+    */
+    'onClose'?: (event: CustomEvent<void>) => void;
+    /**
+    * The title that will be displayed on the modal.
+    */
+    'title'?: string;
   }
-  interface AcMenuAttributes extends StencilHTMLAttributes {
-    'iconOnly'?: boolean;
-    'noResultsLabel'?: string;
-    'onMenuChange'?: (event: CustomEvent<string>) => void;
-    'searchLabel'?: string;
-    'searchable'?: boolean;
-    'selected'?: string | number;
+  interface AcModalController extends JSXBase.HTMLAttributes<HTMLAcModalControllerElement> {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound'?: string;
   }
-
-  interface AcPagination {
+  interface AcNavdrawer extends JSXBase.HTMLAttributes<HTMLAcNavdrawerElement> {
     /**
-    * Used to localize the Next button label.
+    * Compact mode.
     */
-    'nextLabel': string;
+    'compact'?: boolean;
     /**
-    * Used to localize the Previous button label.
+    * The color theme.
     */
-    'previousLabel': string;
-    /**
-    * The selected page.
-    */
-    'selected': number;
-    /**
-    * The amount of pages.
-    */
-    'totalPages': number;
+    'theme'?: string;
   }
-  interface AcPaginationAttributes extends StencilHTMLAttributes {
+  interface AcOverlay extends JSXBase.HTMLAttributes<HTMLAcOverlayElement> {
+    /**
+    * The backdrop theme.
+    */
+    'backdrop'?: 'dark' | 'light';
+    'disableClose'?: boolean;
+    'noLayer'?: boolean;
+    'onBackDropClick'?: (event: CustomEvent<void>) => void;
+    /**
+    * Content position based on flex layout.
+    */
+    'position'?: 'start start' | 'start center' | 'start flex-end' |
+    'center start' | 'center center' | 'center flex-end' |
+    'flex-end start' | 'flex-end center' | 'flex-end flex-end';
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren'?: any;
+  }
+  interface AcPagination extends JSXBase.HTMLAttributes<HTMLAcPaginationElement> {
     /**
     * Used to localize the Next button label.
     */
@@ -827,7 +1390,7 @@ export namespace Components {
     /**
     * Event emitted when changed tab
     */
-    'onChange'?: (event: CustomEvent) => void;
+    'onPaginationChange'?: (event: CustomEvent<any>) => void;
     /**
     * Used to localize the Previous button label.
     */
@@ -841,73 +1404,53 @@ export namespace Components {
     */
     'totalPages'?: number;
   }
-
-  interface AcSelect {
+  interface AcPanel extends JSXBase.HTMLAttributes<HTMLAcPanelElement> {
     /**
-    * Set the disabled mode.
+    * Dispatched when the modal closes.
     */
-    'disabled': boolean;
-    /**
-    * Set the field in the error state with a message.
-    */
-    'error': string | boolean;
-    /**
-    * The instance of the FormFieldBehavior.
-    */
-    'formFieldBehavior': any;
-    'getNativeFormField': () => Promise<HTMLSelectElement>;
-    'getSelectedOptions': () => Promise<SelectOption<{}>[]>;
-    /**
-    * The helper text to guide the user.
-    */
-    'helperText': string;
-    /**
-    * The label text of the this input group.
-    */
-    'label': string;
-    /**
-    * Set the loading mode, showing a loading icon.
-    */
-    'loading': boolean;
-    /**
-    * If true, the component will handle multiple selected items.
-    */
-    'multiple': boolean;
-    /**
-    * The name of the internal input.
-    */
-    'name': string;
-    /**
-    * Set the custom empty result text.
-    */
-    'noResultsLabel': string;
-    /**
-    * The options that will be displayed in the panel.
-    */
-    'options': SelectOption[];
-    /**
-    * The native required attribute.
-    */
-    'required': boolean;
-    /**
-    * Set the search mode.
-    */
-    'searchable': boolean;
-    'setValue': (values: any) => Promise<void>;
-    /**
-    * The validator functions.
-    */
-    'validator': ValidatorFn | ValidatorFn[];
-    /**
-    * The validity state.
-    */
-    'validity': CustomValidityState;
-    /**
-    * The value of the internal input.
-    */
-    'value': any[] | any;
+    'onClose'?: (event: CustomEvent<void>) => void;
   }
-  interface AcSelectAttributes extends StencilHTMLAttributes {
+  interface AcPanelController extends JSXBase.HTMLAttributes<HTMLAcPanelControllerElement> {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound'?: string;
+  }
+  interface AcPopper extends JSXBase.HTMLAttributes<HTMLAcPopperElement> {
+    /**
+    * Popper.js's options.
+    */
+    'popperOptions'?: PopperOptions;
+    /**
+    * Pivot element used to place the popper.
+    */
+    'popperPivot'?: string | HTMLElement;
+    /**
+    * Popper.js's placement.
+    */
+    'popperPlacement'?: Placement;
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren'?: any;
+  }
+  interface AcPortal extends JSXBase.HTMLAttributes<HTMLAcPortalElement> {
+    /**
+    * Used to pass the custom children to the portal.
+    */
+    'vchildren'?: any;
+  }
+  interface AcProgress extends JSXBase.HTMLAttributes<HTMLAcProgressElement> {
+    /**
+    * Set the bar's percentage.
+    */
+    'percent'?: number;
+    /**
+    * Set the theme color.
+    */
+    'theme'?: string;
+  }
+  interface AcSelect extends JSXBase.HTMLAttributes<HTMLAcSelectElement> {
     /**
     * Set the disabled mode.
     */
@@ -947,7 +1490,7 @@ export namespace Components {
     /**
     * Fired when the user select/deselect an option.
     */
-    'onChange'?: (event: CustomEvent<any>) => void;
+    'onSelectChange'?: (event: CustomEvent<any>) => void;
     /**
     * The options that will be displayed in the panel.
     */
@@ -973,18 +1516,21 @@ export namespace Components {
     */
     'value'?: any[] | any;
   }
-
-  interface AcTab {
+  interface AcStepper extends JSXBase.HTMLAttributes<HTMLAcStepperElement> {
     /**
-    * If true, mark this tab as a selected tab.
+    * The number of concluded steps.
     */
-    'active': boolean;
+    'done'?: number;
     /**
-    * Set this tab in compact mode.
+    * Dispatched when the steps state changes.
     */
-    'compact': boolean;
+    'onStepperChange'?: (event: CustomEvent<{ index: number }>) => void;
+    /**
+    * The count of steps to be displayed. TODO: It mighty support an array of steps in the future.
+    */
+    'steps'?: number;
   }
-  interface AcTabAttributes extends StencilHTMLAttributes {
+  interface AcTab extends JSXBase.HTMLAttributes<HTMLAcTabElement> {
     /**
     * If true, mark this tab as a selected tab.
     */
@@ -994,16 +1540,16 @@ export namespace Components {
     */
     'compact'?: boolean;
   }
-
-  interface AcTabs {
-    'compact': boolean;
-    'selected': string | number;
-    /**
-    * The theme color defined in the color palette. The default is primary.
-    */
-    'theme': string;
+  interface AcTable extends JSXBase.HTMLAttributes<HTMLAcTableElement> {
+    'fetch'?: any;
+    'loading'?: boolean;
+    'noResultsLabel'?: string;
+    'onChangeOrder'?: (event: CustomEvent<any>) => void;
+    'options'?: Options;
+    'params'?: { ordering: string; property: string; selected: number; filters: { limitRows: string; totalRows: string; search: string; }; };
+    'selectRow'?: any;
   }
-  interface AcTabsAttributes extends StencilHTMLAttributes {
+  interface AcTabs extends JSXBase.HTMLAttributes<HTMLAcTabsElement> {
     'compact'?: boolean;
     'onTabChange'?: (event: CustomEvent<string>) => void;
     'selected'?: string | number;
@@ -1012,89 +1558,19 @@ export namespace Components {
     */
     'theme'?: string;
   }
-
-  interface AcModalController {
-    /**
-    * An optional property used to refer the parent element that the component will be attached to.
-    */
-    'bound': string;
-    /**
-    * Setup a new modal on the screen.
-    */
-    'create': (props: ControllerComponentOptions<AcModal & AcOverlay>) => Promise<any>;
-    /**
-    * Clear all modals that are displayed.
-    */
-    'dismiss': (data: any) => Promise<any>;
-  }
-  interface AcModalControllerAttributes extends StencilHTMLAttributes {
-    /**
-    * An optional property used to refer the parent element that the component will be attached to.
-    */
-    'bound'?: string;
-  }
-
-  interface AcModal {
-    /**
-    * The title that will be displayed on the modal.
-    */
-    'title': string;
-  }
-  interface AcModalAttributes extends StencilHTMLAttributes {
-    /**
-    * Dispatched when the modal closes.
-    */
+  interface AcToast extends JSXBase.HTMLAttributes<HTMLAcToastElement> {
+    'message'?: string;
     'onClose'?: (event: CustomEvent<void>) => void;
-    /**
-    * The title that will be displayed on the modal.
-    */
     'title'?: string;
+    'type'?: 'alert' | 'success' | 'info' | 'warning';
   }
-
-  interface AcPanelController {
-    /**
-    * An optional property used to refer the parent element that the component will be attached to.
-    */
-    'bound': string;
-    /**
-    * Setup a new modal on the screen.
-    */
-    'create': (props: ControllerComponentOptions<AcPanel & AcPopper>) => Promise<any>;
-    /**
-    * Clear all modals that are displayed.
-    */
-    'dismiss': (elt?: any) => Promise<any>;
-  }
-  interface AcPanelControllerAttributes extends StencilHTMLAttributes {
+  interface AcToastController extends JSXBase.HTMLAttributes<HTMLAcToastControllerElement> {
     /**
     * An optional property used to refer the parent element that the component will be attached to.
     */
     'bound'?: string;
   }
-
-  interface AcPanel {}
-  interface AcPanelAttributes extends StencilHTMLAttributes {
-    /**
-    * Dispatched when the modal closes.
-    */
-    'onClose'?: (event: CustomEvent<void>) => void;
-  }
-
-  interface AcUpload {
-    'handleClick': () => void;
-    'name': string;
-    'removeFiles': () => void;
-    /**
-    * The theme color defined in the color palette. The default is primary.
-    */
-    'theme': string;
-    /**
-    * Text introduced in Button upload.
-    */
-    'uploadButtonText': string;
-    'value': FileList;
-  }
-  interface AcUploadAttributes extends StencilHTMLAttributes {
+  interface AcUpload extends JSXBase.HTMLAttributes<HTMLAcUploadElement> {
     'name'?: string;
     /**
     * Event when a file is dropped.
@@ -1111,448 +1587,49 @@ export namespace Components {
     'value'?: FileList;
   }
 
-  interface AcOverlay {
-    /**
-    * The backdrop theme.
-    */
-    'backdrop': 'dark' | 'light';
-    'disableClose': boolean;
-    'handleBackDropClick': () => void;
-    'noLayer': boolean;
-    /**
-    * Content position based on flex layout.
-    */
-    'position': 'start start' | 'start center' | 'start flex-end' |
-    'center start' | 'center center' | 'center flex-end' |
-    'flex-end start' | 'flex-end center' | 'flex-end flex-end';
-    /**
-    * Used to pass the custom children to the portal.
-    */
-    'vchildren': any;
-  }
-  interface AcOverlayAttributes extends StencilHTMLAttributes {
-    /**
-    * The backdrop theme.
-    */
-    'backdrop'?: 'dark' | 'light';
-    'disableClose'?: boolean;
-    'noLayer'?: boolean;
-    'onBackDropClick'?: (event: CustomEvent<void>) => void;
-    /**
-    * Content position based on flex layout.
-    */
-    'position'?: 'start start' | 'start center' | 'start flex-end' |
-    'center start' | 'center center' | 'center flex-end' |
-    'flex-end start' | 'flex-end center' | 'flex-end flex-end';
-    /**
-    * Used to pass the custom children to the portal.
-    */
-    'vchildren'?: any;
-  }
-
-  interface AcPopper {
-    /**
-    * Popper.js's options.
-    */
-    'popperOptions': PopperOptions;
-    /**
-    * Pivot element used to place the popper.
-    */
-    'popperPivot': string | HTMLElement;
-    /**
-    * Popper.js's placement.
-    */
-    'popperPlacement': Placement;
-    /**
-    * Used to pass the custom children to the portal.
-    */
-    'vchildren': any;
-  }
-  interface AcPopperAttributes extends StencilHTMLAttributes {
-    /**
-    * Popper.js's options.
-    */
-    'popperOptions'?: PopperOptions;
-    /**
-    * Pivot element used to place the popper.
-    */
-    'popperPivot'?: string | HTMLElement;
-    /**
-    * Popper.js's placement.
-    */
-    'popperPlacement'?: Placement;
-    /**
-    * Used to pass the custom children to the portal.
-    */
-    'vchildren'?: any;
-  }
-
-  interface AcPortal {
-    /**
-    * Used to pass the custom children to the portal.
-    */
-    'vchildren': any;
-  }
-  interface AcPortalAttributes extends StencilHTMLAttributes {
-    /**
-    * Used to pass the custom children to the portal.
-    */
-    'vchildren'?: any;
-  }
-
-  interface AcLayout {
-    /**
-    * Collapse a nav drawer.
-    */
-    'collapsed': 'nav-left';
-  }
-  interface AcLayoutAttributes extends StencilHTMLAttributes {
-    /**
-    * Collapse a nav drawer.
-    */
-    'collapsed'?: 'nav-left';
-    'onContentScroll'?: (event: CustomEvent<{top: number, left: number}>) => void;
-  }
-
-  interface AcLogin {
-    'backgroundImageSrc': string;
-  }
-  interface AcLoginAttributes extends StencilHTMLAttributes {
-    'backgroundImageSrc'?: string;
+  interface IntrinsicElements {
+    'ac-avatar': AcAvatar;
+    'ac-badge': AcBadge;
+    'ac-button': AcButton;
+    'ac-card': AcCard;
+    'ac-check': AcCheck;
+    'ac-date-picker': AcDatePicker;
+    'ac-gauge': AcGauge;
+    'ac-header': AcHeader;
+    'ac-input': AcInput;
+    'ac-input-base': AcInputBase;
+    'ac-layout': AcLayout;
+    'ac-login': AcLogin;
+    'ac-menu': AcMenu;
+    'ac-menu-item': AcMenuItem;
+    'ac-modal': AcModal;
+    'ac-modal-controller': AcModalController;
+    'ac-navdrawer': AcNavdrawer;
+    'ac-overlay': AcOverlay;
+    'ac-pagination': AcPagination;
+    'ac-panel': AcPanel;
+    'ac-panel-controller': AcPanelController;
+    'ac-popper': AcPopper;
+    'ac-portal': AcPortal;
+    'ac-progress': AcProgress;
+    'ac-select': AcSelect;
+    'ac-stepper': AcStepper;
+    'ac-tab': AcTab;
+    'ac-table': AcTable;
+    'ac-tabs': AcTabs;
+    'ac-toast': AcToast;
+    'ac-toast-controller': AcToastController;
+    'ac-upload': AcUpload;
   }
 }
 
-declare global {
-  interface StencilElementInterfaces {
-    'AcAvatar': Components.AcAvatar;
-    'AcBadge': Components.AcBadge;
-    'AcButton': Components.AcButton;
-    'AcCard': Components.AcCard;
-    'AcCheck': Components.AcCheck;
-    'AcGauge': Components.AcGauge;
-    'AcHeader': Components.AcHeader;
-    'AcInputBase': Components.AcInputBase;
-    'AcNavdrawer': Components.AcNavdrawer;
-    'AcProgress': Components.AcProgress;
-    'AcStepper': Components.AcStepper;
-    'AcTable': Components.AcTable;
-    'AcToastController': Components.AcToastController;
-    'AcToast': Components.AcToast;
-    'AcInput': Components.AcInput;
-    'AcMenuItem': Components.AcMenuItem;
-    'AcMenu': Components.AcMenu;
-    'AcPagination': Components.AcPagination;
-    'AcSelect': Components.AcSelect;
-    'AcTab': Components.AcTab;
-    'AcTabs': Components.AcTabs;
-    'AcModalController': Components.AcModalController;
-    'AcModal': Components.AcModal;
-    'AcPanelController': Components.AcPanelController;
-    'AcPanel': Components.AcPanel;
-    'AcUpload': Components.AcUpload;
-    'AcOverlay': Components.AcOverlay;
-    'AcPopper': Components.AcPopper;
-    'AcPortal': Components.AcPortal;
-    'AcLayout': Components.AcLayout;
-    'AcLogin': Components.AcLogin;
-  }
-
-  interface StencilIntrinsicElements {
-    'ac-avatar': Components.AcAvatarAttributes;
-    'ac-badge': Components.AcBadgeAttributes;
-    'ac-button': Components.AcButtonAttributes;
-    'ac-card': Components.AcCardAttributes;
-    'ac-check': Components.AcCheckAttributes;
-    'ac-gauge': Components.AcGaugeAttributes;
-    'ac-header': Components.AcHeaderAttributes;
-    'ac-input-base': Components.AcInputBaseAttributes;
-    'ac-navdrawer': Components.AcNavdrawerAttributes;
-    'ac-progress': Components.AcProgressAttributes;
-    'ac-stepper': Components.AcStepperAttributes;
-    'ac-table': Components.AcTableAttributes;
-    'ac-toast-controller': Components.AcToastControllerAttributes;
-    'ac-toast': Components.AcToastAttributes;
-    'ac-input': Components.AcInputAttributes;
-    'ac-menu-item': Components.AcMenuItemAttributes;
-    'ac-menu': Components.AcMenuAttributes;
-    'ac-pagination': Components.AcPaginationAttributes;
-    'ac-select': Components.AcSelectAttributes;
-    'ac-tab': Components.AcTabAttributes;
-    'ac-tabs': Components.AcTabsAttributes;
-    'ac-modal-controller': Components.AcModalControllerAttributes;
-    'ac-modal': Components.AcModalAttributes;
-    'ac-panel-controller': Components.AcPanelControllerAttributes;
-    'ac-panel': Components.AcPanelAttributes;
-    'ac-upload': Components.AcUploadAttributes;
-    'ac-overlay': Components.AcOverlayAttributes;
-    'ac-popper': Components.AcPopperAttributes;
-    'ac-portal': Components.AcPortalAttributes;
-    'ac-layout': Components.AcLayoutAttributes;
-    'ac-login': Components.AcLoginAttributes;
-  }
+export { LocalJSX as JSX };
 
 
-  interface HTMLAcAvatarElement extends Components.AcAvatar, HTMLStencilElement {}
-  var HTMLAcAvatarElement: {
-    prototype: HTMLAcAvatarElement;
-    new (): HTMLAcAvatarElement;
-  };
-
-  interface HTMLAcBadgeElement extends Components.AcBadge, HTMLStencilElement {}
-  var HTMLAcBadgeElement: {
-    prototype: HTMLAcBadgeElement;
-    new (): HTMLAcBadgeElement;
-  };
-
-  interface HTMLAcButtonElement extends Components.AcButton, HTMLStencilElement {}
-  var HTMLAcButtonElement: {
-    prototype: HTMLAcButtonElement;
-    new (): HTMLAcButtonElement;
-  };
-
-  interface HTMLAcCardElement extends Components.AcCard, HTMLStencilElement {}
-  var HTMLAcCardElement: {
-    prototype: HTMLAcCardElement;
-    new (): HTMLAcCardElement;
-  };
-
-  interface HTMLAcCheckElement extends Components.AcCheck, HTMLStencilElement {}
-  var HTMLAcCheckElement: {
-    prototype: HTMLAcCheckElement;
-    new (): HTMLAcCheckElement;
-  };
-
-  interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
-  var HTMLAcGaugeElement: {
-    prototype: HTMLAcGaugeElement;
-    new (): HTMLAcGaugeElement;
-  };
-
-  interface HTMLAcHeaderElement extends Components.AcHeader, HTMLStencilElement {}
-  var HTMLAcHeaderElement: {
-    prototype: HTMLAcHeaderElement;
-    new (): HTMLAcHeaderElement;
-  };
-
-  interface HTMLAcInputBaseElement extends Components.AcInputBase, HTMLStencilElement {}
-  var HTMLAcInputBaseElement: {
-    prototype: HTMLAcInputBaseElement;
-    new (): HTMLAcInputBaseElement;
-  };
-
-  interface HTMLAcNavdrawerElement extends Components.AcNavdrawer, HTMLStencilElement {}
-  var HTMLAcNavdrawerElement: {
-    prototype: HTMLAcNavdrawerElement;
-    new (): HTMLAcNavdrawerElement;
-  };
-
-  interface HTMLAcProgressElement extends Components.AcProgress, HTMLStencilElement {}
-  var HTMLAcProgressElement: {
-    prototype: HTMLAcProgressElement;
-    new (): HTMLAcProgressElement;
-  };
-
-  interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
-  var HTMLAcStepperElement: {
-    prototype: HTMLAcStepperElement;
-    new (): HTMLAcStepperElement;
-  };
-
-  interface HTMLAcTableElement extends Components.AcTable, HTMLStencilElement {}
-  var HTMLAcTableElement: {
-    prototype: HTMLAcTableElement;
-    new (): HTMLAcTableElement;
-  };
-
-  interface HTMLAcToastControllerElement extends Components.AcToastController, HTMLStencilElement {}
-  var HTMLAcToastControllerElement: {
-    prototype: HTMLAcToastControllerElement;
-    new (): HTMLAcToastControllerElement;
-  };
-
-  interface HTMLAcToastElement extends Components.AcToast, HTMLStencilElement {}
-  var HTMLAcToastElement: {
-    prototype: HTMLAcToastElement;
-    new (): HTMLAcToastElement;
-  };
-
-  interface HTMLAcInputElement extends Components.AcInput, HTMLStencilElement {}
-  var HTMLAcInputElement: {
-    prototype: HTMLAcInputElement;
-    new (): HTMLAcInputElement;
-  };
-
-  interface HTMLAcMenuItemElement extends Components.AcMenuItem, HTMLStencilElement {}
-  var HTMLAcMenuItemElement: {
-    prototype: HTMLAcMenuItemElement;
-    new (): HTMLAcMenuItemElement;
-  };
-
-  interface HTMLAcMenuElement extends Components.AcMenu, HTMLStencilElement {}
-  var HTMLAcMenuElement: {
-    prototype: HTMLAcMenuElement;
-    new (): HTMLAcMenuElement;
-  };
-
-  interface HTMLAcPaginationElement extends Components.AcPagination, HTMLStencilElement {}
-  var HTMLAcPaginationElement: {
-    prototype: HTMLAcPaginationElement;
-    new (): HTMLAcPaginationElement;
-  };
-
-  interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
-  var HTMLAcSelectElement: {
-    prototype: HTMLAcSelectElement;
-    new (): HTMLAcSelectElement;
-  };
-
-  interface HTMLAcTabElement extends Components.AcTab, HTMLStencilElement {}
-  var HTMLAcTabElement: {
-    prototype: HTMLAcTabElement;
-    new (): HTMLAcTabElement;
-  };
-
-  interface HTMLAcTabsElement extends Components.AcTabs, HTMLStencilElement {}
-  var HTMLAcTabsElement: {
-    prototype: HTMLAcTabsElement;
-    new (): HTMLAcTabsElement;
-  };
-
-  interface HTMLAcModalControllerElement extends Components.AcModalController, HTMLStencilElement {}
-  var HTMLAcModalControllerElement: {
-    prototype: HTMLAcModalControllerElement;
-    new (): HTMLAcModalControllerElement;
-  };
-
-  interface HTMLAcModalElement extends Components.AcModal, HTMLStencilElement {}
-  var HTMLAcModalElement: {
-    prototype: HTMLAcModalElement;
-    new (): HTMLAcModalElement;
-  };
-
-  interface HTMLAcPanelControllerElement extends Components.AcPanelController, HTMLStencilElement {}
-  var HTMLAcPanelControllerElement: {
-    prototype: HTMLAcPanelControllerElement;
-    new (): HTMLAcPanelControllerElement;
-  };
-
-  interface HTMLAcPanelElement extends Components.AcPanel, HTMLStencilElement {}
-  var HTMLAcPanelElement: {
-    prototype: HTMLAcPanelElement;
-    new (): HTMLAcPanelElement;
-  };
-
-  interface HTMLAcUploadElement extends Components.AcUpload, HTMLStencilElement {}
-  var HTMLAcUploadElement: {
-    prototype: HTMLAcUploadElement;
-    new (): HTMLAcUploadElement;
-  };
-
-  interface HTMLAcOverlayElement extends Components.AcOverlay, HTMLStencilElement {}
-  var HTMLAcOverlayElement: {
-    prototype: HTMLAcOverlayElement;
-    new (): HTMLAcOverlayElement;
-  };
-
-  interface HTMLAcPopperElement extends Components.AcPopper, HTMLStencilElement {}
-  var HTMLAcPopperElement: {
-    prototype: HTMLAcPopperElement;
-    new (): HTMLAcPopperElement;
-  };
-
-  interface HTMLAcPortalElement extends Components.AcPortal, HTMLStencilElement {}
-  var HTMLAcPortalElement: {
-    prototype: HTMLAcPortalElement;
-    new (): HTMLAcPortalElement;
-  };
-
-  interface HTMLAcLayoutElement extends Components.AcLayout, HTMLStencilElement {}
-  var HTMLAcLayoutElement: {
-    prototype: HTMLAcLayoutElement;
-    new (): HTMLAcLayoutElement;
-  };
-
-  interface HTMLAcLoginElement extends Components.AcLogin, HTMLStencilElement {}
-  var HTMLAcLoginElement: {
-    prototype: HTMLAcLoginElement;
-    new (): HTMLAcLoginElement;
-  };
-
-  interface HTMLElementTagNameMap {
-    'ac-avatar': HTMLAcAvatarElement
-    'ac-badge': HTMLAcBadgeElement
-    'ac-button': HTMLAcButtonElement
-    'ac-card': HTMLAcCardElement
-    'ac-check': HTMLAcCheckElement
-    'ac-gauge': HTMLAcGaugeElement
-    'ac-header': HTMLAcHeaderElement
-    'ac-input-base': HTMLAcInputBaseElement
-    'ac-navdrawer': HTMLAcNavdrawerElement
-    'ac-progress': HTMLAcProgressElement
-    'ac-stepper': HTMLAcStepperElement
-    'ac-table': HTMLAcTableElement
-    'ac-toast-controller': HTMLAcToastControllerElement
-    'ac-toast': HTMLAcToastElement
-    'ac-input': HTMLAcInputElement
-    'ac-menu-item': HTMLAcMenuItemElement
-    'ac-menu': HTMLAcMenuElement
-    'ac-pagination': HTMLAcPaginationElement
-    'ac-select': HTMLAcSelectElement
-    'ac-tab': HTMLAcTabElement
-    'ac-tabs': HTMLAcTabsElement
-    'ac-modal-controller': HTMLAcModalControllerElement
-    'ac-modal': HTMLAcModalElement
-    'ac-panel-controller': HTMLAcPanelControllerElement
-    'ac-panel': HTMLAcPanelElement
-    'ac-upload': HTMLAcUploadElement
-    'ac-overlay': HTMLAcOverlayElement
-    'ac-popper': HTMLAcPopperElement
-    'ac-portal': HTMLAcPortalElement
-    'ac-layout': HTMLAcLayoutElement
-    'ac-login': HTMLAcLoginElement
-  }
-
-  interface ElementTagNameMap {
-    'ac-avatar': HTMLAcAvatarElement;
-    'ac-badge': HTMLAcBadgeElement;
-    'ac-button': HTMLAcButtonElement;
-    'ac-card': HTMLAcCardElement;
-    'ac-check': HTMLAcCheckElement;
-    'ac-gauge': HTMLAcGaugeElement;
-    'ac-header': HTMLAcHeaderElement;
-    'ac-input-base': HTMLAcInputBaseElement;
-    'ac-navdrawer': HTMLAcNavdrawerElement;
-    'ac-progress': HTMLAcProgressElement;
-    'ac-stepper': HTMLAcStepperElement;
-    'ac-table': HTMLAcTableElement;
-    'ac-toast-controller': HTMLAcToastControllerElement;
-    'ac-toast': HTMLAcToastElement;
-    'ac-input': HTMLAcInputElement;
-    'ac-menu-item': HTMLAcMenuItemElement;
-    'ac-menu': HTMLAcMenuElement;
-    'ac-pagination': HTMLAcPaginationElement;
-    'ac-select': HTMLAcSelectElement;
-    'ac-tab': HTMLAcTabElement;
-    'ac-tabs': HTMLAcTabsElement;
-    'ac-modal-controller': HTMLAcModalControllerElement;
-    'ac-modal': HTMLAcModalElement;
-    'ac-panel-controller': HTMLAcPanelControllerElement;
-    'ac-panel': HTMLAcPanelElement;
-    'ac-upload': HTMLAcUploadElement;
-    'ac-overlay': HTMLAcOverlayElement;
-    'ac-popper': HTMLAcPopperElement;
-    'ac-portal': HTMLAcPortalElement;
-    'ac-layout': HTMLAcLayoutElement;
-    'ac-login': HTMLAcLoginElement;
-  }
-
-
+declare module "@stencil/core" {
   export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
   }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+

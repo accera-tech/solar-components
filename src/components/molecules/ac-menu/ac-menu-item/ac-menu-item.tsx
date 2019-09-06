@@ -1,5 +1,5 @@
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { Component, Prop } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 import { Bind } from '../../../../utils/lang/bind';
 import { AcFaIcon } from '../../../utils/ac-fa-icon';
@@ -24,17 +24,6 @@ export class AcMenu {
 
   @Prop() href: string;
 
-  hostData() {
-    return {
-      class: {
-        'ac-menu-item--active': this.active,
-        'ac-menu-item--icon-only': this.iconOnly,
-        'ac-menu-item--collapsed': this.collapsed,
-        'ac-menu-item--hidden': this.hidden,
-      }
-    };
-  }
-
   @Bind
   handleClick() {
     if (this.submenu) {
@@ -43,19 +32,28 @@ export class AcMenu {
   }
 
   render() {
-    return [
-      <a class="ac-menu-item__native" href={this.href} onClick={this.handleClick}>
+    return (
+      <Host
+        class={{
+          'ac-menu-item--active': this.active,
+          'ac-menu-item--icon-only': this.iconOnly,
+          'ac-menu-item--collapsed': this.collapsed,
+          'ac-menu-item--hidden': this.hidden,
+        }}
+      >
+        <a class="ac-menu-item__native" href={this.href} onClick={this.handleClick}>
         <span class="ac-menu-item__icon-start">
-          <slot name="icon-start" />
+          <slot name="icon-start"/>
         </span>
-        <span class="ac-menu-item__text">
-          <slot />
+          <span class="ac-menu-item__text">
+          <slot/>
         </span>
-        {this.submenu && <AcFaIcon icon={faCaretDown} class="ac-menu-item__submenu-icon" size={12} />}
-      </a>,
-      <div class="ac-menu-item__submenu">
-        <slot name="submenu" />
-      </div>
-    ];
+          {this.submenu && <AcFaIcon icon={faCaretDown} class="ac-menu-item__submenu-icon" size={12}/>}
+        </a>
+        <div class="ac-menu-item__submenu">
+          <slot name="submenu"/>
+        </div>
+      </Host>
+    );
   }
 }

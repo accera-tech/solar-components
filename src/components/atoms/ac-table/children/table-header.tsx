@@ -1,3 +1,5 @@
+import { h } from '@stencil/core';
+
 export const TableHeader = props => {
   return (
     <thead>

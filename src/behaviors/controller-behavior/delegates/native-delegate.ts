@@ -1,3 +1,4 @@
+import { HTMLStencilElement } from '@stencil/core/internal';
 import { FrameworkDelegate } from './framework-delegate';
 
 /**

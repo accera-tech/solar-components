@@ -1,5 +1,5 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { Component, ComponentInterface, Element, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, Prop, h } from '@stencil/core';
 
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 

@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Method, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Method, Prop, h } from '@stencil/core';
 
 import { PortalBehavior, PortalComponent } from '../../../behaviors/portal-behavior';
 import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
@@ -38,33 +38,33 @@ export class AcOverlay implements PortalComponent, TransitionComponent {
 
   @Event({ eventName: 'backDropClick' }) backDropClick: EventEmitter<void>;
 
-  componentWillLoad() {}
+  componentWillLoad() {
+  }
 
-  componentDidUnload() {}
+  componentDidUnload() {
+  }
 
   @Bind
   @Method()
-  handleBackDropClick() {
+  async handleBackDropClick() {
     this.backDropClick.emit();
   }
 
-  hostData() {
-    return {
-      class: {
-        [`ac-overlay--backdrop-${this.backdrop}`]: !!this.backdrop,
-        'ac-overlay--no-layer': this.noLayer,
-      },
-      style: {
-        justifyContent: this.position.split(' ')[0],
-        alignItems: this.position.split(' ')[1],
-      }
-    };
-  }
-
   render() {
-    return [
-      !this.noLayer && <div class="ac-overlay--layer" onClick={this.handleBackDropClick}/>,
-      <slot />
-    ];
+    return (
+      <Host
+        class={{
+          [`ac-overlay--backdrop-${this.backdrop}`]: !!this.backdrop,
+          'ac-overlay--no-layer': this.noLayer,
+        }}
+        style={{
+          justifyContent: this.position.split(' ')[0],
+          alignItems: this.position.split(' ')[1],
+        }}
+      >
+        {!this.noLayer && <div class="ac-overlay--layer" onClick={this.handleBackDropClick}/>}
+        <slot/>
+      </Host>
+    );
   }
 }

@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="/build/solar.css">
-  <script src="/build/solar.js"></script>
+  <script type="module" src="/build/solar.esm.js"></script>
+  <script nomodule src="/build/solar.js"></script>
 </head>
 <body>
 <ac-layout id="mainLayout">
@@ -61,10 +62,12 @@
     <div class="row pt-4">
       <div class="col-6">
         <ac-card>
-          <header slot="header">
-            <h3>Dashboard 1</h3>
-            <span class="text-subtitle">Subtitle</span>
-          </header>
+          <ac-tabs theme="primary" id="filtersTabs"  slot="header">
+            <ac-tab id="sellout" active><i class="fas fa-money-bill-wave pr-1"></i>Sell-out</ac-tab>
+            <ac-tab id="stock"><i class="fas fa-boxes pr-1"></i>Estoque</ac-tab>
+            <ac-tab id="order"><i class="fas fa-edit pr-1"></i>Crítica de pedidos</ac-tab>
+
+          </ac-tabs>
           <section slot="content">
             <ac-gauge percent="0"/>
           </section>
@@ -109,6 +112,7 @@
             <ac-stepper steps="2" done="1"></ac-stepper>
             <ac-table id="table">
             </ac-table>
+            <ac-check label="teste" helper-text="teste" theme="secondary"/>
           </section>
         </ac-card>
       </div>
@@ -119,6 +123,10 @@
 <ac-modal-controller></ac-modal-controller>
 <ac-panel-controller></ac-panel-controller>
 <script>
+  window.addEventListener('stencil_appload', function () {
+    console.log('aa');
+  });
+
   async function main() {
     const modalCtrl = document.querySelector('ac-modal-controller');
 
@@ -146,16 +154,17 @@
 
     const table = document.getElementById('table');
     table.options.header = [
-      {label: 'teste', key: 'teste'}
+      { label: 'teste', key: 'teste' }
     ]
 
-    let INIT = false;
-    window.addEventListener('appload', () => {
-      if (!INIT) main();
-      INIT = true;
-    })
+
   }
 
+  let INIT = false;
+  window.addEventListener('appload', () => {
+    if (!INIT) main();
+    INIT = true;
+  })
 </script>
 
 

@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'ac-badge',
@@ -10,20 +10,18 @@ export class AcBadge {
 
   @Prop() floating: boolean;
 
-  hostData() {
-    return {
-      attribute: 'badge',
-      class: {
-        [`ac-badge--${this.theme}`]: this.theme !== undefined,
-        'ac-badge--floating': this.floating,
-      }
-    };
-  }
   render() {
-    return [
-      <a class="ac-badge__native">
-        <slot />
-      </a>
-    ]
+    return (
+      <Host
+        class={{
+          [`ac-badge--${this.theme}`]: this.theme !== undefined,
+          'ac-badge--floating': this.floating,
+        }}
+      >
+        <a class="ac-badge__native">
+          <slot/>
+        </a>
+      </Host>
+    )
   }
 }

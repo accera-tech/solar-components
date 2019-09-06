@@ -1,3 +1,5 @@
+import { HTMLStencilElement } from '@stencil/core/internal';
+
 /**
  * Represents an integration with a custom dom platform.
  */
