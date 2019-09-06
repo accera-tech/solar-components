@@ -41,7 +41,7 @@ ac-table {
         display: inline-flex;
         position: relative;
         align-items: flex-start;
-        justify-content: start;
+        justify-content: flex-start;
         pointer-events: none;
 
         &.order-desc {

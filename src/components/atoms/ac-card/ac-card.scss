@@ -23,7 +23,7 @@ ac-card {
 
   & > [slot=actions] {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: $spacer-small $spacer-large $spacer-medium;
   }
 
