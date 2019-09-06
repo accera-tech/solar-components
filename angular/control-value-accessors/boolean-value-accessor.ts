@@ -4,8 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ValueAccessor, setIonicClasses } from './value-accessor';
 
 @Directive({
-  /* tslint:disable-next-line:directive-selector */
-  selector: 'ion-checkbox,ion-toggle',
+  selector: 'ac-check',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -15,7 +14,6 @@ import { ValueAccessor, setIonicClasses } from './value-accessor';
   ]
 })
 export class BooleanValueAccessor extends ValueAccessor {
-
   constructor(el: ElementRef) {
     super(el);
   }
@@ -25,8 +23,8 @@ export class BooleanValueAccessor extends ValueAccessor {
     setIonicClasses(this.el);
   }
 
-  @HostListener('ionChange', ['$event.target'])
-  _handleIonChange(el: any) {
-    this.handleChangeEvent(el, el.checked);
+  @HostListener('change')
+  _handleChange() {
+    this.handleChangeEvent(this.el.nativeElement, this.el.nativeElement.checked);
   }
 }

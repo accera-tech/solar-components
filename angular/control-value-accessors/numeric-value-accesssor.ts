@@ -4,8 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ValueAccessor } from './value-accessor';
 
 @Directive({
-  /* tslint:disable-next-line:directive-selector */
-  selector: 'ion-input[type=number]',
+  selector: 'ac-input[type=number], ac-input-base[type=number]',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,9 +19,9 @@ export class NumericValueAccessor extends ValueAccessor {
     super(el);
   }
 
-  @HostListener('ionChange', ['$event.target'])
-  _handleIonChange(el: any) {
-    this.handleChangeEvent(el, el.value);
+  @HostListener('change')
+  _handleChange() {
+    this.handleChangeEvent(this.el.nativeElement, this.el.nativeElement.value);
   }
 
   registerOnChange(fn: (_: number | null) => void) {

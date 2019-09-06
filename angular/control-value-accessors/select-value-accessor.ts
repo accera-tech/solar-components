@@ -4,8 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ValueAccessor } from './value-accessor';
 
 @Directive({
-  /* tslint:disable-next-line:directive-selector */
-  selector: 'ion-range, ion-select, ion-radio-group, ion-segment, ion-datetime',
+  selector: 'ac-select',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,8 +19,8 @@ export class SelectValueAccessor extends ValueAccessor {
     super(el);
   }
 
-  @HostListener('ionChange', ['$event.target'])
-  _handleChangeEvent(el: any) {
-    this.handleChangeEvent(el, el.value);
+  @HostListener('selectChange')
+  _handleChangeEvent() {
+    this.handleChangeEvent(this.el.nativeElement, this.el.nativeElement.value);
   }
 }

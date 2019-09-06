@@ -34,6 +34,8 @@
     "wc-air-datepicker": "^0.3.0"
   },
   "devDependencies": {
+    "@angular/core": "^8.2.5",
+    "@angular/forms": "^8.2.5",
     "@babel/core": "^7.4.3",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
