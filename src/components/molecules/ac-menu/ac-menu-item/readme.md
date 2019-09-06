@@ -18,6 +18,19 @@
 | `submenu`   | `submenu`   |             | `boolean` | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-menu](..)
+
+### Graph
+```mermaid
+graph TD;
+  ac-menu --> ac-menu-item
+  style ac-menu-item fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

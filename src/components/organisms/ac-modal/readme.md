@@ -171,6 +171,19 @@
 | `close` | Dispatched when the modal closes. | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [ac-button](..\..\atoms\ac-button)
+
+### Graph
+```mermaid
+graph TD;
+  ac-modal --> ac-button
+  style ac-modal fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

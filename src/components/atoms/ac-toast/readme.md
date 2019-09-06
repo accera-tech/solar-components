@@ -23,13 +23,13 @@
 
 ## Methods
 
-### `close() => void`
+### `close() => Promise<void>`
 
 
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 

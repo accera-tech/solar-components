@@ -17,10 +17,25 @@
 
 ## Events
 
-| Event    | Description                    | Type                |
-| -------- | ------------------------------ | ------------------- |
-| `change` | Event emitted when changed tab | `CustomEvent<void>` |
+| Event              | Description                    | Type               |
+| ------------------ | ------------------------------ | ------------------ |
+| `paginationChange` | Event emitted when changed tab | `CustomEvent<any>` |
 
+
+## Dependencies
+
+### Depends on
+
+- [ac-tabs](..\ac-tabs)
+- [ac-tab](..\ac-tabs\ac-tab)
+
+### Graph
+```mermaid
+graph TD;
+  ac-pagination --> ac-tabs
+  ac-pagination --> ac-tab
+  style ac-pagination fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

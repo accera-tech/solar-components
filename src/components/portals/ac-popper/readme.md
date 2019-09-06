@@ -15,6 +15,19 @@
 | `vchildren`       | `vchildren`        | Used to pass the custom children to the portal. | `any`                                                                                                                                                                                                        | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-panel-controller](..\..\organisms\ac-panel\ac-panel-controller)
+
+### Graph
+```mermaid
+graph TD;
+  ac-panel-controller --> ac-popper
+  style ac-popper fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

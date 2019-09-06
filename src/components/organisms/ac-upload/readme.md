@@ -24,26 +24,39 @@
 
 ## Methods
 
-### `handleClick() => void`
+### `handleClick() => Promise<void>`
 
 
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
-### `removeFiles() => void`
+### `removeFiles() => Promise<void>`
 
 
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [ac-button](..\..\atoms\ac-button)
+
+### Graph
+```mermaid
+graph TD;
+  ac-upload --> ac-button
+  style ac-upload fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 
