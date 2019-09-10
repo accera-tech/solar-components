@@ -14,9 +14,12 @@ import { CustomValidityState, ValidatorFn } from '../../../utils/validations/val
 export class AcCheck implements FormFieldComponent {
   nativeInput: HTMLInputElement;
 
-  formFieldBehavior = new FormFieldBehavior(this);
-
   @Element() host: HTMLAcCheckElement;
+
+  /**
+   * The FormFieldBehavior instance.
+   */
+  @Prop() formFieldBehavior = new FormFieldBehavior(this);
 
   /**
    * The textual label of this field.
