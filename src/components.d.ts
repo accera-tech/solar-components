@@ -116,6 +116,10 @@ export namespace Components {
     * Error state and message of this field.
     */
     'error': string;
+    /**
+    * The FormFieldBehavior instance.
+    */
+    'formFieldBehavior': any;
     'getNativeFormField': () => Promise<HTMLInputElement>;
     /**
     * The helper text to guide the user.
@@ -1021,6 +1025,10 @@ declare namespace LocalJSX {
     * Error state and message of this field.
     */
     'error'?: string;
+    /**
+    * The FormFieldBehavior instance.
+    */
+    'formFieldBehavior'?: any;
     /**
     * The helper text to guide the user.
     */

@@ -22,7 +22,7 @@ export class AcInput implements FormFieldComponent {
   /**
    * The FormFieldBehavior instance.
    */
-  @Prop({ mutable: false, reflectToAttr: false }) formFieldBehavior = new FormFieldBehavior(this);
+  @Prop() formFieldBehavior = new FormFieldBehavior(this);
 
   /**
    * The label text of the this input group.

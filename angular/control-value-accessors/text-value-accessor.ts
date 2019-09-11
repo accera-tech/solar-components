@@ -4,8 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ValueAccessor } from './value-accessor';
 
 @Directive({
-  /* tslint:disable-next-line:directive-selector */
-  selector: 'ion-input:not([type=number]),ion-textarea,ion-searchbar',
+  selector: 'ac-input:not([type=number]), ac-input-base:not([type=number])',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,8 +19,8 @@ export class TextValueAccessor extends ValueAccessor {
     super(el);
   }
 
-  @HostListener('ionChange', ['$event.target'])
-  _handleInputEvent(el: any) {
-    this.handleChangeEvent(el, el.value);
+  @HostListener('change')
+  _handleInputEvent() {
+    this.handleChangeEvent(this.el.nativeElement, this.el.nativeElement.value);
   }
 }

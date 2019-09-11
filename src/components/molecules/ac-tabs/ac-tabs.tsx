@@ -1,6 +1,6 @@
 import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
-import { addClass, addStyle, animate, removeClass, wait } from '../../../utils/animation';
+import { addStyle, animate } from '../../../utils/animation';
 import { Bind } from '../../../utils/lang/bind';
 
 /**
@@ -66,8 +66,10 @@ export class AcTabs {
 
     this.childTabs.forEach(tab => {
       tab.compact = this.compact;
-      // tslint:disable-next-line:no-unused-expression
-      selected && selected == tab.id ? tab.active = true : null
+      // tslint:disable-next-line:triple-equals
+      if (selected && selected == tab.id) {
+        tab.active = true;
+      }
     });
     this.selected = this.currentTab.id;
     setTimeout(() => this.moveBulletToCurrentTab(), 100);
@@ -98,10 +100,7 @@ export class AcTabs {
     const bulletLeftWithScroll = bulletLeft + this.wrapperElt.scrollLeft;
 
     return animate(this.bulletElt)
-      .then(addStyle({ left: bulletLeftWithScroll + 'px' }))
-      .then(addClass('ac-tabs__bullet--moving'))
-      .then(wait(-200))
-      .then(removeClass('ac-tabs__bullet--moving'));
+      .then(addStyle({ left: bulletLeftWithScroll + 'px' }));
   }
 
   /**
