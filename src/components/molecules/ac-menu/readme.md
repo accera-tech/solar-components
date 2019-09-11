@@ -23,6 +23,21 @@
 | `menuChange` |             | `CustomEvent<string>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [ac-input-base](..\..\atoms\ac-input-base)
+- [ac-menu-item](ac-menu-item)
+
+### Graph
+```mermaid
+graph TD;
+  ac-menu --> ac-input-base
+  ac-menu --> ac-menu-item
+  style ac-menu fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

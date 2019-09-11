@@ -19,9 +19,9 @@
 
 ## Events
 
-| Event         | Description | Type                |
-| ------------- | ----------- | ------------------- |
-| `changeOrder` |             | `CustomEvent<void>` |
+| Event         | Description | Type               |
+| ------------- | ----------- | ------------------ |
+| `changeOrder` |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------

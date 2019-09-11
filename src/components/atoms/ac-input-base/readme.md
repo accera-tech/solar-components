@@ -38893,6 +38893,25 @@ Type: `Promise<void>`
 
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-date-picker](..\ac-date-picker)
+ - [ac-input](..\..\molecules\ac-input)
+ - [ac-menu](..\..\molecules\ac-menu)
+ - [ac-select](..\..\molecules\ac-select)
+
+### Graph
+```mermaid
+graph TD;
+  ac-date-picker --> ac-input-base
+  ac-input --> ac-input-base
+  ac-menu --> ac-input-base
+  ac-select --> ac-input-base
+  style ac-input-base fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

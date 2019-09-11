@@ -18,12 +18,6 @@
 
 Setup a new modal on the screen.
 
-#### Parameters
-
-| Name    | Type                                                                                                                                           | Description |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `props` | `FieldsOf<AcModal & AcOverlay> & { [key: string]: any; component?: any; componentProps?: any; wrapper?: any; render?: (data: any) => VNode; }` |             |
-
 #### Returns
 
 Type: `Promise<any>`
@@ -34,18 +28,25 @@ Type: `Promise<any>`
 
 Clear all modals that are displayed.
 
-#### Parameters
-
-| Name   | Type  | Description |
-| ------ | ----- | ----------- |
-| `data` | `any` |             |
-
 #### Returns
 
 Type: `Promise<any>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [ac-overlay](..\..\..\portals\ac-overlay)
+
+### Graph
+```mermaid
+graph TD;
+  ac-modal-controller --> ac-overlay
+  style ac-modal-controller fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

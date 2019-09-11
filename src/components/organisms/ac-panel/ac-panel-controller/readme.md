@@ -18,12 +18,6 @@
 
 Setup a new modal on the screen.
 
-#### Parameters
-
-| Name    | Type                                                                                                                                          | Description |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `props` | `FieldsOf<AcPanel & AcPopper> & { [key: string]: any; component?: any; componentProps?: any; wrapper?: any; render?: (data: any) => VNode; }` |             |
-
 #### Returns
 
 Type: `Promise<any>`
@@ -34,18 +28,25 @@ Type: `Promise<any>`
 
 Clear all modals that are displayed.
 
-#### Parameters
-
-| Name  | Type  | Description |
-| ----- | ----- | ----------- |
-| `elt` | `any` |             |
-
 #### Returns
 
 Type: `Promise<any>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [ac-popper](..\..\..\portals\ac-popper)
+
+### Graph
+```mermaid
+graph TD;
+  ac-panel-controller --> ac-popper
+  style ac-panel-controller fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

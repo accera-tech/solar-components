@@ -38874,25 +38874,9 @@
 
 ## Methods
 
-### `getNativeFormField() => any`
+### `getNativeFormField() => Promise<any>`
 
 
-
-#### Returns
-
-Type: `any`
-
-
-
-### `getRawValue(type?: string) => Promise<any>`
-
-Get the unmasked value.
-
-#### Parameters
-
-| Name   | Type     | Description |
-| ------ | -------- | ----------- |
-| `type` | `string` |             |
 
 #### Returns
 
@@ -38900,17 +38884,27 @@ Type: `Promise<any>`
 
 
 
-### `setFocus() => any`
+### `getRawValue(type?: string) => Promise<any>`
+
+Get the unmasked value.
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `setFocus() => Promise<any>`
 
 Set focus state in the native input.
 
 #### Returns
 
-Type: `any`
+Type: `Promise<any>`
 
 
 
-### `setValue(value: any) => void`
+### `setValue(value: any) => Promise<void>`
 
 Update the value and run validations as if the user change it manually.
 When to use each:
@@ -38918,18 +38912,27 @@ input.value will only update the value, useful to set the initial value of the i
 input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state
 to the form.
 
-#### Parameters
-
-| Name    | Type  | Description |
-| ------- | ----- | ----------- |
-| `value` | `any` |             |
-
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [ac-input-base](..\..\atoms\ac-input-base)
+- [ac-button](..\..\atoms\ac-button)
+
+### Graph
+```mermaid
+graph TD;
+  ac-input --> ac-input-base
+  ac-input --> ac-button
+  style ac-input fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

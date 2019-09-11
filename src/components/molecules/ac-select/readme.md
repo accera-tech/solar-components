@@ -38868,9 +38868,9 @@
 
 ## Events
 
-| Event    | Description                                    | Type               |
-| -------- | ---------------------------------------------- | ------------------ |
-| `change` | Fired when the user select/deselect an option. | `CustomEvent<any>` |
+| Event          | Description                                    | Type               |
+| -------------- | ---------------------------------------------- | ------------------ |
+| `selectChange` | Fired when the user select/deselect an option. | `CustomEvent<any>` |
 
 
 ## Methods
@@ -38899,18 +38899,27 @@ Type: `Promise<SelectOption<{}>[]>`
 
 
 
-#### Parameters
-
-| Name     | Type  | Description |
-| -------- | ----- | ----------- |
-| `values` | `any` |             |
-
 #### Returns
 
 Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [ac-input-base](..\..\atoms\ac-input-base)
+- [ac-button](..\..\atoms\ac-button)
+
+### Graph
+```mermaid
+graph TD;
+  ac-select --> ac-input-base
+  ac-select --> ac-button
+  style ac-select fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

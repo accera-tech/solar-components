@@ -173,6 +173,19 @@
 | `tabChange` |             | `CustomEvent<string>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-pagination](..\ac-pagination)
+
+### Graph
+```mermaid
+graph TD;
+  ac-pagination --> ac-tabs
+  style ac-tabs fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

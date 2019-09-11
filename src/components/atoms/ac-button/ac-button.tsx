@@ -1,5 +1,5 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { Component, ComponentInterface, Element, Prop, h } from '@stencil/core';
+import { Component, ComponentInterface, Element, Prop, h, Host } from '@stencil/core';
 
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 
@@ -73,22 +73,6 @@ export class AcButton implements ComponentInterface {
    */
   @Prop({ reflectToAttr: true }) disabled?: boolean;
 
-  hostData() {
-    return {
-      attribute: 'button',
-      class: {
-        [`ac-button--${this.theme}`]: this.theme !== undefined,
-        [`ac-button--${this.size}`]: this.size !== undefined,
-        [`ac-button--${this.fill}`]: this.fill !== undefined,
-        [`ac-button--${this.expand}`]: this.expand !== undefined,
-        [`ac-button--${this.shape}`]: this.shape !== undefined,
-        'ac-button--icon-only': this.iconOnly,
-        'ac-button--disabled': this.disabled,
-        'ac-button--loading' : this.loading,
-      }
-    };
-  }
-
   render() {
     const TagType = this.href ? 'a' : 'button';
     const attrs = (TagType === 'button')
@@ -97,18 +81,31 @@ export class AcButton implements ComponentInterface {
 
     return (
       // @ts-ignore
-      <TagType
-        {...attrs}
-        disabled={this.disabled}
-        class="ac-button__native"
+      <Host
+        class={{
+          [`ac-button--${this.theme}`]: this.theme !== undefined,
+          [`ac-button--${this.size}`]: this.size !== undefined,
+          [`ac-button--${this.fill}`]: this.fill !== undefined,
+          [`ac-button--${this.expand}`]: this.expand !== undefined,
+          [`ac-button--${this.shape}`]: this.shape !== undefined,
+          'ac-button--icon-only': this.iconOnly,
+          'ac-button--disabled': this.disabled,
+          'ac-button--loading': this.loading,
+        }}
       >
-        {this.loading && <AcFaIcon icon={faSpinner} size={14} anim="spin" />}
-        <slot name="icon-start" />
-        <span class="ac-button__text">
-          <slot />
+        <TagType
+          {...attrs}
+          disabled={this.disabled}
+          class="ac-button__native"
+        >
+          {this.loading && <AcFaIcon icon={faSpinner} size={14} anim="spin"/>}
+          <slot name="icon-start"/>
+          <span class="ac-button__text">
+          <slot/>
         </span>
-        <slot name="icon-end" />
-      </TagType>
+          <slot name="icon-end"/>
+        </TagType>
+      </Host>
     );
   }
 }

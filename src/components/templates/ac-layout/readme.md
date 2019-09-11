@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event           | Description | Type                                       |
-| --------------- | ----------- | ------------------------------------------ |
-| `contentScroll` |             | `CustomEvent<{top: number, left: number}>` |
+| Event           | Description | Type                                          |
+| --------------- | ----------- | --------------------------------------------- |
+| `contentScroll` |             | `CustomEvent<{ top: number; left: number; }>` |
 
 
 ----------------------------------------------

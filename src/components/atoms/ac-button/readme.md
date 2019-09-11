@@ -20,6 +20,29 @@
 | `type`     | `type`      | The HTML5 button type. See https://mdn.io/button                                                                   | `"button" \| "reset" \| "submit"` | `'button'`  |
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-date-picker](..\ac-date-picker)
+ - [ac-header](..\ac-header)
+ - [ac-input](..\..\molecules\ac-input)
+ - [ac-modal](..\..\organisms\ac-modal)
+ - [ac-select](..\..\molecules\ac-select)
+ - [ac-upload](..\..\organisms\ac-upload)
+
+### Graph
+```mermaid
+graph TD;
+  ac-date-picker --> ac-button
+  ac-header --> ac-button
+  ac-input --> ac-button
+  ac-modal --> ac-button
+  ac-select --> ac-button
+  ac-upload --> ac-button
+  style ac-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -167,30 +167,30 @@
 
 ## Events
 
-| Event    | Description                              | Type                             |
-| -------- | ---------------------------------------- | -------------------------------- |
-| `change` | Dispatched when the steps state changes. | `CustomEvent<{ index: number }>` |
+| Event           | Description                              | Type                              |
+| --------------- | ---------------------------------------- | --------------------------------- |
+| `stepperChange` | Dispatched when the steps state changes. | `CustomEvent<{ index: number; }>` |
 
 
 ## Methods
 
-### `next() => void`
+### `next() => Promise<void>`
 
 Increments the count of concluded steps.
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
-### `previous() => void`
+### `previous() => Promise<void>`
 
 Decrement the count of concluded steps.
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 

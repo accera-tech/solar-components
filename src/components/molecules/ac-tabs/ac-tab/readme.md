@@ -165,6 +165,19 @@
 | `compact` | `compact` | Set this tab in compact mode.             | `boolean` | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-pagination](..\..\ac-pagination)
+
+### Graph
+```mermaid
+graph TD;
+  ac-pagination --> ac-tab
+  style ac-tab fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -1,9 +1,9 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { h } from '@stencil/core';
 
 import { AcFaIcon } from '../../../utils/ac-fa-icon';
 
 import { TableCell } from './table-cell';
-import { h } from '@stencil/core';
 
 export const TableBody = props => {
   const tbodyReference = document.getElementById('tbodyReference');
