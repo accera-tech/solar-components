@@ -14,7 +14,7 @@ $ac-header__width: 100%;
 // ---------------------------------------------------------------------------------------------------------------------
 
 @mixin header-variations($color-name) {
-  ac-header {
+  ac-header.ac-header--#{$color-name}{
     @include down-md {
       @include define-theme-colors("primary");
       background: var-color($color-name, "normal");

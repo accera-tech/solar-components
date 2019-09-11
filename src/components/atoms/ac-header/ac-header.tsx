@@ -16,7 +16,7 @@ export class AcHeader {
 
   @Element() host: HTMLAcHeaderElement;
 
-  @Prop() theme: string;
+  @Prop() theme = 'primary';
 
   @Prop({ reflectToAttr: true, mutable: true }) scrolled: boolean;
 
@@ -49,22 +49,23 @@ export class AcHeader {
     return (
       <Host
         class={{
-          'ac-header--scrolled': this.scrolled,
+          [`ac-header--${this.theme}`]: this.theme !== undefined,
+          'ac-header--scrolled': this.scrolled
         }}
       >
         <header class="ac-header__header-container">
           {this.hasNavdrawer ?
-          <ac-button
-            class="ac-header__menu-button"
-            shape="round"
-            fill="clear"
-            data-toggle="mainNavdrawer"
-            icon-only
-            onClick={this.handleMenuClick}
-          >
-            <AcMenuIcon />
-          </ac-button>
-            : <span />
+            <ac-button
+              class="ac-header__menu-button"
+              shape="round"
+              fill="clear"
+              data-toggle="mainNavdrawer"
+              icon-only
+              onClick={this.handleMenuClick}
+            >
+              <AcMenuIcon/>
+            </ac-button>
+            : <span/>
           }
           <div class="ac-header__content">
             <slot/>
