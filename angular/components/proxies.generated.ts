@@ -386,6 +386,17 @@ export class AcToastController {
 proxyMethods(AcToastController, ['create', 'dismiss']);
 proxyInputs(AcToastController, ['bound']);
 
+export declare interface AcToggle extends Components.AcToggle {}
+@Component({ selector: 'ac-toggle', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['checked', 'disabled', 'error', 'formFieldBehavior', 'label', 'name', 'required', 'validator', 'validity', 'value'] })
+export class AcToggle {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+proxyInputs(AcToggle, ['checked', 'disabled', 'error', 'formFieldBehavior', 'label', 'name', 'required', 'validator', 'validity', 'value']);
+
 export declare interface AcUpload extends Components.AcUpload {}
 @Component({ selector: 'ac-upload', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['name', 'theme', 'uploadButtonText', 'value'] })
 export class AcUpload {

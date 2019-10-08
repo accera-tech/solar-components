@@ -33,5 +33,6 @@ d.AcAvatar,
   d.AcTabs,
   d.AcToast,
   d.AcToastController,
+  d.AcToggle,
   d.AcUpload
 ];
