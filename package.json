@@ -30,8 +30,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
     "popper.js": "^1.15.0",
     "ramda": "^0.26.1",
-    "vanilla-masker": "^1.2.0",
-    "wc-air-datepicker": "^0.3.0"
+    "vanilla-masker": "^1.2.0"
   },
   "devDependencies": {
     "@angular/core": "^8.2.5",
