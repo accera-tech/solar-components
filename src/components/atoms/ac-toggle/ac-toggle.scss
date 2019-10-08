@@ -1,0 +1,101 @@
+@import "../../../theme/variables";
+
+ac-toggle {
+  display: inline-block;
+
+  .ac-toggle__container {
+    display: flex;
+    align-items: center;
+  }
+
+  .ac-toggle__native {
+    display: none;
+  }
+
+  .ac-toggle__custom {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+    transition: all $fast-transition;
+    border-radius: 10px;
+    background-color: var-color("neutral", "light");
+    cursor: pointer;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      margin: 0 4px;
+      transition: all 0.4s;
+      border-radius: 100%;
+      background-color: #FFFFFF;
+    }
+  }
+
+  .ac-toggle__label {
+    margin: 0;
+    padding: 0 0 0 $spacer-tiny;
+    color: var-color("neutral", "darker");
+    font-size: $font-medium;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+  }
+
+}
+
+ac-toggle {
+  .ac-toggle__native:checked {
+    + .ac-toggle__custom {
+      background-color: var-color("primary", "normal");
+
+      &:before {
+        transform: translateX(20px);
+        transition: all 0.4s;
+        background-color: #FFFFFF;
+      }
+
+      + .ac-toggle__label {
+        color: var-color("primary", "normal");
+      }
+    }
+
+  }
+}
+
+
+// Disabled mode (disabled)
+// --------------------------------------------------
+
+ac-toggle.ac-toggle--disabled {
+  cursor: not-allowed;
+
+  .ac-toggle__container {
+    pointer-events: none;
+  }
+
+  .ac-toggle__label {
+    color: var-color("neutral", "normal");
+  }
+
+  .ac-toggle__custom {
+    border-color: var-color("neutral", "light");
+    background: var-color("neutral", "lighter");
+  }
+
+  .ac-toggle__native:checked {
+    + .ac-toggle__custom {
+      border-color: var-color("neutral", "normal");
+      background: var-color("neutral", "normal");
+
+      + .ac-toggle__label {
+        color: var-color("neutral", "dark");
+      }
+    }
+  }
+}
+
+
