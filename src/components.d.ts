@@ -702,6 +702,45 @@ export namespace Components {
     */
     'dismiss': (data: any) => Promise<any>;
   }
+  interface AcToggle {
+    /**
+    * The actual checked state.
+    */
+    'checked': boolean;
+    /**
+    * If this field is in the disabled state.
+    */
+    'disabled': boolean;
+    /**
+    * The actual error message.
+    */
+    'error': string;
+    /**
+    * Provide access to the form field logic.
+    */
+    'formFieldBehavior': any;
+    'label': string;
+    /**
+    * The form field name.
+    */
+    'name': string;
+    /**
+    * Mark this field as required.
+    */
+    'required': boolean;
+    /**
+    * Validation pipeline for this field.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity': CustomValidityState;
+    /**
+    * The field value of the component.
+    */
+    'value': string;
+  }
   interface AcUpload {
     'handleClick': () => Promise<void>;
     'name': string;
@@ -907,6 +946,12 @@ declare global {
     new (): HTMLAcToastControllerElement;
   };
 
+  interface HTMLAcToggleElement extends Components.AcToggle, HTMLStencilElement {}
+  var HTMLAcToggleElement: {
+    prototype: HTMLAcToggleElement;
+    new (): HTMLAcToggleElement;
+  };
+
   interface HTMLAcUploadElement extends Components.AcUpload, HTMLStencilElement {}
   var HTMLAcUploadElement: {
     prototype: HTMLAcUploadElement;
@@ -944,6 +989,7 @@ declare global {
     'ac-tabs': HTMLAcTabsElement;
     'ac-toast': HTMLAcToastElement;
     'ac-toast-controller': HTMLAcToastControllerElement;
+    'ac-toggle': HTMLAcToggleElement;
     'ac-upload': HTMLAcUploadElement;
   }
 }
@@ -1578,6 +1624,45 @@ declare namespace LocalJSX {
     */
     'bound'?: string;
   }
+  interface AcToggle extends JSXBase.HTMLAttributes<HTMLAcToggleElement> {
+    /**
+    * The actual checked state.
+    */
+    'checked'?: boolean;
+    /**
+    * If this field is in the disabled state.
+    */
+    'disabled'?: boolean;
+    /**
+    * The actual error message.
+    */
+    'error'?: string;
+    /**
+    * Provide access to the form field logic.
+    */
+    'formFieldBehavior'?: any;
+    'label'?: string;
+    /**
+    * The form field name.
+    */
+    'name'?: string;
+    /**
+    * Mark this field as required.
+    */
+    'required'?: boolean;
+    /**
+    * Validation pipeline for this field.
+    */
+    'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity'?: CustomValidityState;
+    /**
+    * The field value of the component.
+    */
+    'value'?: string;
+  }
   interface AcUpload extends JSXBase.HTMLAttributes<HTMLAcUploadElement> {
     'name'?: string;
     /**
@@ -1627,6 +1712,7 @@ declare namespace LocalJSX {
     'ac-tabs': AcTabs;
     'ac-toast': AcToast;
     'ac-toast-controller': AcToastController;
+    'ac-toggle': AcToggle;
     'ac-upload': AcUpload;
   }
 }
