@@ -10,6 +10,7 @@ ac-toast {
   flex-direction: column;
   max-width: 392px;
   max-height: 88px;
+  margin: 20px;
   transition: transform $default-transition;
   border-radius: $border-radius-default;
   box-shadow: $z3-shadow;
