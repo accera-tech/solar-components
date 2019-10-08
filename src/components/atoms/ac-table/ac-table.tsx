@@ -86,6 +86,12 @@ export class AcTable {
     this.update();
   }
 
+  componentDidLoad() {
+    if (this.fetch) {
+      this.update();
+    }
+  }
+
   render() {
     return [
       this.options &&

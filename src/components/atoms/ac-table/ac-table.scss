@@ -44,7 +44,7 @@ ac-table {
         justify-content: flex-start;
         pointer-events: none;
 
-        &.order-desc {
+        &.order-asc {
           i {
             &:first-child {
               transform: rotate(180deg);
@@ -84,7 +84,6 @@ ac-table {
       position: absolute;
       align-items: center;
       justify-content: center;
-      height: 50%;
       background-color: var-color("neutral", "contrast", 0.8);
     }
   }

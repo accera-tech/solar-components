@@ -11,7 +11,15 @@ export const TableBody = props => {
     <tbody id="tbodyReference" class="table-content">
     {
       props.loading &&
-      <div style={tbodyReference ? { width: `${tbodyReference.offsetWidth}px` } : null} class="table-body--loading">
+      <div
+        style={
+          tbodyReference ? {
+              width: `${tbodyReference.offsetWidth}px`,
+              height: `${tbodyReference.offsetHeight}px`
+            }
+            : null}
+        class="table-body--loading"
+      >
         <AcFaIcon icon={faSpinner} size={20} anim="spin"/>
       </div>
     }
