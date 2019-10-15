@@ -673,6 +673,7 @@ export namespace Components {
     'options': Options;
     'params': { ordering: string; property: string; selected: number; filters: { limitRows: string; totalRows: string; search: string; }; };
     'selectRow': any;
+    'update': () => Promise<void>;
   }
   interface AcTabs {
     'compact': boolean;
