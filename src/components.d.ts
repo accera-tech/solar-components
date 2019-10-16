@@ -507,6 +507,7 @@ export namespace Components {
     'vchildren': any;
   }
   interface AcPagination {
+    'buildedPages': number[];
     /**
     * Used to localize the Next button label.
     */
@@ -1438,6 +1439,7 @@ declare namespace LocalJSX {
     'vchildren'?: any;
   }
   interface AcPagination extends JSXBase.HTMLAttributes<HTMLAcPaginationElement> {
+    'buildedPages'?: number[];
     /**
     * Used to localize the Next button label.
     */

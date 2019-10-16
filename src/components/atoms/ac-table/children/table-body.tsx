@@ -24,7 +24,7 @@ export const TableBody = props => {
       </div>
     }
     {props.rows && props.rows.map(row =>
-      <tr onClick={() => props.onSelect(row)}>
+      <tr onClick={() => props.onSelect ? props.onSelect(row) : null}>
         {props.columns.map(cell =>
           <TableCell type={cell.type} value={row[cell.key]}/>
         )}
