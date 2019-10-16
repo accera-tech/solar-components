@@ -81,8 +81,6 @@ export class AcCheck implements FormFieldComponent {
    */
   @Prop({ reflectToAttr: true }) required: boolean;
 
-  // @Event({ eventName: 'changeChecked' }) change: EventEmitter;
-
   componentDidLoad() {
   }
 
@@ -100,6 +98,15 @@ export class AcCheck implements FormFieldComponent {
   @Bind
   private handleChange() {
     this.checked = !this.checked;
+
+    if (this.checked && this.type === 'radio') {
+      Array.from(document.querySelectorAll(`ac-check[name="${this.name}"]`) as NodeListOf<HTMLAcCheckElement>)
+        .forEach(e => {
+          if (e.value !== this.value) {
+            e.checked = false;
+          }
+        });
+    }
   }
 
   render() {
@@ -121,7 +128,7 @@ export class AcCheck implements FormFieldComponent {
             value={this.value}
             onChange={this.handleChange}
             disabled={this.disabled}
-            {...(this.type === 'checkbox' ? { checked: this.checked } : {})}
+            checked={this.checked}
           />
           <div class="ac-check__custom">
           </div>
