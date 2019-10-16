@@ -226,7 +226,7 @@ proxyMethods(AcOverlay, ['handleBackDropClick']);
 proxyInputs(AcOverlay, ['backdrop', 'disableClose', 'noLayer', 'position', 'vchildren']);
 
 export declare interface AcPagination extends Components.AcPagination {}
-@Component({ selector: 'ac-pagination', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['buildedPages', 'nextLabel', 'previousLabel', 'selected', 'totalPages'] })
+@Component({ selector: 'ac-pagination', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['nextLabel', 'previousLabel', 'selected', 'totalPages'] })
 export class AcPagination {
   paginationChange!: EventEmitter<CustomEvent>;
   protected el: HTMLElement;
@@ -236,7 +236,7 @@ export class AcPagination {
     proxyOutputs(this, this.el, ['paginationChange']);
   }
 }
-proxyInputs(AcPagination, ['buildedPages', 'nextLabel', 'previousLabel', 'selected', 'totalPages']);
+proxyInputs(AcPagination, ['nextLabel', 'previousLabel', 'selected', 'totalPages']);
 
 export declare interface AcPanel extends Components.AcPanel {}
 @Component({ selector: 'ac-panel', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>' })
