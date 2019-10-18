@@ -169,7 +169,7 @@
 
 ### Used by
 
- - [ac-pagination](..\..\ac-pagination)
+ - [ac-pagination](../../ac-pagination)
 
 ### Graph
 ```mermaid

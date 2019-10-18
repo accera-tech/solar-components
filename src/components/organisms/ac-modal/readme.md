@@ -175,7 +175,7 @@
 
 ### Depends on
 
-- [ac-button](..\..\atoms\ac-button)
+- [ac-button](../../atoms/ac-button)
 
 ### Graph
 ```mermaid

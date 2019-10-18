@@ -26,8 +26,8 @@
 
 ### Depends on
 
-- [ac-tabs](..\ac-tabs)
-- [ac-tab](..\ac-tabs\ac-tab)
+- [ac-tabs](../ac-tabs)
+- [ac-tab](../ac-tabs/ac-tab)
 
 ### Graph
 ```mermaid

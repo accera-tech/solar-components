@@ -19,7 +19,7 @@
 
 ### Used by
 
- - [ac-panel-controller](..\..\organisms\ac-panel\ac-panel-controller)
+ - [ac-panel-controller](../../organisms/ac-panel/ac-panel-controller)
 
 ### Graph
 ```mermaid

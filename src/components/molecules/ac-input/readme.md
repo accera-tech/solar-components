@@ -38923,8 +38923,8 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [ac-input-base](..\..\atoms\ac-input-base)
-- [ac-button](..\..\atoms\ac-button)
+- [ac-input-base](../../atoms/ac-input-base)
+- [ac-button](../../atoms/ac-button)
 
 ### Graph
 ```mermaid

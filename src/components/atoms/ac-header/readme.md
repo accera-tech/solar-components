@@ -162,14 +162,14 @@
 | Property   | Attribute  | Description | Type      | Default     |
 | ---------- | ---------- | ----------- | --------- | ----------- |
 | `scrolled` | `scrolled` |             | `boolean` | `undefined` |
-| `theme`    | `theme`    |             | `string`  | `undefined` |
+| `theme`    | `theme`    |             | `string`  | `'primary'` |
 
 
 ## Dependencies
 
 ### Depends on
 
-- [ac-button](..\ac-button)
+- [ac-button](../ac-button)
 
 ### Graph
 ```mermaid

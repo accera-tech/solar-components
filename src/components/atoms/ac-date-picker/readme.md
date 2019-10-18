@@ -204,8 +204,8 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [ac-input-base](..\ac-input-base)
-- [ac-button](..\ac-button)
+- [ac-input-base](../ac-input-base)
+- [ac-button](../ac-button)
 
 ### Graph
 ```mermaid

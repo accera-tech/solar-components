@@ -39,7 +39,7 @@ Type: `Promise<any>`
 
 ### Depends on
 
-- [ac-overlay](..\..\..\portals\ac-overlay)
+- [ac-overlay](../../../portals/ac-overlay)
 
 ### Graph
 ```mermaid

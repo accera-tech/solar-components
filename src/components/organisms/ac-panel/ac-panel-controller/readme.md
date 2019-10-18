@@ -39,7 +39,7 @@ Type: `Promise<any>`
 
 ### Depends on
 
-- [ac-popper](..\..\..\portals\ac-popper)
+- [ac-popper](../../../portals/ac-popper)
 
 ### Graph
 ```mermaid

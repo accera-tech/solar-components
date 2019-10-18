@@ -24,12 +24,12 @@
 
 ### Used by
 
- - [ac-date-picker](..\ac-date-picker)
- - [ac-header](..\ac-header)
- - [ac-input](..\..\molecules\ac-input)
- - [ac-modal](..\..\organisms\ac-modal)
- - [ac-select](..\..\molecules\ac-select)
- - [ac-upload](..\..\organisms\ac-upload)
+ - [ac-date-picker](../ac-date-picker)
+ - [ac-header](../ac-header)
+ - [ac-input](../../molecules/ac-input)
+ - [ac-modal](../../organisms/ac-modal)
+ - [ac-select](../../molecules/ac-select)
+ - [ac-upload](../../organisms/ac-upload)
 
 ### Graph
 ```mermaid

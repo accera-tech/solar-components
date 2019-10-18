@@ -638,6 +638,7 @@ export namespace Components {
     */
     'value': any[] | any;
   }
+  interface AcShape {}
   interface AcStepper {
     /**
     * The number of concluded steps.
@@ -911,6 +912,12 @@ declare global {
     new (): HTMLAcSelectElement;
   };
 
+  interface HTMLAcShapeElement extends Components.AcShape, HTMLStencilElement {}
+  var HTMLAcShapeElement: {
+    prototype: HTMLAcShapeElement;
+    new (): HTMLAcShapeElement;
+  };
+
   interface HTMLAcStepperElement extends Components.AcStepper, HTMLStencilElement {}
   var HTMLAcStepperElement: {
     prototype: HTMLAcStepperElement;
@@ -984,6 +991,7 @@ declare global {
     'ac-portal': HTMLAcPortalElement;
     'ac-progress': HTMLAcProgressElement;
     'ac-select': HTMLAcSelectElement;
+    'ac-shape': HTMLAcShapeElement;
     'ac-stepper': HTMLAcStepperElement;
     'ac-tab': HTMLAcTabElement;
     'ac-table': HTMLAcTableElement;
@@ -1571,6 +1579,7 @@ declare namespace LocalJSX {
     */
     'value'?: any[] | any;
   }
+  interface AcShape extends JSXBase.HTMLAttributes<HTMLAcShapeElement> {}
   interface AcStepper extends JSXBase.HTMLAttributes<HTMLAcStepperElement> {
     /**
     * The number of concluded steps.
@@ -1707,6 +1716,7 @@ declare namespace LocalJSX {
     'ac-portal': AcPortal;
     'ac-progress': AcProgress;
     'ac-select': AcSelect;
+    'ac-shape': AcShape;
     'ac-stepper': AcStepper;
     'ac-tab': AcTab;
     'ac-table': AcTable;

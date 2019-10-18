@@ -40,8 +40,8 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [ac-modal-controller](..\..\organisms\ac-modal\ac-modal-controller)
- - [ac-toast-controller](..\..\atoms\ac-toast\ac-toast-controller)
+ - [ac-modal-controller](../../organisms/ac-modal/ac-modal-controller)
+ - [ac-toast-controller](../../atoms/ac-toast/ac-toast-controller)
 
 ### Graph
 ```mermaid
