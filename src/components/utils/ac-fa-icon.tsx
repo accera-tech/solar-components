@@ -28,6 +28,7 @@ export const AcFaIcon: FunctionalComponent<AcFaIconProps> = props => {
       class={parentClasses}
       viewBox={`0 0 ${icon.icon[0]} ${icon.icon[1]}`}
       height={size || 16}
+      style={style}
     >
       <path d={icon.icon[4]} />
     </svg>
