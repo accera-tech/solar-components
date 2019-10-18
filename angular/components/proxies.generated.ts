@@ -309,6 +309,16 @@ export class AcSelect {
 proxyMethods(AcSelect, ['getNativeFormField', 'getSelectedOptions', 'setValue']);
 proxyInputs(AcSelect, ['disabled', 'error', 'formFieldBehavior', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value']);
 
+export declare interface AcShape extends Components.AcShape {}
+@Component({ selector: 'ac-shape', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>' })
+export class AcShape {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
 export declare interface AcStepper extends Components.AcStepper {}
 @Component({ selector: 'ac-stepper', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['done', 'steps'] })
 export class AcStepper {
