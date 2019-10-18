@@ -56,6 +56,7 @@ ac-navdrawer {
       stroke-width: 50px;
       stroke: var-color("neutral", "lighter");
     }
+
     .ac-navdrawer__toggle-button-icon {
       z-index: 1;
     }
@@ -75,7 +76,7 @@ ac-navdrawer {
       position: absolute;
       top: 8px;
       width: 33px;
-      height: 33px;
+      height: 14px;
     }
   }
 }
