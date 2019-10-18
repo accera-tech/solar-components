@@ -38,7 +38,8 @@ export class AcNavdrawer {
     this.loadItemsFromHTML();
   }
 
-  componentDidUnload() {}
+  componentDidUnload() {
+  }
 
   private loadItemsFromHTML() {
     this.childMenus = Array.from(this.host.querySelectorAll('ac-menu'));
@@ -58,7 +59,7 @@ export class AcNavdrawer {
         }}
       >
         <div class="ac-navdrawer__header">
-          <slot name="header" />
+          <slot name="header"/>
         </div>
         <nav class="ac-navdrawer__content">
           <slot name="content"/>
@@ -69,6 +70,7 @@ export class AcNavdrawer {
             class="ac-navdrawer__toggle-button-icon"
             icon={this.compact ? faChevronRight : faChevronLeft}
             size={14}
+            style={{ height: '14px' }}
           />
         </div>
       </Host>

@@ -1,0 +1,75 @@
+@import "../../../theme/variables";
+
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
+
+ac-shape {
+  display: block;
+  position: relative;
+  min-width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  [slot=background] {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+
+  }
+
+  .ac-shape__background {
+    position: absolute;
+    z-index: -1;
+    top: -275px;
+    left: -175px;
+    width: 1050px;
+    fill: $neutral__white;
+  }
+
+  .ac-shape__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 760px;
+    max-width: 100vw;
+    min-height: 100vh;
+
+    .ac-shape__container {
+      display: flex;
+      flex-direction: column;
+      align-items: initial;
+      justify-content: space-between;
+      min-width: 298px;
+      height: 700px;
+      padding: 80px 0;
+    }
+  }
+
+  @include down-sm() {
+    .ac-shape__background {
+      top: 10%;
+      left: -100%;
+      width: 250%;
+    }
+    .ac-shape__wrapper {
+      justify-content: flex-end;
+
+      .ac-shape__container {
+        align-items: center;
+        width: 100vw;
+        min-height: 100vh;
+        padding: 16px;
+
+        .ac-shape__content {
+          min-width: 298px;
+        }
+
+        .ac-shape__header, .ac-shape__footer {
+          min-width: 100%;
+        }
+      }
+    }
+  }
+}

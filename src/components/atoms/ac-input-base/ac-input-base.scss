@@ -51,6 +51,7 @@ ac-input-base {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+
     & > ac-input-base {
       border: 0;
       border-top: 2px;
@@ -62,6 +63,7 @@ ac-input-base {
       margin: 0 0 0 $spacer-small;
     }
   }
+
   .ac-input__item-end {
     & > ac-button .ac-button__native {
       border: 0;
@@ -109,6 +111,7 @@ ac-input-base.ac-input-base--small {
 ac-input-base.ac-input-base--error {
   border-color: var-color("alert", "normal");
   background-color: white;
+
   .ac-input__label {
     color: var-color("alert", "normal");
   }
@@ -126,6 +129,7 @@ ac-input-base.ac-input-base--error {
 
 ac-input-base.ac-input-base--disabled {
   background-color: var-color("neutral", "lighter");
+
   input.ac-input__native {
     color: var-color("neutral", "darker");
     cursor: not-allowed;
@@ -133,6 +137,16 @@ ac-input-base.ac-input-base--disabled {
 
   .ac-input__label {
     color: var-color("neutral", "normal");
+  }
+}
+
+// Browser is IE
+// ---------------------------------------------------------
+@include browser-ie {
+  ac-input-base {
+    .ac-input__item-start, .ac-input__item-end {
+      max-width: $ac-input-base--items-IE__max-width;
+    }
   }
 }
 
