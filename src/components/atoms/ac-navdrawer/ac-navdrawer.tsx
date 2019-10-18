@@ -70,7 +70,6 @@ export class AcNavdrawer {
             class="ac-navdrawer__toggle-button-icon"
             icon={this.compact ? faChevronRight : faChevronLeft}
             size={14}
-            style={{ height: '14px' }}
           />
         </div>
       </Host>
