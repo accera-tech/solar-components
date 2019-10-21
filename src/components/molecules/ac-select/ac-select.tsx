@@ -475,7 +475,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
           onClick={this.togglePanel}
           icon-only
         >
-          <AcFaIcon icon={icon} size={12} style={{ width: '100%' }}/>
+          <AcFaIcon icon={icon} size={12} />
         </ac-button>
       </ac-input-base>,
       this.error || this.helperText
