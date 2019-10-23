@@ -321,7 +321,7 @@ export class AirDatePicker implements FormFieldComponent {
           onClick={this.toggleButton}
           icon-only
         >
-          <AcFaIcon icon={faCalendarAlt} size={14} style={{ width: '100%' }}/>
+          <AcFaIcon icon={faCalendarAlt} size={14} />
         </ac-button>
       </ac-input-base>
     );
