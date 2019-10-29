@@ -15,6 +15,11 @@ export class AcTable {
   * Event to be issued when there is a change in orders.
   */
   @Event({ eventName: 'changeOrder' }) change: EventEmitter;
+
+  /*
+  * Emit event when table update
+  */
+  @Event({ eventName: 'tableChange' }) tableChange: EventEmitter;
   /*
   *  Header and Rows, can be modified directly or using the fetch method.
   */
@@ -74,12 +79,20 @@ export class AcTable {
   @Bind
   @Method()
   async update() {
-    this.fetch(this.params).then(rows => {
-      this.options = ({
-        ...this.options,
-        rows: rows.rows
+    this.fetch(this.params)
+      .then(rows => {
+        this.options = ({
+          ...this.options,
+          rows: rows.rows
+        });
+        this.tableChange.emit();
+      })
+      .catch(() => {
+        this.options = ({
+          ...this.options,
+          rows: null
+        })
       });
-    })
   }
 
   @Watch('fetch')

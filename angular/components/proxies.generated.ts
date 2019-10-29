@@ -348,11 +348,12 @@ export declare interface AcTable extends Components.AcTable {}
 @Component({ selector: 'ac-table', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['fetch', 'loading', 'noResultsLabel', 'options', 'params', 'selectRow'] })
 export class AcTable {
   changeOrder!: EventEmitter<CustomEvent>;
+  tableChange!: EventEmitter<CustomEvent>;
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['changeOrder']);
+    proxyOutputs(this, this.el, ['changeOrder', 'tableChange']);
   }
 }
 proxyMethods(AcTable, ['update']);
