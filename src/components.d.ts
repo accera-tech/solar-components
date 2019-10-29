@@ -1609,6 +1609,7 @@ declare namespace LocalJSX {
     'loading'?: boolean;
     'noResultsLabel'?: string;
     'onChangeOrder'?: (event: CustomEvent<any>) => void;
+    'onTableChange'?: (event: CustomEvent<any>) => void;
     'options'?: Options;
     'params'?: { ordering: string; property: string; selected: number; filters: { limitRows: string; totalRows: string; search: string; }; };
     'selectRow'?: any;
