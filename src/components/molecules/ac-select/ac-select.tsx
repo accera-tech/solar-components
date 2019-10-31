@@ -2,11 +2,13 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { Component, Element, Event, EventEmitter, Method, Prop, State, Watch, h } from '@stencil/core';
 import { equals } from 'ramda';
 
+import { AsyncDataBehavior, AsyncDataComponent } from '../../../behaviors/async-data-behavior';
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
 import { FocusBehavior, FocusableComponent } from '../../../behaviors/focus-behavior';
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
 import { Debounced } from '../../../utils/lang/reactivity';
+import { toArray } from '../../../utils/lang/to-array';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
@@ -19,7 +21,10 @@ import { AcFaIcon } from '../../utils/ac-fa-icon';
   tag: 'ac-select',
   styleUrl: 'ac-select.scss',
 })
-export class AcSelect implements FocusableComponent, FormFieldComponent {
+export class AcSelect implements
+  FocusableComponent,
+  FormFieldComponent,
+  AsyncDataComponent<SelectFetchParams, SelectOption[]> {
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
    */
@@ -53,6 +58,16 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
    */
   focusBehavior = new FocusBehavior(this);
 
+  /**
+   * The instance of the FormFieldBehavior.
+   */
+  formFieldBehavior = new FormFieldBehavior(this);
+
+  /**
+   * The instance of the AsyncDataBehavior used to control async data features.
+   */
+  asyncDataBehavior = new AsyncDataBehavior(this);
+
   hasFocus: boolean;
 
   /**
@@ -61,11 +76,6 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   requestCheckValidity: boolean;
 
   @Element() host: HTMLAcSelectElement;
-
-  /**
-   * The instance of the FormFieldBehavior.
-   */
-  @Prop() formFieldBehavior = new FormFieldBehavior(this);
 
   /**
    * The label text of the this input group.
@@ -81,6 +91,11 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
    * Set the loading mode, showing a loading icon.
    */
   @Prop() loading: boolean;
+
+  /**
+   * Set the loading mode, showing a loading icon.
+   */
+  @Prop() fetch: (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
 
   /**
    * Set the field in the error state with a message.
@@ -105,7 +120,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   /**
    * The value of the internal input.
    */
-  @Prop({ mutable: true }) value: any[] | any;
+  @Prop({ mutable: true }) value: (string | number)[] | string | number;
 
   /**
    * The name of the internal input.
@@ -166,6 +181,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   valueDidUpdate(newValue: (number | string)[] | number | string,
                  oldValue: (number | string)[] | number | string) {
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
+      // Build the formatted text when the value change.
       this.formatSelectedText();
     }
   }
@@ -206,11 +222,15 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   @Watch('filter')
   filterDidUpdate() {
     if (this.filter) {
-      this.filteredOptions = this.options.filter(o =>
-        o.title
-          .toLowerCase()
-          .indexOf(this.filter.toLowerCase()) > -1
-      );
+      if (this.fetch) {
+        this.asyncDataBehavior.executeFetch();
+      } else {
+        this.filteredOptions = this.options.filter(o =>
+          o.title
+            .toLowerCase()
+            .indexOf(this.filter.toLowerCase()) > -1
+        );
+      }
     } else {
       this.filteredOptions = null;
     }
@@ -230,6 +250,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
   async setValue(values) {
     this.value = values;
     this.requestCheckValidity = true;
+    this.formFieldBehavior.setDirty();
 
     if (values instanceof Array) {
       this.options.forEach(o => {
@@ -244,6 +265,18 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
     this.options = [ ...this.options ];
   }
 
+  @Method()
+  async setInitialOption(option: SelectOption | SelectOption[]) {
+    // Wrapping multi select.
+    const optionArr = toArray(option);
+    this.options = optionArr.map(o => ({ ...o, selected: true }));
+  }
+
+  @Method()
+  async getFormFieldBehavior() {
+    return this.formFieldBehavior;
+  }
+
   /**
    * Toggle the panel view.
    */
@@ -253,8 +286,17 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
       if (this.isShowingPanel) {
         this.togglePanel();
       }
-      this.requestCheckValidity = true;
+      this.formFieldBehavior.setTouched();
     }
+  }
+
+  whenReceiveData(metaData) {
+    this.filteredOptions = metaData.data;
+    this.options = metaData.data;
+  }
+
+  getFetchParams() {
+    return { filter: this.filter };
   }
 
   componentDidLoad() {
@@ -323,7 +365,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
    */
   private loadOptionsFromHTML() {
     const childOptions = this.host.querySelectorAll('option, optgroup');
-    this.options = Array.prototype.map.call(childOptions, o =>
+    const mappedOptions = Array.prototype.map.call(childOptions, o =>
       ({
         title: o.tagName === 'OPTGROUP' ? o.label : o.text,
         value: o.value,
@@ -332,6 +374,11 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         group: o.parentElement.tagName === 'OPTGROUP' ? o.parentElement.label : null
       })
     ) as SelectOption[];
+    // Prevent initializing with empty array
+    // @LESSON: Do not use ternary operator because it will cause a component rerender.
+    if (mappedOptions.length > 0) {
+      this.options = mappedOptions
+    }
   }
 
   private renderNativeOptions() {
@@ -422,6 +469,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
 
     this.isShowingPanel = this.multiple; // Close only if it's a single select
     this.requestCheckValidity = true;
+    this.formFieldBehavior.setDirty();
     this.filter = null;
   }
 
@@ -478,7 +526,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
           <AcFaIcon icon={icon} size={12} />
         </ac-button>
       </ac-input-base>,
-      this.error || this.helperText
+      (this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
         ? <span class="ac-select__helper-text">
             {this.error || this.helperText}
           </span>
@@ -533,4 +581,8 @@ export interface SelectOption<T = {}> {
    * A custom data
    */
   data?: T
+}
+
+export interface SelectFetchParams {
+  filter: string;
 }
