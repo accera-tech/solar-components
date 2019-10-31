@@ -53,18 +53,10 @@ $theme: (
   // Used to toggle between the dark and the light mode
   neutral: (
     normal:           $neutral__gray,                       // --color-neutral-normal
-
-    // Background
     contrast:         $neutral__white,                      // --color-neutral-contrast
-
-    // Text
     inverted:         $neutral__black,                      // --color-neutral-inverted
     dark:             #A0A0A0,                              // --color-neutral-dark
-
-    // Labels
     darker:           #646464,                              // --color-neutral-darker
-
-    // Borders
     light:            #E6E6E6,                              // --color-neutral-light
     lighter:          #F5F5F5                               // --color-neutral-lighter
   ),
@@ -74,9 +66,9 @@ $theme: (
     normal:           $neutral__white,                      // --color-theme-normal
     contrast:         $neutral__black,                      // --color-theme-contrast
     inverted:         $neutral__white,                      // --color-theme-inverted
-    dark:             #A0A0A0,         // --color-theme-dark
-    darker:           #646464,         // --color-theme-darker
-    light:            #E6E6E6,                      // --color-theme-light
-    lighter:          #F5F5F5                      // --color-theme-lighter
+    dark:             #A0A0A0,                              // --color-theme-dark
+    darker:           #646464,                              // --color-theme-darker
+    light:            #E6E6E6,                              // --color-theme-light
+    lighter:          #F5F5F5                               // --color-theme-lighter
   )
 );

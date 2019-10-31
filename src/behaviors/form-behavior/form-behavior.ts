@@ -141,7 +141,7 @@ export class FormBehavior extends ComponentBehavior<any> {
     log('Cleaning', this);
     this.pristine();
     const fieldsAsArray = Array.from(this.fields.values());
-    fieldsAsArray.map(f => f.cleanup());
+    fieldsAsArray.forEach(f => f.cleanup());
   }
 
   /**

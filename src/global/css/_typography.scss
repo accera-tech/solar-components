@@ -10,44 +10,42 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  color: current-color("contrast");
   line-height: 1.4;
 }
 
 h1 {
-  color: current-color("contrast");
   font-size: $font-huge;
   font-weight: bold;
 }
 
 h2 {
-  color: current-color("contrast");
   font-size: $font-large;
 }
 
 h3 {
-  color: current-color("contrast");
   font-size: $font-medium;
 }
 
 h4 {
-  color: current-color("contrast");
   font-size: $font-small;
 }
 
 h5 {
-  color: current-color("contrast");
   font-size: $font-tiny;
   text-transform: uppercase;
 }
 
 h6 {
-  color: current-color("contrast");
   font-size: $font-tiny;
 }
 
 p {
   color: current-color("contrast", 0.6);
   font-size: $font-small;
+  line-height: 1.4;
 }
 
 small {
@@ -56,6 +54,20 @@ small {
 
 strong, b {
   color: current-color("contrast");
+}
+
+a[href] {
+  text-decoration: none;
+  &.ac-link {
+    color: var-color("primary", "light");
+    text-decoration: none;
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
+    &:active, &:visited {
+      color: var-color("primary", "dark");
+    }
+  }
 }
 
 
