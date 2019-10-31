@@ -1,0 +1,1 @@
+export { SolarComponent } from './SolarComponent';
