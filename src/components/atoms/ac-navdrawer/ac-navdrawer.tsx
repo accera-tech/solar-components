@@ -69,7 +69,7 @@ export class AcNavdrawer {
           <AcFaIcon
             class="ac-navdrawer__toggle-button-icon"
             icon={this.compact ? faChevronRight : faChevronLeft}
-            size={14}
+            size={11}
           />
         </div>
       </Host>
