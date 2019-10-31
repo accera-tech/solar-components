@@ -5,12 +5,6 @@ import { raf } from '../../util/util';
 
 export class ValueAccessor implements ControlValueAccessor {
 
-  private onChange: (value: any) => void = () => {/**/};
-  private onTouched: () => void = () => {/**/};
-  protected lastValue: any;
-
-  constructor(protected el: ElementRef) {}
-
   writeValue(value: any) {
     this.el.nativeElement.value = this.lastValue = value == null ? '' : value;
     setIonicClasses(this.el);
@@ -45,6 +39,12 @@ export class ValueAccessor implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean) {
     this.el.nativeElement.disabled = isDisabled;
   }
+  protected lastValue: any;
+
+  constructor(protected el: ElementRef) {}
+
+  private onChange: (value: any) => void = () => {/**/};
+  private onTouched: () => void = () => {/**/};
 }
 
 export const setIonicClasses = (element: ElementRef) => {
