@@ -1,4 +1,4 @@
-import { Component, Element, Method, Prop, h, Host } from '@stencil/core';
+import { Component, Element, Host, Method, Prop, h } from '@stencil/core';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -95,9 +95,16 @@ export class AcCheck implements FormFieldComponent {
     return this.nativeInput;
   }
 
+  @Method()
+  async getFormFieldBehavior() {
+    return this.formFieldBehavior;
+  }
+
   @Bind
   private handleChange() {
     this.checked = !this.checked;
+    this.formFieldBehavior.setDirty();
+    this.formFieldBehavior.checkValidity();
 
     if (this.checked && this.type === 'radio') {
       Array.from(document.querySelectorAll(`ac-check[name="${this.name}"]`) as NodeListOf<HTMLAcCheckElement>)
@@ -134,8 +141,10 @@ export class AcCheck implements FormFieldComponent {
           </div>
           {this.label && <div class="ac-check__label">{this.label}</div>}
         </label>
-        {(this.error || this.helperText) &&
-        <label class="ac-check__helper-text">{this.error || this.helperText}</label>}
+        {
+          (this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
+          && <label class="ac-check__helper-text">{this.error || this.helperText}</label>
+        }
       </Host>
     );
   }

@@ -40,6 +40,9 @@ ac-input-base {
       color: var-color("neutral", "inverted");
       font-size: $font-small;
       line-height: 1;
+      &::placeholder {
+        color: current-color("contrast", 0.6);
+      }
 
       &:focus {
         outline: none;

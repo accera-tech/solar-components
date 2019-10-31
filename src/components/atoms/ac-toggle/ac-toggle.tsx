@@ -1,4 +1,5 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Method, Prop, h } from '@stencil/core';
+
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
@@ -11,7 +12,7 @@ import { CustomValidityState, ValidatorFn } from '../../../utils/validations/val
 export class AcToggle implements FormFieldComponent {
   nativeInput: HTMLInputElement;
 
-  @Prop() formFieldBehavior = new FormFieldBehavior(this);
+  formFieldBehavior = new FormFieldBehavior(this);
 
   @Element() host: HTMLAcToggleElement;
 
@@ -20,6 +21,10 @@ export class AcToggle implements FormFieldComponent {
   @Prop() name: string;
 
   @Prop({ mutable: true }) error: string;
+  /**
+   * Set the label direction.
+   */
+  @Prop() direction: 'left' | 'right' = 'right';
   /**
    * The validity state.
    */
@@ -55,10 +60,16 @@ export class AcToggle implements FormFieldComponent {
   componentWillLoad() {
   }
 
+  @Method()
+  async getFormFieldBehavior() {
+    return this.formFieldBehavior;
+  }
+
   render() {
     return (
       <Host
         class={{
+          [`ac-toggle--label-${this.direction}`]: this.direction !== undefined,
           'ac-toggle--disabled': this.disabled
         }}
       >

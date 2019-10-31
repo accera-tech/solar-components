@@ -24,7 +24,6 @@ export interface FormFieldComponent extends ComponentBase {
 
   /**
    * Provide access to the form field logic.
-   * @Prop
    */
   formFieldBehavior: FormFieldBehavior;
 
@@ -64,4 +63,10 @@ export interface FormFieldComponent extends ComponentBase {
    * The validity state of the FormField.
    */
   validity: CustomValidityState;
+
+  /**
+   * Used to provide access to the FormField instance.
+   * @Method
+   */
+  getFormFieldBehavior?: () => Promise<FormFieldBehavior>
 }
