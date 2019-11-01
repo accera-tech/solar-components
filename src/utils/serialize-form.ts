@@ -31,8 +31,9 @@ export function serializeForm(form: HTMLFormElement, options: SerializeFormOptio
             break;
 
           case 'checkbox':
-          case 'radio':
             if (field.checked) { assignByFormDataPath(obj, field.name, true); }
+          case 'radio':
+            if (field.checked) { assignByFormDataPath(obj, field.name, field.value); }
             break;
 
           default:
