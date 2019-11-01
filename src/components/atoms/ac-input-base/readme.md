@@ -38865,6 +38865,7 @@
 | `readonly`       | `readonly`       | Enable readonly.                                      | `boolean`            | `undefined` |
 | `required`       | `required`       | The native HTMLInputElement required attribute.       | `boolean`            | `undefined` |
 | `size`           | `size`           | The input's size.                                     | `"large" \| "small"` | `undefined` |
+| `step`           | `step`           | The native HTMLInputElement step attribute.           | `number`             | `undefined` |
 | `theme`          | `theme`          | The theme color defined in the color palette.         | `string`             | `'primary'` |
 | `type`           | `type`           | The type of the internal input.                       | `string`             | `undefined` |
 | `value`          | `value`          | The value of the internal input.                      | `any`                | `undefined` |

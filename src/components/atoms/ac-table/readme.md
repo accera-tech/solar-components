@@ -22,6 +22,7 @@
 | Event         | Description | Type               |
 | ------------- | ----------- | ------------------ |
 | `changeOrder` |             | `CustomEvent<any>` |
+| `tableChange` |             | `CustomEvent<any>` |
 
 
 ## Methods
