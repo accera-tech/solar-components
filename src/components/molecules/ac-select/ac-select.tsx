@@ -462,7 +462,7 @@ export class AcSelect implements FocusableComponent, FormFieldComponent {
         onFocus={this.openPanel}
         disabled={this.disabled}
         readonly={!this.searchable}
-        onKeyUp={this.handleDebouncedKeyUp}
+        onKeyUp={this.searchable ? this.handleDebouncedKeyUp : null}
       >
         <slot name="item-start" slot="item-start" />
         <slot name="input-label" slot="input-label" />
