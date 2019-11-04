@@ -24,6 +24,16 @@
 
 ## Methods
 
+### `getFormFieldBehavior() => Promise<any>`
+
+Used to provide access to the FormField instance.
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
 ### `getNativeFormField() => Promise<HTMLInputElement>`
 
 

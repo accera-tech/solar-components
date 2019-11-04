@@ -43,7 +43,7 @@ ac-check {
   .ac-check__helper-text {
     display: block;
     margin-top: $spacer-tiny;
-    padding-left: $spacer-medium;
+    padding-left: $ac-check__height + $spacer-tiny;
     color: var-color("neutral", "darker");
     font-size: $font-tiny;
     user-select: none;

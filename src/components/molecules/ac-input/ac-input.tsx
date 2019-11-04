@@ -22,7 +22,7 @@ export class AcInput implements FormFieldComponent {
   /**
    * The FormFieldBehavior instance.
    */
-  @Prop() formFieldBehavior = new FormFieldBehavior(this);
+  formFieldBehavior = new FormFieldBehavior(this);
 
   /**
    * The label text of the this input group.
@@ -129,6 +129,11 @@ export class AcInput implements FormFieldComponent {
   @Prop({ reflectToAttr: true }) autocapitalize: string;
 
   /**
+   * The native HTMLInputElement step attribute.
+   */
+  @Prop({ reflectToAttr: true }) step: number;
+
+  /**
    * Used to toggle the password view.
    */
   @State() isShowingPassword: boolean;
@@ -162,6 +167,17 @@ export class AcInput implements FormFieldComponent {
     }
   }
 
+  /**
+   * Applies transformations when the mask update.
+   */
+  @Watch('mask')
+  async maskDidUpdate() {
+    // Masking when value update programmatically
+    if (this.value) {
+      this.value = this.mask ? vanillaMasker.toPattern(this.value, this.mask) : await this.getRawValue(this.type);
+    }
+  }
+
   @Listen('keyup')
   async handleKeyup() {
     if (this.validateOnKeyup) {
@@ -190,7 +206,7 @@ export class AcInput implements FormFieldComponent {
    */
   @Method()
   async getRawValue(type = 'text') {
-    const value = (await this.acInputBase.getNativeInput()).value;
+    const value = (await this.acInputBase.getNativeInput()).value || this.value;
     if (!value) { return null; }
     if (type === 'text') {
       return value.toString().replace(/[^a-z0-9 ]+/ig, '');
@@ -210,6 +226,11 @@ export class AcInput implements FormFieldComponent {
   @Method()
   async getNativeFormField() {
     return this.acInputBase.getNativeInput();
+  }
+
+  @Method()
+  async getFormFieldBehavior() {
+    return this.formFieldBehavior;
   }
 
   async componentDidLoad() {
@@ -270,6 +291,7 @@ export class AcInput implements FormFieldComponent {
         min={this.min}
         maxlength={this.maxlength}
         minlength={this.minlength}
+        step={this.step}
         autofocus={this.autofocus}
         autocomplete={this.autocomplete}
         autocapitalize={this.autocapitalize}
@@ -284,7 +306,9 @@ export class AcInput implements FormFieldComponent {
             </ac-button>
           : <slot name="item-end" slot="item-end" />}
       </ac-input-base>,
-      this.error || this.helperText
+
+      // Only present message if it is a string. Preventing unnecessary margin effect.
+      (this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
         ? <span class="ac-input__helper-text">
             {this.error || this.helperText}
           </span>

@@ -1,11 +1,25 @@
 @import "../../../theme/variables";
 
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
+
 ac-toggle {
   display: inline-block;
 
   .ac-toggle__container {
     display: flex;
     align-items: center;
+
+    .ac-toggle__label {
+      margin: 0;
+      padding: 0 0 0 $spacer-tiny;
+      color: var-color("neutral", "darker");
+      font-size: $font-medium;
+      line-height: 1;
+      cursor: pointer;
+      user-select: none;
+    }
   }
 
   .ac-toggle__native {
@@ -16,9 +30,10 @@ ac-toggle {
     display: flex;
     position: relative;
     align-items: center;
-    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
     height: 20px;
-    transition: all $fast-transition;
+    transition: $fast-transition;
     border-radius: 10px;
     background-color: var-color("neutral", "light");
     cursor: pointer;
@@ -28,24 +43,21 @@ ac-toggle {
       position: absolute;
       width: 12px;
       height: 12px;
-      margin: 0 4px;
-      transition: all 0.4s;
+      margin: 0 $spacer-tiny / 2;
+      transition: $fast-transition;
       border-radius: 100%;
-      background-color: #FFFFFF;
+      background-color: var-color("neutral", "contrast");
     }
   }
-
-  .ac-toggle__label {
-    margin: 0;
-    padding: 0 0 0 $spacer-tiny;
-    color: var-color("neutral", "darker");
-    font-size: $font-medium;
-    line-height: 1;
-    cursor: pointer;
-    user-select: none;
-  }
-
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Checked mode (checked)
+// --------------------------------------------------
 
 ac-toggle {
   .ac-toggle__native:checked {
@@ -54,8 +66,6 @@ ac-toggle {
 
       &:before {
         transform: translateX(20px);
-        transition: all 0.4s;
-        background-color: #FFFFFF;
       }
 
       + .ac-toggle__label {
@@ -99,3 +109,20 @@ ac-toggle.ac-toggle--disabled {
 }
 
 
+// Label in Left mode (direction="left")
+// --------------------------------------------------
+
+ac-toggle.ac-toggle--label-left {
+  .ac-toggle__container {
+    flex-direction: row-reverse;
+  }
+
+  .ac-toggle__label {
+    padding-right: $spacer-tiny;
+  }
+  .ac-toggle__helper-text {
+    padding-right: $spacer-medium;
+    padding-left: 0;
+    text-align: right;
+  }
+}

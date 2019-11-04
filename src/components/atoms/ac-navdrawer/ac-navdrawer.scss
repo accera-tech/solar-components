@@ -43,7 +43,7 @@ ac-navdrawer {
     display: flex;
     position: absolute;
     z-index: $z-fab;
-    top: 26px;
+    top: 28px;
     left: calc(100% + 2px);
     align-items: center;
     justify-content: center;
@@ -51,8 +51,8 @@ ac-navdrawer {
 
     .ac-navdrawer__toggle-button-bg {
       position: absolute;
-      width: 33px;
-      height: 33px;
+      width: 24px;
+      height: 24px;
       stroke-width: 50px;
       stroke: var-color("neutral", "lighter");
     }

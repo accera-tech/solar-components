@@ -109,6 +109,11 @@ export class AcInputBase implements ComponentInterface {
    */
   @Prop({ reflectToAttr: true }) placeholder: string;
 
+  /**
+   * The native HTMLInputElement step attribute.
+   */
+  @Prop({ reflectToAttr: true }) step: number;
+
   @State() hasFocus: boolean;
 
   @Method()
@@ -185,7 +190,7 @@ export class AcInputBase implements ComponentInterface {
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          step={this.type === 'number' ? 0.00000000000001 : undefined}
+          step={this.type === 'number' ? this.step || '0.00000000000001' : undefined}
         />
       </span>
         <div class="ac-input__item-end">

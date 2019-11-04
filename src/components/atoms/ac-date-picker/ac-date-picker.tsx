@@ -21,7 +21,7 @@ export class AirDatePicker implements FormFieldComponent {
   /**
    * The FormFieldBehavior instance.
    */
-  @Prop({ mutable: false, reflectToAttr: false }) formFieldBehavior = new FormFieldBehavior(this);
+  formFieldBehavior = new FormFieldBehavior(this);
 
   @Prop() label = 'Date';
   @Prop() classes = '';
@@ -219,6 +219,11 @@ export class AirDatePicker implements FormFieldComponent {
   @Method()
   async getSelectedDates(): Promise<Date[]> {
     return this._picker.selectedDates;
+  }
+
+  @Method()
+  async getFormFieldBehavior() {
+    return this.formFieldBehavior;
   }
 
   private loadjQuery(callback: () => void) {
