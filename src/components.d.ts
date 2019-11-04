@@ -120,6 +120,10 @@ export namespace Components {
     * The FormFieldBehavior instance.
     */
     'formFieldBehavior': any;
+    /**
+    * Used to provide access to the FormField instance.
+    */
+    'getFormFieldBehavior': () => Promise<any>;
     'getNativeFormField': () => Promise<HTMLInputElement>;
     /**
     * The helper text to guide the user.
@@ -170,12 +174,12 @@ export namespace Components {
     */
     'disabled': boolean;
     'firstDay': string;
-    /**
-    * The FormFieldBehavior instance.
-    */
-    'formFieldBehavior': any;
     'formattedValue': string;
     'getElement': () => Promise<HTMLElement>;
+    /**
+    * Used to provide access to the FormField instance.
+    */
+    'getFormFieldBehavior': () => Promise<any>;
     'getSelectedDates': () => Promise<Date[]>;
     'hide': () => Promise<void>;
     'hoursStep': number;
@@ -272,9 +276,9 @@ export namespace Components {
     */
     'error': string | boolean;
     /**
-    * The FormFieldBehavior instance.
+    * Used to provide access to the FormField instance.
     */
-    'formFieldBehavior': any;
+    'getFormFieldBehavior': () => Promise<any>;
     'getNativeFormField': () => Promise<any>;
     /**
     * Get the unmasked value.
@@ -328,6 +332,10 @@ export namespace Components {
     * Update the value and run validations as if the user change it manually. When to use each: input.value will only update the value, useful to set the initial value of the input. input.setValue is useful to use values that are automatically set by an user's action, setting the unchecked state to the form.
     */
     'setValue': (value: any) => Promise<void>;
+    /**
+    * The native HTMLInputElement step attribute.
+    */
+    'step': number;
     /**
     * The type of the internal input.
     */
@@ -419,6 +427,10 @@ export namespace Components {
     * The input's size.
     */
     'size'?: 'small' | 'large';
+    /**
+    * The native HTMLInputElement step attribute.
+    */
+    'step': number;
     /**
     * The theme color defined in the color palette.
     */
@@ -583,9 +595,13 @@ export namespace Components {
     */
     'error': string | boolean;
     /**
-    * The instance of the FormFieldBehavior.
+    * Set the loading mode, showing a loading icon.
     */
-    'formFieldBehavior': any;
+    'fetch': (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
+    /**
+    * Used to provide access to the FormField instance.
+    */
+    'getFormFieldBehavior': () => Promise<any>;
     'getNativeFormField': () => Promise<HTMLSelectElement>;
     'getSelectedOptions': () => Promise<SelectOption<{}>[]>;
     /**
@@ -624,6 +640,7 @@ export namespace Components {
     * Set the search mode.
     */
     'searchable': boolean;
+    'setInitialOption': (option: SelectOption<{}> | SelectOption<{}>[]) => Promise<void>;
     'setValue': (values: any) => Promise<void>;
     /**
     * The validator functions.
@@ -636,7 +653,7 @@ export namespace Components {
     /**
     * The value of the internal input.
     */
-    'value': any[] | any;
+    'value': (string | number)[] | string | number;
   }
   interface AcShape {}
   interface AcStepper {
@@ -710,6 +727,10 @@ export namespace Components {
     */
     'checked': boolean;
     /**
+    * Set the label direction.
+    */
+    'direction': 'left' | 'right';
+    /**
     * If this field is in the disabled state.
     */
     'disabled': boolean;
@@ -718,9 +739,9 @@ export namespace Components {
     */
     'error': string;
     /**
-    * Provide access to the form field logic.
+    * Used to provide access to the FormField instance.
     */
-    'formFieldBehavior': any;
+    'getFormFieldBehavior': () => Promise<any>;
     'label': string;
     /**
     * The form field name.
@@ -1131,10 +1152,6 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     'firstDay'?: string;
-    /**
-    * The FormFieldBehavior instance.
-    */
-    'formFieldBehavior'?: any;
     'formattedValue'?: string;
     'hoursStep'?: number;
     'inline'?: boolean;
@@ -1231,10 +1248,6 @@ declare namespace LocalJSX {
     */
     'error'?: string | boolean;
     /**
-    * The FormFieldBehavior instance.
-    */
-    'formFieldBehavior'?: any;
-    /**
     * The helper text to guide the user.
     */
     'helperText'?: string;
@@ -1274,6 +1287,10 @@ declare namespace LocalJSX {
     * The native HTMLInputElement required attribute.
     */
     'required'?: boolean;
+    /**
+    * The native HTMLInputElement step attribute.
+    */
+    'step'?: number;
     /**
     * The type of the internal input.
     */
@@ -1360,6 +1377,10 @@ declare namespace LocalJSX {
     * The input's size.
     */
     'size'?: 'small' | 'large';
+    /**
+    * The native HTMLInputElement step attribute.
+    */
+    'step'?: number;
     /**
     * The theme color defined in the color palette.
     */
@@ -1523,9 +1544,9 @@ declare namespace LocalJSX {
     */
     'error'?: string | boolean;
     /**
-    * The instance of the FormFieldBehavior.
+    * Set the loading mode, showing a loading icon.
     */
-    'formFieldBehavior'?: any;
+    'fetch'?: (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
     /**
     * The helper text to guide the user.
     */
@@ -1577,7 +1598,7 @@ declare namespace LocalJSX {
     /**
     * The value of the internal input.
     */
-    'value'?: any[] | any;
+    'value'?: (string | number)[] | string | number;
   }
   interface AcShape extends JSXBase.HTMLAttributes<HTMLAcShapeElement> {}
   interface AcStepper extends JSXBase.HTMLAttributes<HTMLAcStepperElement> {
@@ -1641,6 +1662,10 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
+    * Set the label direction.
+    */
+    'direction'?: 'left' | 'right';
+    /**
     * If this field is in the disabled state.
     */
     'disabled'?: boolean;
@@ -1648,10 +1673,6 @@ declare namespace LocalJSX {
     * The actual error message.
     */
     'error'?: string;
-    /**
-    * Provide access to the form field logic.
-    */
-    'formFieldBehavior'?: any;
     'label'?: string;
     /**
     * The form field name.

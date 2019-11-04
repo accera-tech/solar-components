@@ -57,11 +57,11 @@ export class AcCheck {
     this.el = r.nativeElement;
   }
 }
-proxyMethods(AcCheck, ['getNativeFormField']);
+proxyMethods(AcCheck, ['getNativeFormField', 'getFormFieldBehavior']);
 proxyInputs(AcCheck, ['checked', 'direction', 'disabled', 'error', 'formFieldBehavior', 'helperText', 'label', 'name', 'required', 'type', 'validator', 'validity', 'value']);
 
 export declare interface AcDatePicker extends Components.AcDatePicker {}
-@Component({ selector: 'ac-date-picker', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['altField', 'altFieldDateFormat', 'autoClose', 'classes', 'clearButton', 'dateFormat', 'dateTimeSeparator', 'disableNavWhenOutOfRange', 'disabled', 'firstDay', 'formFieldBehavior', 'formattedValue', 'hoursStep', 'inline', 'isShowing', 'keyboardNav', 'label', 'language', 'maxDate', 'maxHours', 'maxMinutes', 'minDate', 'minHours', 'minMinutes', 'minView', 'minutesStep', 'monthsField', 'moveToOtherMonthsOnSelect', 'moveToOtherYearsOnSelect', 'multipleDates', 'multipleDatesSeparator', 'name', 'offset', 'onlyTimepicker', 'position', 'range', 'required', 'selectOtherMonths', 'selectOtherYears', 'showEvent', 'showOtherMonths', 'showOtherYears', 'startDate', 'timeFormat', 'timepicker', 'todayButton', 'toggleSelected', 'validator', 'validity', 'value', 'view', 'weekends'] })
+@Component({ selector: 'ac-date-picker', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['altField', 'altFieldDateFormat', 'autoClose', 'classes', 'clearButton', 'dateFormat', 'dateTimeSeparator', 'disableNavWhenOutOfRange', 'disabled', 'firstDay', 'formattedValue', 'hoursStep', 'inline', 'isShowing', 'keyboardNav', 'label', 'language', 'maxDate', 'maxHours', 'maxMinutes', 'minDate', 'minHours', 'minMinutes', 'minView', 'minutesStep', 'monthsField', 'moveToOtherMonthsOnSelect', 'moveToOtherYearsOnSelect', 'multipleDates', 'multipleDatesSeparator', 'name', 'offset', 'onlyTimepicker', 'position', 'range', 'required', 'selectOtherMonths', 'selectOtherYears', 'showEvent', 'showOtherMonths', 'showOtherYears', 'startDate', 'timeFormat', 'timepicker', 'todayButton', 'toggleSelected', 'validator', 'validity', 'value', 'view', 'weekends'] })
 export class AcDatePicker {
   onSelect!: EventEmitter<CustomEvent>;
   onShow!: EventEmitter<CustomEvent>;
@@ -78,8 +78,8 @@ export class AcDatePicker {
     proxyOutputs(this, this.el, ['onSelect', 'onShow', 'onHide', 'onChangeMonth', 'onChangeYear', 'onChangeDecade', 'onChangeView', 'onRenderCell']);
   }
 }
-proxyMethods(AcDatePicker, ['hide', 'destroy', 'next', 'prev', 'selectDate', 'removeDate', 'clear', 'update', 'setView', 'setDate', 'getElement', 'getSelectedDates']);
-proxyInputs(AcDatePicker, ['altField', 'altFieldDateFormat', 'autoClose', 'classes', 'clearButton', 'dateFormat', 'dateTimeSeparator', 'disableNavWhenOutOfRange', 'disabled', 'firstDay', 'formFieldBehavior', 'formattedValue', 'hoursStep', 'inline', 'isShowing', 'keyboardNav', 'label', 'language', 'maxDate', 'maxHours', 'maxMinutes', 'minDate', 'minHours', 'minMinutes', 'minView', 'minutesStep', 'monthsField', 'moveToOtherMonthsOnSelect', 'moveToOtherYearsOnSelect', 'multipleDates', 'multipleDatesSeparator', 'name', 'offset', 'onlyTimepicker', 'position', 'range', 'required', 'selectOtherMonths', 'selectOtherYears', 'showEvent', 'showOtherMonths', 'showOtherYears', 'startDate', 'timeFormat', 'timepicker', 'todayButton', 'toggleSelected', 'validator', 'validity', 'value', 'view', 'weekends']);
+proxyMethods(AcDatePicker, ['hide', 'destroy', 'next', 'prev', 'selectDate', 'removeDate', 'clear', 'update', 'setView', 'setDate', 'getElement', 'getSelectedDates', 'getFormFieldBehavior']);
+proxyInputs(AcDatePicker, ['altField', 'altFieldDateFormat', 'autoClose', 'classes', 'clearButton', 'dateFormat', 'dateTimeSeparator', 'disableNavWhenOutOfRange', 'disabled', 'firstDay', 'formattedValue', 'hoursStep', 'inline', 'isShowing', 'keyboardNav', 'label', 'language', 'maxDate', 'maxHours', 'maxMinutes', 'minDate', 'minHours', 'minMinutes', 'minView', 'minutesStep', 'monthsField', 'moveToOtherMonthsOnSelect', 'moveToOtherYearsOnSelect', 'multipleDates', 'multipleDatesSeparator', 'name', 'offset', 'onlyTimepicker', 'position', 'range', 'required', 'selectOtherMonths', 'selectOtherYears', 'showEvent', 'showOtherMonths', 'showOtherYears', 'startDate', 'timeFormat', 'timepicker', 'todayButton', 'toggleSelected', 'validator', 'validity', 'value', 'view', 'weekends']);
 
 export declare interface AcGauge extends Components.AcGauge {}
 @Component({ selector: 'ac-gauge', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['percent', 'size', 'theme'] })
@@ -104,7 +104,7 @@ export class AcHeader {
 proxyInputs(AcHeader, ['scrolled', 'theme']);
 
 export declare interface AcInput extends Components.AcInput {}
-@Component({ selector: 'ac-input', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'formFieldBehavior', 'helperText', 'label', 'mask', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'required', 'type', 'validateOnKeyup', 'validator', 'validity', 'value'] })
+@Component({ selector: 'ac-input', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'helperText', 'label', 'mask', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'required', 'step', 'type', 'validateOnKeyup', 'validator', 'validity', 'value'] })
 export class AcInput {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
@@ -112,11 +112,11 @@ export class AcInput {
     this.el = r.nativeElement;
   }
 }
-proxyMethods(AcInput, ['setValue', 'getRawValue', 'setFocus', 'getNativeFormField']);
-proxyInputs(AcInput, ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'formFieldBehavior', 'helperText', 'label', 'mask', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'required', 'type', 'validateOnKeyup', 'validator', 'validity', 'value']);
+proxyMethods(AcInput, ['setValue', 'getRawValue', 'setFocus', 'getNativeFormField', 'getFormFieldBehavior']);
+proxyInputs(AcInput, ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'helperText', 'label', 'mask', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'required', 'step', 'type', 'validateOnKeyup', 'validator', 'validity', 'value']);
 
 export declare interface AcInputBase extends Components.AcInputBase {}
-@Component({ selector: 'ac-input-base', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'label', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'theme', 'type', 'value'] })
+@Component({ selector: 'ac-input-base', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'label', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'step', 'theme', 'type', 'value'] })
 export class AcInputBase {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
@@ -125,7 +125,7 @@ export class AcInputBase {
   }
 }
 proxyMethods(AcInputBase, ['getNativeInput', 'setFocus']);
-proxyInputs(AcInputBase, ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'label', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'theme', 'type', 'value']);
+proxyInputs(AcInputBase, ['autocapitalize', 'autocomplete', 'autofocus', 'disabled', 'error', 'label', 'max', 'maxlength', 'min', 'minlength', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'step', 'theme', 'type', 'value']);
 
 export declare interface AcLayout extends Components.AcLayout {}
 @Component({ selector: 'ac-layout', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['collapsed'] })
@@ -296,7 +296,7 @@ export class AcProgress {
 proxyInputs(AcProgress, ['percent', 'theme']);
 
 export declare interface AcSelect extends Components.AcSelect {}
-@Component({ selector: 'ac-select', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['disabled', 'error', 'formFieldBehavior', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value'] })
+@Component({ selector: 'ac-select', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['disabled', 'error', 'fetch', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value'] })
 export class AcSelect {
   selectChange!: EventEmitter<CustomEvent>;
   protected el: HTMLElement;
@@ -306,8 +306,8 @@ export class AcSelect {
     proxyOutputs(this, this.el, ['selectChange']);
   }
 }
-proxyMethods(AcSelect, ['getNativeFormField', 'getSelectedOptions', 'setValue']);
-proxyInputs(AcSelect, ['disabled', 'error', 'formFieldBehavior', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value']);
+proxyMethods(AcSelect, ['getNativeFormField', 'getSelectedOptions', 'setValue', 'setInitialOption', 'getFormFieldBehavior']);
+proxyInputs(AcSelect, ['disabled', 'error', 'fetch', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value']);
 
 export declare interface AcShape extends Components.AcShape {}
 @Component({ selector: 'ac-shape', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>' })
@@ -399,7 +399,7 @@ proxyMethods(AcToastController, ['create', 'dismiss']);
 proxyInputs(AcToastController, ['bound']);
 
 export declare interface AcToggle extends Components.AcToggle {}
-@Component({ selector: 'ac-toggle', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['checked', 'disabled', 'error', 'formFieldBehavior', 'label', 'name', 'required', 'validator', 'validity', 'value'] })
+@Component({ selector: 'ac-toggle', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['checked', 'direction', 'disabled', 'error', 'label', 'name', 'required', 'validator', 'validity', 'value'] })
 export class AcToggle {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
@@ -407,7 +407,8 @@ export class AcToggle {
     this.el = r.nativeElement;
   }
 }
-proxyInputs(AcToggle, ['checked', 'disabled', 'error', 'formFieldBehavior', 'label', 'name', 'required', 'validator', 'validity', 'value']);
+proxyMethods(AcToggle, ['getFormFieldBehavior']);
+proxyInputs(AcToggle, ['checked', 'direction', 'disabled', 'error', 'label', 'name', 'required', 'validator', 'validity', 'value']);
 
 export declare interface AcUpload extends Components.AcUpload {}
 @Component({ selector: 'ac-upload', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['name', 'theme', 'uploadButtonText', 'value'] })
