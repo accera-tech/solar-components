@@ -10,6 +10,7 @@ function loadStories() {
 if (module.hot) {
   const currentLocationHref = window.location.href;
   module.hot.accept(req.id, () => {
+    console.log('applying');
     window.history.pushState(null, null, currentLocationHref);
     location.reload();
   });
