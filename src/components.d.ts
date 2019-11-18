@@ -36,6 +36,12 @@ import {
   Options,
 } from './components/atoms/ac-table/ac-table';
 import {
+  TableOptions,
+} from './components/molecules/ac-table/ac-table';
+import {
+  AsyncMetadata,
+} from './behaviors/async-data-behavior';
+import {
   AcToast,
 } from './components/atoms/ac-toast/ac-toast';
 
@@ -244,6 +250,9 @@ export namespace Components {
     'value': Date | Date[];
     'view': string;
     'weekends': number[];
+  }
+  interface AcForm {
+    'preventUnsaved': string;
   }
   interface AcGauge {
     'percent': number;
@@ -693,6 +702,20 @@ export namespace Components {
     'selectRow': any;
     'update': () => Promise<void>;
   }
+  interface AcTable2 {
+    /**
+    * The function that fetch data.
+    */
+    'fetch': (params: any) => Promise<AsyncMetadata<any>>;
+    /**
+    * Loading state
+    */
+    'loading': boolean;
+    /**
+    * Header and Rows.
+    */
+    'options': TableOptions<any>;
+  }
   interface AcTabs {
     'compact': boolean;
     'selected': string | number;
@@ -817,6 +840,12 @@ declare global {
   var HTMLAcDatePickerElement: {
     prototype: HTMLAcDatePickerElement;
     new (): HTMLAcDatePickerElement;
+  };
+
+  interface HTMLAcFormElement extends Components.AcForm, HTMLStencilElement {}
+  var HTMLAcFormElement: {
+    prototype: HTMLAcFormElement;
+    new (): HTMLAcFormElement;
   };
 
   interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
@@ -957,6 +986,12 @@ declare global {
     new (): HTMLAcTableElement;
   };
 
+  interface HTMLAcTable2Element extends Components.AcTable2, HTMLStencilElement {}
+  var HTMLAcTable2Element: {
+    prototype: HTMLAcTable2Element;
+    new (): HTMLAcTable2Element;
+  };
+
   interface HTMLAcTabsElement extends Components.AcTabs, HTMLStencilElement {}
   var HTMLAcTabsElement: {
     prototype: HTMLAcTabsElement;
@@ -993,6 +1028,7 @@ declare global {
     'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
     'ac-date-picker': HTMLAcDatePickerElement;
+    'ac-form': HTMLAcFormElement;
     'ac-gauge': HTMLAcGaugeElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input': HTMLAcInputElement;
@@ -1016,6 +1052,7 @@ declare global {
     'ac-stepper': HTMLAcStepperElement;
     'ac-tab': HTMLAcTabElement;
     'ac-table': HTMLAcTableElement;
+    'ac-table-2': HTMLAcTable2Element;
     'ac-tabs': HTMLAcTabsElement;
     'ac-toast': HTMLAcToastElement;
     'ac-toast-controller': HTMLAcToastControllerElement;
@@ -1216,6 +1253,9 @@ declare namespace LocalJSX {
     'value'?: Date | Date[];
     'view'?: string;
     'weekends'?: number[];
+  }
+  interface AcForm extends JSXBase.HTMLAttributes<HTMLAcFormElement> {
+    'preventUnsaved'?: string;
   }
   interface AcGauge extends JSXBase.HTMLAttributes<HTMLAcGaugeElement> {
     'percent'?: number;
@@ -1635,6 +1675,20 @@ declare namespace LocalJSX {
     'params'?: { ordering: string; property: string; selected: number; filters: { limitRows: string; totalRows: string; search: string; }; };
     'selectRow'?: any;
   }
+  interface AcTable2 extends JSXBase.HTMLAttributes<HTMLAcTable2Element> {
+    /**
+    * The function that fetch data.
+    */
+    'fetch'?: (params: any) => Promise<AsyncMetadata<any>>;
+    /**
+    * Loading state
+    */
+    'loading'?: boolean;
+    /**
+    * Header and Rows.
+    */
+    'options'?: TableOptions<any>;
+  }
   interface AcTabs extends JSXBase.HTMLAttributes<HTMLAcTabsElement> {
     'compact'?: boolean;
     'onTabChange'?: (event: CustomEvent<string>) => void;
@@ -1719,6 +1773,7 @@ declare namespace LocalJSX {
     'ac-card': AcCard;
     'ac-check': AcCheck;
     'ac-date-picker': AcDatePicker;
+    'ac-form': AcForm;
     'ac-gauge': AcGauge;
     'ac-header': AcHeader;
     'ac-input': AcInput;
@@ -1742,6 +1797,7 @@ declare namespace LocalJSX {
     'ac-stepper': AcStepper;
     'ac-tab': AcTab;
     'ac-table': AcTable;
+    'ac-table-2': AcTable2;
     'ac-tabs': AcTabs;
     'ac-toast': AcToast;
     'ac-toast-controller': AcToastController;

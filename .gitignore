@@ -1,7 +1,5 @@
 dist/
 www/
-/react/
-/scss/
 
 *~
 *.sw[mnpcod]

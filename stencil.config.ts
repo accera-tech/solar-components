@@ -1,4 +1,3 @@
-// import { BUILD } from '@stencil/core/build-conditionals';
 import { Config } from '@stencil/core/dist/declarations/config';
 import { sass } from '@stencil/sass';
 // import stripCode from 'rollup-plugin-strip-code';
@@ -21,13 +20,6 @@ export const config: Config = {
       type: 'docs-readme',
       strict: true
     },
-    {
-      type: 'angular',
-      componentCorePackage: '@accera/solar-components',
-      directivesProxyFile: './angular/components/proxies.generated.ts',
-      directivesUtilsFile: './angular/components/proxies-utils.ts',
-      directivesArrayFile: './angular/components/index.ts',
-    }
   ],
   copy: [
     { src: 'theme', dest: 'scss' },
