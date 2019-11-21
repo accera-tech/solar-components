@@ -1,19 +1,8 @@
 import { configure } from '@storybook/html';
+import { loadStories } from './utils/stencil-loader';
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../src', true, /\.stories\.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
+const componentsDefs = require.context('../dist/collection/components', true, /\.js$/);
+const componentsNotes = require.context('../src/components', true, /\.md$/);
+const componentsDocs = require.context('../src/components', true, /\.mdx$/);
 
-// https://github.com/storybookjs/storybook/issues/4229
-if (module.hot) {
-  const currentLocationHref = window.location.href;
-  module.hot.accept(req.id, () => {
-    console.log('applying');
-    window.history.pushState(null, null, currentLocationHref);
-    location.reload();
-  });
-}
-
-configure(loadStories, module);
+configure(() => loadStories(componentsDefs, componentsNotes, componentsDocs), module);
