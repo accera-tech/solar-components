@@ -587,6 +587,10 @@ export namespace Components {
   }
   interface AcSelect {
     /**
+    * Set true to select compact.
+    */
+    'compact': boolean;
+    /**
     * Set the disabled mode.
     */
     'disabled': boolean;
@@ -1535,6 +1539,10 @@ declare namespace LocalJSX {
     'theme'?: string;
   }
   interface AcSelect extends JSXBase.HTMLAttributes<HTMLAcSelectElement> {
+    /**
+    * Set true to select compact.
+    */
+    'compact'?: boolean;
     /**
     * Set the disabled mode.
     */

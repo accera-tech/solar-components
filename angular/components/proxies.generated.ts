@@ -296,7 +296,7 @@ export class AcProgress {
 proxyInputs(AcProgress, ['percent', 'theme']);
 
 export declare interface AcSelect extends Components.AcSelect {}
-@Component({ selector: 'ac-select', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['disabled', 'error', 'fetch', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value'] })
+@Component({ selector: 'ac-select', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>', inputs: ['compact', 'disabled', 'error', 'fetch', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value'] })
 export class AcSelect {
   selectChange!: EventEmitter<CustomEvent>;
   protected el: HTMLElement;
@@ -307,7 +307,7 @@ export class AcSelect {
   }
 }
 proxyMethods(AcSelect, ['getNativeFormField', 'getSelectedOptions', 'setValue', 'setInitialOption', 'getFormFieldBehavior']);
-proxyInputs(AcSelect, ['disabled', 'error', 'fetch', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value']);
+proxyInputs(AcSelect, ['compact', 'disabled', 'error', 'fetch', 'helperText', 'label', 'loading', 'multiple', 'name', 'noResultsLabel', 'options', 'required', 'searchable', 'validator', 'validity', 'value']);
 
 export declare interface AcShape extends Components.AcShape {}
 @Component({ selector: 'ac-shape', changeDetection: ChangeDetectionStrategy.OnPush, template: '<ng-content></ng-content>' })

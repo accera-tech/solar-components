@@ -182,6 +182,7 @@ export class AirDatePicker implements FormFieldComponent {
   }
 
   @Method()
+  @Bind
   async selectDate(date: Date) {
     this._picker.selectDate(date);
   }
