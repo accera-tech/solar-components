@@ -49,7 +49,7 @@ export class AcModal implements TransitionComponent {
             <span class="ac-modal__title">{this.title}</span> :
             <slot name="modal-title" />
         }
-        <ac-button fill="clear" theme="primary" icon-only onClick={this.close}>
+        <ac-button fill="clear" theme="primary" shape="round" icon-only onClick={this.close}>
           <AcFaIcon icon={faTimes} />
         </ac-button>
       </header>,
