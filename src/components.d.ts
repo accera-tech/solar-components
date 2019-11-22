@@ -20,6 +20,9 @@ import {
   AcOverlay,
 } from './components/portals/ac-overlay/ac-overlay';
 import {
+  AcNavdrawer,
+} from './components/atoms/ac-navdrawer/ac-navdrawer';
+import {
   AcPanel,
 } from './components/organisms/ac-panel/ac-panel';
 import {
@@ -495,9 +498,31 @@ export namespace Components {
     */
     'compact': boolean;
     /**
+    * Show or hide toggle button
+    */
+    'showToggle': boolean;
+    /**
     * The color theme.
     */
     'theme': string;
+    /**
+    * Show title in the navdrawer and toggle header
+    */
+    'title': string;
+  }
+  interface AcNavdrawerController {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound': string;
+    /**
+    * Setup a new navdrawer on the screen.
+    */
+    'create': (props: ControllerComponentOptions<AcNavdrawer & AcOverlay>) => Promise<any>;
+    /**
+    * Clear all modals that are displayed.
+    */
+    'dismiss': () => Promise<void>;
   }
   interface AcOverlay {
     /**
@@ -885,6 +910,12 @@ declare global {
     new (): HTMLAcNavdrawerElement;
   };
 
+  interface HTMLAcNavdrawerControllerElement extends Components.AcNavdrawerController, HTMLStencilElement {}
+  var HTMLAcNavdrawerControllerElement: {
+    prototype: HTMLAcNavdrawerControllerElement;
+    new (): HTMLAcNavdrawerControllerElement;
+  };
+
   interface HTMLAcOverlayElement extends Components.AcOverlay, HTMLStencilElement {}
   var HTMLAcOverlayElement: {
     prototype: HTMLAcOverlayElement;
@@ -1004,6 +1035,7 @@ declare global {
     'ac-modal': HTMLAcModalElement;
     'ac-modal-controller': HTMLAcModalControllerElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;
+    'ac-navdrawer-controller': HTMLAcNavdrawerControllerElement;
     'ac-overlay': HTMLAcOverlayElement;
     'ac-pagination': HTMLAcPaginationElement;
     'ac-panel': HTMLAcPanelElement;
@@ -1442,10 +1474,25 @@ declare namespace LocalJSX {
     * Compact mode.
     */
     'compact'?: boolean;
+    'onClose'?: (event: CustomEvent<void>) => void;
+    /**
+    * Show or hide toggle button
+    */
+    'showToggle'?: boolean;
     /**
     * The color theme.
     */
     'theme'?: string;
+    /**
+    * Show title in the navdrawer and toggle header
+    */
+    'title'?: string;
+  }
+  interface AcNavdrawerController extends JSXBase.HTMLAttributes<HTMLAcNavdrawerControllerElement> {
+    /**
+    * An optional property used to refer the parent element that the component will be attached to.
+    */
+    'bound'?: string;
   }
   interface AcOverlay extends JSXBase.HTMLAttributes<HTMLAcOverlayElement> {
     /**
@@ -1730,6 +1777,7 @@ declare namespace LocalJSX {
     'ac-modal': AcModal;
     'ac-modal-controller': AcModalController;
     'ac-navdrawer': AcNavdrawer;
+    'ac-navdrawer-controller': AcNavdrawerController;
     'ac-overlay': AcOverlay;
     'ac-pagination': AcPagination;
     'ac-panel': AcPanel;
