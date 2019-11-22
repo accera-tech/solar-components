@@ -98,7 +98,7 @@ export class AcNavdrawer implements TransitionComponent {
         </nav>
         {this.showToggle && <div class="ac-navdrawer__toggle-button" onClick={this.toggleMode}>
           <AcNeogridShape class="ac-navdrawer__toggle-button-bg"/>
-          <AcFaIcon visibi
+          <AcFaIcon
             class="ac-navdrawer__toggle-button-icon"
             icon={this.compact ? faChevronRight : faChevronLeft}
             size={11}
