@@ -135,7 +135,7 @@ export class AcCheck implements FormFieldComponent {
             value={this.value}
             onChange={this.handleChange}
             disabled={this.disabled}
-            checked={this.checked}
+            {...(this.type === 'checkbox' ? { checked: this.checked } : {})}
           />
           <div class="ac-check__custom">
           </div>
