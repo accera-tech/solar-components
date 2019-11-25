@@ -119,11 +119,12 @@
   }
 
   &.-disabled- {
-    color: ("neutral", "normal");
+    color: var-color("neutral", "normal");
     cursor: default;
 
     &.-focus- {
       background-color: var-color("neutral", "normal");
+      color: var-color("neutral", "light");
     }
 
     &.-in-range- {
