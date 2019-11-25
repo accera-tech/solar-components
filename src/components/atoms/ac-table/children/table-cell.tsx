@@ -13,6 +13,7 @@ const buildContent = props => {
 export const TableCell = props => {
   const content = buildContent(props);
   return (
-    <td innerHTML={content}>
+    // @ts-ignore
+    <td onClick={() => props.onClick()} innerHTML={content}>
     </td>);
 };
