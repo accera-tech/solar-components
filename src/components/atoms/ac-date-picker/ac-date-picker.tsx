@@ -5,8 +5,8 @@ import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-b
 import { Bind } from '../../../utils/lang/bind';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
+import { LazyAirDatePicker } from './assets/lazy-air-date-picker';
 
-import DatePicker from './assets/air-datepicker.js';
 
 @Component({
   tag: 'ac-date-picker',
@@ -85,69 +85,57 @@ export class AirDatePicker implements FormFieldComponent {
   @Event() onRenderCell!: EventEmitter;
 
   componentDidLoad() {
-    /**
-     * I dynamically load jQuery into application if it's not yet defined inside global
-     * scope. This eliminates an extra step if you don't have jQuery already and if you
-     * do we will just use yours.
-     */
-    this.loadjQuery(async () => {
-      const $ = (window as any).jQuery;
-      DatePicker(window, $);
-      this.addEnglishTranslation($);
-      this._picker = $(await this.acInputBase.getNativeInput())
-        .datepicker({
-          classes: this.classes,
-          inline: this.inline,
-          language: this.language,
-          startDate: this.startDate,
-          firstDay: this.firstDay,
-          weekends: this.weekends,
-          dateFormat: this.dateFormat,
-          altField: this.altField,
-          altFieldDateFormat: this.altFieldDateFormat,
-          toggleSelected: this.toggleSelected,
-          keyboardNav: this.keyboardNav,
-          position: this.position,
-          offset: this.offset,
-          view: this.view,
-          minView: this.minView,
-          showOtherMonths: this.showOtherMonths,
-          selectOtherMonths: this.selectOtherMonths,
-          moveToOtherMonthsOnSelect: this.moveToOtherMonthsOnSelect,
-          showOtherYears: this.showOtherYears,
-          selectOtherYears: this.selectOtherYears,
-          moveToOtherYearsOnSelect: this.moveToOtherYearsOnSelect,
-          minDate: this.minDate,
-          maxDate: this.maxDate,
-          disableNavWhenOutOfRange: this.disableNavWhenOutOfRange,
-          multipleDates: this.multipleDates,
-          multipleDatesSeparator: this.multipleDatesSeparator,
-          range: this.range,
-          todayButton: this.todayButton,
-          clearButton: this.clearButton,
-          showEvent: this.showEvent,
-          autoClose: this.autoClose,
-          monthsField: this.monthsField,
-          timepicker: this.timepicker,
-          onlyTimepicker: this.onlyTimepicker,
-          dateTimeSeparator: this.dateTimeSeparator,
-          timeFormat: this.timeFormat,
-          minHours: this.minHours,
-          maxHours: this.maxHours,
-          minMinutes: this.minMinutes,
-          maxMinutes: this.maxMinutes,
-          hoursStep: this.hoursStep,
-          minutesStep: this.minutesStep,
-          onSelect: this.handleSelect,
-          onShow: this.handleShow,
-          onHide: this.handleHide,
-          onChangeMonth: (month: number, year: number) => this.onChangeMonth.emit({ month, year }),
-          onChangeYear: (year: number) => this.onChangeYear.emit({ year }),
-          onChangeDecade: (decade: number) => this.onChangeDecade.emit({ decade }),
-          onChangeView: (view: string) => this.onChangeView.emit({ view }),
-          onRenderCell: (date: Date, cellType: string) => this.onRenderCell.emit({ date, cellType })
-        })
-        .data('datepicker');
+    this._picker = new LazyAirDatePicker(this.acInputBase, {
+      classes: this.classes,
+      inline: this.inline,
+      language: this.language,
+      startDate: this.startDate,
+      firstDay: this.firstDay,
+      weekends: this.weekends,
+      dateFormat: this.dateFormat,
+      altField: this.altField,
+      altFieldDateFormat: this.altFieldDateFormat,
+      toggleSelected: this.toggleSelected,
+      keyboardNav: this.keyboardNav,
+      position: this.position,
+      offset: this.offset,
+      view: this.view,
+      minView: this.minView,
+      showOtherMonths: this.showOtherMonths,
+      selectOtherMonths: this.selectOtherMonths,
+      moveToOtherMonthsOnSelect: this.moveToOtherMonthsOnSelect,
+      showOtherYears: this.showOtherYears,
+      selectOtherYears: this.selectOtherYears,
+      moveToOtherYearsOnSelect: this.moveToOtherYearsOnSelect,
+      minDate: this.minDate,
+      maxDate: this.maxDate,
+      disableNavWhenOutOfRange: this.disableNavWhenOutOfRange,
+      multipleDates: this.multipleDates,
+      multipleDatesSeparator: this.multipleDatesSeparator,
+      range: this.range,
+      todayButton: this.todayButton,
+      clearButton: this.clearButton,
+      showEvent: this.showEvent,
+      autoClose: this.autoClose,
+      monthsField: this.monthsField,
+      timepicker: this.timepicker,
+      onlyTimepicker: this.onlyTimepicker,
+      dateTimeSeparator: this.dateTimeSeparator,
+      timeFormat: this.timeFormat,
+      minHours: this.minHours,
+      maxHours: this.maxHours,
+      minMinutes: this.minMinutes,
+      maxMinutes: this.maxMinutes,
+      hoursStep: this.hoursStep,
+      minutesStep: this.minutesStep,
+      onSelect: this.handleSelect,
+      onShow: this.handleShow,
+      onHide: this.handleHide,
+      onChangeMonth: (month: number, year: number) => this.onChangeMonth.emit({ month, year }),
+      onChangeYear: (year: number) => this.onChangeYear.emit({ year }),
+      onChangeDecade: (decade: number) => this.onChangeDecade.emit({ decade }),
+      onChangeView: (view: string) => this.onChangeView.emit({ view }),
+      onRenderCell: (date: Date, cellType: string) => this.onRenderCell.emit({ date, cellType })
     });
   }
 
@@ -224,63 +212,6 @@ export class AirDatePicker implements FormFieldComponent {
   @Method()
   async getFormFieldBehavior() {
     return this.formFieldBehavior;
-  }
-
-  private loadjQuery(callback: () => void) {
-    const jQuery = (window as any).jQuery;
-    if (!jQuery) {
-      const link = 'https://code.jquery.com/jquery-3.3.1.min.js';
-
-      const element = document.createElement('script');
-      element.setAttribute('type', 'text/javascript');
-      element.setAttribute('src', link);
-      element.onload = callback;
-      (element as any).onreadystatechange = callback;
-      document.head.appendChild(element);
-    } else {
-      callback();
-    }
-  }
-
-  private addEnglishTranslation(jQuery: any) {
-    jQuery.fn.datepicker.language['en'] = {
-      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-      months: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ],
-      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      today: 'Today',
-      clear: 'Clear',
-      dateFormat: 'mm/dd/yyyy',
-      timeFormat: 'hh:ii aa',
-      firstDay: 0
-    };
-    jQuery.fn.datepicker.language['pt-BR'] = {
-      days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-      daysMin: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
-      // tslint:disable-next-line:max-line-length
-      months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      today: 'Hoje',
-      clear: 'Limpar',
-      dateFormat: 'dd/mm/yyyy',
-      timeFormat: 'hh:ii',
-      firstDay: 0
-    };
   }
 
   @Bind
