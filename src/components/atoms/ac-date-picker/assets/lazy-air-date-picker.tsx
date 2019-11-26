@@ -24,10 +24,9 @@ export class LazyAirDatePicker {
       this._picker = $(await baseInput.getNativeInput())
         .datepicker(config)
         .data('datepicker');
-        while(this.commands.length > 0) {
-          const command = this.commands.pop();
-          command();
-        }
+        this.commands
+          .forEach(command => command());
+        this.commands.length = 0;
     });
   }
 
