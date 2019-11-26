@@ -6,6 +6,7 @@
 
 ac-table {
   table {
+    position: relative;
     width: 100%;
     border-collapse: collapse;
   }
@@ -79,11 +80,13 @@ ac-table {
     }
   }
   tbody {
-    .table-body--loading {
+    .table--loading {
       display: flex;
       position: absolute;
       align-items: center;
       justify-content: center;
+      width: 100%;
+      height: 100%;
       background-color: var-color("neutral", "contrast", 0.8);
     }
   }

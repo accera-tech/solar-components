@@ -6,27 +6,22 @@ import { AcFaIcon } from '../../../utils/ac-fa-icon';
 import { TableCell } from './table-cell';
 
 export const TableBody = props => {
-  const tbodyReference = document.getElementById('tbodyReference');
   return (
-    <tbody id="tbodyReference" class="table-content">
+    <tbody>
     {
       props.loading &&
-      <div
-        style={
-          tbodyReference ? {
-              width: `${tbodyReference.offsetWidth}px`,
-              height: `${tbodyReference.offsetHeight}px`
-            }
-            : null}
-        class="table-body--loading"
-      >
+      <div class="table--loading">
         <AcFaIcon icon={faSpinner} size={20} anim="spin"/>
       </div>
     }
     {props.rows && props.rows.map(row =>
-      <tr onClick={() => props.onSelect ? props.onSelect(row) : null}>
+      <tr>
         {props.columns.map(cell =>
-          <TableCell type={cell.type} value={row[cell.key]}/>
+          <TableCell
+            type={cell.type}
+            value={row[cell.key]}
+            onClick={() => props.onSelect && cell.type !== 'action' ? props.onSelect(row) : null}
+          />
         )}
       </tr>,
     )}
