@@ -9,6 +9,17 @@ ac-pagination {
 
     }
   }
+
+  .page-counter__container {
+    color: var-color("primary", "normal");
+    .page-counter__container--icon {
+      fill: var-color("primary", "normal");
+    }
+  }
+  .page-counter__container--expand {
+    flex: 0 0 84px;
+  }
+
   .skip-pages {
     display: flex;
     align-items: center;

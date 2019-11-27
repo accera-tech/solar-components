@@ -27,12 +27,14 @@
 ### Depends on
 
 - [ac-tabs](../ac-tabs)
+- [ac-input-base](../../atoms/ac-input-base)
 - [ac-tab](../ac-tabs/ac-tab)
 
 ### Graph
 ```mermaid
 graph TD;
   ac-pagination --> ac-tabs
+  ac-pagination --> ac-input-base
   ac-pagination --> ac-tab
   style ac-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```

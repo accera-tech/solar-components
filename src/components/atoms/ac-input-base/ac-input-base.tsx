@@ -139,6 +139,7 @@ export class AcInputBase implements ComponentInterface {
   @Bind
   private handleBlur() {
     this.hasFocus = false;
+    this.host.dispatchEvent(new Event('blur'));
   }
 
   @Bind
