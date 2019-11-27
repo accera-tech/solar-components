@@ -153,6 +153,11 @@ export class AcSelect implements
   @Prop({ reflectToAttr: true }) required: boolean;
 
   /**
+   * Select size
+   */
+  @Prop({ mutable: true }) size: 'small' | 'large';
+
+  /**
    * Used to toggle the panel view.
    */
   @State() isShowingPanel: boolean;
@@ -511,6 +516,7 @@ export class AcSelect implements
         disabled={this.disabled}
         readonly={!this.searchable}
         onKeyUp={this.searchable ? this.handleDebouncedKeyUp : null}
+        size={this.size}
       >
         <slot name="item-start" slot="item-start" />
         <slot name="input-label" slot="input-label" />

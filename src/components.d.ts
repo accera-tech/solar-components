@@ -668,6 +668,10 @@ export namespace Components {
     'setInitialOption': (option: SelectOption<{}> | SelectOption<{}>[]) => Promise<void>;
     'setValue': (values: any) => Promise<void>;
     /**
+    * Select size
+    */
+    'size': 'small' | 'large';
+    /**
     * The validator functions.
     */
     'validator': ValidatorFn | ValidatorFn[];
@@ -1634,6 +1638,10 @@ declare namespace LocalJSX {
     * Set the search mode.
     */
     'searchable'?: boolean;
+    /**
+    * Select size
+    */
+    'size'?: 'small' | 'large';
     /**
     * The validator functions.
     */
