@@ -12,6 +12,10 @@ ac-pagination {
 
   .page-counter__container {
     color: var-color("primary", "normal");
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: flex-end;
     .page-counter__container--icon {
       fill: var-color("primary", "normal");
     }
