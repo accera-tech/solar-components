@@ -587,10 +587,6 @@ export namespace Components {
   }
   interface AcSelect {
     /**
-    * Set true to select compact.
-    */
-    'compact': boolean;
-    /**
     * Set the disabled mode.
     */
     'disabled': boolean;
@@ -646,6 +642,10 @@ export namespace Components {
     'searchable': boolean;
     'setInitialOption': (option: SelectOption<{}> | SelectOption<{}>[]) => Promise<void>;
     'setValue': (values: any) => Promise<void>;
+    /**
+    * Select size
+    */
+    'size': 'small' | 'large';
     /**
     * The validator functions.
     */
@@ -1540,10 +1540,6 @@ declare namespace LocalJSX {
   }
   interface AcSelect extends JSXBase.HTMLAttributes<HTMLAcSelectElement> {
     /**
-    * Set true to select compact.
-    */
-    'compact'?: boolean;
-    /**
     * Set the disabled mode.
     */
     'disabled'?: boolean;
@@ -1595,6 +1591,10 @@ declare namespace LocalJSX {
     * Set the search mode.
     */
     'searchable'?: boolean;
+    /**
+    * Select size
+    */
+    'size'?: 'small' | 'large';
     /**
     * The validator functions.
     */

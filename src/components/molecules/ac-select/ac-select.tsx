@@ -153,9 +153,9 @@ export class AcSelect implements
   @Prop({ reflectToAttr: true }) required: boolean;
 
   /**
-   * Set true to select compact.
+   * Select size
    */
-  @Prop({ mutable: true }) compact: boolean;
+  @Prop({ mutable: true }) size: 'small' | 'large';
 
   /**
    * Used to toggle the panel view.
@@ -516,7 +516,7 @@ export class AcSelect implements
         disabled={this.disabled}
         readonly={!this.searchable}
         onKeyUp={this.searchable ? this.handleDebouncedKeyUp : null}
-        size={this.compact ? 'small' : null}
+        size={this.size}
       >
         <slot name="item-start" slot="item-start" />
         <slot name="input-label" slot="input-label" />
