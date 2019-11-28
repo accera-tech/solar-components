@@ -5,7 +5,6 @@ import { Component, Event, EventEmitter, Listen, Prop, Watch, h, State, Element 
 import { Bind } from '../../../utils/lang/bind';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import { AcInputBase } from '../../atoms/ac-input-base/ac-input-base';
 
 @Component({
   tag: 'ac-pagination',
