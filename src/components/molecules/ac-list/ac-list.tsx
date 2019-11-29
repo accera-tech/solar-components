@@ -1,4 +1,4 @@
-import { Component, Prop, Method, Element, h, Watch } from '@stencil/core';
+import { Component, Prop, Method, Element, h } from '@stencil/core';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,6 +8,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class AcList {
 
+  /**
+   * Reference to the component
+   */
   @Element() host: HTMLAcListElement;
 
   @Prop() filterText: string;
