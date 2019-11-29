@@ -41,12 +41,14 @@ Type: `Promise<void>`
 ### Used by
 
  - [ac-modal-controller](../../organisms/ac-modal/ac-modal-controller)
+ - [ac-navdrawer-controller](../../atoms/ac-navdrawer/ac-navdrawer-controller)
  - [ac-toast-controller](../../atoms/ac-toast/ac-toast-controller)
 
 ### Graph
 ```mermaid
 graph TD;
   ac-modal-controller --> ac-overlay
+  ac-navdrawer-controller --> ac-overlay
   ac-toast-controller --> ac-overlay
   style ac-overlay fill:#f9f,stroke:#333,stroke-width:4px
 ```

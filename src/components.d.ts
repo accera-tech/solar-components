@@ -11,6 +11,9 @@ import {
   ValidatorFn,
 } from './utils/validations/validations';
 import {
+  ListOption,
+} from './components/molecules/ac-list/ac-list';
+import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
 import {
@@ -453,6 +456,30 @@ export namespace Components {
     */
     'collapsed': 'nav-left';
   }
+  interface AcList {
+    'filterText': string;
+    'getSelectedOptions': () => Promise<ListOption<{}>[]>;
+    /**
+    * Used to customize the field label
+    */
+    'label': string;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple': boolean;
+    /**
+    * Message that will be rendered with the search results in zero items
+    */
+    'noResultsLabel': string;
+    /**
+    * List of all options available.
+    */
+    'options': ListOption[];
+    /**
+    * Used to customize the searchbar's label
+    */
+    'searchLabel': string;
+  }
   interface AcLogin {
     'backgroundImageSrc': string;
   }
@@ -878,6 +905,12 @@ declare global {
     new (): HTMLAcLayoutElement;
   };
 
+  interface HTMLAcListElement extends Components.AcList, HTMLStencilElement {}
+  var HTMLAcListElement: {
+    prototype: HTMLAcListElement;
+    new (): HTMLAcListElement;
+  };
+
   interface HTMLAcLoginElement extends Components.AcLogin, HTMLStencilElement {}
   var HTMLAcLoginElement: {
     prototype: HTMLAcLoginElement;
@@ -1033,6 +1066,7 @@ declare global {
     'ac-input': HTMLAcInputElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-layout': HTMLAcLayoutElement;
+    'ac-list': HTMLAcListElement;
     'ac-login': HTMLAcLoginElement;
     'ac-menu': HTMLAcMenuElement;
     'ac-menu-item': HTMLAcMenuItemElement;
@@ -1437,6 +1471,29 @@ declare namespace LocalJSX {
     'collapsed'?: 'nav-left';
     'onContentScroll'?: (event: CustomEvent<{ top: number, left: number }>) => void;
   }
+  interface AcList extends JSXBase.HTMLAttributes<HTMLAcListElement> {
+    'filterText'?: string;
+    /**
+    * Used to customize the field label
+    */
+    'label'?: string;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple'?: boolean;
+    /**
+    * Message that will be rendered with the search results in zero items
+    */
+    'noResultsLabel'?: string;
+    /**
+    * List of all options available.
+    */
+    'options'?: ListOption[];
+    /**
+    * Used to customize the searchbar's label
+    */
+    'searchLabel'?: string;
+  }
   interface AcLogin extends JSXBase.HTMLAttributes<HTMLAcLoginElement> {
     'backgroundImageSrc'?: string;
   }
@@ -1779,6 +1836,7 @@ declare namespace LocalJSX {
     'ac-input': AcInput;
     'ac-input-base': AcInputBase;
     'ac-layout': AcLayout;
+    'ac-list': AcList;
     'ac-login': AcLogin;
     'ac-menu': AcMenu;
     'ac-menu-item': AcMenuItem;
