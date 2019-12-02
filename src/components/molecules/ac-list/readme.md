@@ -32,6 +32,10 @@ Type: `Promise<ListOption<{}>[]>`
 
 ## Dependencies
 
+### Used by
+
+ - [ac-pick-list](../../organisms/ac-pick-list)
+
 ### Depends on
 
 - [ac-input-base](../../atoms/ac-input-base)
@@ -44,6 +48,7 @@ graph TD;
   ac-list --> ac-input-base
   ac-list --> ac-button
   ac-list --> ac-check
+  ac-pick-list --> ac-list
   style ac-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

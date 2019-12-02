@@ -1,0 +1,12 @@
+
+ac-pick-list {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+
+
+  .ac-pick-list__column {
+    height: 100%;
+    min-width: 232px;
+  }
+}

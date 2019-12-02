@@ -32,6 +32,9 @@ import {
   AcPopper,
 } from './components/portals/ac-popper/ac-popper';
 import {
+  ListOption as ListOption1,
+} from './components/molecules/ac-list/ac-list';
+import {
   Placement,
   PopperOptions,
 } from 'popper.js';
@@ -603,6 +606,17 @@ export namespace Components {
     */
     'dismiss': (elt?: any) => Promise<any>;
   }
+  interface AcPickList {
+    'addAllLabel': string;
+    'addLabel': string;
+    'availableLabel': string;
+    'noResultsLabel': string;
+    'options': ListOption[];
+    'removeAllLabel': string;
+    'removeLabel': string;
+    'searchLabel': string;
+    'selectedLabel': string;
+  }
   interface AcPopper {
     /**
     * Popper.js's options.
@@ -977,6 +991,12 @@ declare global {
     new (): HTMLAcPanelControllerElement;
   };
 
+  interface HTMLAcPickListElement extends Components.AcPickList, HTMLStencilElement {}
+  var HTMLAcPickListElement: {
+    prototype: HTMLAcPickListElement;
+    new (): HTMLAcPickListElement;
+  };
+
   interface HTMLAcPopperElement extends Components.AcPopper, HTMLStencilElement {}
   var HTMLAcPopperElement: {
     prototype: HTMLAcPopperElement;
@@ -1078,6 +1098,7 @@ declare global {
     'ac-pagination': HTMLAcPaginationElement;
     'ac-panel': HTMLAcPanelElement;
     'ac-panel-controller': HTMLAcPanelControllerElement;
+    'ac-pick-list': HTMLAcPickListElement;
     'ac-popper': HTMLAcPopperElement;
     'ac-portal': HTMLAcPortalElement;
     'ac-progress': HTMLAcProgressElement;
@@ -1608,6 +1629,17 @@ declare namespace LocalJSX {
     */
     'bound'?: string;
   }
+  interface AcPickList extends JSXBase.HTMLAttributes<HTMLAcPickListElement> {
+    'addAllLabel'?: string;
+    'addLabel'?: string;
+    'availableLabel'?: string;
+    'noResultsLabel'?: string;
+    'options'?: ListOption[];
+    'removeAllLabel'?: string;
+    'removeLabel'?: string;
+    'searchLabel'?: string;
+    'selectedLabel'?: string;
+  }
   interface AcPopper extends JSXBase.HTMLAttributes<HTMLAcPopperElement> {
     /**
     * Popper.js's options.
@@ -1848,6 +1880,7 @@ declare namespace LocalJSX {
     'ac-pagination': AcPagination;
     'ac-panel': AcPanel;
     'ac-panel-controller': AcPanelController;
+    'ac-pick-list': AcPickList;
     'ac-popper': AcPopper;
     'ac-portal': AcPortal;
     'ac-progress': AcProgress;

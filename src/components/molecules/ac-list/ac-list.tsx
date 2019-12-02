@@ -40,7 +40,6 @@ export class AcList {
       this.options.filter(x => x.value !== option.value).forEach(x => x.selected = false);
     }
     option.selected = !option.selected;
-    this.options.splice(option.index, 1, option);
     this.options = [ ...this.options ];
   }
 
@@ -124,7 +123,6 @@ export class AcList {
           }
           return stateList;
         }, { groups: {}, items: [] });
-
 
     return itemsToRender
         ? itemsToRender
