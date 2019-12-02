@@ -40,7 +40,6 @@ export class AcList {
       this.options.filter(x => x.value !== option.value).forEach(x => x.selected = false);
     }
     option.selected = !option.selected;
-    this.options.splice(option.index, 1, option);
     this.options = [ ...this.options ];
   }
 
@@ -52,17 +51,14 @@ export class AcList {
   componentDidLoad() {
     if (!this.options) {
       this.loadOptionsFromHTML();
-    } else {
-      this.options.forEach((option, index) => option.index = index);
     }
   }
 
   loadOptionsFromHTML() {
     const listItems = Array.from(this.host.querySelectorAll('optgroup, option'));
     if (listItems) {
-      this.options = listItems.map((item: any, index) => {
+      this.options = listItems.map((item: any) => {
         return ({
-          index,
           title: item.tagName === 'OPTGROUP' ? item.label : item.text,
           value: item.value,
           selected: item.hasAttribute('selected') ? item.selected : false,
@@ -160,7 +156,6 @@ export class AcList {
 }
 
 export interface ListOption<T = {}> {
-  index: number;
   /**
    * The title that will be displayed in the item
    */
