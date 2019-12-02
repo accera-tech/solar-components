@@ -20,7 +20,7 @@ export function serializeForm(form: HTMLFormElement, options: SerializeFormOptio
 
   Array.prototype.slice.call(form.querySelectorAll('[name]' + (options.ignoreDisabled ? ':not([disabled])' : '')))
     .forEach(field => {
-      if (field.name && ['file', 'reset', 'button'].indexOf(field.type) === -1 && !field.hasAttribute('data-native')) {
+      if (field.name && ['file', 'reset', 'button'].indexOf(field.type) === -1 && field.tagName.indexOf('-') === -1) {
         switch (field.type) {
           case 'select-multiple':
             const options = [];

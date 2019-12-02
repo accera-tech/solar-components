@@ -148,6 +148,11 @@ export class AcSelect implements
   @Prop({ reflectToAttr: true }) noResultsLabel = 'No results for';
 
   /**
+   * Set the custom search helper text.
+   */
+  @Prop({ reflectToAttr: true }) searchHelperLabel = 'Use the field to search';
+
+  /**
    * The native required attribute.
    */
   @Prop({ reflectToAttr: true }) required: boolean;
@@ -399,6 +404,16 @@ export class AcSelect implements
   }
 
   private renderOptions(options) {
+    if (!options) {
+      if (this.searchable) {
+        return (
+          <li class="ac-select__helper-item">
+            {this.searchHelperLabel}
+          </li>
+        );
+      }
+      return null;
+    }
     if (options.length > 0) {
       return options.map(item => {
         if (item.separator) {
@@ -420,7 +435,7 @@ export class AcSelect implements
       });
     } else {
       return (
-        <li class="ac-select__empty-result">
+        <li class="ac-select__helper-item">
           {this.noResultsLabel} {this.filter}
         </li>
       );
@@ -546,7 +561,7 @@ export class AcSelect implements
       >
         <slot name="item-top" slot="item-top" />
         <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
-          {optionsToRender && this.renderOptions(optionsToRender)}
+          {this.renderOptions(optionsToRender)}
         </ul>
         <slot name="item-bottom" slot="item-bottom" />
       </SelectPanel>

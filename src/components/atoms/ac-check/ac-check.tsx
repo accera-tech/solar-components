@@ -1,4 +1,4 @@
-import { Component, Element, Host, Method, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Method, Prop, h, Watch } from '@stencil/core';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -90,6 +90,18 @@ export class AcCheck implements FormFieldComponent {
   componentWillLoad() {
   }
 
+  @Watch('checked')
+  checkedDidUpdate() {
+    if (this.checked && this.type === 'radio') {
+      Array.from(document.querySelectorAll(`ac-check[name="${this.name}"]`) as NodeListOf<HTMLAcCheckElement>)
+        .forEach(e => {
+          if (e.value !== this.value && e.checked) {
+            e.checked = false;
+          }
+        });
+    }
+  }
+
   @Method()
   async getNativeFormField() {
     return this.nativeInput;
@@ -102,18 +114,9 @@ export class AcCheck implements FormFieldComponent {
 
   @Bind
   private handleChange() {
-    this.checked = !this.checked;
+    this.checked = this.nativeInput.checked;
     this.formFieldBehavior.setDirty();
     this.formFieldBehavior.checkValidity();
-
-    if (this.checked && this.type === 'radio') {
-      Array.from(document.querySelectorAll(`ac-check[name="${this.name}"]`) as NodeListOf<HTMLAcCheckElement>)
-        .forEach(e => {
-          if (e.value !== this.value) {
-            e.checked = false;
-          }
-        });
-    }
   }
 
   render() {
@@ -135,7 +138,7 @@ export class AcCheck implements FormFieldComponent {
             value={this.value}
             onChange={this.handleChange}
             disabled={this.disabled}
-            {...(this.type === 'checkbox' ? { checked: this.checked } : {})}
+            checked={this.checked}
           />
           <div class="ac-check__custom">
           </div>

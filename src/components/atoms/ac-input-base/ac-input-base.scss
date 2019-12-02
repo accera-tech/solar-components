@@ -27,6 +27,7 @@ ac-input-base {
       color: var-color("neutral", "darker");
       font-size: $font-small;
       line-height: 1;
+      white-space: nowrap;
       pointer-events: none;
       user-select: none;
     }
@@ -145,6 +146,7 @@ ac-input-base.ac-input-base--disabled {
 
 // Browser is IE
 // ---------------------------------------------------------
+
 @include browser-ie {
   ac-input-base {
     .ac-input__item-start, .ac-input__item-end {

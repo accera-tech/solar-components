@@ -12,19 +12,29 @@ export function assignByFormDataPath(target, path, value) {
   let lastTarget = null;
   for (i = 0; i < pathTokens.length; i++) {
     if (/^(\s*|\d+)$/.test(pathTokens[i])) {
-      if (!(lastTarget[pathTokens[i - 1]] instanceof Array)) { lastTarget[pathTokens[i - 1]] = []; }
+      if (!(lastTarget[pathTokens[i - 1]] instanceof Array)) {
+        lastTarget[pathTokens[i - 1]] = [];
+      }
 
       const tempActual = actualTarget;
       actualTarget = lastTarget[pathTokens[i - 1]];
       lastTarget = tempActual;
       continue;
     }
-    if (actualTarget instanceof Array) { actualTarget.push(actualTarget[pathTokens[i]] || {}); } else { actualTarget[pathTokens[i]] = actualTarget[pathTokens[i]] || {}; }
+    if (Array.isArray(actualTarget)) {
+      actualTarget.push(actualTarget[pathTokens[i]] || {});
+    } else {
+      actualTarget[pathTokens[i]] = actualTarget[pathTokens[i]] || {};
+    }
 
     lastTarget = actualTarget;
     actualTarget = actualTarget[pathTokens[i]];
   }
 
-  if (actualTarget instanceof Array) { actualTarget.push(value); } else { lastTarget[pathTokens[i - 1]] = value; }
+  if (actualTarget instanceof Array) {
+    actualTarget.push(value);
+  } else {
+    lastTarget[pathTokens[i - 1]] = value;
+  }
   return target;
 }

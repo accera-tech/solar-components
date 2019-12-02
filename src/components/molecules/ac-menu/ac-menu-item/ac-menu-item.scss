@@ -13,7 +13,7 @@ ac-menu-item {
     position: relative;
     align-items: center;
     justify-content: space-between;
-    height: 36px;
+    height: $ac-button--small__height;
     padding: 0 $spacer-small;
     transition:
       background-color $slow-transition,
@@ -98,8 +98,9 @@ ac-menu-item {
 ac-menu-item.ac-menu-item--icon-only {
   & > .ac-menu-item__native {
     justify-content: center;
-    width: $ac-button__height;
-    height: $ac-button__height;
+    width: $ac-button--small__height;
+    height: $ac-button--small__height;
+    margin-left: 6px;
     padding: 0;
     border-radius: 100%;
     .ac-menu-item__icon-start {
@@ -110,6 +111,10 @@ ac-menu-item.ac-menu-item--icon-only {
     }
     .ac-menu-item__submenu-icon {
       display: none !important;
+    }
+
+    &:before {
+      left: -14px;
     }
   }
 }
