@@ -8,7 +8,9 @@ jobs:
   publish-latest:
     runs-on: ubuntu-latest
   steps:
-    - uses: actions/checkout@v1
+    - name: Checkout branch master
+    - uses: actions/checkout@master
+    - name: Setup Node.js for use with actions
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
