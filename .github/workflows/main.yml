@@ -1,15 +1,18 @@
 name: Publish Latest
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 
-steps:
-  - uses: actions/checkout@v1
-  - uses: actions/setup-node@v1
-    with:
-      node-version: '10.x'
-      registry-url: 'https://registry.npmjs.org'
-  - run: npm run publish-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+jobs:
+  publish-latest:
+    runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+        registry-url: 'https://registry.npmjs.org'
+    - run: npm run publish-latest
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
