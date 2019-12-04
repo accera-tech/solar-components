@@ -1,12 +1,57 @@
+@import "../../../theme/variables";
+@import 'node_modules/dragula/dist/dragula';
 
 ac-pick-list {
   display: flex;
   flex: 1;
   flex-direction: row;
-
+  height: 100%;
 
   .ac-pick-list__column {
+    display: flex;
     height: 100%;
     min-width: 232px;
+  }
+
+  .ac-pick-list__action-panel {
+    flex-direction: column;
+
+    &.ac-pick-list__action-panel--gutter {
+      padding: $spacer-medium $spacer-small 0 $spacer-small;
+    }
+  }
+
+  .ac-pick-list__cell {
+    display: flex;
+    flex: 1 1 auto;
+
+    &.ac-pick-list__cell--dir-col {
+      flex-direction: column;
+    }
+
+    &.ac-pick-list__cell--align-start {
+      place-content: flex-start;
+      place-items: flex-start;
+    }
+
+    &.ac-pick-list__cell--align-end {
+      place-content: flex-end;
+      place-items: flex-end;
+    }
+  }
+
+  .ac-pick-list__button {
+    margin: $spacer-tiny;
+  }
+}
+
+// override
+.gu-mirror {
+  display: flex;
+  flex: 1;
+  list-style: none;
+
+  ac-check {
+    display: none;
   }
 }

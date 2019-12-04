@@ -1,13 +1,13 @@
-import { Component, Prop, Method, Element, h } from '@stencil/core';
+import { Component, Prop, Method, Element, h, EventEmitter, Event, Watch } from '@stencil/core';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { isEmpty } from '../../../utils/lang/string';
 
 @Component({
   tag: 'ac-list',
   styleUrl: 'ac-list.scss'
 })
 export class AcList {
-
   /**
    * Reference to the component
    */
@@ -35,12 +35,48 @@ export class AcList {
    */
   @Prop({ reflectToAttr: true }) multiple: boolean = false;
 
-  handleSelect(option) {
+  /**
+   * Event trigger on state change
+   * @param {AcList} acList - Component.
+   */
+  @Event() listChange: EventEmitter<AcList>;
+
+
+  @Watch('options')
+  handleOptionsChange() {
+    this.options
+      .forEach((option, index) => {
+        if (option.order === undefined) {
+          option.order = index;
+        }
+      });
+    this.listChange.emit(this);
+  }
+
+  private updateSelectedOptions(option) {
     if (this.multiple === false) {
       this.options.filter(x => x.value !== option.value).forEach(x => x.selected = false);
     }
     option.selected = !option.selected;
     this.options = [ ...this.options ];
+    this.listChange.emit(this);
+  }
+
+  handleSelect(e, option) {
+    e.stopImmediatePropagation();
+    this.updateSelectedOptions(option);
+  }
+
+  handleChecked(e, option) {
+    /* TODO: review ac-check fire more than once */
+    e.stopImmediatePropagation();
+    if (!e.srcElement.classList.contains('ac-check__native')) {
+      return;
+    }
+    if (this.multiple === false) {
+      this.options.filter(x => x.value !== option.value).forEach(x => x.selected = false);
+    }
+    this.updateSelectedOptions(option);
   }
 
   @Method()
@@ -55,15 +91,16 @@ export class AcList {
   }
 
   loadOptionsFromHTML() {
-    const listItems = Array.from(this.host.querySelectorAll('optgroup, option'));
+    const listItems = Array.from(this.host.querySelectorAll('option'));
     if (listItems) {
-      this.options = listItems.map((item: any) => {
+      this.options = listItems
+      .map((item: any) => {
         return ({
-          title: item.tagName === 'OPTGROUP' ? item.label : item.text,
+          title: item.text,
           value: item.value,
           selected: item.hasAttribute('selected') ? item.selected : false,
-          separator: item.tagName === 'OPTGROUP',
-          group: item.parentElement.tagName === 'OPTGROUP' ? item.parentElement.label : item.label
+          separator: false,
+          group: item.parentElement.tagName === 'OPTGROUP' ? item.parentElement.label : null
         }) as ListOption
       });
     }
@@ -75,7 +112,7 @@ export class AcList {
           <slot />
         </section>,
         <label class="ac-list__header-title">
-          {this.label} ({this.options ? this.options.filter(x => x.selected).length : 0})
+          {this.label} ({this.options ? this.options.length : 0})
         </label>,
         <section class="ac-list__container" >
           <ac-input-base
@@ -97,7 +134,7 @@ export class AcList {
           <ol class="ac-list__list">
             {listItems.length > 0
               ? listItems
-            : <li class="ac-list__list-item ac-list__list-item--empty">{this.noResultsLabel}</li>
+              : !isEmpty(this.filterText) && <li class="ac-list__list-item ac-list__list-item--empty">{this.noResultsLabel}</li>
             }
           </ol>
         </section>
@@ -105,50 +142,50 @@ export class AcList {
   }
 
   private renderList() {
-    const itemsToRender = this.options
-      && this.options
-        .reduce((stateList, option) => {
-          let showElement = true;
-          if (this.filterText && option.separator === false) {
-            showElement = option.title.toUpperCase().includes(this.filterText.toUpperCase());
-            if (showElement) {
-              stateList.groups[option.group] = true;
-            }
-          }
-          if (showElement) {
-            stateList.items.push(option);
-          }
-          return stateList;
-        }, { groups: {}, items: [] });
-
-    return itemsToRender
-        ? itemsToRender
-        .items
-        .filter(option => this.filterText && option.separator ? option.group in itemsToRender.groups : true)
-        .map((option) => {
-          if (option.separator) {
-            return (
-              <li class="ac-list__list-separator">
-                <span class="ac-list__list-separator-title">{option.title}</span>
-                <span class="ac-list__list-separator-line"></span>
-              </li>
-            )
-          } else {
-            return (
-              <li
-                  class={{
-                    "ac-list__list-item": true,
-                    "ac-list__list-item--selected": option.selected
-                  }}
-                  onClick={() => this.handleSelect(option)}>
-                {this.multiple && <ac-check class="ac-list__checkbox"
-                  checked={option.selected} onChange={() => this.handleSelect(option)}></ac-check>}
-                {option.title}
-              </li>
-            );
-          }
-        })
-      : [];
+    if (this.options) {
+      const options = this.filterText
+        ? this.options.filter(option => option.title.toUpperCase().includes(this.filterText.toUpperCase()))
+        : this.options;
+      let hasGroup = false;
+      const a = options
+              .sort((a, b) => a.order > b.order ? 1 : -1)
+              .reduce((state, option) => {
+                if (!(state.has(option.group))) {
+                  hasGroup = hasGroup === false && !isEmpty(option.group) ? true : hasGroup;
+                  state.set(option.group, [(
+                    <li class="ac-list__list-separator">
+                      <span class="ac-list__list-separator-title">{option.group}</span>
+                      <span class="ac-list__list-separator-line"></span>
+                    </li>
+                  )]);
+                }
+                const elements = state.has(option.group)
+                  ? state.get(option.group)
+                  : [];
+                elements.push((
+                  <li value={option.value}
+                      key={option.value}
+                      class={{
+                        "ac-list__list-item": true,
+                        "ac-list__list-item--selected": option.selected
+                      }}
+                      onClick={(e) => this.handleSelect(e, option)}>
+                    {this.multiple && <ac-check class="ac-list__checkbox"
+                      checked={option.selected} onClick={(e) => this.handleChecked(e, option)}></ac-check>}
+                    {option.title}
+                  </li>
+                ));
+                state.set(option.group, elements);
+                return state;
+              }, new Map());
+      return Array.from(a.values()).reduce((result, arr) => {
+        if (hasGroup === false) {
+          arr.splice(0, 1);
+        }
+        return result.concat(arr);
+      } , []);
+    }
+    return [];
   }
 
   private setFilterText = (text: string) => this.filterText = text;
@@ -184,4 +221,8 @@ export interface ListOption<T = {}> {
    * A custom data
    */
   data?: T;
+  /**
+   * Represents order of the element.
+   */
+  order: number;
 }

@@ -70,10 +70,10 @@ export class AcNavdrawer implements TransitionComponent {
   private close() {
     this.host.remove();
   }
-  
+
   @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
 
-  
+
   render() {
     return (
       <Host
@@ -84,7 +84,7 @@ export class AcNavdrawer implements TransitionComponent {
         }}
       >
         <div class="ac-navdrawer__header">
-        {this.title 
+        {this.title
           ? <div class="ac-navdrawer__title">
               <span class="ac-navdrawer__title-content">{this.title}</span>
               <ac-button class="ac-navdrawer__close-button" fill="clear" theme="primary" shape="round" icon-only onClick={this.close}>

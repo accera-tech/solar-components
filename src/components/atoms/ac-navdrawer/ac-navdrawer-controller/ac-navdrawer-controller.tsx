@@ -27,7 +27,7 @@ export class AcModalController implements ControllerComponent<AcNavdrawer, HTMLA
 
   @Prop() bound: string;
 
-  
+
   /**
    * Setup a new navdrawer on the screen.
    */

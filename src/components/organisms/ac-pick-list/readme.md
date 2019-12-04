@@ -16,8 +16,21 @@
 | `options`        | --                 |             | `ListOption<{}>[]` | `undefined`    |
 | `removeAllLabel` | `remove-all-label` |             | `string`           | `'Remove All'` |
 | `removeLabel`    | `remove-label`     |             | `string`           | `'Remove'`     |
-| `searchLabel`    | `search-label`     |             | `string`           | `undefined`    |
+| `searchLabel`    | `search-label`     |             | `string`           | `'Search'`     |
 | `selectedLabel`  | `selected-label`   |             | `string`           | `undefined`    |
+
+
+## Methods
+
+### `getSelectedOptions() => Promise<any>`
+
+Return the selected items.
+
+#### Returns
+
+Type: `Promise<any>`
+
+
 
 
 ## Dependencies

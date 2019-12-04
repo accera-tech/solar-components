@@ -17,6 +17,13 @@
 | `searchLabel`    | `search-label`     | Used to customize the searchbar's label                             | `string`           | `undefined` |
 
 
+## Events
+
+| Event        | Description                   | Type                  |
+| ------------ | ----------------------------- | --------------------- |
+| `listChange` | Event trigger on state change | `CustomEvent<AcList>` |
+
+
 ## Methods
 
 ### `getSelectedOptions() => Promise<ListOption<{}>[]>`

@@ -610,6 +610,10 @@ export namespace Components {
     'addAllLabel': string;
     'addLabel': string;
     'availableLabel': string;
+    /**
+    * Return the selected items.
+    */
+    'getSelectedOptions': () => Promise<any>;
     'noResultsLabel': string;
     'options': ListOption[];
     'removeAllLabel': string;
@@ -1506,6 +1510,11 @@ declare namespace LocalJSX {
     * Message that will be rendered with the search results in zero items
     */
     'noResultsLabel'?: string;
+    /**
+    * Event trigger on state change
+    * @param acList - Component.
+    */
+    'onListChange'?: (event: CustomEvent<AcList>) => void;
     /**
     * List of all options available.
     */
