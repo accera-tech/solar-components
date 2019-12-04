@@ -113,10 +113,17 @@ export class AcPickList {
   }
 
   componentDidRender() {
-    const drake = dragula([this.acListAvalibles.querySelector('.ac-list__list'), this.acListSelectedOptions.querySelector('.ac-list__list')]);
+    const drake = dragula([this.acListAvalibles.querySelector('.ac-list__list'), this.acListSelectedOptions.querySelector('.ac-list__list')], {
+      invalid: (el: HTMLElement) => {
+        return el.classList.contains('ac-list__list-separator');
+      }
+    });
     drake
     .on('drop', (el, target, source) => {
         drake.cancel(true);
+        if (!source.parentElement || !target.parentElement) {
+          return;
+        }
         const acListSource = source.parentElement.parentElement;
         const acListTarget = target.parentElement.parentElement;
         if (acListTarget === acListSource) {
