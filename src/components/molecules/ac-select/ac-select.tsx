@@ -13,6 +13,7 @@ import { CustomValidityState, ValidatorFn } from '../../../utils/validations/val
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
+import { AcOption } from '../../../utils/types/acOption';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -24,7 +25,7 @@ import { AcFaIcon } from '../../utils/ac-fa-icon';
 export class AcSelect implements
   FocusableComponent,
   FormFieldComponent,
-  AsyncDataComponent<SelectFetchParams, SelectOption[]> {
+  AsyncDataComponent<SelectFetchParams, AcOption[]> {
   /**
    * The count of max items to render in the select list, used to calculate the size of the panel.
    */
@@ -95,7 +96,7 @@ export class AcSelect implements
   /**
    * Set the loading mode, showing a loading icon.
    */
-  @Prop() fetch: (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
+  @Prop() fetch: (params: any) => Promise<{ links?: any, meta?: any, data: AcOption[] }>;
 
   /**
    * Set the field in the error state with a message.
@@ -115,7 +116,7 @@ export class AcSelect implements
   /**
    * The options that will be displayed in the panel.
    */
-  @Prop({ mutable: true }) options: SelectOption[];
+  @Prop({ mutable: true }) options: AcOption[];
 
   /**
    * The value of the internal input.
@@ -175,7 +176,7 @@ export class AcSelect implements
   /**
    * The filtered options based on the filter.
    */
-  @State() filteredOptions: SelectOption[];
+  @State() filteredOptions: AcOption[];
 
   /**
    * The filter text used to search through the options.
@@ -276,7 +277,7 @@ export class AcSelect implements
   }
 
   @Method()
-  async setInitialOption(option: SelectOption | SelectOption[]) {
+  async setInitialOption(option: AcOption | AcOption[]) {
     // Wrapping multi select.
     const optionArr = toArray(option);
     this.options = optionArr.map(o => ({ ...o, selected: true }));
@@ -333,7 +334,7 @@ export class AcSelect implements
   /**
    * Filter the options by the actual value. Used to update the options state by an external value update.
    */
-  private getOptionsByValue(values: any[] | any): SelectOption[] {
+  private getOptionsByValue(values: any[] | any): AcOption[] {
     const options = [];
     if (this.options && values) {
       if (values instanceof Array) {
@@ -383,7 +384,7 @@ export class AcSelect implements
         separator: o.tagName === 'OPTGROUP',
         group: o.parentElement.tagName === 'OPTGROUP' ? o.parentElement.label : null
       })
-    ) as SelectOption[];
+    ) as AcOption[];
     // Prevent initializing with empty array
     // @LESSON: Do not use ternary operator because it will cause a component rerender.
     if (mappedOptions.length > 0) {
@@ -567,41 +568,6 @@ export class AcSelect implements
       </SelectPanel>
     ];
   }
-}
-
-/**
- * Defines an item of a Select.
- */
-export interface SelectOption<T = {}> {
-  /**
-   * The title that will be displayed in the item
-   */
-  title: string;
-
-  /**
-   * The value of this item that will be handled by select listeners.
-   */
-  value: number | string;
-
-  /**
-   * If true, this item will be displayed as a selected item.
-   */
-  selected?: boolean;
-
-  /**
-   * If true, style this item as a list separator.
-   */
-  separator?: boolean;
-
-  /**
-   * The label of the options group of this item.
-   */
-  group?: string;
-
-  /**
-   * A custom data
-   */
-  data?: T
 }
 
 export interface SelectFetchParams {

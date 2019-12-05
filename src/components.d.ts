@@ -11,6 +11,9 @@ import {
   ValidatorFn,
 } from './utils/validations/validations';
 import {
+  AcOption,
+} from './utils/types/acOption';
+import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
 import {
@@ -32,9 +35,6 @@ import {
   Placement,
   PopperOptions,
 } from 'popper.js';
-import {
-  SelectOption,
-} from './components/molecules/ac-select/ac-select';
 import {
   Options,
 } from './components/atoms/ac-table/ac-table';
@@ -453,6 +453,30 @@ export namespace Components {
     */
     'collapsed': 'nav-left';
   }
+  interface AcList {
+    'filterText': string;
+    'getSelectedOptions': () => Promise<AcOption<{}>[]>;
+    /**
+    * Used to customize the field label
+    */
+    'label': string;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple': boolean;
+    /**
+    * Message that will be rendered with the search results in zero items
+    */
+    'noResultsLabel': string;
+    /**
+    * List of all options available.
+    */
+    'options': AcOption[];
+    /**
+    * Used to customize the searchbar's label
+    */
+    'searchLabel': string;
+  }
   interface AcLogin {
     'backgroundImageSrc': string;
   }
@@ -576,6 +600,48 @@ export namespace Components {
     */
     'dismiss': (elt?: any) => Promise<any>;
   }
+  interface AcPickList {
+    /**
+    * Label of the button that add all options on the selected ac-list.
+    */
+    'addAllLabel': string;
+    /**
+    * Label of the button that add options on the  selected ac-list.
+    */
+    'addLabel': string;
+    /**
+    * Label for ac-list of avalible options
+    */
+    'availableLabel': string;
+    /**
+    * Return the selected items.
+    */
+    'getSelectedOptions': () => Promise<any>;
+    /**
+    * Label to be show when no results is fouond.
+    */
+    'noResultsLabel': string;
+    /**
+    * List of all options available.
+    */
+    'options': AcOption[];
+    /**
+    * Label of the button that remove all options on the  selected ac-list.
+    */
+    'removeAllLabel': string;
+    /**
+    * Label of the button that remove options on the on selected ac-list.
+    */
+    'removeLabel': string;
+    /**
+    * Text to be search.
+    */
+    'searchLabel': string;
+    /**
+    * Label for ac-list of selected options
+    */
+    'selectedLabel': string;
+  }
   interface AcPopper {
     /**
     * Popper.js's options.
@@ -622,13 +688,13 @@ export namespace Components {
     /**
     * Set the loading mode, showing a loading icon.
     */
-    'fetch': (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
+    'fetch': (params: any) => Promise<{ links?: any, meta?: any, data: AcOption[] }>;
     /**
     * Used to provide access to the FormField instance.
     */
     'getFormFieldBehavior': () => Promise<any>;
     'getNativeFormField': () => Promise<HTMLSelectElement>;
-    'getSelectedOptions': () => Promise<SelectOption<{}>[]>;
+    'getSelectedOptions': () => Promise<AcOption<{}>[]>;
     /**
     * The helper text to guide the user.
     */
@@ -656,7 +722,7 @@ export namespace Components {
     /**
     * The options that will be displayed in the panel.
     */
-    'options': SelectOption[];
+    'options': AcOption[];
     /**
     * The native required attribute.
     */
@@ -665,7 +731,7 @@ export namespace Components {
     * Set the search mode.
     */
     'searchable': boolean;
-    'setInitialOption': (option: SelectOption<{}> | SelectOption<{}>[]) => Promise<void>;
+    'setInitialOption': (option: AcOption<{}> | AcOption<{}>[]) => Promise<void>;
     'setValue': (values: any) => Promise<void>;
     /**
     * Select size
@@ -878,6 +944,12 @@ declare global {
     new (): HTMLAcLayoutElement;
   };
 
+  interface HTMLAcListElement extends Components.AcList, HTMLStencilElement {}
+  var HTMLAcListElement: {
+    prototype: HTMLAcListElement;
+    new (): HTMLAcListElement;
+  };
+
   interface HTMLAcLoginElement extends Components.AcLogin, HTMLStencilElement {}
   var HTMLAcLoginElement: {
     prototype: HTMLAcLoginElement;
@@ -942,6 +1014,12 @@ declare global {
   var HTMLAcPanelControllerElement: {
     prototype: HTMLAcPanelControllerElement;
     new (): HTMLAcPanelControllerElement;
+  };
+
+  interface HTMLAcPickListElement extends Components.AcPickList, HTMLStencilElement {}
+  var HTMLAcPickListElement: {
+    prototype: HTMLAcPickListElement;
+    new (): HTMLAcPickListElement;
   };
 
   interface HTMLAcPopperElement extends Components.AcPopper, HTMLStencilElement {}
@@ -1033,6 +1111,7 @@ declare global {
     'ac-input': HTMLAcInputElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-layout': HTMLAcLayoutElement;
+    'ac-list': HTMLAcListElement;
     'ac-login': HTMLAcLoginElement;
     'ac-menu': HTMLAcMenuElement;
     'ac-menu-item': HTMLAcMenuItemElement;
@@ -1044,6 +1123,7 @@ declare global {
     'ac-pagination': HTMLAcPaginationElement;
     'ac-panel': HTMLAcPanelElement;
     'ac-panel-controller': HTMLAcPanelControllerElement;
+    'ac-pick-list': HTMLAcPickListElement;
     'ac-popper': HTMLAcPopperElement;
     'ac-portal': HTMLAcPortalElement;
     'ac-progress': HTMLAcProgressElement;
@@ -1437,6 +1517,34 @@ declare namespace LocalJSX {
     'collapsed'?: 'nav-left';
     'onContentScroll'?: (event: CustomEvent<{ top: number, left: number }>) => void;
   }
+  interface AcList extends JSXBase.HTMLAttributes<HTMLAcListElement> {
+    'filterText'?: string;
+    /**
+    * Used to customize the field label
+    */
+    'label'?: string;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple'?: boolean;
+    /**
+    * Message that will be rendered with the search results in zero items
+    */
+    'noResultsLabel'?: string;
+    /**
+    * Event trigger on state change
+    * @param acList - Component.
+    */
+    'onListChange'?: (event: CustomEvent<AcList>) => void;
+    /**
+    * List of all options available.
+    */
+    'options'?: AcOption[];
+    /**
+    * Used to customize the searchbar's label
+    */
+    'searchLabel'?: string;
+  }
   interface AcLogin extends JSXBase.HTMLAttributes<HTMLAcLoginElement> {
     'backgroundImageSrc'?: string;
   }
@@ -1551,6 +1659,44 @@ declare namespace LocalJSX {
     */
     'bound'?: string;
   }
+  interface AcPickList extends JSXBase.HTMLAttributes<HTMLAcPickListElement> {
+    /**
+    * Label of the button that add all options on the selected ac-list.
+    */
+    'addAllLabel'?: string;
+    /**
+    * Label of the button that add options on the  selected ac-list.
+    */
+    'addLabel'?: string;
+    /**
+    * Label for ac-list of avalible options
+    */
+    'availableLabel'?: string;
+    /**
+    * Label to be show when no results is fouond.
+    */
+    'noResultsLabel'?: string;
+    /**
+    * List of all options available.
+    */
+    'options'?: AcOption[];
+    /**
+    * Label of the button that remove all options on the  selected ac-list.
+    */
+    'removeAllLabel'?: string;
+    /**
+    * Label of the button that remove options on the on selected ac-list.
+    */
+    'removeLabel'?: string;
+    /**
+    * Text to be search.
+    */
+    'searchLabel'?: string;
+    /**
+    * Label for ac-list of selected options
+    */
+    'selectedLabel'?: string;
+  }
   interface AcPopper extends JSXBase.HTMLAttributes<HTMLAcPopperElement> {
     /**
     * Popper.js's options.
@@ -1597,7 +1743,7 @@ declare namespace LocalJSX {
     /**
     * Set the loading mode, showing a loading icon.
     */
-    'fetch'?: (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
+    'fetch'?: (params: any) => Promise<{ links?: any, meta?: any, data: AcOption[] }>;
     /**
     * The helper text to guide the user.
     */
@@ -1629,7 +1775,7 @@ declare namespace LocalJSX {
     /**
     * The options that will be displayed in the panel.
     */
-    'options'?: SelectOption[];
+    'options'?: AcOption[];
     /**
     * The native required attribute.
     */
@@ -1779,6 +1925,7 @@ declare namespace LocalJSX {
     'ac-input': AcInput;
     'ac-input-base': AcInputBase;
     'ac-layout': AcLayout;
+    'ac-list': AcList;
     'ac-login': AcLogin;
     'ac-menu': AcMenu;
     'ac-menu-item': AcMenuItem;
@@ -1790,6 +1937,7 @@ declare namespace LocalJSX {
     'ac-pagination': AcPagination;
     'ac-panel': AcPanel;
     'ac-panel-controller': AcPanelController;
+    'ac-pick-list': AcPickList;
     'ac-popper': AcPopper;
     'ac-portal': AcPortal;
     'ac-progress': AcProgress;

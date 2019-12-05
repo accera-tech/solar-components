@@ -45,6 +45,19 @@ Type: `Promise<HTMLInputElement>`
 
 
 
+## Dependencies
+
+### Used by
+
+ - [ac-list](../../molecules/ac-list)
+
+### Graph
+```mermaid
+graph TD;
+  ac-list --> ac-check
+  style ac-check fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
