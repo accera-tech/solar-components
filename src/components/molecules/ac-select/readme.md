@@ -38851,14 +38851,14 @@
 | ---------------- | ------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `disabled`       | `disabled`         | Set the disabled mode.                                      | `boolean`                                                                                                                              | `undefined`        |
 | `error`          | `error`            | Set the field in the error state with a message.            | `boolean \| string`                                                                                                                    | `undefined`        |
-| `fetch`          | --                 | Set the loading mode, showing a loading icon.               | `(params: any) => Promise<{ links?: any; meta?: any; data: SelectOption<{}>[]; }>`                                                     | `undefined`        |
+| `fetch`          | --                 | Set the loading mode, showing a loading icon.               | `(params: any) => Promise<{ links?: any; meta?: any; data: AcOption<{}>[]; }>`                                                         | `undefined`        |
 | `helperText`     | `helper-text`      | The helper text to guide the user.                          | `string`                                                                                                                               | `undefined`        |
 | `label`          | `label`            | The label text of the this input group.                     | `string`                                                                                                                               | `undefined`        |
 | `loading`        | `loading`          | Set the loading mode, showing a loading icon.               | `boolean`                                                                                                                              | `undefined`        |
 | `multiple`       | `multiple`         | If true, the component will handle multiple selected items. | `boolean`                                                                                                                              | `undefined`        |
 | `name`           | `name`             | The name of the internal input.                             | `string`                                                                                                                               | `undefined`        |
 | `noResultsLabel` | `no-results-label` | Set the custom empty result text.                           | `string`                                                                                                                               | `'No results for'` |
-| `options`        | --                 | The options that will be displayed in the panel.            | `SelectOption<{}>[]`                                                                                                                   | `undefined`        |
+| `options`        | --                 | The options that will be displayed in the panel.            | `AcOption<{}>[]`                                                                                                                       | `undefined`        |
 | `required`       | `required`         | The native required attribute.                              | `boolean`                                                                                                                              | `undefined`        |
 | `searchable`     | `searchable`       | Set the search mode.                                        | `boolean`                                                                                                                              | `undefined`        |
 | `size`           | `size`             | Select size                                                 | `"large" \| "small"`                                                                                                                   | `undefined`        |
@@ -38896,17 +38896,17 @@ Type: `Promise<HTMLSelectElement>`
 
 
 
-### `getSelectedOptions() => Promise<SelectOption<{}>[]>`
+### `getSelectedOptions() => Promise<AcOption<{}>[]>`
 
 
 
 #### Returns
 
-Type: `Promise<SelectOption<{}>[]>`
+Type: `Promise<AcOption<{}>[]>`
 
 
 
-### `setInitialOption(option: SelectOption<{}> | SelectOption<{}>[]) => Promise<void>`
+### `setInitialOption(option: AcOption<{}> | AcOption<{}>[]) => Promise<void>`
 
 
 

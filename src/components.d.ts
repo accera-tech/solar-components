@@ -11,8 +11,8 @@ import {
   ValidatorFn,
 } from './utils/validations/validations';
 import {
-  ListOption,
-} from './components/molecules/ac-list/ac-list';
+  AcOption,
+} from './utils/types/acOption';
 import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
@@ -32,15 +32,9 @@ import {
   AcPopper,
 } from './components/portals/ac-popper/ac-popper';
 import {
-  ListOption as ListOption1,
-} from './components/molecules/ac-list/ac-list';
-import {
   Placement,
   PopperOptions,
 } from 'popper.js';
-import {
-  SelectOption,
-} from './components/molecules/ac-select/ac-select';
 import {
   Options,
 } from './components/atoms/ac-table/ac-table';
@@ -461,7 +455,7 @@ export namespace Components {
   }
   interface AcList {
     'filterText': string;
-    'getSelectedOptions': () => Promise<ListOption<{}>[]>;
+    'getSelectedOptions': () => Promise<AcOption<{}>[]>;
     /**
     * Used to customize the field label
     */
@@ -477,7 +471,7 @@ export namespace Components {
     /**
     * List of all options available.
     */
-    'options': ListOption[];
+    'options': AcOption[];
     /**
     * Used to customize the searchbar's label
     */
@@ -607,18 +601,45 @@ export namespace Components {
     'dismiss': (elt?: any) => Promise<any>;
   }
   interface AcPickList {
+    /**
+    * Label of the button that add all options on the selected ac-list.
+    */
     'addAllLabel': string;
+    /**
+    * Label of the button that add options on the  selected ac-list.
+    */
     'addLabel': string;
+    /**
+    * Label for ac-list of avalible options
+    */
     'availableLabel': string;
     /**
     * Return the selected items.
     */
     'getSelectedOptions': () => Promise<any>;
+    /**
+    * Label to be show when no results is fouond.
+    */
     'noResultsLabel': string;
-    'options': ListOption[];
+    /**
+    * List of all options available.
+    */
+    'options': AcOption[];
+    /**
+    * Label of the button that remove all options on the  selected ac-list.
+    */
     'removeAllLabel': string;
+    /**
+    * Label of the button that remove options on the on selected ac-list.
+    */
     'removeLabel': string;
+    /**
+    * Text to be search.
+    */
     'searchLabel': string;
+    /**
+    * Label for ac-list of selected options
+    */
     'selectedLabel': string;
   }
   interface AcPopper {
@@ -667,13 +688,13 @@ export namespace Components {
     /**
     * Set the loading mode, showing a loading icon.
     */
-    'fetch': (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
+    'fetch': (params: any) => Promise<{ links?: any, meta?: any, data: AcOption[] }>;
     /**
     * Used to provide access to the FormField instance.
     */
     'getFormFieldBehavior': () => Promise<any>;
     'getNativeFormField': () => Promise<HTMLSelectElement>;
-    'getSelectedOptions': () => Promise<SelectOption<{}>[]>;
+    'getSelectedOptions': () => Promise<AcOption<{}>[]>;
     /**
     * The helper text to guide the user.
     */
@@ -701,7 +722,7 @@ export namespace Components {
     /**
     * The options that will be displayed in the panel.
     */
-    'options': SelectOption[];
+    'options': AcOption[];
     /**
     * The native required attribute.
     */
@@ -710,7 +731,7 @@ export namespace Components {
     * Set the search mode.
     */
     'searchable': boolean;
-    'setInitialOption': (option: SelectOption<{}> | SelectOption<{}>[]) => Promise<void>;
+    'setInitialOption': (option: AcOption<{}> | AcOption<{}>[]) => Promise<void>;
     'setValue': (values: any) => Promise<void>;
     /**
     * Select size
@@ -1518,7 +1539,7 @@ declare namespace LocalJSX {
     /**
     * List of all options available.
     */
-    'options'?: ListOption[];
+    'options'?: AcOption[];
     /**
     * Used to customize the searchbar's label
     */
@@ -1639,14 +1660,41 @@ declare namespace LocalJSX {
     'bound'?: string;
   }
   interface AcPickList extends JSXBase.HTMLAttributes<HTMLAcPickListElement> {
+    /**
+    * Label of the button that add all options on the selected ac-list.
+    */
     'addAllLabel'?: string;
+    /**
+    * Label of the button that add options on the  selected ac-list.
+    */
     'addLabel'?: string;
+    /**
+    * Label for ac-list of avalible options
+    */
     'availableLabel'?: string;
+    /**
+    * Label to be show when no results is fouond.
+    */
     'noResultsLabel'?: string;
-    'options'?: ListOption[];
+    /**
+    * List of all options available.
+    */
+    'options'?: AcOption[];
+    /**
+    * Label of the button that remove all options on the  selected ac-list.
+    */
     'removeAllLabel'?: string;
+    /**
+    * Label of the button that remove options on the on selected ac-list.
+    */
     'removeLabel'?: string;
+    /**
+    * Text to be search.
+    */
     'searchLabel'?: string;
+    /**
+    * Label for ac-list of selected options
+    */
     'selectedLabel'?: string;
   }
   interface AcPopper extends JSXBase.HTMLAttributes<HTMLAcPopperElement> {
@@ -1695,7 +1743,7 @@ declare namespace LocalJSX {
     /**
     * Set the loading mode, showing a loading icon.
     */
-    'fetch'?: (params: any) => Promise<{ links?: any, meta?: any, data: SelectOption[] }>;
+    'fetch'?: (params: any) => Promise<{ links?: any, meta?: any, data: AcOption[] }>;
     /**
     * The helper text to guide the user.
     */
@@ -1727,7 +1775,7 @@ declare namespace LocalJSX {
     /**
     * The options that will be displayed in the panel.
     */
-    'options'?: SelectOption[];
+    'options'?: AcOption[];
     /**
     * The native required attribute.
     */

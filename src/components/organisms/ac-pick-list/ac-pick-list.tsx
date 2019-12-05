@@ -1,9 +1,10 @@
 import { Component, Prop, Host, h, State, Method, Element } from '@stencil/core';
-import { ListOption, AcList } from '../../molecules/ac-list/ac-list';
+import { AcList } from '../../molecules/ac-list/ac-list';
 import { Bind } from '../../../utils/lang/bind';
 import dragula from 'dragula';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+import { AcOption } from '../../../utils/types/acOption';
 
 
 @Component({
@@ -14,21 +15,54 @@ export class AcPickList {
   private acListAvalibles: HTMLAcListElement;
   private acListSelectedOptions: HTMLAcListElement;
 
-
+  /**
+   * Reference to the component
+   */
   @Element() host: HTMLAcPickListElement;
 
+  /**
+   * Number of available options to select.
+   */
   @State() numberAvailableOptionsSelected = 0;
+  /**
+   * Number of selected options.
+   */
   @State() numberOfSelectedOptions = 0;
-
-  @Prop() options: ListOption[];
-
+  /**
+   * List of all options available.
+   */
+  @Prop() options: AcOption[];
+  /**
+   * Text to be search.
+   */
   @Prop() searchLabel: string = 'Search';
+  /**
+   * Label to be show when no results is fouond.
+   */
   @Prop() noResultsLabel: string;
+  /**
+   * Label for ac-list of avalible options
+   */
   @Prop() availableLabel: string;
+  /**
+   * Label for ac-list of selected options
+   */
   @Prop() selectedLabel: string;
+  /**
+   * Label of the button that add options on the  selected ac-list.
+   */
   @Prop() addLabel: string = 'Add';
+  /**
+   * Label of the button that add all options on the selected ac-list.
+   */
   @Prop() addAllLabel: string = 'Add all';
+  /**
+   * Label of the button that remove options on the on selected ac-list.
+   */
   @Prop() removeLabel: string = 'Remove';
+  /**
+   * Label of the button that remove all options on the  selected ac-list.
+   */
   @Prop() removeAllLabel: string = 'Remove All';
 
   /**
@@ -39,6 +73,9 @@ export class AcPickList {
     return Promise.resolve(this.acListSelectedOptions.options);
   }
 
+  /**
+   * Method that add all options on the selected ac-list
+   */
   @Bind
   addAllOptions() {
     if (this.acListAvalibles.options) {
@@ -49,6 +86,9 @@ export class AcPickList {
     }
   }
 
+  /**
+   * Method that add options on the selected ac-list
+   */
   @Bind
   addSelectedOptions() {
     if (this.acListAvalibles.options) {
@@ -68,6 +108,9 @@ export class AcPickList {
     }
   }
 
+  /**
+   * Method that remove all options on the selected ac-list
+   */
   @Bind
   removeAllOptions() {
     this.acListAvalibles.options = [
@@ -77,6 +120,9 @@ export class AcPickList {
     this.acListSelectedOptions.options = [];
   }
 
+  /**
+   * Method that remove options on the selected ac-list
+   */
   @Bind
   removeOptions() {
     this.acListAvalibles.options = this.acListSelectedOptions.options
@@ -94,6 +140,9 @@ export class AcPickList {
        .filter(x => x.selected === false);
   }
 
+  /**
+   * Method that handle selected options.
+   */
   @Bind
   handleChangeAclistSelectedOptions(event: CustomEvent<AcList>) {
     if(event.detail) {
@@ -103,7 +152,9 @@ export class AcPickList {
       this.numberOfSelectedOptions = 0;
     }
   }
-
+  /**
+   * Method that handle changes on ac-list of avalibles options.
+   */
   @Bind
   handleChangeAclistAvailableOptionsSelected(event: CustomEvent<AcList>) {
     if(event.detail) {

@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property         | Attribute          | Description                                                         | Type               | Default     |
-| ---------------- | ------------------ | ------------------------------------------------------------------- | ------------------ | ----------- |
-| `filterText`     | `filter-text`      |                                                                     | `string`           | `undefined` |
-| `label`          | `label`            | Used to customize the field label                                   | `string`           | `undefined` |
-| `multiple`       | `multiple`         | If true, the component will handle multiple selected items.         | `boolean`          | `false`     |
-| `noResultsLabel` | `no-results-label` | Message that will be rendered with the search results in zero items | `string`           | `undefined` |
-| `options`        | --                 | List of all options available.                                      | `ListOption<{}>[]` | `undefined` |
-| `searchLabel`    | `search-label`     | Used to customize the searchbar's label                             | `string`           | `undefined` |
+| Property         | Attribute          | Description                                                         | Type             | Default     |
+| ---------------- | ------------------ | ------------------------------------------------------------------- | ---------------- | ----------- |
+| `filterText`     | `filter-text`      |                                                                     | `string`         | `undefined` |
+| `label`          | `label`            | Used to customize the field label                                   | `string`         | `undefined` |
+| `multiple`       | `multiple`         | If true, the component will handle multiple selected items.         | `boolean`        | `false`     |
+| `noResultsLabel` | `no-results-label` | Message that will be rendered with the search results in zero items | `string`         | `undefined` |
+| `options`        | --                 | List of all options available.                                      | `AcOption<{}>[]` | `undefined` |
+| `searchLabel`    | `search-label`     | Used to customize the searchbar's label                             | `string`         | `undefined` |
 
 
 ## Events
@@ -26,13 +26,13 @@
 
 ## Methods
 
-### `getSelectedOptions() => Promise<ListOption<{}>[]>`
+### `getSelectedOptions() => Promise<AcOption<{}>[]>`
 
 
 
 #### Returns
 
-Type: `Promise<ListOption<{}>[]>`
+Type: `Promise<AcOption<{}>[]>`
 
 
 

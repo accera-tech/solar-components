@@ -1,7 +1,8 @@
 import { Component, Prop, Method, Element, h, EventEmitter, Event, Watch } from '@stencil/core';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { isEmpty } from '../../../utils/lang/string';
+import { isEmpty } from 'ramda';
+import { AcOption } from '../../../utils/types/acOption';
 
 @Component({
   tag: 'ac-list',
@@ -17,7 +18,7 @@ export class AcList {
   /**
    * List of all options available.
    */
-  @Prop({ mutable: true }) options: ListOption[];
+  @Prop({ mutable: true }) options: AcOption[];
   /**
    * Used to customize the searchbar's label
    */
@@ -101,7 +102,7 @@ export class AcList {
           selected: item.hasAttribute('selected') ? item.selected : false,
           separator: false,
           group: item.parentElement.tagName === 'OPTGROUP' ? item.parentElement.label : null
-        }) as ListOption
+        }) as AcOption
       });
     }
   }
@@ -189,40 +190,4 @@ export class AcList {
   }
 
   private setFilterText = (text: string) => this.filterText = text;
-}
-
-export interface ListOption<T = {}> {
-  /**
-   * The title that will be displayed in the item
-   */
-  title: string;
-
-  /**
-   * The value of this item that will be handled by select listeners.
-   */
-  value: number | string;
-
-  /**
-   * If true, this item will be displayed as a selected item.
-   */
-  selected?: boolean;
-
-  /**
-   * If true, style this item as a list separator.
-   */
-  separator?: boolean;
-
-  /**
-   * The label of the options group of this item.
-   */
-  group?: string;
-
-  /**
-   * A custom data
-   */
-  data?: T;
-  /**
-   * Represents order of the element.
-   */
-  order: number;
 }

@@ -7,17 +7,17 @@
 
 ## Properties
 
-| Property         | Attribute          | Description | Type               | Default        |
-| ---------------- | ------------------ | ----------- | ------------------ | -------------- |
-| `addAllLabel`    | `add-all-label`    |             | `string`           | `'Add all'`    |
-| `addLabel`       | `add-label`        |             | `string`           | `'Add'`        |
-| `availableLabel` | `available-label`  |             | `string`           | `undefined`    |
-| `noResultsLabel` | `no-results-label` |             | `string`           | `undefined`    |
-| `options`        | --                 |             | `ListOption<{}>[]` | `undefined`    |
-| `removeAllLabel` | `remove-all-label` |             | `string`           | `'Remove All'` |
-| `removeLabel`    | `remove-label`     |             | `string`           | `'Remove'`     |
-| `searchLabel`    | `search-label`     |             | `string`           | `'Search'`     |
-| `selectedLabel`  | `selected-label`   |             | `string`           | `undefined`    |
+| Property         | Attribute          | Description                                                           | Type             | Default        |
+| ---------------- | ------------------ | --------------------------------------------------------------------- | ---------------- | -------------- |
+| `addAllLabel`    | `add-all-label`    | Label of the button that add all options on the selected ac-list.     | `string`         | `'Add all'`    |
+| `addLabel`       | `add-label`        | Label of the button that add options on the  selected ac-list.        | `string`         | `'Add'`        |
+| `availableLabel` | `available-label`  | Label for ac-list of avalible options                                 | `string`         | `undefined`    |
+| `noResultsLabel` | `no-results-label` | Label to be show when no results is fouond.                           | `string`         | `undefined`    |
+| `options`        | --                 | List of all options available.                                        | `AcOption<{}>[]` | `undefined`    |
+| `removeAllLabel` | `remove-all-label` | Label of the button that remove all options on the  selected ac-list. | `string`         | `'Remove All'` |
+| `removeLabel`    | `remove-label`     | Label of the button that remove options on the on selected ac-list.   | `string`         | `'Remove'`     |
+| `searchLabel`    | `search-label`     | Text to be search.                                                    | `string`         | `'Search'`     |
+| `selectedLabel`  | `selected-label`   | Label for ac-list of selected options                                 | `string`         | `undefined`    |
 
 
 ## Methods
