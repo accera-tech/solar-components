@@ -6,9 +6,9 @@ import { AcOption } from '../../../utils/types/acOption';
 @Component({
   tag: 'ac-autocomplete',
 })
-export class AcAutocomplete implements AsyncDataComponent<AcAutocompleteParams, AcOption[]> {
+export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParams, AcOption[]> {
   host: HTMLElement;
-  asyncDataBehavior = new AsyncDataBehavior<AcAutocompleteParams, AcOption[]>(this);
+  asyncDataBehavior = new AsyncDataBehavior<AutocompleteFetchParams, AcOption[]>(this);
   componentDidUnload: () => void;
   data: AcOption[];
 
@@ -23,6 +23,6 @@ export class AcAutocomplete implements AsyncDataComponent<AcAutocompleteParams, 
   }
 }
 
-interface AcAutocompleteParams {
+interface AutocompleteFetchParams {
   filter: string
 }
