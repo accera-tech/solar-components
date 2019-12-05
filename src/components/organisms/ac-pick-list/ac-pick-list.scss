@@ -43,6 +43,14 @@ ac-pick-list {
   .ac-pick-list__button {
     margin: $spacer-tiny;
   }
+
+  .ac-pick-list__button-icon {
+    fill: var-color("primary", "normal");
+
+    &.ac-pick-list__button-icon--disabled {
+      fill: var-color("neutral", "normal") !important;
+    }
+  }
 }
 
 // override

@@ -2,6 +2,8 @@ import { Component, Prop, Host, h, State, Method, Element } from '@stencil/core'
 import { ListOption, AcList } from '../../molecules/ac-list/ac-list';
 import { Bind } from '../../../utils/lang/bind';
 import dragula from 'dragula';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
+import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -167,6 +169,13 @@ export class AcPickList {
               class="ac-pick-list__button"
               onClick={this.addSelectedOptions}>
               {this.addLabel}
+              <AcFaIcon slot="icon-start"
+                icon={faAngleDoubleRight}
+                class={{
+                  "ac-pick-list__button-icon": true,
+                  "ac-pick-list__button-icon--disabled": this.numberAvailableOptionsSelected === 0
+                 }}
+                size={12}  />
             </ac-button>
             <ac-button
               disabled={disabledAddAll}
@@ -183,6 +192,14 @@ export class AcPickList {
               disabled={this.numberOfSelectedOptions === 0}
               onClick={this.removeOptions}>
               {this.removeLabel}
+              <AcFaIcon
+                slot="icon-start"
+                icon={faAngleDoubleLeft}
+                class={{
+                  "ac-pick-list__button-icon": true,
+                  "ac-pick-list__button-icon--disabled": this.numberOfSelectedOptions === 0
+                 }}
+                 size={12}  />
             </ac-button>
             <ac-button
               disabled={disabledRemoveAll}
