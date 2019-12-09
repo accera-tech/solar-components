@@ -49,12 +49,12 @@ Type: `Promise<HTMLInputElement>`
 
 ### Used by
 
- - [ac-list](../../molecules/ac-list)
+ - [ac-order-list](../../molecules/ac-order-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  ac-list --> ac-check
+  ac-order-list --> ac-check
   style ac-check fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

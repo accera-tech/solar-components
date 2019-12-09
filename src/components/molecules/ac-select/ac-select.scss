@@ -46,63 +46,10 @@ ac-select.form-field--invalid {
 
 .ac-select__panel {
   ul.ac-select__list {
-    margin: 0;
-    padding: $spacer-tiny 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    list-style: none;
-
-    li.ac-select__list-item {
-      position: relative;
-      padding: $spacer-tiny/2 $spacer-small;
-      color: var-color("neutral", "darker");
-      font-size: $font-small;
-      cursor: pointer;
-      user-select: none;
-
-      &:hover {
-        background-color: var-color("primary", "normal", 0.04);
-        color: var-color("primary", "normal");
-      }
-
-      &.ac-select__list-item--selected {
-        background-color: var-color("primary", "normal", 0.08);
-      }
-    }
 
     li.ac-select__helper-item {
       color: var-color("neutral", "normal");
       text-align: center;
-    }
-
-    li.ac-select__list-separator {
-      position: relative;
-      height: 27px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      cursor: default;
-      user-select: none;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 18px;
-        right: $spacer-small;
-        left: $spacer-small;
-        height: 1px;
-        background-color: var-color("neutral", "normal");
-      }
-
-      .ac-select__list-separator-title {
-        display: inline-block;
-        position: absolute;
-        padding: 12px $spacer-tiny 0 $spacer-small;
-        background-color: var-color("neutral", "contrast");
-        color: var-color("neutral", "normal");
-        font-size: $font-xtiny;
-        text-transform: uppercase;
-      }
     }
   }
 }

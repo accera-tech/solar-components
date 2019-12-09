@@ -14,6 +14,7 @@ import { CustomValidityState, ValidatorFn } from '../../../utils/validations/val
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
+import { ensureController } from '../../../utils/stencil/ensure-controller';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -37,7 +38,7 @@ export class AcSelect implements
   static readonly ITEM_HEIGHT = 30;
 
   private SelectPanel =
-    createControllerPortal<AcPanel & AcPopper>(document.getElementsByTagName('ac-panel-controller')[0]);
+    createControllerPortal<AcPanel & AcPopper>(ensureController('ac-panel-controller'));
 
   /**
    * A reference to the ac-input-base component.
@@ -419,14 +420,15 @@ export class AcSelect implements
       return options.map(item => {
         if (item.separator) {
           return (
-            <li class="ac-select__list-separator">
-              <span class="ac-select__list-separator-title">{item.title}</span>
+            <li class="ac-list__separator">
+              <span class="ac-list__separator-title">{item.title}</span>
+              <span class="ac-list__separator-line"></span>
             </li>
           );
         } else {
           return (
             <li
-              class={'ac-select__list-item ' + (item.selected ? 'ac-select__list-item--selected' : '')}
+              class={'ac-list__item ' + (item.selected ? 'ac-list__item--selected' : '')}
               onClick={() => this.handleSelect(item)}
             >
               {item.title}
@@ -561,7 +563,7 @@ export class AcSelect implements
         reset={!this.isShowingPanel}
       >
         <slot name="item-top" slot="item-top" />
-        <ul class="ac-select__list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
+        <ul class="ac-select__list ac-list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
           {this.renderOptions(optionsToRender)}
         </ul>
         <slot name="item-bottom" slot="item-bottom" />
