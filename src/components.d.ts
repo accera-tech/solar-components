@@ -11,7 +11,7 @@ import {
 } from './behaviors/async-data-behavior';
 import {
   AcOption,
-} from './utils/types/acOption';
+} from './utils/types/ac-option';
 import {
   CustomValidityState,
   ValidatorFn,

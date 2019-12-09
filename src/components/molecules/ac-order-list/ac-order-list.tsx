@@ -2,7 +2,7 @@ import { Component, Prop, Method, Element, h, EventEmitter, Event, Watch } from 
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { isEmpty } from 'ramda';
-import { AcOption } from '../../../utils/types/acOption';
+import { AcOption } from '../../../utils/types/ac-option';
 
 @Component({
   tag: 'ac-order-list',

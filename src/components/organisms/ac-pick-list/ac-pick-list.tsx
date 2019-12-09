@@ -4,7 +4,7 @@ import { Bind } from '../../../utils/lang/bind';
 import dragula from 'dragula';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
-import { AcOption } from '../../../utils/types/acOption';
+import { AcOption } from '../../../utils/types/ac-option';
 
 
 @Component({

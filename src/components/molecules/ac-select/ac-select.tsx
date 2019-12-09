@@ -9,7 +9,7 @@ import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-b
 import { Bind } from '../../../utils/lang/bind';
 import { Debounced } from '../../../utils/lang/reactivity';
 import { toArray } from '../../../utils/lang/to-array';
-import { AcOption } from '../../../utils/types/acOption';
+import { AcOption } from '../../../utils/types/ac-option';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
