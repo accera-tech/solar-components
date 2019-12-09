@@ -409,7 +409,7 @@ export class AcSelect implements
     if (!options) {
       if (this.searchable) {
         return (
-          <li class="ac-select__helper-item">
+          <li class="ac-list__helper-item">
             {this.searchHelperLabel}
           </li>
         );
@@ -438,7 +438,7 @@ export class AcSelect implements
       });
     } else {
       return (
-        <li class="ac-select__helper-item">
+        <li class="ac-list__helper-item">
           {this.noResultsLabel} {this.filter}
         </li>
       );

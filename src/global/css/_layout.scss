@@ -18,6 +18,11 @@
   overflow-y: auto;
   list-style: none;
 
+  .ac-list__helper-item {
+    color: var-color("neutral", "normal");
+    text-align: center;
+  }
+
   .ac-list__item {
     display: flex;
     align-items: center;

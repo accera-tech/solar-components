@@ -154,13 +154,9 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
   @Bind
   @Debounced(200)
   private async handleDebouncedKeyUp(event) {
-    const { target: { value }, key } = event;
-    if (key === 40) {
-
-    } else {
-      this.filter = value;
-      this.asyncDataBehavior.executeFetch()
-    }
+    const { target: { value } } = event;
+    this.filter = value;
+    this.asyncDataBehavior.executeFetch();
   }
 
   getFetchParams() {
@@ -215,8 +211,7 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
           >
             {this.loading && <AcFaIcon slot="item-end" class="ac-autocomplete__icon" icon={faSpinner} size={14} anim="spin"/>}
       </ac-input-base>
-      {this.SelectPanel &&
-        <SelectPanel
+      <SelectPanel
             ref={selectPanel => this.selectPanel = selectPanel}
             class="ac-autocomplete__panel"
             popperPivot={this.host}
@@ -237,7 +232,7 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
                 </li>
               ))}
           </ul>
-        </SelectPanel>}
+        </SelectPanel>
     </Host>;
   }
 }
