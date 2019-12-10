@@ -1,7 +1,7 @@
 import { Component, Prop, h, Host, Element, State, Watch, Method, EventEmitter, Event } from '@stencil/core';
 
 import { AsyncDataBehavior, AsyncDataComponent, AsyncMetadata } from '../../../behaviors/async-data-behavior';
-import { AcOption } from '../../../utils/types/acOption';
+import { AcOption } from '../../../utils/types/ac-option';
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
