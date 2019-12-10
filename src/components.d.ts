@@ -7,12 +7,18 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  AsyncMetadata,
+} from './behaviors/async-data-behavior';
+import {
+  AcOption,
+} from './utils/types/ac-option';
+import {
   CustomValidityState,
   ValidatorFn,
 } from './utils/validations/validations';
 import {
-  AcOption,
-} from './utils/types/acOption';
+  FormFieldBehavior,
+} from './behaviors/form-behavior';
 import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
@@ -43,6 +49,64 @@ import {
 } from './components/atoms/ac-toast/ac-toast';
 
 export namespace Components {
+  interface AcAutocomplete {
+    /**
+    * Set the disabled mode.
+    */
+    'disabled': boolean;
+    /**
+    * Set the field in the error state with a message.
+    */
+    'error': string | boolean;
+    /**
+    * Action to be call when the user start typing.
+    */
+    'fetch': (params: { filter: string }) => Promise<AsyncMetadata<AcOption[]>>;
+    /**
+    * Used to provide access to the FormField instance.
+    */
+    'getFormFieldBehavior': () => Promise<FormFieldBehavior>;
+    /**
+    * The label text of the input.
+    */
+    'label': string;
+    /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading': boolean;
+    /**
+    * The name of the internal input.
+    */
+    'name': string;
+    /**
+    * Set the custom empty result text.
+    */
+    'noResultsLabel': string;
+    /**
+    * The options that will be displayed in the panel.
+    */
+    'options': AcOption[];
+    /**
+    * The native required attribute.
+    */
+    'required': boolean;
+    /**
+    * Select size
+    */
+    'size': 'small' | 'large';
+    /**
+    * The validator functions.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity': CustomValidityState;
+    /**
+    * The value of the input.
+    */
+    'value': any;
+  }
   interface AcAvatar {
     'href': string;
     'image': string;
@@ -453,30 +517,6 @@ export namespace Components {
     */
     'collapsed': 'nav-left';
   }
-  interface AcList {
-    'filterText': string;
-    'getSelectedOptions': () => Promise<AcOption<{}>[]>;
-    /**
-    * Used to customize the field label
-    */
-    'label': string;
-    /**
-    * If true, the component will handle multiple selected items.
-    */
-    'multiple': boolean;
-    /**
-    * Message that will be rendered with the search results in zero items
-    */
-    'noResultsLabel': string;
-    /**
-    * List of all options available.
-    */
-    'options': AcOption[];
-    /**
-    * Used to customize the searchbar's label
-    */
-    'searchLabel': string;
-  }
   interface AcLogin {
     'backgroundImageSrc': string;
   }
@@ -547,6 +587,30 @@ export namespace Components {
     * Clear all modals that are displayed.
     */
     'dismiss': () => Promise<void>;
+  }
+  interface AcOrderList {
+    'filterText': string;
+    'getSelectedOptions': () => Promise<AcOption<{}>[]>;
+    /**
+    * Used to customize the field label
+    */
+    'label': string;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple': boolean;
+    /**
+    * Message that will be rendered with the search results in zero items
+    */
+    'noResultsLabel': string;
+    /**
+    * List of all options available.
+    */
+    'options': AcOption[];
+    /**
+    * Used to customize the searchbar's label
+    */
+    'searchLabel': string;
   }
   interface AcOverlay {
     /**
@@ -728,6 +792,10 @@ export namespace Components {
     */
     'required': boolean;
     /**
+    * Set the custom search helper text.
+    */
+    'searchHelperLabel': string;
+    /**
     * Set the search mode.
     */
     'searchable': boolean;
@@ -878,6 +946,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLAcAutocompleteElement extends Components.AcAutocomplete, HTMLStencilElement {}
+  var HTMLAcAutocompleteElement: {
+    prototype: HTMLAcAutocompleteElement;
+    new (): HTMLAcAutocompleteElement;
+  };
+
   interface HTMLAcAvatarElement extends Components.AcAvatar, HTMLStencilElement {}
   var HTMLAcAvatarElement: {
     prototype: HTMLAcAvatarElement;
@@ -944,12 +1018,6 @@ declare global {
     new (): HTMLAcLayoutElement;
   };
 
-  interface HTMLAcListElement extends Components.AcList, HTMLStencilElement {}
-  var HTMLAcListElement: {
-    prototype: HTMLAcListElement;
-    new (): HTMLAcListElement;
-  };
-
   interface HTMLAcLoginElement extends Components.AcLogin, HTMLStencilElement {}
   var HTMLAcLoginElement: {
     prototype: HTMLAcLoginElement;
@@ -990,6 +1058,12 @@ declare global {
   var HTMLAcNavdrawerControllerElement: {
     prototype: HTMLAcNavdrawerControllerElement;
     new (): HTMLAcNavdrawerControllerElement;
+  };
+
+  interface HTMLAcOrderListElement extends Components.AcOrderList, HTMLStencilElement {}
+  var HTMLAcOrderListElement: {
+    prototype: HTMLAcOrderListElement;
+    new (): HTMLAcOrderListElement;
   };
 
   interface HTMLAcOverlayElement extends Components.AcOverlay, HTMLStencilElement {}
@@ -1100,6 +1174,7 @@ declare global {
     new (): HTMLAcUploadElement;
   };
   interface HTMLElementTagNameMap {
+    'ac-autocomplete': HTMLAcAutocompleteElement;
     'ac-avatar': HTMLAcAvatarElement;
     'ac-badge': HTMLAcBadgeElement;
     'ac-button': HTMLAcButtonElement;
@@ -1111,7 +1186,6 @@ declare global {
     'ac-input': HTMLAcInputElement;
     'ac-input-base': HTMLAcInputBaseElement;
     'ac-layout': HTMLAcLayoutElement;
-    'ac-list': HTMLAcListElement;
     'ac-login': HTMLAcLoginElement;
     'ac-menu': HTMLAcMenuElement;
     'ac-menu-item': HTMLAcMenuItemElement;
@@ -1119,6 +1193,7 @@ declare global {
     'ac-modal-controller': HTMLAcModalControllerElement;
     'ac-navdrawer': HTMLAcNavdrawerElement;
     'ac-navdrawer-controller': HTMLAcNavdrawerControllerElement;
+    'ac-order-list': HTMLAcOrderListElement;
     'ac-overlay': HTMLAcOverlayElement;
     'ac-pagination': HTMLAcPaginationElement;
     'ac-panel': HTMLAcPanelElement;
@@ -1141,6 +1216,64 @@ declare global {
 }
 
 declare namespace LocalJSX {
+  interface AcAutocomplete extends JSXBase.HTMLAttributes<HTMLAcAutocompleteElement> {
+    /**
+    * Set the disabled mode.
+    */
+    'disabled'?: boolean;
+    /**
+    * Set the field in the error state with a message.
+    */
+    'error'?: string | boolean;
+    /**
+    * Action to be call when the user start typing.
+    */
+    'fetch'?: (params: { filter: string }) => Promise<AsyncMetadata<AcOption[]>>;
+    /**
+    * The label text of the input.
+    */
+    'label'?: string;
+    /**
+    * Set the loading mode, showing a loading icon.
+    */
+    'loading'?: boolean;
+    /**
+    * The name of the internal input.
+    */
+    'name'?: string;
+    /**
+    * Set the custom empty result text.
+    */
+    'noResultsLabel'?: string;
+    /**
+    * Fired when the user select an option.
+    */
+    'onSelectChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The options that will be displayed in the panel.
+    */
+    'options'?: AcOption[];
+    /**
+    * The native required attribute.
+    */
+    'required'?: boolean;
+    /**
+    * Select size
+    */
+    'size'?: 'small' | 'large';
+    /**
+    * The validator functions.
+    */
+    'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * The validity state.
+    */
+    'validity'?: CustomValidityState;
+    /**
+    * The value of the input.
+    */
+    'value'?: any;
+  }
   interface AcAvatar extends JSXBase.HTMLAttributes<HTMLAcAvatarElement> {
     'href'?: string;
     'image'?: string;
@@ -1517,34 +1650,6 @@ declare namespace LocalJSX {
     'collapsed'?: 'nav-left';
     'onContentScroll'?: (event: CustomEvent<{ top: number, left: number }>) => void;
   }
-  interface AcList extends JSXBase.HTMLAttributes<HTMLAcListElement> {
-    'filterText'?: string;
-    /**
-    * Used to customize the field label
-    */
-    'label'?: string;
-    /**
-    * If true, the component will handle multiple selected items.
-    */
-    'multiple'?: boolean;
-    /**
-    * Message that will be rendered with the search results in zero items
-    */
-    'noResultsLabel'?: string;
-    /**
-    * Event trigger on state change
-    * @param acList - Component.
-    */
-    'onListChange'?: (event: CustomEvent<AcList>) => void;
-    /**
-    * List of all options available.
-    */
-    'options'?: AcOption[];
-    /**
-    * Used to customize the searchbar's label
-    */
-    'searchLabel'?: string;
-  }
   interface AcLogin extends JSXBase.HTMLAttributes<HTMLAcLoginElement> {
     'backgroundImageSrc'?: string;
   }
@@ -1605,6 +1710,34 @@ declare namespace LocalJSX {
     * An optional property used to refer the parent element that the component will be attached to.
     */
     'bound'?: string;
+  }
+  interface AcOrderList extends JSXBase.HTMLAttributes<HTMLAcOrderListElement> {
+    'filterText'?: string;
+    /**
+    * Used to customize the field label
+    */
+    'label'?: string;
+    /**
+    * If true, the component will handle multiple selected items.
+    */
+    'multiple'?: boolean;
+    /**
+    * Message that will be rendered with the search results in zero items
+    */
+    'noResultsLabel'?: string;
+    /**
+    * Event trigger on state change
+    * @param acList - Component.
+    */
+    'onListChange'?: (event: CustomEvent<AcOrderList>) => void;
+    /**
+    * List of all options available.
+    */
+    'options'?: AcOption[];
+    /**
+    * Used to customize the searchbar's label
+    */
+    'searchLabel'?: string;
   }
   interface AcOverlay extends JSXBase.HTMLAttributes<HTMLAcOverlayElement> {
     /**
@@ -1781,6 +1914,10 @@ declare namespace LocalJSX {
     */
     'required'?: boolean;
     /**
+    * Set the custom search helper text.
+    */
+    'searchHelperLabel'?: string;
+    /**
     * Set the search mode.
     */
     'searchable'?: boolean;
@@ -1914,6 +2051,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'ac-autocomplete': AcAutocomplete;
     'ac-avatar': AcAvatar;
     'ac-badge': AcBadge;
     'ac-button': AcButton;
@@ -1925,7 +2063,6 @@ declare namespace LocalJSX {
     'ac-input': AcInput;
     'ac-input-base': AcInputBase;
     'ac-layout': AcLayout;
-    'ac-list': AcList;
     'ac-login': AcLogin;
     'ac-menu': AcMenu;
     'ac-menu-item': AcMenuItem;
@@ -1933,6 +2070,7 @@ declare namespace LocalJSX {
     'ac-modal-controller': AcModalController;
     'ac-navdrawer': AcNavdrawer;
     'ac-navdrawer-controller': AcNavdrawerController;
+    'ac-order-list': AcOrderList;
     'ac-overlay': AcOverlay;
     'ac-pagination': AcPagination;
     'ac-panel': AcPanel;

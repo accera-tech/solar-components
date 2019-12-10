@@ -1,10 +1,10 @@
 import { Component, Prop, Host, h, State, Method, Element } from '@stencil/core';
-import { AcList } from '../../molecules/ac-list/ac-list';
+import { AcOrderList } from '../../molecules/ac-order-list/ac-order-list';
 import { Bind } from '../../../utils/lang/bind';
 import dragula from 'dragula';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
-import { AcOption } from '../../../utils/types/acOption';
+import { AcOption } from '../../../utils/types/ac-option';
 
 
 @Component({
@@ -12,8 +12,8 @@ import { AcOption } from '../../../utils/types/acOption';
   styleUrl: 'ac-pick-list.scss'
 })
 export class AcPickList {
-  private acListAvalibles: HTMLAcListElement;
-  private acListSelectedOptions: HTMLAcListElement;
+  private acListAvalibles: HTMLAcOrderListElement;
+  private acListSelectedOptions: HTMLAcOrderListElement;
 
   /**
    * Reference to the component
@@ -144,7 +144,7 @@ export class AcPickList {
    * Method that handle selected options.
    */
   @Bind
-  handleChangeAclistSelectedOptions(event: CustomEvent<AcList>) {
+  handleChangeAclistSelectedOptions(event: CustomEvent<AcOrderList>) {
     if(event.detail) {
       event.detail.getSelectedOptions()
       .then(({length}) => this.numberOfSelectedOptions = length);
@@ -156,7 +156,7 @@ export class AcPickList {
    * Method that handle changes on ac-list of avalibles options.
    */
   @Bind
-  handleChangeAclistAvailableOptionsSelected(event: CustomEvent<AcList>) {
+  handleChangeAclistAvailableOptionsSelected(event: CustomEvent<AcOrderList>) {
     if(event.detail) {
       event.detail.getSelectedOptions()
       .then(({length}) => this.numberAvailableOptionsSelected = length);
@@ -166,7 +166,7 @@ export class AcPickList {
   }
 
   componentDidRender() {
-    const drake = dragula([this.acListAvalibles.querySelector('.ac-list__list'), this.acListSelectedOptions.querySelector('.ac-list__list')], {
+    const drake = dragula([this.acListAvalibles.querySelector('.ac-list'), this.acListSelectedOptions.querySelector('.ac-list')], {
       invalid: (el: HTMLElement) => {
         return el.classList.contains('ac-list__list-separator');
       }
@@ -202,7 +202,7 @@ export class AcPickList {
     const disabledRemoveAll = this.acListSelectedOptions ? this.acListSelectedOptions.options.length === 0 : true;
     return (
     <Host>
-      <ac-list class="ac-pick-list__column"
+      <ac-order-list class="ac-pick-list__column"
           onListChange={this.handleChangeAclistAvailableOptionsSelected}
           ref={acList => this.acListAvalibles = acList}
           searchLabel={this.searchLabel}
@@ -211,7 +211,7 @@ export class AcPickList {
           no-results-label={this.noResultsLabel}
           multiple={true}>
           <slot />
-        </ac-list>
+        </ac-order-list>
         <section
           class="ac-pick-list__column ac-pick-list__action-panel ac-pick-list__action-panel--gutter">
           <div class="ac-pick-list__cell ac-pick-list__cell--align-start ac-pick-list__cell--dir-col">
@@ -262,13 +262,13 @@ export class AcPickList {
             </ac-button>
           </div>
         </section>
-        <ac-list class="ac-pick-list__column"
+        <ac-order-list class="ac-pick-list__column"
           ref={acList => this.acListSelectedOptions = acList}
           onListChange={this.handleChangeAclistSelectedOptions}
           label={this.selectedLabel}
           multiple={true}
           searchLabel={this.searchLabel}>
-        </ac-list>
+        </ac-order-list>
     </Host>);
   }
 }

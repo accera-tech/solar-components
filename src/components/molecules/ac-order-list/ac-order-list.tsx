@@ -2,17 +2,17 @@ import { Component, Prop, Method, Element, h, EventEmitter, Event, Watch } from 
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { isEmpty } from 'ramda';
-import { AcOption } from '../../../utils/types/acOption';
+import { AcOption } from '../../../utils/types/ac-option';
 
 @Component({
-  tag: 'ac-list',
-  styleUrl: 'ac-list.scss'
+  tag: 'ac-order-list',
+  styleUrl: 'ac-order-list.scss'
 })
-export class AcList {
+export class AcOrderList {
   /**
    * Reference to the component
    */
-  @Element() host: HTMLAcListElement;
+  @Element() host: HTMLAcOrderListElement;
 
   @Prop() filterText: string;
   /**
@@ -40,7 +40,7 @@ export class AcList {
    * Event trigger on state change
    * @param {AcList} acList - Component.
    */
-  @Event() listChange: EventEmitter<AcList>;
+  @Event() listChange: EventEmitter<AcOrderList>;
 
 
   @Watch('options')
@@ -112,12 +112,12 @@ export class AcList {
         <section style={{ display: 'none' }}>
           <slot />
         </section>,
-        <label class="ac-list__header-title">
+        <label class="ac-order-list__header-title">
           {this.label} ({this.options ? this.options.length : 0})
         </label>,
-        <section class="ac-list__container" >
+        <section class="ac-order-list__container" >
           <ac-input-base
-            class="ac-list__search-bar"
+            class="ac-order-list__search-bar"
             type="text"
             placeholder={this.searchLabel}
             value={this.filterText}
@@ -132,10 +132,10 @@ export class AcList {
               <AcFaIcon icon={faSearch} class="ac-list__search-bar-icon" size={12}  />
             </ac-button>
           </ac-input-base>
-          <ol class="ac-list__list">
+          <ol class="ac-list">
             {listItems.length > 0
               ? listItems
-              : !isEmpty(this.filterText) && <li class="ac-list__list-item ac-list__list-item--empty">{this.noResultsLabel}</li>
+              : !isEmpty(this.filterText) && <li class="ac-list__item ac-list__list-item--empty">{this.noResultsLabel}</li>
             }
           </ol>
         </section>
@@ -154,9 +154,9 @@ export class AcList {
                 if (!(state.has(option.group))) {
                   hasGroup = hasGroup === false && !isEmpty(option.group) ? true : hasGroup;
                   state.set(option.group, [(
-                    <li class="ac-list__list-separator">
-                      <span class="ac-list__list-separator-title">{option.group}</span>
-                      <span class="ac-list__list-separator-line"></span>
+                    <li class="ac-list__separator">
+                      <span class="ac-list__separator-title">{option.group}</span>
+                      <span class="ac-list__separator-line"></span>
                     </li>
                   )]);
                 }
@@ -167,11 +167,11 @@ export class AcList {
                   <li value={option.value}
                       key={option.value}
                       class={{
-                        "ac-list__list-item": true,
-                        "ac-list__list-item--selected": option.selected
+                        "ac-list__item": true,
+                        "ac-list__item--selected": option.selected
                       }}
                       onClick={(e) => this.handleSelect(e, option)}>
-                    {this.multiple && <ac-check class="ac-list__checkbox"
+                    {this.multiple && <ac-check class="ac-order-list__checkbox"
                       checked={option.selected} onClick={(e) => this.handleChecked(e, option)}></ac-check>}
                     {option.title}
                   </li>

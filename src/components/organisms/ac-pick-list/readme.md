@@ -37,17 +37,17 @@ Type: `Promise<any>`
 
 ### Depends on
 
-- [ac-list](../../molecules/ac-list)
+- [ac-order-list](../../molecules/ac-order-list)
 - [ac-button](../../atoms/ac-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  ac-pick-list --> ac-list
+  ac-pick-list --> ac-order-list
   ac-pick-list --> ac-button
-  ac-list --> ac-input-base
-  ac-list --> ac-button
-  ac-list --> ac-check
+  ac-order-list --> ac-input-base
+  ac-order-list --> ac-button
+  ac-order-list --> ac-check
   style ac-pick-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

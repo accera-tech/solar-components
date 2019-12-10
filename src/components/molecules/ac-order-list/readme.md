@@ -19,9 +19,9 @@
 
 ## Events
 
-| Event        | Description                   | Type                  |
-| ------------ | ----------------------------- | --------------------- |
-| `listChange` | Event trigger on state change | `CustomEvent<AcList>` |
+| Event        | Description                   | Type                       |
+| ------------ | ----------------------------- | -------------------------- |
+| `listChange` | Event trigger on state change | `CustomEvent<AcOrderList>` |
 
 
 ## Methods
@@ -52,11 +52,11 @@ Type: `Promise<AcOption<{}>[]>`
 ### Graph
 ```mermaid
 graph TD;
-  ac-list --> ac-input-base
-  ac-list --> ac-button
-  ac-list --> ac-check
-  ac-pick-list --> ac-list
-  style ac-list fill:#f9f,stroke:#333,stroke-width:4px
+  ac-order-list --> ac-input-base
+  ac-order-list --> ac-button
+  ac-order-list --> ac-check
+  ac-pick-list --> ac-order-list
+  style ac-order-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

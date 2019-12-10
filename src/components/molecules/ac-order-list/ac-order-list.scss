@@ -1,0 +1,59 @@
+@import "../../../theme/variables";
+@import "../../../global/css/layout";
+
+
+ac-order-list {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .ac-order-list__header-title {
+    height: 24px;
+    margin: 0 0 8px 0;
+    display: flex;
+    color: var-color("neutral", "darker");
+  }
+
+  .ac-order-list__container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    height: inherit;
+    border: 1px solid var-color("neutral", "light");
+    border-radius: $border-radius-default;
+  }
+
+  .ac-order-list__search-bar {
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-width: 1px;
+    margin-bottom: $spacer-small;
+
+    .ac-input__native {
+      padding-left: 0 !important;
+    }
+
+    .ac-order-list__search-bar-icon {
+      fill: var-color("neutral", "dark");
+    }
+  }
+
+  .ac-list {
+      .ac-order-list__checkbox {
+        padding-right: $spacer-tiny;
+      }
+
+      &.ac-list__item--empty {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+
+      }
+    }
+}

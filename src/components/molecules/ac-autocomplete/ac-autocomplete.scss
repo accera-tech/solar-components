@@ -1,0 +1,11 @@
+@import "../../../theme/variables";
+
+.ac-autocomplete {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .ac-autocomplete__icon {
+    margin: $spacer-tiny;
+  }
+}
