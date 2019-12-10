@@ -199,7 +199,9 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
     }
   }
 
-  componentDidUnload: () => void;
+  componentDidUnload() {
+    this.isPanelOpen = false;
+  }
 
   render() {
     const SelectPanel = this.SelectPanel;
@@ -208,6 +210,7 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
             ref={acInputBase => this.acInputBase = acInputBase}
             class="ac-autocomplete__input"
             name={this.name}
+            disabled={this.disabled}
             type="text"
             label={this.label}
             value={this.selectedText}
