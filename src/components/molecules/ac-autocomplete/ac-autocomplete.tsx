@@ -103,7 +103,7 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
   /**
    * Use to request a formFieldBehavior.checkValidity call.
    */
-  requestCheckValidity: boolean;
+  requestCheckValidity: boolean = false;
   /**
    * The validity state.
    */
@@ -189,6 +189,11 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
     if (!this.selectPanel.contains(element)) {
       if (this.isPanelOpen) {
         this.isPanelOpen = !this.isPanelOpen;
+      }
+      if (this.requestCheckValidity === false && this.isPanelOpen === false) {
+        if (!this.options.some(x => x.title.toString().toUpperCase().includes(this.acInputBase.value.toUpperCase()))) {
+          this.acInputBase.value = '';
+        }
       }
       this.formFieldBehavior.setTouched();
     }

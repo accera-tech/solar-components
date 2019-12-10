@@ -36,7 +36,7 @@ export class AcPanelController implements ControllerComponent<AcPanel, HTMLAcPan
     const wrapper = document.createElement('ac-popper') as HTMLAcPopperElement;
     restProps.wrapper = wrapper;
 
-    wrapper.style.zIndex = '1000';
+    wrapper.style.zIndex = '9000';
     wrapper.popperPlacement = popperPlacement;
     wrapper.popperPivot = popperPivot;
     wrapper.popperOptions = {
