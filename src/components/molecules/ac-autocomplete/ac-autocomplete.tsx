@@ -198,7 +198,6 @@ export class AcAutocomplete implements AsyncDataComponent<AutocompleteFetchParam
       this.formFieldBehavior.setTouched();
     }
   }
-
   componentDidUnload() {
     this.isPanelOpen = false;
   }
