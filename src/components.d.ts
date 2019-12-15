@@ -20,6 +20,9 @@ import {
   FormFieldBehavior,
 } from './behaviors/form-behavior';
 import {
+  AcDropOption,
+} from './components/molecules/ac-drop-down-menu/ac-drop-option';
+import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
 import {
@@ -311,6 +314,17 @@ export namespace Components {
     'value': Date | Date[];
     'view': string;
     'weekends': number[];
+  }
+  interface AcDropDownMenu {
+    'options': AcDropOption[];
+    'value': any;
+  }
+  interface AcDropOption {
+    'image': string;
+    'imageDescription': string;
+    'label': string;
+    'selected': boolean;
+    'value': string;
   }
   interface AcGauge {
     'percent': number;
@@ -740,6 +754,11 @@ export namespace Components {
     */
     'theme': string;
   }
+  interface AcSearch {
+    'fetch': any;
+    'searchLabel': string;
+    'value': any;
+  }
   interface AcSelect {
     /**
     * Set the disabled mode.
@@ -988,6 +1007,18 @@ declare global {
     new (): HTMLAcDatePickerElement;
   };
 
+  interface HTMLAcDropDownMenuElement extends Components.AcDropDownMenu, HTMLStencilElement {}
+  var HTMLAcDropDownMenuElement: {
+    prototype: HTMLAcDropDownMenuElement;
+    new (): HTMLAcDropDownMenuElement;
+  };
+
+  interface HTMLAcDropOptionElement extends Components.AcDropOption, HTMLStencilElement {}
+  var HTMLAcDropOptionElement: {
+    prototype: HTMLAcDropOptionElement;
+    new (): HTMLAcDropOptionElement;
+  };
+
   interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
   var HTMLAcGaugeElement: {
     prototype: HTMLAcGaugeElement;
@@ -1114,6 +1145,12 @@ declare global {
     new (): HTMLAcProgressElement;
   };
 
+  interface HTMLAcSearchElement extends Components.AcSearch, HTMLStencilElement {}
+  var HTMLAcSearchElement: {
+    prototype: HTMLAcSearchElement;
+    new (): HTMLAcSearchElement;
+  };
+
   interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
   var HTMLAcSelectElement: {
     prototype: HTMLAcSelectElement;
@@ -1181,6 +1218,8 @@ declare global {
     'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
     'ac-date-picker': HTMLAcDatePickerElement;
+    'ac-drop-down-menu': HTMLAcDropDownMenuElement;
+    'ac-drop-option': HTMLAcDropOptionElement;
     'ac-gauge': HTMLAcGaugeElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input': HTMLAcInputElement;
@@ -1202,6 +1241,7 @@ declare global {
     'ac-popper': HTMLAcPopperElement;
     'ac-portal': HTMLAcPortalElement;
     'ac-progress': HTMLAcProgressElement;
+    'ac-search': HTMLAcSearchElement;
     'ac-select': HTMLAcSelectElement;
     'ac-shape': HTMLAcShapeElement;
     'ac-stepper': HTMLAcStepperElement;
@@ -1465,6 +1505,17 @@ declare namespace LocalJSX {
     'value'?: Date | Date[];
     'view'?: string;
     'weekends'?: number[];
+  }
+  interface AcDropDownMenu extends JSXBase.HTMLAttributes<HTMLAcDropDownMenuElement> {
+    'options'?: AcDropOption[];
+    'value'?: any;
+  }
+  interface AcDropOption extends JSXBase.HTMLAttributes<HTMLAcDropOptionElement> {
+    'image'?: string;
+    'imageDescription'?: string;
+    'label'?: string;
+    'selected'?: boolean;
+    'value'?: string;
   }
   interface AcGauge extends JSXBase.HTMLAttributes<HTMLAcGaugeElement> {
     'percent'?: number;
@@ -1864,6 +1915,11 @@ declare namespace LocalJSX {
     */
     'theme'?: string;
   }
+  interface AcSearch extends JSXBase.HTMLAttributes<HTMLAcSearchElement> {
+    'fetch'?: any;
+    'searchLabel'?: string;
+    'value'?: any;
+  }
   interface AcSelect extends JSXBase.HTMLAttributes<HTMLAcSelectElement> {
     /**
     * Set the disabled mode.
@@ -2058,6 +2114,8 @@ declare namespace LocalJSX {
     'ac-card': AcCard;
     'ac-check': AcCheck;
     'ac-date-picker': AcDatePicker;
+    'ac-drop-down-menu': AcDropDownMenu;
+    'ac-drop-option': AcDropOption;
     'ac-gauge': AcGauge;
     'ac-header': AcHeader;
     'ac-input': AcInput;
@@ -2079,6 +2137,7 @@ declare namespace LocalJSX {
     'ac-popper': AcPopper;
     'ac-portal': AcPortal;
     'ac-progress': AcProgress;
+    'ac-search': AcSearch;
     'ac-select': AcSelect;
     'ac-shape': AcShape;
     'ac-stepper': AcStepper;

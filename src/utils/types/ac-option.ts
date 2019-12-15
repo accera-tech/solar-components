@@ -32,4 +32,9 @@ export interface AcOption<T = {}> {
    * Represents order of the element.
    */
   order: number;
+
+  /**
+   * Represents a image to be render in the element.
+   */
+  image?: string | any;
 }

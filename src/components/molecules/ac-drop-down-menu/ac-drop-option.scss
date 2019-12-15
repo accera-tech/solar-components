@@ -1,0 +1,9 @@
+
+
+.ac-list {
+  .ac-list__item {
+    &.ac-drop-down-menu__item {
+      flex-basis: auto;
+    }
+  }
+}
