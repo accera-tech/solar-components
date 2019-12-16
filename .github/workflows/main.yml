@@ -17,6 +17,9 @@ jobs:
       with:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
+        
+    - name: Install Dependencies      
+      run: npm install
 
     - name: Run Publish Command      
       run: npm run publish-latest
