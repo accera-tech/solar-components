@@ -37,9 +37,9 @@ $theme: (
     normal:           $functional__warning,                 // --color-warning-normal
     contrast:         $neutral__white,                      // --color-warning-contrast
     dark:             darken($functional__warning, 10%),    // --color-warning-dark
-    darker:           darken($functional__warning, 10%),    // --color-warning-darker
+    darker:           darken($functional__warning, 20%),    // --color-warning-darker
     light:            lighten($functional__warning, 10%),   // --color-warning-light
-    lighter:          lighten($functional__warning, 10%)    // --color-warning-lighter
+    lighter:          lighten($functional__warning, 20%)    // --color-warning-lighter
   ),
   alert: (
     normal:           $functional__alert,                   // --color-alert-normal
