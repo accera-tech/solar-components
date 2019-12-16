@@ -15,16 +15,20 @@ export class AcUpload {
    * The theme color defined in the color palette. The default is primary.
    */
   @Prop({ reflectToAttr: true }) theme = 'primary';
-
+  /**
+   * The name to native input.
+   */
   @Prop() name: string;
-
   /**
    * Text introduced in Button upload.
    */
   @Prop() uploadButtonText: string;
 
   @Prop({ mutable: true }) value: FileList;
-
+  /**
+   *  Disabled upload files.
+   */
+  @Prop({ mutable: true }) disabled = false;
   /**
    * State of focus, to control entries and exits of dragged files.
    */
@@ -46,10 +50,10 @@ export class AcUpload {
   onDrop(e: DragEvent) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e)
-    this.nativeInput.files = e.dataTransfer.files;
-    console.log(this.nativeInput.files);
-    this.handleChange();
+    if (!this.disabled) {
+      this.nativeInput.files = e.dataTransfer.files;
+      this.handleChange();
+    }
     this.focus = false;
   }
 
@@ -81,6 +85,7 @@ export class AcUpload {
         class={{
           [`ac-upload--${this.theme}`]: this.theme !== undefined,
           'ac-upload--focus': this.focus,
+          'ac-upload--disabled': this.disabled
         }}
       >
         <label
@@ -97,7 +102,7 @@ export class AcUpload {
             <div class="ac-upload--content">
               <slot name="content"/>
             </div>
-            <ac-button class="ac-upload--button" theme={this.theme} onClick={this.handleClick}>
+            <ac-button class="ac-upload--button" theme={this.theme} disabled={this.disabled} onClick={this.handleClick}>
               <ac-fa-icon slot="icon-start" icon={faUpload} size={14}/>
               {this.uploadButtonText}
             </ac-button>
