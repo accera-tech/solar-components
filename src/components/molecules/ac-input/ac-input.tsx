@@ -129,6 +129,11 @@ export class AcInput implements FormFieldComponent {
   @Prop({ reflectToAttr: true }) autocapitalize: string;
 
   /**
+   * The native HTMLInputElement placeholder attribute.
+   */
+  @Prop({ reflectToAttr: true }) placeholder: string;
+
+  /**
    * The native HTMLInputElement step attribute.
    */
   @Prop({ reflectToAttr: true }) step: number;
@@ -297,6 +302,7 @@ export class AcInput implements FormFieldComponent {
         autocapitalize={this.autocapitalize}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
+        placeholder={this.placeholder}
       >
         <slot name="item-start" slot="item-start" />
         <slot name="input-label" slot="input-label" />
