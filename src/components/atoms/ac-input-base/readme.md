@@ -38903,7 +38903,6 @@ Type: `Promise<void>`
  - [ac-input](../../molecules/ac-input)
  - [ac-menu](../../molecules/ac-menu)
  - [ac-order-list](../../molecules/ac-order-list)
- - [ac-search](../../molecules/ac-search)
  - [ac-select](../../molecules/ac-select)
 
 ### Graph
@@ -38914,7 +38913,6 @@ graph TD;
   ac-input --> ac-input-base
   ac-menu --> ac-input-base
   ac-order-list --> ac-input-base
-  ac-search --> ac-input-base
   ac-select --> ac-input-base
   style ac-input-base fill:#f9f,stroke:#333,stroke-width:4px
 ```

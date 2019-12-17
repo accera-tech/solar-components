@@ -7,13 +7,13 @@
 
 ## Properties
 
-| Property           | Attribute           | Description | Type      | Default     |
-| ------------------ | ------------------- | ----------- | --------- | ----------- |
-| `image`            | `image`             |             | `string`  | `undefined` |
-| `imageDescription` | `image-description` |             | `string`  | `undefined` |
-| `label`            | `label`             |             | `string`  | `undefined` |
-| `selected`         | `selected`          |             | `boolean` | `false`     |
-| `value`            | `value`             |             | `string`  | `undefined` |
+| Property           | Attribute           | Description                         | Type      | Default     |
+| ------------------ | ------------------- | ----------------------------------- | --------- | ----------- |
+| `image`            | `image`             | Image to be display in the left.    | `string`  | `undefined` |
+| `imageDescription` | `image-description` | (Optional) Image description.       | `string`  | `undefined` |
+| `label`            | `label`             | Label to be display.                | `string`  | `undefined` |
+| `selected`         | `selected`          | Flag that mark the selected option. | `boolean` | `false`     |
+| `value`            | `value`             | Value of the option.                | `string`  | `undefined` |
 
 
 ## Dependencies

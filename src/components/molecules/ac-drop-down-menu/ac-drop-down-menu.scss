@@ -1,0 +1,26 @@
+@import "../../../theme/variables";
+@import "../../../global/css/layout";
+
+
+ac-drop-down-menu {
+  display: flex;
+  flex: 1;
+  height: 44px;
+  padding: 0 !important;
+
+
+  .ac-drop-down-menu__button {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    .ac-button__native {
+      padding: 0 $spacer-tiny 0;
+      width: 100%;
+    }
+
+    .ac-button__text {
+      flex: 1;
+      text-align: left;
+    }
+  }
+}

@@ -32,7 +32,6 @@
  - [ac-navdrawer](../ac-navdrawer)
  - [ac-order-list](../../molecules/ac-order-list)
  - [ac-pick-list](../../organisms/ac-pick-list)
- - [ac-search](../../molecules/ac-search)
  - [ac-select](../../molecules/ac-select)
  - [ac-upload](../../organisms/ac-upload)
 
@@ -47,7 +46,6 @@ graph TD;
   ac-navdrawer --> ac-button
   ac-order-list --> ac-button
   ac-pick-list --> ac-button
-  ac-search --> ac-button
   ac-select --> ac-button
   ac-upload --> ac-button
   style ac-button fill:#f9f,stroke:#333,stroke-width:4px

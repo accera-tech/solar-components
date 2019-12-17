@@ -316,14 +316,35 @@ export namespace Components {
     'weekends': number[];
   }
   interface AcDropDownMenu {
+    /**
+    * List of all options.
+    */
     'options': AcDropOption[];
+    /**
+    * Value of selected option.
+    */
     'value': any;
   }
   interface AcDropOption {
+    /**
+    * Image to be display in the left.
+    */
     'image': string;
+    /**
+    * (Optional) Image description.
+    */
     'imageDescription': string;
+    /**
+    * Label to be display.
+    */
     'label': string;
+    /**
+    * Flag that mark the selected option.
+    */
     'selected': boolean;
+    /**
+    * Value of the option.
+    */
     'value': string;
   }
   interface AcGauge {
@@ -576,6 +597,10 @@ export namespace Components {
     */
     'compact': boolean;
     /**
+    * List of option to be show on the header.
+    */
+    'options': AcDropOption[];
+    /**
     * Show or hide toggle button
     */
     'showToggle': boolean;
@@ -753,11 +778,6 @@ export namespace Components {
     * Set the theme color.
     */
     'theme': string;
-  }
-  interface AcSearch {
-    'fetch': any;
-    'searchLabel': string;
-    'value': any;
   }
   interface AcSelect {
     /**
@@ -1145,12 +1165,6 @@ declare global {
     new (): HTMLAcProgressElement;
   };
 
-  interface HTMLAcSearchElement extends Components.AcSearch, HTMLStencilElement {}
-  var HTMLAcSearchElement: {
-    prototype: HTMLAcSearchElement;
-    new (): HTMLAcSearchElement;
-  };
-
   interface HTMLAcSelectElement extends Components.AcSelect, HTMLStencilElement {}
   var HTMLAcSelectElement: {
     prototype: HTMLAcSelectElement;
@@ -1241,7 +1255,6 @@ declare global {
     'ac-popper': HTMLAcPopperElement;
     'ac-portal': HTMLAcPortalElement;
     'ac-progress': HTMLAcProgressElement;
-    'ac-search': HTMLAcSearchElement;
     'ac-select': HTMLAcSelectElement;
     'ac-shape': HTMLAcShapeElement;
     'ac-stepper': HTMLAcStepperElement;
@@ -1507,14 +1520,39 @@ declare namespace LocalJSX {
     'weekends'?: number[];
   }
   interface AcDropDownMenu extends JSXBase.HTMLAttributes<HTMLAcDropDownMenuElement> {
+    /**
+    * Event call on option change.
+    */
+    'onSelectChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * List of all options.
+    */
     'options'?: AcDropOption[];
+    /**
+    * Value of selected option.
+    */
     'value'?: any;
   }
   interface AcDropOption extends JSXBase.HTMLAttributes<HTMLAcDropOptionElement> {
+    /**
+    * Image to be display in the left.
+    */
     'image'?: string;
+    /**
+    * (Optional) Image description.
+    */
     'imageDescription'?: string;
+    /**
+    * Label to be display.
+    */
     'label'?: string;
+    /**
+    * Flag that mark the selected option.
+    */
     'selected'?: boolean;
+    /**
+    * Value of the option.
+    */
     'value'?: string;
   }
   interface AcGauge extends JSXBase.HTMLAttributes<HTMLAcGaugeElement> {
@@ -1744,6 +1782,10 @@ declare namespace LocalJSX {
     'compact'?: boolean;
     'onClose'?: (event: CustomEvent<void>) => void;
     /**
+    * List of option to be show on the header.
+    */
+    'options'?: AcDropOption[];
+    /**
     * Show or hide toggle button
     */
     'showToggle'?: boolean;
@@ -1914,11 +1956,6 @@ declare namespace LocalJSX {
     * Set the theme color.
     */
     'theme'?: string;
-  }
-  interface AcSearch extends JSXBase.HTMLAttributes<HTMLAcSearchElement> {
-    'fetch'?: any;
-    'searchLabel'?: string;
-    'value'?: any;
   }
   interface AcSelect extends JSXBase.HTMLAttributes<HTMLAcSelectElement> {
     /**
@@ -2137,7 +2174,6 @@ declare namespace LocalJSX {
     'ac-popper': AcPopper;
     'ac-portal': AcPortal;
     'ac-progress': AcProgress;
-    'ac-search': AcSearch;
     'ac-select': AcSelect;
     'ac-shape': AcShape;
     'ac-stepper': AcStepper;

@@ -5,6 +5,7 @@ import { Bind } from '../../../utils/lang/bind';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
 import { TransitionComponent, TransitionBehavior } from '../../../behaviors/transition-behavior';
+import { AcDropOption } from '../../molecules/ac-drop-down-menu/ac-drop-option';
 
 /**
  * Accera's Sidebar webcomponent.
@@ -40,6 +41,11 @@ export class AcNavdrawer implements TransitionComponent {
    */
   @Prop({ mutable: true }) compact: boolean;
 
+  /**
+   * List of option to be show on the header.
+   */
+  @Prop() options: AcDropOption[];
+
   @Watch('compact')
   compactDidUpdate() {
     for (const menu of this.childMenus) {
@@ -73,6 +79,23 @@ export class AcNavdrawer implements TransitionComponent {
 
   @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
 
+  renderHeader() {
+    if (this.options) {
+      return (
+        <ac-drop-down-menu options={this.options} class="ac-navdrawer__drop-down-menu">
+        </ac-drop-down-menu>);
+    } else if (this.title) {
+      return (
+        <div class="ac-navdrawer__title">
+          <span class="ac-navdrawer__title-content">{this.title}</span>
+          <ac-button class="ac-navdrawer__close-button" fill="clear" theme="primary" shape="round" icon-only onClick={this.close}>
+            <AcFaIcon icon={faTimes}  size={14} />
+          </ac-button>
+        </div>);
+    } else {
+      return <slot name="header"/>;
+    }
+  }
 
   render() {
     return (
@@ -84,14 +107,7 @@ export class AcNavdrawer implements TransitionComponent {
         }}
       >
         <div class="ac-navdrawer__header">
-        {this.title
-          ? <div class="ac-navdrawer__title">
-              <span class="ac-navdrawer__title-content">{this.title}</span>
-              <ac-button class="ac-navdrawer__close-button" fill="clear" theme="primary" shape="round" icon-only onClick={this.close}>
-                <AcFaIcon icon={faTimes}  size={14} />
-              </ac-button>
-            </div>
-          : <slot name="header"/>}
+        {this.renderHeader()}
         </div>
         <nav class="ac-navdrawer__content">
           <slot name="content"/>
