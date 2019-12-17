@@ -21,6 +21,7 @@ $ac-input-base--items-IE__max-width: 44px;
       color: var-color($color-name, "normal");
     }
 
+    // @TODO: Remove this cross styling.
     .ac-input__item-end {
       & > ac-button .ac-button__native {
         border-color: var-color($color-name, "normal");
