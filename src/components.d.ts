@@ -317,6 +317,10 @@ export namespace Components {
   }
   interface AcDropDownMenu {
     /**
+    * Compact mode.
+    */
+    'compact': boolean;
+    /**
     * List of all options.
     */
     'options': AcDropOption[];
@@ -1520,6 +1524,10 @@ declare namespace LocalJSX {
     'weekends'?: number[];
   }
   interface AcDropDownMenu extends JSXBase.HTMLAttributes<HTMLAcDropDownMenuElement> {
+    /**
+    * Compact mode.
+    */
+    'compact'?: boolean;
     /**
     * Event call on option change.
     */

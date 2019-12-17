@@ -28,6 +28,10 @@ export class AcDropDownMenu {
    */
   @Prop({ reflectToAttr: true, mutable: true }) value: any;
   /**
+   * Compact mode.
+   */
+  @Prop({ mutable: true }) compact: boolean;
+  /**
    * Event call on option change.
    */
   @Event() selectChange: EventEmitter
@@ -100,16 +104,21 @@ export class AcDropDownMenu {
   }
 
   render() {
+    const filterSelected = (option) => {
+      if (isNil(this.value)) return false;
+      if (isNil(option.value)) return false;
+      return option.value.toString() === this.value.toString()
+    };
     const SelectPanel = this.SelectPanel;
     return <Host class={{"ac-list": true }}>
       <section style={{ display: 'none' }}>
         <slot />
       </section>
-      {this.options
-        .filter(x => x.value.toString() === this.value.toString())
+      {this.options && this.options
+        .filter(filterSelected)
         .map(x => (
             <ac-button
-              class={{"ac-drop-down-menu__button": true }}
+              class={{"ac-drop-down-menu__button": true, "ac-drop-down-menu--compact": this.compact }}
               theme={this.isPanelOpen ? 'primary' : 'light'}
               onClick={this.handlePanel}
               fill="flat">
@@ -122,7 +131,7 @@ export class AcDropDownMenu {
         ref={selectPanel => this.selectPanel = selectPanel}
         popperPivot={this.host}
         reset={!this.isPanelOpen}>
-          <ul class="ac-list">
+          <ul class={{ "ac-list": true, "ac-drop-down-menu__list--compact": this.compact }}>
             {this.options.map(option => (
               <ac-drop-option class="ac-list__item" label={option.label} onClick={() => this.handleSelect(option)}>
                 {option.image && <img src={option.image} slot="image" class="ac-drop-down__image" />}

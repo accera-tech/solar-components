@@ -82,7 +82,10 @@ export class AcNavdrawer implements TransitionComponent {
   renderHeader() {
     if (this.options) {
       return (
-        <ac-drop-down-menu options={this.options} class="ac-navdrawer__drop-down-menu">
+        <ac-drop-down-menu
+          compact={this.compact}
+          options={this.options}
+          class="ac-navdrawer__drop-down-menu">
         </ac-drop-down-menu>);
     } else if (this.title) {
       return (
