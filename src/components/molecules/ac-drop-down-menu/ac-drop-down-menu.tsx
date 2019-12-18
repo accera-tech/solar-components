@@ -138,6 +138,7 @@ export class AcDropDownMenu {
         ref={selectPanel => this.selectPanel = selectPanel}
         popperPivot={this.host}
         reset={!this.isPanelOpen}
+        style={{ display: 'block' }}
       >
           <ul class={{ 'ac-list': true, 'ac-drop-down-menu__list--compact': this.compact }}>
             {this.options.map(option => (
