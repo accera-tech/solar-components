@@ -154,6 +154,7 @@ export class AcInputBase implements ComponentInterface {
           [`ac-input-base--${this.theme}`]: !!this.theme,
           [`ac-input-base--${this.size}`]: !!this.size,
           'ac-input-base--filled': !!this.value && this.value !== '',
+          'ac-input-base--no-label': !this.label,
           'ac-input-base--disabled': this.disabled,
           'ac-input-base--error': this.error,
           'ac-input-base--focus': this.hasFocus,
