@@ -1,6 +1,4 @@
-import { Component, Prop, h, Host } from '@stencil/core';
-
-
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'ac-drop-option',
@@ -26,23 +24,25 @@ export class AcDropOption {
   /**
    * Flag that mark the selected option.
    */
-  @Prop() selected: boolean = false;
+  @Prop() selected = false;
 
   render() {
-    return <Host
+    return (
+    <Host
       class={{
-        "ac-list__item": true,
-        "ac-drop-down-menu__option": true,
-        "ac-drop-down-menu__option--selected": this.selected
-      }}>
+        'ac-list__item': true,
+        'ac-drop-down-menu__option': true,
+        'ac-drop-down-menu__option--selected': this.selected
+        }}
+    >
         <span>
-          {this.image && <img  src={this.image} alt={this.imageDescription} />}
+          {this.image && <img src={this.image} alt={this.imageDescription} />}
           <slot name="image" />
         </span>
         <span class="ac-drop-option__label">
           {this.label}
           <slot name="label" />
         </span>
-    </Host>
+    </Host>);
   }
 }

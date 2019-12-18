@@ -1,20 +1,30 @@
-import { Component, h, Host, Prop, Element, State, Watch, EventEmitter, Event } from '@stencil/core';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { isNil } from 'ramda';
+
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
+import { FocusBehavior } from '../../../behaviors/focus-behavior';
+import { Bind } from '../../../utils/lang/bind';
+import { ensureController } from '../../../utils/stencil/ensure-controller';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
-import { ensureController } from '../../../utils/stencil/ensure-controller';
-import { Bind } from '../../../utils/lang/bind';
-import { FocusBehavior } from '../../../behaviors/focus-behavior';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+
 import { AcDropOption } from './ac-drop-option';
-import { isNil } from 'ramda';
 
 @Component({
   tag: 'ac-drop-down-menu',
   styleUrl: './ac-drop-down-menu.scss'
 })
 export class AcDropDownMenu {
+  /**
+   * A reference to the ac-panel.
+   */
+  private selectPanel: HTMLAcPanelElement;
+  /**
+   * Internal reference to the select panel.
+   */
+  private SelectPanel = createControllerPortal<AcPanel & AcPopper>(ensureController('ac-panel-controller'));
   /**
    * Reference to the component element.
    */
@@ -36,14 +46,6 @@ export class AcDropDownMenu {
    */
   @Event() selectChange: EventEmitter
   /**
-   * A reference to the ac-panel.
-   */
-  private selectPanel: HTMLAcPanelElement;
-  /**
-   * Internal reference to the select panel.
-   */
-  private SelectPanel = createControllerPortal<AcPanel & AcPopper>(ensureController('ac-panel-controller'));
-  /**
    * Flag to control input focus.
    */
   hasFocus: boolean;
@@ -55,7 +57,6 @@ export class AcDropDownMenu {
    * Flag that control the panel visibility.
    */
   @State() isPanelOpen = false;
-
 
   @Watch('isPanelOpen')
   isShowingPanelDidUpdate() {
@@ -100,17 +101,21 @@ export class AcDropDownMenu {
   handleSelect(option: AcDropOption) {
     this.isPanelOpen = !this.isPanelOpen;
     this.value = option.value;
-    this.selectChange.emit( option);
+    this.selectChange.emit(option);
   }
 
   render() {
-    const filterSelected = (option) => {
-      if (isNil(this.value)) return false;
-      if (isNil(option.value)) return false;
+    const filterSelected = option => {
+      if (isNil(this.value)) {
+        return false;
+      }
+      if (isNil(option.value)) {
+        return false;
+      }
       return option.value.toString() === this.value.toString()
     };
     const SelectPanel = this.SelectPanel;
-    return <Host class={{"ac-list": true }}>
+    return <Host class={{ 'ac-list': true }}>
       <section style={{ display: 'none' }}>
         <slot />
       </section>
@@ -118,20 +123,23 @@ export class AcDropDownMenu {
         .filter(filterSelected)
         .map(x => (
             <ac-button
-              class={{"ac-drop-down-menu__button": true, "ac-drop-down-menu--compact": this.compact }}
+              class={{ 'ac-drop-down-menu__button': true, 'ac-drop-down-menu--compact': this.compact }}
               theme={this.isPanelOpen ? 'primary' : 'light'}
               onClick={this.handlePanel}
-              fill="flat">
+              fill="flat"
+            >
                 {x.image && <img slot="icon-start" src={x.image} />}
                 <span>{x.label}</span>
-                {this.options.length > 0 && <AcFaIcon slot="icon-end" icon={this.isPanelOpen ? faChevronUp : faChevronDown} size={12} />}
+                {this.options.length > 0
+                  && <AcFaIcon slot="icon-end" icon={this.isPanelOpen ? faChevronUp : faChevronDown} size={12} />}
             </ac-button>
         ))}
       <SelectPanel
         ref={selectPanel => this.selectPanel = selectPanel}
         popperPivot={this.host}
-        reset={!this.isPanelOpen}>
-          <ul class={{ "ac-list": true, "ac-drop-down-menu__list--compact": this.compact }}>
+        reset={!this.isPanelOpen}
+      >
+          <ul class={{ 'ac-list': true, 'ac-drop-down-menu__list--compact': this.compact }}>
             {this.options.map(option => (
               <ac-drop-option class="ac-list__item" label={option.label} onClick={() => this.handleSelect(option)}>
                 {option.image && <img src={option.image} slot="image" class="ac-drop-down__image" />}
