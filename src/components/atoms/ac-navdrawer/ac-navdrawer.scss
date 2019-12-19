@@ -115,6 +115,10 @@ ac-navdrawer {
     .ac-navdrawer__header {
       align-items: baseline;
     }
+    // TODO: Review way to not use something so specific
+    .ac-navdrawer__drop-down-menu {
+      margin-top: $spacer-tiny !important;
+    }
   }
 
 

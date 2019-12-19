@@ -37,6 +37,7 @@ export class AcModalController implements ControllerComponent<AcNavdrawer, HTMLA
     wrapper.backdrop = 'light';
     wrapper.position = props.position;
     props.wrapper = wrapper;
+    props.mode = 'over';
     const navDrawer = await this.controllerBehavior.create({...props, showToggle: false});
 
     wrapper.addEventListener('backDropClick', () => {

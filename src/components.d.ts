@@ -601,6 +601,10 @@ export namespace Components {
     */
     'compact': boolean;
     /**
+    * Control the mode of the navedrawer.
+    */
+    'mode': 'push' | 'over';
+    /**
     * List of option to be show on the header.
     */
     'options': AcDropOption[];
@@ -1788,6 +1792,10 @@ declare namespace LocalJSX {
     * Compact mode.
     */
     'compact'?: boolean;
+    /**
+    * Control the mode of the navedrawer.
+    */
+    'mode'?: 'push' | 'over';
     'onClose'?: (event: CustomEvent<void>) => void;
     /**
     * List of option to be show on the header.

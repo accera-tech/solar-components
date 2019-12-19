@@ -159,13 +159,14 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                                   | Type             | Default     |
-| ------------ | ------------- | --------------------------------------------- | ---------------- | ----------- |
-| `compact`    | `compact`     | Compact mode.                                 | `boolean`        | `undefined` |
-| `options`    | --            | List of option to be show on the header.      | `AcDropOption[]` | `undefined` |
-| `showToggle` | `show-toggle` | Show or hide toggle button                    | `boolean`        | `true`      |
-| `theme`      | `theme`       | The color theme.                              | `string`         | `undefined` |
-| `title`      | `title`       | Show title in the navdrawer and toggle header | `string`         | `undefined` |
+| Property     | Attribute     | Description                                   | Type               | Default     |
+| ------------ | ------------- | --------------------------------------------- | ------------------ | ----------- |
+| `compact`    | `compact`     | Compact mode.                                 | `boolean`          | `undefined` |
+| `mode`       | `mode`        | Control the mode of the navedrawer.           | `"over" \| "push"` | `'push'`    |
+| `options`    | --            | List of option to be show on the header.      | `AcDropOption[]`   | `undefined` |
+| `showToggle` | `show-toggle` | Show or hide toggle button                    | `boolean`          | `true`      |
+| `theme`      | `theme`       | The color theme.                              | `string`           | `undefined` |
+| `title`      | `title`       | Show title in the navdrawer and toggle header | `string`           | `undefined` |
 
 
 ## Events

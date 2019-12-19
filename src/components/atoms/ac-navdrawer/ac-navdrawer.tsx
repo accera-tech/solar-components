@@ -36,7 +36,10 @@ export class AcNavdrawer implements TransitionComponent {
    * The color theme.
    */
   @Prop() theme: string;
-
+  /**
+   * Control the mode of the navedrawer.
+   */
+  @Prop() mode: 'push' | 'over' = 'push';
   /**
    * Compact mode.
    */
@@ -114,7 +117,7 @@ export class AcNavdrawer implements TransitionComponent {
         class={{
           [`ac-navdrawer--${this.theme}`]: !!this.theme,
           'ac-navdrawer--compact': this.compact,
-          'ac-navdrawer--over': !!this.title
+          'ac-navdrawer--over': this.mode === 'over'
         }}
       >
         <div class="ac-navdrawer__header">
