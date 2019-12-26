@@ -319,7 +319,9 @@ export class AcSelect implements
     }
   }
 
-  componentDidUnload() {}
+  componentDidUnload() {
+    this.closePanel();
+  }
 
   componentDidUpdate() {
     // Forcing clear the value
@@ -466,7 +468,7 @@ export class AcSelect implements
   }
 
   /**
-   * Open the panel.
+   * Close the panel.
    */
   @Bind
   private closePanel() {
