@@ -1,6 +1,6 @@
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Event, EventEmitter, Method, Prop, State, Watch, h } from '@stencil/core';
-import { equals } from 'ramda';
+import { Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import { equals, isEmpty } from 'ramda';
 
 import { AsyncDataBehavior, AsyncDataComponent } from '../../../behaviors/async-data-behavior';
 import { createControllerPortal } from '../../../behaviors/controller-behavior/create-controller-portal';
@@ -9,12 +9,12 @@ import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-b
 import { Bind } from '../../../utils/lang/bind';
 import { Debounced } from '../../../utils/lang/reactivity';
 import { toArray } from '../../../utils/lang/to-array';
+import { ensureController } from '../../../utils/stencil/ensure-controller';
 import { AcOption } from '../../../utils/types/ac-option';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcPanel } from '../../organisms/ac-panel/ac-panel';
 import { AcPopper } from '../../portals/ac-popper/ac-popper';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
-import { ensureController } from '../../../utils/stencil/ensure-controller';
 
 /**
  * Accera's full-featured select webcomponent.
@@ -217,6 +217,9 @@ export class AcSelect implements
 
   @Watch('isShowingPanel')
   isShowingPanelDidUpdate() {
+    if (this.options.length === 0) {
+      this.selectedText = null;
+    }
     this.hasFocus = this.isShowingPanel;
   }
 
@@ -362,13 +365,11 @@ export class AcSelect implements
       const count = selectedOptions.length;
       const total = this.options.filter(o => !o.separator).length;
 
-      if (count === 0) {
-        this.selectedText = null;
-      } else if (count > 0 && count < 3) {
+      if (count > 0 && count < 3) {
         this.selectedText = selectedOptions.map(item => item.title).join(', ');
       } else if (count > 2 && count < total) {
         this.selectedText = `${count} ${this.label}`;
-      } else if (count === total) {
+      } else if (count === total && count !== 0) {
         this.selectedText = `Todos (${count})`;
       }
     }
@@ -504,35 +505,43 @@ export class AcSelect implements
     const nativeInput = await this.acInputBase.getNativeInput();
     this.filter = nativeInput.value;
   }
-
+  @Bind
+  private async handleChangeInput() {
+    const nativeInput = await this.acInputBase.getNativeInput();
+    if (isEmpty(nativeInput.value)) {
+      this.options = [];
+    }
+  }
   render() {
     const icon = this.isShowingPanel ? faChevronUp : faChevronDown;
     const SelectPanel = this.SelectPanel;
     const optionsToRender = this.filteredOptions || this.options;
 
-    return [
+    return <Host>
       <div class="ac-select__phantom-dom">
         <slot/>
-      </div>,
+      </div>
       <select
         ref={nativeSelect => this.nativeSelect = nativeSelect}
         name={this.name}
         multiple={this.multiple}
-        required={this.required}
+        // required={this.required} TODO: Review chrome can´t focus element some times need refactor: Critical
         disabled={this.disabled}
         class="ac-select__native"
         data-native
       >
         {this.options && this.renderNativeOptions()}
-      </select>,
+      </select>
       <ac-input-base
         ref={acInputBase => {
           this.acInputBase = acInputBase as any;
         }}
         label={this.label}
         type="text"
+        required={this.required}
         value={this.selectedText}
         onFocus={this.openPanel}
+        onChange={this.handleChangeInput}
         disabled={this.disabled}
         readonly={!this.searchable}
         onKeyUp={this.searchable ? this.handleDebouncedKeyUp : null}
@@ -551,27 +560,27 @@ export class AcSelect implements
         >
           <AcFaIcon icon={icon} size={12} />
         </ac-button>
-      </ac-input-base>,
-      (this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
+      </ac-input-base>
+      {(this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
         ? <span class="ac-select__helper-text">
             {this.error || this.helperText}
           </span>
-        : null,
-
-      <SelectPanel
-        ref={selectPanel => this.selectPanel = selectPanel}
-        class="ac-select__panel"
-        popperPivot={this.host}
-        reset={!this.isShowingPanel}
-        style={{ height: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}
-      >
-        <slot name="item-top" slot="item-top" />
-        <ul class="ac-select__list ac-list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
-          {this.renderOptions(optionsToRender)}
-        </ul>
-        <slot name="item-bottom" slot="item-bottom" />
-      </SelectPanel>
-    ];
+        : null}
+        <SelectPanel
+          ref={selectPanel => this.selectPanel = selectPanel}
+          class="ac-select__panel"
+          popperPivot={this.host}
+          reset={!this.isShowingPanel}
+          style={{ height: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}
+        >
+          <slot name="item-top" slot="item-top" />
+          <ul class='ac-select__list ac-list'
+              style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
+            {this.renderOptions(optionsToRender)}
+          </ul>
+          <slot name="item-bottom" slot="item-bottom" />
+        </SelectPanel>
+    </Host>
   }
 }
 

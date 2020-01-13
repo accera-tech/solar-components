@@ -165,7 +165,10 @@ export namespace Components {
     */
     'type': 'button' | 'submit' | 'reset';
   }
-  interface AcCard {}
+  interface AcCard {
+    'compact': boolean;
+    'theme': string;
+  }
   interface AcCheck {
     /**
     * The actual checked state.
@@ -387,6 +390,10 @@ export namespace Components {
     * The native HTMLInputElement pattern attribute.
     */
     'pattern': string;
+    /**
+    * The native HTMLInputElement placeholder attribute.
+    */
+    'placeholder': string;
     /**
     * The native HTMLInputElement required attribute.
     */
@@ -928,7 +935,14 @@ export namespace Components {
     'value': string;
   }
   interface AcUpload {
+    /**
+    * Disabled upload files.
+    */
+    'disabled': boolean;
     'handleClick': () => Promise<void>;
+    /**
+    * The name to native input.
+    */
     'name': string;
     'removeFiles': () => Promise<void>;
     /**
@@ -1332,7 +1346,10 @@ declare namespace LocalJSX {
     */
     'type'?: 'button' | 'submit' | 'reset';
   }
-  interface AcCard extends JSXBase.HTMLAttributes<HTMLAcCardElement> {}
+  interface AcCard extends JSXBase.HTMLAttributes<HTMLAcCardElement> {
+    'compact'?: boolean;
+    'theme'?: string;
+  }
   interface AcCheck extends JSXBase.HTMLAttributes<HTMLAcCheckElement> {
     /**
     * The actual checked state.
@@ -1532,6 +1549,10 @@ declare namespace LocalJSX {
     * The native HTMLInputElement pattern attribute.
     */
     'pattern'?: string;
+    /**
+    * The native HTMLInputElement placeholder attribute.
+    */
+    'placeholder'?: string;
     /**
     * The native HTMLInputElement required attribute.
     */
@@ -2034,6 +2055,13 @@ declare namespace LocalJSX {
     'value'?: string;
   }
   interface AcUpload extends JSXBase.HTMLAttributes<HTMLAcUploadElement> {
+    /**
+    * Disabled upload files.
+    */
+    'disabled'?: boolean;
+    /**
+    * The name to native input.
+    */
     'name'?: string;
     /**
     * Event when a file is dropped.
