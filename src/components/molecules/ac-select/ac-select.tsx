@@ -558,7 +558,7 @@ export class AcSelect implements
           onClick={this.togglePanel}
           icon-only
         >
-          <AcFaIcon icon={icon} size={12} />
+          <AcFaIcon icon={icon} size={12} style={{ width: '12px' }} />
         </ac-button>
       </ac-input-base>
       {(this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
