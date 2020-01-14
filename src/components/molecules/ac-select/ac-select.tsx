@@ -571,7 +571,6 @@ export class AcSelect implements
           class="ac-select__panel"
           popperPivot={this.host}
           reset={!this.isShowingPanel}
-          style={{ height: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}
         >
           <slot name="item-top" slot="item-top" />
           <ul class='ac-select__list ac-list'
