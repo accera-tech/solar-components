@@ -549,7 +549,7 @@ export class AcSelect implements
           onClick={this.togglePanel}
           icon-only
         >
-          <AcFaIcon icon={icon} size={12} />
+          <AcFaIcon icon={icon} size={12} style={{ width: '12px' }} />
         </ac-button>
       </ac-input-base>,
       (this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
@@ -563,7 +563,6 @@ export class AcSelect implements
         class="ac-select__panel"
         popperPivot={this.host}
         reset={!this.isShowingPanel}
-        style={{ height: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}
       >
         <slot name="item-top" slot="item-top" />
         <ul class="ac-select__list ac-list" style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>

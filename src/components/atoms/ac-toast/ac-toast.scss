@@ -19,6 +19,7 @@ ac-toast {
   &.transition--before-enter {
     transform: scale(0.7);
   }
+
   &.transition--before-leave {
     transform: scale(0.7);
   }
@@ -26,6 +27,7 @@ ac-toast {
   .ac-toast__content {
     padding: 0 $spacer-small $spacer-small $spacer-small;
   }
+
   .ac-toast__header {
     display: flex;
     position: relative;
@@ -43,10 +45,19 @@ ac-toast {
     width: 36px;
     opacity: 0.3;
   }
+
   .ac-toast__header-icon {
     z-index: 1;
     padding-right: 8px;
     opacity: 0.6;
+  }
+}
+
+@include browser-ie {
+  ac-toast {
+    &.transition--before-enter {
+      transform: none;
+    }
   }
 }
 
