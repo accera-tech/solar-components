@@ -52,5 +52,6 @@
   "bugs": {
     "url": "https://github.com/accera-tech/solar-components/issues"
   },
-  "homepage": "https://github.com/accera-tech/solar-components"
+  "homepage": "https://github.com/accera-tech/solar-components",
+  "gitHead": "a2962eba7a0482060506089b42195228cb124423"
 }
