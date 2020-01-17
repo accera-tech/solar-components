@@ -1,7 +1,0 @@
-node_modules
-www
-.gitignore
-.stencil
-.github
-.storybook
-docs
