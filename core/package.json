@@ -10,7 +10,7 @@
     "dist/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "stencil build",
     "prepublishOnly": "npm run build",
     "start": "stencil build --docs --dev --watch --serve",
     "start.ie": "stencil build --docs --watch --serve",

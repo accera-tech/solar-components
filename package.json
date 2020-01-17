@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "publish-latest": "lerna publish",
-    "publish-beta": "lerna publish --dist-tag beta",
+    "publish-latest": "lerna publish -y --force-publish=*",
+    "publish-alpha": "lerna publish -y --canary --preid alpha --dist-tag alpha --force-publish=*",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {
