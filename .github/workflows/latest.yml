@@ -2,7 +2,7 @@ name: Publish Latest
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 
 jobs:
   publish-package:
@@ -11,6 +11,13 @@ jobs:
     steps:
     - name: Checkout Master
       uses: actions/checkout@master
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:11}) # Substring example refs/tags/v1.2.3 => 1.2.3
+
+    - name: Setup ENV
+      env:
+        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v1
@@ -22,6 +29,6 @@ jobs:
       run: npm install
 
     - name: Run Publish Command
-      run: npm run publish-latest
+      run: npm run publish-latest -- $RELEASE_VERSION
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

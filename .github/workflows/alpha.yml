@@ -1,8 +1,8 @@
-name: Publish Latest
+name: Publish Alpha
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
 
 jobs:
   publish-package:
@@ -22,6 +22,6 @@ jobs:
       run: npm install
 
     - name: Run Publish Command
-      run: npm run publish-latest
+      run: npm run publish-alpha
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
