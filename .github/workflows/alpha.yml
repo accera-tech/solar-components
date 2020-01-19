@@ -17,11 +17,11 @@ jobs:
       with:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
-        
-    - name: Install Dependencies      
+
+    - name: Install Dependencies
       run: npm install
 
-    - name: Run Publish Command      
+    - name: Run Publish Command
       run: npm run publish-latest
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
