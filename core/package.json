@@ -1,6 +1,6 @@
 {
   "name": "@accera/solar-components.core",
-  "version": "1.2.0",
+  "version": "1.2.1-alpha.4",
   "description": "Web Components implementation of Solar Design System",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
@@ -53,5 +53,5 @@
     "url": "https://github.com/accera-tech/solar-components/issues"
   },
   "homepage": "https://github.com/accera-tech/solar-components",
-  "gitHead": "a2962eba7a0482060506089b42195228cb124423"
+  "gitHead": "cc899463f0b27b29785139d3bc3e5d81801f4004"
 }
