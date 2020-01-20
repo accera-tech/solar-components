@@ -4,7 +4,8 @@
   "scripts": {
     "publish-latest": "lerna publish -y --force-publish=* --conventional-commits --create-release github",
     "publish-alpha": "lerna publish -y --canary --preid alpha --dist-tag alpha --force-publish=*",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
