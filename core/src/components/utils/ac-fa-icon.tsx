@@ -30,7 +30,7 @@ export const AcFaIcon: FunctionalComponent<AcFaIconProps> = props => {
       height={size || 16}
       style={style}
     >
-      <path d={icon.icon[4]} />
+      <path d={icon.icon[4] as any} />
     </svg>
   );
 };

@@ -1,0 +1,36 @@
+name: Publish Latest
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  publish-package:
+    name: Publish NPM Package
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Master
+      uses: actions/checkout@master
+
+    - name: Setup ENV
+      run: |
+        git config --global user.email "github.actions@neogrid.com"
+        git config --global user.name "Github Actions"
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Publish Command
+      run: |
+        EMOJI=$(node -e 'console.log(require("node-emoji").random().emoji);')
+        npm run publish-latest -- --message "chore(release): publish %v $EMOJI"
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
