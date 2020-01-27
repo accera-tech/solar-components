@@ -142,7 +142,10 @@ export class AcCheck implements FormFieldComponent {
           />
           <div class="ac-check__custom">
           </div>
-          {this.label && <div class="ac-check__label">{this.label}</div>}
+          {
+            this.label && <div class="ac-check__label">{this.label}</div>
+            || <div class="ac-check__label"><slot name="label"/></div>
+          }
         </label>
         {
           (this.error && typeof this.error === 'string') || (this.helperText && typeof this.helperText === 'string')
