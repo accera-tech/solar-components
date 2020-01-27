@@ -101,8 +101,8 @@ export class AcButton implements ComponentInterface {
           {this.loading && <AcFaIcon icon={faSpinner} size={14} anim="spin" style={{width: '14px'}}/>}
           <slot name="icon-start"/>
           <span class="ac-button__text">
-          <slot/>
-        </span>
+            <slot/>
+          </span>
           <slot name="icon-end"/>
         </TagType>
       </Host>

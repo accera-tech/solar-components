@@ -13,7 +13,7 @@ ac-button {
     display: inline-flex;
     box-sizing: border-box;
     align-items: center;
-    min-width: $ac-button__height;
+    min-width: 100px;
     height: $ac-button__height;
     padding: $spacer-tiny $spacer-tiny;
     transition: box-shadow $slow-transition,
@@ -32,9 +32,17 @@ ac-button {
     user-select: none;
     -webkit-appearance: none;
 
+    & > [slot="icon-start"] {
+      margin-left: 8px;
+    }
+    & > [slot="icon-end"] {
+      margin-right: 8px;
+    }
+
     .ac-button__text {
       padding: 0 $spacer-tiny;
       white-space: nowrap;
+      margin: auto;
     }
   }
 }
@@ -173,6 +181,7 @@ ac-button.ac-button--icon-only {
     align-items: center;
     justify-content: center;
     width: 100%;
+    min-width: $ac-button__height;
     padding: 0;
   }
 }
