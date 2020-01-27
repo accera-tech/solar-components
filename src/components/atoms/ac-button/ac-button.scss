@@ -32,8 +32,11 @@ ac-button {
     user-select: none;
     -webkit-appearance: none;
 
-    & > i {
+    & > [slot="icon-start"] {
       margin-left: 8px;
+    }
+    & > [slot="icon-end"] {
+      margin-right: 8px;
     }
 
     .ac-button__text {
