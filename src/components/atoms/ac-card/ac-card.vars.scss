@@ -1,0 +1,17 @@
+@import "../../../theme/variables";
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  Utilities
+// ---------------------------------------------------------------------------------------------------------------------
+
+/// Generate button variations by color palette.
+@mixin card-variations($color-name) {
+  ac-card.ac-card--#{$color-name} {
+    @include define-theme-color("contrast", $color-name, "darker");
+
+    border: 1px solid var-color($color-name, "light");
+    background: var-color($color-name, "lighter");
+    color: var-color($color-name, "darker");
+  }
+}

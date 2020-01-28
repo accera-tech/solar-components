@@ -82,6 +82,15 @@ ac-input-base {
 // State modifiers
 // ---------------------------------------------------------------------------------------------------------------------
 
+// No label
+// ---------------------------------------------------------
+
+ac-input-base.ac-input-base--no-label {
+  input.ac-input__native {
+    padding: $spacer-tiny $spacer-small $spacer-tiny;
+  }
+}
+
 // Focused or Filled
 // ---------------------------------------------------------
 

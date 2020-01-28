@@ -33,6 +33,7 @@
     font-size: $font-small;
     cursor: pointer;
     user-select: none;
+    white-space: nowrap;
 
     &.ac-list__item--selected {
       background-color: var-color("primary", "normal", 0.08);

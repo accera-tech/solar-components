@@ -27,3 +27,4 @@ ac-progress {
 
 @include progress-variations(".ac-progress--primary", "primary");
 @include progress-variations(".ac-progress--secondary", "secondary");
+@include progress-variations(".ac-progress--neutral", "neutral");

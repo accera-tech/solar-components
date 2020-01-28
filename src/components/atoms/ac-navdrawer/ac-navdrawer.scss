@@ -107,6 +107,10 @@ ac-navdrawer {
       width: 33px;
       height: 14px;
     }
+    &.transition--before-enter,
+    &.transition--before-leave {
+      transform: none !important;
+    }
   }
 
 

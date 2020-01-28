@@ -9,7 +9,8 @@
 
 | Property           | Attribute            | Description                                                           | Type       | Default     |
 | ------------------ | -------------------- | --------------------------------------------------------------------- | ---------- | ----------- |
-| `name`             | `name`               |                                                                       | `string`   | `undefined` |
+| `disabled`         | `disabled`           | Disabled upload files.                                                | `boolean`  | `false`     |
+| `name`             | `name`               | The name to native input.                                             | `string`   | `undefined` |
 | `theme`            | `theme`              | The theme color defined in the color palette. The default is primary. | `string`   | `'primary'` |
 | `uploadButtonText` | `upload-button-text` | Text introduced in Button upload.                                     | `string`   | `undefined` |
 | `value`            | --                   |                                                                       | `FileList` | `undefined` |

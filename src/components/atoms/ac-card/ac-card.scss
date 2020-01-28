@@ -1,4 +1,5 @@
 @import "../../../theme/variables";
+@import "ac-card.vars";
 
 // ---------------------------------------------------------------------------------------------------------------------
 // General Style
@@ -6,28 +7,74 @@
 
 ac-card {
   display: flex;
-  flex-direction: column;
   border: 1px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
   background: var-color("neutral", "contrast");
   box-shadow: $z2-shadow;
 
-  & > [slot=header] {
-    padding: $spacer-medium $spacer-large $spacer-small;
+  & > [slot=icon-start] {
+    padding-right: $spacer-tiny;
   }
 
-  & > [slot=content] {
-    height: 100%;
-    padding: $spacer-small $spacer-large $spacer-medium;
-  }
-
-  & > [slot=actions] {
+  .ac-card__wrapper {
     display: flex;
-    justify-content: flex-end;
-    padding: $spacer-small $spacer-large $spacer-medium;
-  }
+    flex-direction: column;
+    width: 100%;
 
-  & > ac-tabs[slot=header] {
-    padding: 0 $spacer-medium;
+    & > [slot=header] {
+      padding: $spacer-medium $spacer-large $spacer-small;
+    }
+
+    & > [slot=content] {
+      height: 100%;
+      padding: $spacer-small $spacer-large $spacer-medium;
+    }
+
+    & > [slot=actions] {
+      display: flex;
+      justify-content: flex-end;
+      padding: $spacer-small $spacer-large $spacer-medium;
+    }
+
+    & > ac-tabs[slot=header] {
+      padding: 0 $spacer-medium;
+    }
   }
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// State Modifiers
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Compact mode (compact)
+// --------------------------------------------------
+
+ac-card.ac-card--compact {
+  padding: $spacer-small;
+
+  .ac-card__wrapper {
+    & > [slot=header] {
+      padding: 0;
+    }
+
+    & > [slot=content] {
+      height: 100%;
+      padding: 0;
+    }
+
+    & > [slot=actions] {
+      padding: 0;
+    }
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
+
+@include card-variations("info");
+@include card-variations("success");
+@include card-variations("warning");
+@include card-variations("alert");
