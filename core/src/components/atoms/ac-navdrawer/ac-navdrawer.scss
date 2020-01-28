@@ -28,6 +28,10 @@ ac-navdrawer {
     overflow: hidden;
     font-weight: bold;
 
+    .ac-navdrawer__drop-down-menu {
+      margin: 0 $spacer-tiny 0;
+    }
+
     .ac-navdrawer__title {
       display: flex;
       flex-direction: row;
@@ -37,6 +41,7 @@ ac-navdrawer {
       margin: $spacer-small $spacer-medium 0;
       .ac-navdrawer__title-content {
         height: 24px;
+        width: 100%;
         font-size: $font-medium;
       }
       .ac-navdrawer__close-button {
@@ -114,9 +119,13 @@ ac-navdrawer {
     .ac-navdrawer__header {
       align-items: baseline;
     }
+    // TODO: Review way to not use something so specific
+    .ac-navdrawer__drop-down-menu {
+      margin-top: $spacer-tiny !important;
+    }
   }
 
-  
+
   &.transition--before-enter,
   &.transition--before-leave {
     transform: translate(300px);

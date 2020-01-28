@@ -25,6 +25,7 @@
 ### Used by
 
  - [ac-date-picker](../ac-date-picker)
+ - [ac-drop-down-menu](../../molecules/ac-drop-down-menu)
  - [ac-header](../ac-header)
  - [ac-input](../../molecules/ac-input)
  - [ac-modal](../../organisms/ac-modal)
@@ -38,6 +39,7 @@
 ```mermaid
 graph TD;
   ac-date-picker --> ac-button
+  ac-drop-down-menu --> ac-button
   ac-header --> ac-button
   ac-input --> ac-button
   ac-modal --> ac-button

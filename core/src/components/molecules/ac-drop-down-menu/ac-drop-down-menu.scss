@@ -1,0 +1,45 @@
+@import "../../../theme/variables";
+@import "../../../global/css/layout";
+
+ac-drop-down-menu {
+  display: flex;
+  flex: 1;
+  height: 44px;
+  padding: 0 !important;
+
+  .ac-drop-down-menu--compact {
+    .ac-button__native {
+      transition: all .2s ease !important;
+      padding: 0 ($spacer-tiny - 2) 0 !important;
+      span {
+        display: none;
+      }
+      svg {
+        display: none;
+      }
+    }
+  }
+
+
+  .ac-drop-down-menu__button {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    .ac-button__native {
+      padding: 0 $spacer-tiny 0;
+      width: 100%;
+    }
+
+    .ac-button__text {
+      flex: 1;
+      text-align: left;
+    }
+  }
+}
+
+.ac-drop-down-menu__list--compact {
+  .ac-list__item {
+    place-content: center center;
+    flex-direction: column;
+  }
+}

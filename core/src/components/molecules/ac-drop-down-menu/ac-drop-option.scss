@@ -1,0 +1,14 @@
+@import "../../../theme/variables";
+@import "../../../global/css/layout";
+
+.ac-list {
+  .ac-list__item {
+    &.ac-drop-down-menu__option {
+      flex-basis: auto;
+
+      .ac-drop-option__label {
+        padding: 0 $spacer-tiny 0;
+      }
+    }
+  }
+}

@@ -1,10 +1,12 @@
 import { faChevronLeft, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Host, Prop, Watch, h, Event, EventEmitter } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import { isNil } from 'ramda';
 
+import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
+import { AcDropOption } from '../../molecules/ac-drop-down-menu/ac-drop-option';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
-import { TransitionComponent, TransitionBehavior } from '../../../behaviors/transition-behavior';
 
 /**
  * Accera's Sidebar webcomponent.
@@ -24,7 +26,7 @@ export class AcNavdrawer implements TransitionComponent {
   /**
    * Show or hide toggle button
    */
-  @Prop() showToggle: boolean = true;
+  @Prop() showToggle = true;
 
   /**
    * Show title in the navdrawer and toggle header
@@ -34,11 +36,21 @@ export class AcNavdrawer implements TransitionComponent {
    * The color theme.
    */
   @Prop() theme: string;
-
+  /**
+   * Control the mode of the navedrawer.
+   */
+  @Prop() mode: 'push' | 'over' = 'push';
   /**
    * Compact mode.
    */
   @Prop({ mutable: true }) compact: boolean;
+
+  /**
+   * List of option to be show on the header.
+   */
+  @Prop() options: AcDropOption[];
+
+  @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
 
   @Watch('compact')
   compactDidUpdate() {
@@ -50,7 +62,6 @@ export class AcNavdrawer implements TransitionComponent {
   componentDidLoad() {
     this.loadItemsFromHTML();
   }
-
 
   componentWillLoad() {}
   componentDidUnload() {
@@ -71,8 +82,34 @@ export class AcNavdrawer implements TransitionComponent {
     this.host.remove();
   }
 
-  @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
-
+  renderHeader() {
+    if (this.options) {
+      return (
+        <ac-drop-down-menu
+          compact={this.compact}
+          options={this.options}
+          class="ac-navdrawer__drop-down-menu"
+        >
+        </ac-drop-down-menu>);
+    } else if (!isNil(this.title)) {
+      return (
+        <div class="ac-navdrawer__title">
+          <span class="ac-navdrawer__title-content">{this.title}</span>
+          <ac-button
+              class="ac-navdrawer__close-button"
+              fill="clear"
+              theme="primary"
+              shape="round"
+              icon-only
+              onClick={this.close}
+          >
+            <AcFaIcon icon={faTimes} size={14} />
+          </ac-button>
+        </div>);
+    } else {
+      return <slot name="header"/>;
+    }
+  }
 
   render() {
     return (
@@ -80,18 +117,11 @@ export class AcNavdrawer implements TransitionComponent {
         class={{
           [`ac-navdrawer--${this.theme}`]: !!this.theme,
           'ac-navdrawer--compact': this.compact,
-          'ac-navdrawer--over': !!this.title
+          'ac-navdrawer--over': this.mode === 'over'
         }}
       >
         <div class="ac-navdrawer__header">
-        {this.title
-          ? <div class="ac-navdrawer__title">
-              <span class="ac-navdrawer__title-content">{this.title}</span>
-              <ac-button class="ac-navdrawer__close-button" fill="clear" theme="primary" shape="round" icon-only onClick={this.close}>
-                <AcFaIcon icon={faTimes}  size={14} />
-              </ac-button>
-            </div>
-          : <slot name="header"/>}
+        {this.renderHeader()}
         </div>
         <nav class="ac-navdrawer__content">
           <slot name="content"/>
