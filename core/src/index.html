@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/build/solar.css">
+  <script type="module" src="/build/solar.esm.js"></script>
+  <script nomodule src="/build/solar.js"></script>
+</head>
+<body>
+<ac-layout id="mainLayout">
+  <ac-header slot="header">
+    <span>Solar Components</span>
+  </ac-header>
+  <ac-navdrawer slot="nav-left" theme="primary" mode="compact">
+    <ac-menu slot="content">
+      <ac-menu-item>
+        <i class="fa fa-home" slot="icon-start"></i>
+        Home
+      </ac-menu-item>
+      <ac-menu-item>
+        <i class="fa fa-edit" slot="icon-start"></i>
+        Edit
+      </ac-menu-item>
+
+      <ac-menu-item submenu>
+        <i class="fa fa-edit" slot="icon-start"></i>
+        Edit
+        <ac-menu-item slot="submenu">
+          <i class="fa fa-edit" slot="icon-start"></i>
+          teste 1
+        </ac-menu-item>
+        <ac-menu-item slot="submenu">
+          <i class="fa fa-edit" slot="icon-start"></i>
+          teste 2
+        </ac-menu-item>
+      </ac-menu-item>
+    </ac-menu>
+  </ac-navdrawer>
+
+  <section class="container-fluid p-2 p-md-5" slot="content">
+    <ac-input label="Pesquisar por..."></ac-input>
+
+    <h3>Select With Html Options</h3>
+    <ac-select id="rockBandSelect" name="band" label="Band" required multiple searchable>
+      <optgroup label="Rock Bands">
+        <option value="0">TNT</option>
+        <option value="1">Queen</option>
+        <option value="2">Metallica</option>
+        <option value="3">AC/DC</option>
+      </optgroup>
+      <optgroup label="Indie Bands">
+        <option value="4">Black Keys</option>
+        <option value="5">The Strokes</option>
+      </optgroup>
+    </ac-select>
+
+    <div class="row pt-4">
+      <div class="col-6">
+        <ac-card>
+          <ac-tabs theme="primary" id="filtersTabs"  slot="header">
+            <ac-tab id="sellout" active><i class="fas fa-money-bill-wave pr-1"></i>Sell-out</ac-tab>
+            <ac-tab id="stock"><i class="fas fa-boxes pr-1"></i>Estoque</ac-tab>
+            <ac-tab id="order"><i class="fas fa-edit pr-1"></i>Crítica de pedidos</ac-tab>
+
+          </ac-tabs>
+          <section slot="content">
+            <ac-gauge percent="0"/>
+          </section>
+        </ac-card>
+      </div>
+
+      <div class="col-6">
+        <ac-card>
+          <header slot="header">
+            <h3>Dashboard 2</h3>
+            <span class="text-subtitle">Subtitle</span>
+          </header>
+          <section slot="content">
+            <ac-button theme="primary">
+              Teste
+            </ac-button>
+            <ac-button theme="primary" loading>
+              Teste
+            </ac-button>
+            <ac-button theme="primary" disabled>
+              Teste
+            </ac-button>
+            <ac-button theme="primary" fill="clear">
+              Teste
+            </ac-button>
+            <ac-button theme="primary" fill="clear" disabled>
+              Teste
+            </ac-button>
+            <ac-button theme="primary" size="small">
+              Teste
+            </ac-button>
+            <ac-button theme="primary">
+              <i class="fa fa-home" slot="icon-start"></i>
+              ir
+            </ac-button>
+            <ac-button icon-only>
+              <i class="fa fa-home"></i>
+            </ac-button>
+            <ac-check label="Ative aqui" helper-text="Testando texto de ajuda"></ac-check>
+            <ac-check><p slot="label">Regular <b>bold</b> <i>italic</i></p></ac-check>
+            <ac-check></ac-check>
+            <ac-check label="teste" helper-text="Testando texto de ajuda" disabled></ac-check>
+            <ac-check label="teste" helper-text="Testando texto de ajuda" disabled checked></ac-check>
+          </section>
+        </ac-card>
+      </div>
+
+      <div class="col-6">
+        <ac-card>
+          <section slot="content">
+            <ac-stepper steps="2" done="1"></ac-stepper>
+            <ac-table id="table">
+            </ac-table>
+            <ac-check label="teste" helper-text="teste" theme="secondary"/>
+          </section>
+        </ac-card>
+      </div>
+    </div>
+    <ac-toast title="Teste" message="Teste" type="alert"></ac-toast>
+  </section>
+</ac-layout>
+<ac-modal-controller></ac-modal-controller>
+<ac-panel-controller></ac-panel-controller>
+<script>
+  window.addEventListener('stencil_appload', function () {
+    console.log('aa');
+  });
+
+  async function main() {
+    const modalCtrl = document.querySelector('ac-modal-controller');
+
+    const modal = await modalCtrl.create({
+      title: 'Test',
+      component: `
+      <div>
+        Test
+      </div>
+      <div slot="modal-actions">
+        <ac-button theme="success">Salvar</ac-button>
+      </div>
+      `
+    });
+
+    modal.onDidDismiss()
+      .then(console.log);
+
+    const rockBandSelect = document.getElementById('rockBandSelect');
+    rockBandSelect.validator = function someValidator(value) {
+      return {
+        cantSelectThe4: value.includes('4')
+      };
+    };
+
+    const table = document.getElementById('table');
+    table.options.header = [
+      { label: 'teste', key: 'teste' }
+    ]
+
+
+  }
+
+  let INIT = false;
+  window.addEventListener('appload', () => {
+    if (!INIT) main();
+    INIT = true;
+  })
+</script>
+
+
+<script>
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    // auto-unregister service worker during dev mode
+    navigator.serviceWorker.getRegistration().then(function (registration) {
+      if (registration) {
+        registration.unregister().then(function () {
+          location.reload(true)
+        });
+      }
+    });
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+name: Publish Alpha
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  publish-package:
+    name: Publish NPM Package
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Master
+      uses: actions/checkout@master
+
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Publish Command
+      run: npm run publish-alpha
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

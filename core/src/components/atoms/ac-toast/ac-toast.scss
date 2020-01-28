@@ -1,0 +1,72 @@
+@import "../../../theme/variables";
+@import "ac-toast.vars";
+
+// ---------------------------------------------------------------------------------------------------------------------
+// General Style
+// ---------------------------------------------------------------------------------------------------------------------
+
+ac-toast {
+  display: flex;
+  flex-direction: column;
+  max-width: 392px;
+  max-height: 88px;
+  margin: 20px;
+  transition: transform $default-transition;
+  border-radius: $border-radius-default;
+  box-shadow: $z3-shadow;
+  color: white;
+
+  &.transition--before-enter {
+    transform: scale(0.7);
+  }
+
+  &.transition--before-leave {
+    transform: scale(0.7);
+  }
+
+  .ac-toast__content {
+    padding: 0 $spacer-small $spacer-small $spacer-small;
+  }
+
+  .ac-toast__header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    padding-left: $spacer-small;
+    overflow: hidden;
+  }
+
+  .ac-toast__header-bg {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 36px;
+    opacity: 0.3;
+  }
+
+  .ac-toast__header-icon {
+    z-index: 1;
+    padding-right: 8px;
+    opacity: 0.6;
+  }
+}
+
+@include browser-ie {
+  ac-toast {
+    &.transition--before-enter {
+      transform: none;
+    }
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Theme Variations
+// ---------------------------------------------------------------------------------------------------------------------
+
+@include toast-variations("info");
+@include toast-variations("success");
+@include toast-variations("warning");
+@include toast-variations("alert");
