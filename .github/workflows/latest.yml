@@ -16,8 +16,6 @@ jobs:
       run: |
         git config --global user.email "github.actions@neogrid.com"
         git config --global user.name "Github Actions"
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v1
@@ -34,3 +32,4 @@ jobs:
         npm run publish-latest -- --message "chore(release): publish %v $EMOJI"
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
