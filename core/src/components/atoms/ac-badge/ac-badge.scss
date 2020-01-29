@@ -11,9 +11,9 @@ ac-badge {
   justify-content: center;
   min-width: $spacer-small;
   height: $spacer-small;
-  border-radius: 100px;
-  font-size: $font-xtiny;
   font-weight: bold;
+  font-size: $font-xtiny;
+  border-radius: 100px;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -22,9 +22,9 @@ ac-badge {
 
 ac-badge.ac-badge--floating {
   position: absolute;
-  z-index: $z-fab;
   right: 0;
   bottom: 0;
+  z-index: $z-fab;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -35,5 +35,3 @@ ac-badge.ac-badge--floating {
 @include badge-variations(".ac-badge--warning", "warning");
 @include badge-variations(".ac-badge--alert", "alert");
 @include badge-variations(".ac-badge--info", "info");
-
-

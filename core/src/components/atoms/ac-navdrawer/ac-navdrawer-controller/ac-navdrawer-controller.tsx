@@ -27,7 +27,6 @@ export class AcModalController implements ControllerComponent<AcNavdrawer, HTMLA
 
   @Prop() bound: string;
 
-
   /**
    * Setup a new navdrawer on the screen.
    */
@@ -37,7 +36,7 @@ export class AcModalController implements ControllerComponent<AcNavdrawer, HTMLA
     wrapper.backdrop = 'light';
     wrapper.position = props.position;
     props.wrapper = wrapper;
-    const navDrawer = await this.controllerBehavior.create({...props, showToggle: false});
+    const navDrawer = await this.controllerBehavior.create({ ...props, showToggle: false });
 
     wrapper.addEventListener('backDropClick', () => {
       navDrawer.remove();

@@ -34,9 +34,9 @@ ac-check {
     height: $ac-check__height;
     margin: 0;
     padding: 0;
+    background: var-color("neutral", "contrast");
     border: 2px solid var-color("neutral", "light");
     outline: none;
-    background: var-color("neutral", "contrast");
     cursor: pointer;
   }
 
@@ -62,17 +62,17 @@ ac-check.ac-check--checkbox {
   .ac-check__custom {
     border-radius: $border-radius-default;
     &:before {
-      content: "";
       position: absolute;
-      z-index: 1;
       top: 3px;
       left: 3px;
+      z-index: 1;
       box-sizing: initial;
       width: 8px;
-      transition: all $default-transition;
       border: 2px solid transparent;
       border-top-style: none;
       border-right-style: none;
+      transition: all $default-transition;
+      content: "";
     }
   }
 }
@@ -86,17 +86,17 @@ ac-check.ac-check--radio {
     border-radius: 100%;
 
     &:before {
-      content: "";
       position: absolute;
       top: 4px;
       left: 4px;
       box-sizing: initial;
       width: 8px;
       height: 8px;
+      background-color: transparent;
+      border-radius: 100%;
       transform: scale(2);
       transition: transform $default-transition;
-      border-radius: 100%;
-      background-color: transparent;
+      content: "";
     }
   }
 }
@@ -112,8 +112,8 @@ ac-check.ac-check--radio {
 ac-check {
   .ac-check__native:checked {
     + .ac-check__custom {
-      border-color: var-color("primary", "normal");
       background: var-color("primary", "normal");
+      border-color: var-color("primary", "normal");
 
       + .ac-check__label {
         color: var-color("primary", "normal");
@@ -130,8 +130,8 @@ ac-check.ac-check--checkbox {
   .ac-check__native:checked + .ac-check__custom {
     &:before {
       height: 5px;
-      transform: rotate(-45deg);
       border-color: var-color("neutral", "contrast");
+      transform: rotate(-45deg);
     }
   }
 }
@@ -143,8 +143,8 @@ ac-check.ac-check--checkbox {
 ac-check.ac-check--radio {
   .ac-check__native:checked + .ac-check__custom {
     &:before {
-      transform: scale(1);
       background-color: var-color("neutral", "contrast");
+      transform: scale(1);
     }
   }
 }
@@ -163,14 +163,14 @@ ac-check.ac-check--disabled {
     color: var-color("neutral", "normal");
   }
   .ac-check__custom {
-    border-color: var-color("neutral", "light");
     background: var-color("neutral", "lighter");
+    border-color: var-color("neutral", "light");
   }
 
   .ac-check__native:checked {
     + .ac-check__custom {
-      border-color: var-color("neutral", "normal");
       background: var-color("neutral", "normal");
+      border-color: var-color("neutral", "normal");
 
       + .ac-check__label {
         color: var-color("neutral", "dark");
@@ -198,8 +198,8 @@ ac-check.ac-check--error {
 
   .ac-check__native:checked {
     + .ac-check__custom {
-      border-color: var-color("alert", "normal");
       background: var-color("alert", "normal");
+      border-color: var-color("alert", "normal");
 
       + .ac-check__label {
         color: var-color("alert", "normal");

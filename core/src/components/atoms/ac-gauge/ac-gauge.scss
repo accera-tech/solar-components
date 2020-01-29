@@ -6,8 +6,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-gauge {
-  display: inline-flex;
   position: relative;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
@@ -73,8 +73,8 @@ ac-gauge.ac-gauge--void {
 
   .ac-gauge__bg {
     path {
-      stroke: var-color("neutral", "light") !important;
       fill: var-color("neutral", "lighter") !important;
+      stroke: var-color("neutral", "light") !important;
     }
   }
 

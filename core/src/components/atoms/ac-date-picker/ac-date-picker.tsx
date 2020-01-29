@@ -5,8 +5,8 @@ import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-b
 import { Bind } from '../../../utils/lang/bind';
 import { CustomValidityState, ValidatorFn } from '../../../utils/validations/validations';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
-import { LazyAirDatePicker } from './assets/lazy-air-date-picker';
 
+import { LazyAirDatePicker } from './assets/lazy-air-date-picker';
 
 @Component({
   tag: 'ac-date-picker',

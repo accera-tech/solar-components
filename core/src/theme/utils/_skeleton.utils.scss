@@ -34,12 +34,12 @@
 }
 
 @mixin skeleton-background($animation-name) {
-  visibility: visible !important;
-  animation: $animation-name 3s linear 0s infinite normal none running;
-  border-radius: $border-radius-default;
   background:
     rgba(0,0,0, .08) linear-gradient(90deg, rgba(255, 255, 255, .2) 8%,
-    rgba(0, 0, 0, .04) 38%, rgba(255, 255, 255, .2) 60%) 0% 0% / 1000px;
+    rgba(0, 0, 0, .04) 38%, rgba(255, 255, 255, .2) 60%) 0 0% / 1000px;
+  border-radius: $border-radius-default;
+  visibility: visible !important;
+  animation: $animation-name 3s linear 0s infinite normal none running;
 
   @include hide-content();
 }
@@ -47,18 +47,18 @@
 @mixin cover-text-with-pseudo-skeleton() {
   @include hide-content();
 
-  display: flex;
   position: relative;
+  display: flex;
   align-items: center;
   color: transparent !important;
   user-select: none;
   &:before {
     @include skeleton-background(skeleton-background);
-    content: "";
-    display: block;
     position: absolute;
+    display: block;
     width: 100%;
     height: 1em;
+    content: "";
   }
 }
 

@@ -7,9 +7,9 @@
 
 ac-card {
   display: flex;
+  background: var-color("neutral", "contrast");
   border: 1px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
-  background: var-color("neutral", "contrast");
   box-shadow: $z2-shadow;
 
   & > [slot=icon-start] {

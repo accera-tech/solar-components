@@ -6,17 +6,17 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-progress {
-  display: block;
   position: relative;
+  display: block;
   width: 100%;
   height: 8px;
   border-radius: 8px;
   .ac-progress__meter {
-    display: block;
     position: absolute;
+    display: block;
     height: 100%;
-    transition: width $slow-transition;
     border-radius: inherit;
+    transition: width $slow-transition;
   }
 }
 

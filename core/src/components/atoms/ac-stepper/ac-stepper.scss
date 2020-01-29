@@ -9,33 +9,33 @@ ac-stepper {
 
   .ac-stepper__step {
     display: flex;
-    box-sizing: border-box;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     width: 44px;
     height: 44px;
     margin-left: 44px;
-    border: 2px solid var-color("secondary", "normal");
-    border-radius: 100%;
-    fill: var-color("secondary", "normal");
     color: var-color("secondary", "normal");
     font-weight: bold;
+    border: 2px solid var-color("secondary", "normal");
+    border-radius: 100%;
     user-select: none;
+    fill: var-color("secondary", "normal");
 
     &:after {
-      content: "";
       position: absolute;
       width: 44px;
       height: 1px;
       margin-left: -44px;
       background: var-color("secondary", "normal");
+      content: "";
     }
 
     &.ac-stepper__step--active {
-      border-color: var-color("primary", "normal");
-      background-color: var-color("primary", "normal");
-      fill: var-color("neutral", "contrast");
       color: var-color("neutral", "contrast");
+      background-color: var-color("primary", "normal");
+      border-color: var-color("primary", "normal");
+      fill: var-color("neutral", "contrast");
       &:after {
         height: 2px;
         background: var-color("primary", "normal");

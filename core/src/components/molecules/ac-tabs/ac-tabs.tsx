@@ -32,7 +32,7 @@ export class AcTabs {
   @Watch('selected')
   onDidSelectedUpdate() {
     // tslint:disable-next-line:triple-equals
-    const tab = this.childTabs.find(tab => tab.id == this.selected);
+    const tab = this.childTabs.find(childTab => childTab.id == this.selected);
     this.select(tab);
   }
 

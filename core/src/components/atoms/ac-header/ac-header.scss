@@ -6,11 +6,11 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-header {
-  display: block;
   position: relative;
   z-index: $z-header;
-  box-sizing: border-box;
+  display: block;
   align-items: center;
+  box-sizing: border-box;
   width: $ac-header__width;
   transition: background $slow-transition, box-shadow $slow-transition;
 

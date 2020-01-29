@@ -573,8 +573,10 @@ export class AcSelect implements
           reset={!this.isShowingPanel}
         >
           <slot name="item-top" slot="item-top" />
-          <ul class='ac-select__list ac-list'
-              style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}>
+          <ul
+            class="ac-select__list ac-list"
+            style={{ maxHeight: AcSelect.MAX_ITEMS_TO_RENDER * AcSelect.ITEM_HEIGHT + 'px' }}
+          >
             {this.renderOptions(optionsToRender)}
           </ul>
           <slot name="item-bottom" slot="item-bottom" />

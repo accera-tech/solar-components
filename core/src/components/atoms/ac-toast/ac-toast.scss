@@ -11,10 +11,10 @@ ac-toast {
   max-width: 392px;
   max-height: 88px;
   margin: 20px;
-  transition: transform $default-transition;
+  color: white;
   border-radius: $border-radius-default;
   box-shadow: $z3-shadow;
-  color: white;
+  transition: transform $default-transition;
 
   &.transition--before-enter {
     transform: scale(0.7);
@@ -29,8 +29,8 @@ ac-toast {
   }
 
   .ac-toast__header {
-    display: flex;
     position: relative;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     height: 28px;

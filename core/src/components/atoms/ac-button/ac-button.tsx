@@ -98,7 +98,7 @@ export class AcButton implements ComponentInterface {
           disabled={this.disabled}
           class="ac-button__native"
         >
-          {this.loading && <AcFaIcon icon={faSpinner} size={14} anim="spin" style={{width: '14px'}}/>}
+          {this.loading && <AcFaIcon icon={faSpinner} size={14} anim="spin" style={{ width: '14px' }}/>}
           <slot name="icon-start"/>
           <span class="ac-button__text">
             <slot/>

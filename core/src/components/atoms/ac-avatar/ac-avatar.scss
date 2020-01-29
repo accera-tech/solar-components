@@ -16,8 +16,8 @@ ac-avatar {
       // @TODO: Use global vars.
       min-width: 36px;
       min-height: 36px;
-      border-radius: 100%;
       background-size: contain;
+      border-radius: 100%;
       box-shadow: $z1-shadow;
     }
 
@@ -29,8 +29,8 @@ ac-avatar {
 
       .ac-avatar__title {
         color: current-color("contrast") !important;
-        font-size: $font-small;
         font-weight: bold;
+        font-size: $font-small;
         text-transform: capitalize;
       }
 

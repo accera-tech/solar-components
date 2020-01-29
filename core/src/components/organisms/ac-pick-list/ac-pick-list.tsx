@@ -1,11 +1,11 @@
-import { Component, Prop, Host, h, State, Method, Element } from '@stencil/core';
-import { AcOrderList } from '../../molecules/ac-order-list/ac-order-list';
-import { Bind } from '../../../utils/lang/bind';
+import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Host, Method, Prop, State, h } from '@stencil/core';
 import dragula from 'dragula';
-import { AcFaIcon } from '../../utils/ac-fa-icon';
-import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
-import { AcOption } from '../../../utils/types/ac-option';
 
+import { Bind } from '../../../utils/lang/bind';
+import { AcOption } from '../../../utils/types/ac-option';
+import { AcOrderList } from '../../molecules/ac-order-list/ac-order-list';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 @Component({
   tag: 'ac-pick-list',
@@ -35,7 +35,7 @@ export class AcPickList {
   /**
    * Text to be search.
    */
-  @Prop() searchLabel: string = 'Search';
+  @Prop() searchLabel = 'Search';
   /**
    * Label to be show when no results is fouond.
    */
@@ -51,19 +51,19 @@ export class AcPickList {
   /**
    * Label of the button that add options on the  selected ac-list.
    */
-  @Prop() addLabel: string = 'Add';
+  @Prop() addLabel = 'Add';
   /**
    * Label of the button that add all options on the selected ac-list.
    */
-  @Prop() addAllLabel: string = 'Add all';
+  @Prop() addAllLabel = 'Add all';
   /**
    * Label of the button that remove options on the on selected ac-list.
    */
-  @Prop() removeLabel: string = 'Remove';
+  @Prop() removeLabel = 'Remove';
   /**
    * Label of the button that remove all options on the  selected ac-list.
    */
-  @Prop() removeAllLabel: string = 'Remove All';
+  @Prop() removeAllLabel = 'Remove All';
 
   /**
    * Return the selected items.
@@ -125,6 +125,7 @@ export class AcPickList {
    */
   @Bind
   removeOptions() {
+    // @TODO: Duplicated code fragment: lines 95-107 & 129-141
     this.acListAvalibles.options = this.acListSelectedOptions.options
     .reduce((newList, option) => {
       if (option.selected) {
@@ -144,10 +145,10 @@ export class AcPickList {
    * Method that handle selected options.
    */
   @Bind
-  handleChangeAclistSelectedOptions(event: CustomEvent<AcOrderList>) {
-    if(event.detail) {
+  handleChangeAcListSelectedOptions(event: CustomEvent<AcOrderList>) {
+    if (event.detail) {
       event.detail.getSelectedOptions()
-      .then(({length}) => this.numberOfSelectedOptions = length);
+      .then(({ length }) => this.numberOfSelectedOptions = length);
     } else {
       this.numberOfSelectedOptions = 0;
     }
@@ -157,9 +158,9 @@ export class AcPickList {
    */
   @Bind
   handleChangeAclistAvailableOptionsSelected(event: CustomEvent<AcOrderList>) {
-    if(event.detail) {
+    if (event.detail) {
       event.detail.getSelectedOptions()
-      .then(({length}) => this.numberAvailableOptionsSelected = length);
+      .then(({ length }) => this.numberAvailableOptionsSelected = length);
     } else {
       this.numberAvailableOptionsSelected = 0;
     }
@@ -202,73 +203,84 @@ export class AcPickList {
     const disabledRemoveAll = this.acListSelectedOptions ? this.acListSelectedOptions.options.length === 0 : true;
     return (
     <Host>
-      <ac-order-list class="ac-pick-list__column"
-          onListChange={this.handleChangeAclistAvailableOptionsSelected}
-          ref={acList => this.acListAvalibles = acList}
-          searchLabel={this.searchLabel}
-          label={this.availableLabel}
-          options={this.options}
-          no-results-label={this.noResultsLabel}
-          multiple={true}>
-          <slot />
-        </ac-order-list>
-        <section
-          class="ac-pick-list__column ac-pick-list__action-panel ac-pick-list__action-panel--gutter">
-          <div class="ac-pick-list__cell ac-pick-list__cell--align-start ac-pick-list__cell--dir-col">
-            <ac-button
-              disabled={this.numberAvailableOptionsSelected === 0}
-              class="ac-pick-list__button"
-              onClick={this.addSelectedOptions}>
-              {this.addLabel}
-              <AcFaIcon slot="icon-start"
-                icon={faAngleDoubleRight}
-                class={{
-                  "ac-pick-list__button-icon": true,
-                  "ac-pick-list__button-icon--disabled": this.numberAvailableOptionsSelected === 0
-                 }}
-                size={12}  />
-            </ac-button>
-            <ac-button
-              disabled={disabledAddAll}
-              class="ac-pick-list__button"
-              fill="clear"
-              theme="primary"
-              onClick={this.addAllOptions}>
-              {this.addAllLabel}
-            </ac-button>
-          </div>
-          <div class="ac-pick-list__cell ac-pick-list__cell--align-end ac-pick-list__cell--dir-col">
-            <ac-button
-              class="ac-pick-list__button"
-              disabled={this.numberOfSelectedOptions === 0}
-              onClick={this.removeOptions}>
-              {this.removeLabel}
-              <AcFaIcon
-                slot="icon-start"
-                icon={faAngleDoubleLeft}
-                class={{
-                  "ac-pick-list__button-icon": true,
-                  "ac-pick-list__button-icon--disabled": this.numberOfSelectedOptions === 0
-                 }}
-                 size={12}  />
-            </ac-button>
-            <ac-button
-              disabled={disabledRemoveAll}
-              fill="clear"
-              theme="primary"
-              class="ac-pick-list__button"
-              onClick={this.removeAllOptions}>
-              {this.removeAllLabel}
-            </ac-button>
-          </div>
-        </section>
-        <ac-order-list class="ac-pick-list__column"
-          ref={acList => this.acListSelectedOptions = acList}
-          onListChange={this.handleChangeAclistSelectedOptions}
-          label={this.selectedLabel}
-          multiple={true}
-          searchLabel={this.searchLabel}>
-        </ac-order-list>
+      <ac-order-list
+        class="ac-pick-list__column"
+        onListChange={this.handleChangeAclistAvailableOptionsSelected}
+        ref={acList => this.acListAvalibles = acList}
+        searchLabel={this.searchLabel}
+        label={this.availableLabel}
+        options={this.options}
+        no-results-label={this.noResultsLabel}
+        multiple
+      >
+        <slot />
+      </ac-order-list>
+      <section
+        class="ac-pick-list__column ac-pick-list__action-panel ac-pick-list__action-panel--gutter"
+      >
+        <div class="ac-pick-list__cell ac-pick-list__cell--align-start ac-pick-list__cell--dir-col">
+          <ac-button
+            disabled={this.numberAvailableOptionsSelected === 0}
+            class="ac-pick-list__button"
+            onClick={this.addSelectedOptions}
+          >
+            {this.addLabel}
+            <AcFaIcon
+              slot="icon-start"
+              icon={faAngleDoubleRight}
+              class={{
+                'ac-pick-list__button-icon': true,
+                'ac-pick-list__button-icon--disabled': this.numberAvailableOptionsSelected === 0
+               }}
+              size={12}
+            />
+          </ac-button>
+          <ac-button
+            disabled={disabledAddAll}
+            class="ac-pick-list__button"
+            fill="clear"
+            theme="primary"
+            onClick={this.addAllOptions}
+          >
+            {this.addAllLabel}
+          </ac-button>
+        </div>
+        <div class="ac-pick-list__cell ac-pick-list__cell--align-end ac-pick-list__cell--dir-col">
+          <ac-button
+            class="ac-pick-list__button"
+            disabled={this.numberOfSelectedOptions === 0}
+            onClick={this.removeOptions}
+          >
+            {this.removeLabel}
+            <AcFaIcon
+              slot="icon-start"
+              icon={faAngleDoubleLeft}
+              class={{
+                'ac-pick-list__button-icon': true,
+                'ac-pick-list__button-icon--disabled': this.numberOfSelectedOptions === 0
+              }}
+              size={12}
+            />
+          </ac-button>
+          <ac-button
+            disabled={disabledRemoveAll}
+            fill="clear"
+            theme="primary"
+            class="ac-pick-list__button"
+            onClick={this.removeAllOptions}
+          >
+            {this.removeAllLabel}
+          </ac-button>
+        </div>
+      </section>
+      <ac-order-list
+        class="ac-pick-list__column"
+        ref={acList => this.acListSelectedOptions = acList}
+        onListChange={this.handleChangeAcListSelectedOptions}
+        label={this.selectedLabel}
+        searchLabel={this.searchLabel}
+        multiple
+      />
     </Host>);
   }
 }

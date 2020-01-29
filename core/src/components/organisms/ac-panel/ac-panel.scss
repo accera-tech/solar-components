@@ -6,16 +6,15 @@
 
 ac-panel {
   display: block;
-  box-sizing: border-box;
   flex-direction: column;
+  box-sizing: border-box;
   width: 100%;
-
-  transform-origin: 0 0;
-  transition: opacity $default-transition, transform $default-transition;
+  background: var-color("neutral", "contrast");
   border: 1px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
-  background: var-color("neutral", "contrast");
   box-shadow: $z3-shadow;
+  transform-origin: 0 0;
+  transition: opacity $default-transition, transform $default-transition;
 
   &.transition--before-enter {
     transform: translateY(-10px) scaleY(0.5);

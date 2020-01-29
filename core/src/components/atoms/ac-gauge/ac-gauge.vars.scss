@@ -14,8 +14,8 @@
 
     .ac-gauge__bg {
       path {
-        stroke: var-color($color-name, "light");
         fill: var-color($color-name, "lighter");
+        stroke: var-color($color-name, "light");
       }
     }
 

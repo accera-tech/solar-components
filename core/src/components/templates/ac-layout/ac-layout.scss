@@ -23,8 +23,8 @@ ac-layout {
     width: 100%;
     height: 100vh;
     overflow: auto;
-    transition: filter $default-transition;
     background: var-color("neutral", "lighter");
+    transition: filter $default-transition;
   }
 
   .ac-layout__content-scroll {

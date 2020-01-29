@@ -4,15 +4,15 @@
 
 ac-order-list {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
-  height: 100%;
+  align-items: flex-start;
   width: 100%;
+  height: 100%;
 
   .ac-order-list__header-title {
+    display: flex;
     height: 24px;
     margin: 0 0 8px 0;
-    display: flex;
     color: var-color("neutral", "darker");
   }
 
@@ -28,11 +28,11 @@ ac-order-list {
 
   .ac-order-list__search-bar {
     width: 100%;
+    margin-bottom: $spacer-small;
     border-top: none;
-    border-left: none;
     border-right: none;
     border-bottom-width: 1px;
-    margin-bottom: $spacer-small;
+    border-left: none;
 
     .ac-input__native {
       padding-left: 0 !important;

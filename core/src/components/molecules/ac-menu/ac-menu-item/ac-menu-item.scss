@@ -9,26 +9,27 @@ ac-menu-item {
   display: block;
 
   .ac-menu-item__native {
-    display: flex;
     position: relative;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     height: $ac-button--small__height;
     padding: 0 $spacer-small;
+    color: current-color("contrast", 0.8);
+    text-decoration: none;
+    background: transparent;
+    border-radius: $border-radius-default;
+    cursor: pointer;
     transition:
       background-color $slow-transition,
       color $slow-transition,
       fill $slow-transition;
-    border-radius: $border-radius-default;
-    background: transparent;
     fill: current-color("contrast", 0.8);
-    color: current-color("contrast", 0.8);
-    text-decoration: none;
-    cursor: pointer;
+
     &:hover,
     &:focus {
-      background-color: current-color("contrast", 0.04);
       color: current-color("contrast");
+      background-color: current-color("contrast", 0.04);
     }
     &:active {
       background-color: current-color("contrast", 0.08);
@@ -45,20 +46,20 @@ ac-menu-item {
     }
 
     &:before {
-      content: "";
       position: absolute;
       top: 50%;
       left: -8px;
       width: 4px;
       height: 0;
+      background-color: var-color("primary", "normal");
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
       transition:
         top .4s ease-in-out,
         width .4s ease-in-out,
         height .4s ease-in-out,
         border-radius .4s ease-in-out;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-      background-color: var-color("primary", "normal");
+      content: "";
     }
   }
 
@@ -66,8 +67,8 @@ ac-menu-item {
     height: auto;
     max-height: 0;
     overflow: hidden;
-    transition: max-height $slow-transition, opacity $slow-transition;
     opacity: 0;
+    transition: max-height $slow-transition, opacity $slow-transition;
 
     ac-menu-item {
       .ac-menu-item__text {
@@ -145,9 +146,9 @@ ac-menu-item.ac-menu-item--collapsed.ac-menu-item--icon-only {
 
 ac-menu-item.ac-menu-item--active {
   & > .ac-menu-item__native {
-    fill: var-color("primary", "normal");
     color: var-color("primary", "normal");
     font-weight: bold;
+    fill: var-color("primary", "normal");
     &:before {
       top: calc(50% - 12px);
       height: 24px;

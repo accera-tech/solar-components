@@ -23,15 +23,16 @@ export function serializeForm(form: HTMLFormElement, options: SerializeFormOptio
       if (field.name && ['file', 'reset', 'button'].indexOf(field.type) === -1 && field.tagName.indexOf('-') === -1) {
         switch (field.type) {
           case 'select-multiple':
-            const options = [];
+            const selectedOptions = [];
             Array.prototype.slice.call(field.options).forEach(option => {
-              if (option.selected) { options.push(option.value); }
+              if (option.selected) { selectedOptions.push(option.value); }
             });
-            assignByFormDataPath(obj, field.name, options);
+            assignByFormDataPath(obj, field.name, selectedOptions);
             break;
 
           case 'checkbox':
             if (field.checked) { assignByFormDataPath(obj, field.name, true); }
+            break;
           case 'radio':
             if (field.checked) { assignByFormDataPath(obj, field.name, field.value); }
             break;

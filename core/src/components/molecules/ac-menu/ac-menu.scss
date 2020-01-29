@@ -18,8 +18,8 @@ ac-menu {
     padding-bottom: $spacer-small;
     .ac-menu__group-title {
       color: current-color("contrast", 0.32);
-      font-size: $font-xtiny;
       font-weight: bold;
+      font-size: $font-xtiny;
       text-transform: uppercase;
     }
   }
@@ -27,11 +27,11 @@ ac-menu {
   // @TODO: Change the way that we customize compound components
   .ac-menu__search-bar {
     margin-bottom: $spacer-medium;
+    background: current-color("contrast", 0.08);
+    border: 0;
     transition:
       opacity $default-transition,
       background $default-transition;
-    border: 0px;
-    background: current-color("contrast", 0.08);
     fill: current-color("contrast") !important;
     &:hover, &.ac-input--focus {
       background: current-color("contrast", 0.16);

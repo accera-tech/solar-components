@@ -5,8 +5,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-login {
-  display: block;
   position: relative;
+  display: block;
   min-width: 100%;
   min-height: 100vh;
   overflow: hidden;
@@ -22,9 +22,9 @@ ac-login {
 
   .ac-login__background {
     position: absolute;
-    z-index: -1;
     top: -275px;
     left: -175px;
+    z-index: -1;
     width: 1050px;
     fill: $neutral__white;
   }

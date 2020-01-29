@@ -51,8 +51,10 @@
 
   --color-theme-#{$target-name}: #{var-color($palette-name, $palette-variation)};
   --color-theme-#{$target-name}-rgb:
-    var(--color-#{$palette-name}-#{$palette-variation}-rgb,
-    #{color-to-rgb-list($value)});
+    var(
+      --color-#{$palette-name}-#{$palette-variation}-rgb,
+      #{color-to-rgb-list($value)}
+    );
 }
 
 // Get a color defined by the context theme. If it isn't defined, use the black color.

@@ -11,8 +11,8 @@
     }
 
     &:empty {
-      border: none;
       background: none;
+      border: none;
     }
   }
 }
@@ -29,8 +29,8 @@
     }
 
     &:empty {
-      border: none;
       background: none;
+      border: none;
     }
   }
 }
@@ -51,8 +51,8 @@
   }
 
   &.datepicker--cell-year.-other-decade- {
-    background: #a2ddf6;
     color: #fff;
+    background: #a2ddf6;
   }
 }
 
@@ -72,8 +72,8 @@
   }
 
   &.datepicker--cell-year.-other-decade- {
-    background-color: rgba(92, 196, 239, 0.1);
     color: #cccccc;
+    background-color: rgba(92, 196, 239, 0.1);
   }
 }
 
@@ -83,25 +83,25 @@
 }
 
 .datepicker--cell {
-  display: flex;
   position: relative;
   z-index: 1;
-  box-sizing: border-box;
+  display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   height: 34px;
   margin: 2px 0;
   border-radius: 50%;
   cursor: pointer;
 
   &.-focus- {
-    background: var-color("primary", "normal", 0.2);
     color: var-color("primary", "dark", 0.2);
+    background: var-color("primary", "normal", 0.2);
   }
 
   &.-current- {
-    background-color: var-color("neutral", "light");
     color: var-color("neutral", "inverted");
+    background-color: var-color("neutral", "light");
 
     &.-in-range- {
       color: var-color("secondary", "dark", 0.2);
@@ -109,9 +109,9 @@
   }
 
   &.-in-range- {
-    border-radius: 0;
-    background: var-color("secondary", "normal", 20%);
     color: var-color("secondary", "normal", 0.2);
+    background: var-color("secondary", "normal", 20%);
+    border-radius: 0;
 
     &.-focus- {
       background-color: var-color("secondary", "normal" 0.12);
@@ -123,8 +123,8 @@
     cursor: default;
 
     &.-focus- {
-      background-color: var-color("neutral", "normal");
       color: var-color("neutral", "light");
+      background-color: var-color("neutral", "normal");
     }
 
     &.-in-range- {
@@ -137,9 +137,9 @@
   }
 
   &.-range-from- {
+    background-color: var-color("secondary", "normal", 0.12);
     border: 1px solid var-color("secondary", "normal", 0.2);
     border-radius: 4px 0 0 4px;
-    background-color: var-color("secondary", "normal", 0.12);
 
     &.-range-to- {
       border-radius: 4px;
@@ -147,16 +147,16 @@
   }
 
   &.-range-to- {
+    background-color: var-color("secondary", "normal", 0.12);
     border: 1px solid var-color("secondary", "normal", 0.2);
     border-radius: 0 4px 4px 0;
-    background-color: var-color("secondary", "normal", 0.12);
   }
 
   &.-selected- {
-    border: none;
-    background: var-color("secondary", "normal");
     color: #fff;
     font-weight: bold;
+    background: var-color("secondary", "normal");
+    border: none;
   }
 
   &:empty {
@@ -176,8 +176,8 @@
   align-items: center;
   justify-content: center;
   color: var-color("neutral", "normal");
-  font-size: 12px;
   font-weight: bold;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -212,18 +212,18 @@
 
 .datepicker {
   position: absolute;
-  z-index: 100;
   left: -100000px;
+  z-index: 100;
   box-sizing: content-box;
   width: 260px;
   margin-top: -8px;
-  transition: opacity .2s ease, transform .2s ease, left 0s .2s;
+  font-size: 14px;
+  background: #fff;
   border: 1px solid rgba(0, 0, 0, .08);
   border-radius: 4px;
-  opacity: 0;
-  background: #fff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, .04);
-  font-size: 14px;
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease, left 0s .2s;
 
   &.-from-top- {
     transform: translateY(-8px);
@@ -243,8 +243,8 @@
 
   &.active {
     transform: translate(0);
-    transition: opacity .2s ease, transform .2s ease, left 0s 0s;
     opacity: 1;
+    transition: opacity .2s ease, transform .2s ease, left 0s 0s;
   }
 }
 
@@ -253,10 +253,10 @@
     position: static;
     right: auto;
     left: auto;
-    transform: none;
     border-color: #d7d7d7;
-    opacity: 1;
     box-shadow: none;
+    transform: none;
+    opacity: 1;
   }
 
   .datepicker--pointer {
@@ -285,13 +285,13 @@
 
 .datepicker--pointer {
   position: absolute;
+  z-index: -1;
+  display: none;
+  width: 10px;
+  height: 10px;
   background: #fff;
   border-top: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
-  width: 10px;
-  height: 10px;
-  z-index: -1;
-  display: none;
 }
 
 .datepicker--body {
@@ -305,45 +305,45 @@
 .datepicker--nav {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid var-color("neutral", "lighter");
   min-height: 32px;
   padding: 4px;
+  border-bottom: 1px solid var-color("neutral", "lighter");
 }
 
 .datepicker--nav-title {
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  font-weight: bold;
-  color: var-color("primary", "normal");
   padding: 4px 12px;
+  color: var-color("primary", "normal");
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
 
   i {
-    font-style: normal;
-    font-weight: normal;
     margin-left: 4px;
+    font-weight: normal;
+    font-style: normal;
   }
 
   &:hover {
-    background: var-color("primary", "normal", 0.2);
     color: var-color("primary", "dark", 0.2);
+    background: var-color("primary", "normal", 0.2);
   }
 
   &.-disabled- {
-    cursor: default;
     background: none;
+    cursor: default;
   }
 }
 
 .datepicker--nav-action {
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
   width: 32px;
   border-radius: 4px;
+  cursor: pointer;
   user-select: none;
 
   &:hover {
@@ -361,8 +361,8 @@
 
   path {
     fill: none;
-    stroke: var-color("primary", "normal");
     stroke-width: 2px;
+    stroke: var-color("primary", "normal");
   }
 }
 
@@ -373,14 +373,14 @@
 }
 
 .datepicker--button {
-  color: #4eb5e6;
-  cursor: pointer;
-  border-radius: 4px;
-  flex: 1;
   display: inline-flex;
-  justify-content: center;
+  flex: 1;
   align-items: center;
+  justify-content: center;
   height: 32px;
+  color: #4eb5e6;
+  border-radius: 4px;
+  cursor: pointer;
 
   &:hover {
     color: #4a4a4a;
@@ -389,8 +389,8 @@
 }
 
 .datepicker--time {
-  display: flex;
   position: relative;
+  display: flex;
   align-items: center;
   padding: 4px;
   border-top: 1px solid #efefef;
@@ -426,45 +426,23 @@
   line-height: 1;
 }
 
-.datepicker--time-current-hours {
-  position: relative;
-  z-index: 1;
-  padding: 4px;
-
-  &:after {
-    position: absolute;
-    content: '';
-    background: #f0f0f0;
-    border-radius: 4px;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    opacity: 0;
-  }
-
-  &.-focus-:after {
-    opacity: 1;
-  }
-}
-
+.datepicker--time-current-hours,
 .datepicker--time-current-minutes {
   position: relative;
   z-index: 1;
   padding: 4px;
 
   &:after {
-    content: '';
-    background: #f0f0f0;
-    border-radius: 4px;
     position: absolute;
-    left: 0;
     top: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     z-index: -1;
+    background: #f0f0f0;
+    border-radius: 4px;
     opacity: 0;
+    content: "";
   }
 
   &.-focus-:after {
@@ -473,32 +451,32 @@
 }
 
 .datepicker--time-current-ampm {
-  text-transform: uppercase;
   align-self: flex-end;
-  color: #9c9c9c;
-  margin-left: 6px;
-  font-size: 11px;
   margin-bottom: 1px;
+  margin-left: 6px;
+  color: #9c9c9c;
+  font-size: 11px;
+  text-transform: uppercase;
 }
 
 .datepicker--time-row {
   display: flex;
   align-items: center;
-  font-size: 11px;
   height: 17px;
+  font-size: 11px;
   background: linear-gradient(to right, #dedede, #dedede) left 50%/100% 1px no-repeat;
 
   &:first-child {
     margin-bottom: 4px;
   }
 
-  input[type='range'] {
-    background: none;
-    cursor: pointer;
+  input[type=range] {
     flex: 1;
     height: 100%;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
 
     &:hover::-webkit-slider-thumb {
       border-color: #b8b8b8;
@@ -532,73 +510,73 @@
     }
   }
 
-  input[type='range']::-webkit-slider-thumb {
+  input[type=range]::-webkit-slider-thumb {
     box-sizing: border-box;
-    height: 12px;
     width: 12px;
-    border-radius: 3px;
-    border: 1px solid #dedede;
+    height: 12px;
+    margin-top: -6px;
     background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 3px;
     cursor: pointer;
     transition: background .2s;
-    margin-top: -6px;
   }
 
-  input[type='range']::-ms-tooltip {
+  input[type=range]::-ms-tooltip {
     display: none;
   }
 
-  input[type='range']::-moz-range-thumb {
+  input[type=range]::-moz-range-thumb {
     box-sizing: border-box;
-    height: 12px;
     width: 12px;
-    border-radius: 3px;
-    border: 1px solid #dedede;
+    height: 12px;
     background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 3px;
     cursor: pointer;
     transition: background .2s;
   }
 
-  input[type='range']::-ms-thumb {
+  input[type=range]::-ms-thumb {
     box-sizing: border-box;
-    height: 12px;
     width: 12px;
-    border-radius: 3px;
-    border: 1px solid #dedede;
+    height: 12px;
     background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 3px;
     cursor: pointer;
     transition: background .2s;
   }
 
-  input[type='range']::-webkit-slider-runnable-track {
-    border: none;
+  input[type=range]::-webkit-slider-runnable-track {
     height: 1px;
-    cursor: pointer;
     color: transparent;
     background: transparent;
+    border: none;
+    cursor: pointer;
   }
 
-  input[type='range']::-moz-range-track {
-    border: none;
+  input[type=range]::-moz-range-track {
     height: 1px;
-    cursor: pointer;
     color: transparent;
     background: transparent;
+    border: none;
+    cursor: pointer;
   }
 
-  input[type='range']::-ms-track {
-    border: none;
+  input[type=range]::-ms-track {
     height: 1px;
-    cursor: pointer;
     color: transparent;
     background: transparent;
+    border: none;
+    cursor: pointer;
   }
 
-  input[type='range']::-ms-fill-lower {
+  input[type=range]::-ms-fill-lower {
     background: transparent;
   }
 
-  input[type='range']::-ms-fill-upper {
+  input[type=range]::-ms-fill-upper {
     background: transparent;
   }
 
@@ -608,35 +586,34 @@
 }
 
 .datepicker--time-icon {
-  color: #9c9c9c;
-  border: 1px solid;
-  border-radius: 50%;
-  font-size: 16px;
   position: relative;
-  margin: 0 5px -1px 0;
   width: 1em;
   height: 1em;
+  margin: 0 5px -1px 0;
+  color: #9c9c9c;
+  font-size: 16px;
+  border: 1px solid;
+  border-radius: 50%;
 
   &:after {
-    content: '';
-    background: currentColor;
     position: absolute;
-    height: .4em;
-    width: 1px;
-    left: calc(50% - 1px);
     top: calc(50% + 1px);
+    left: calc(50% - 1px);
+    width: 1px;
+    height: .4em;
+    background: currentColor;
     transform: translateY(-100%);
+    content: "";
   }
 
   &:before {
-    width: .4em;
-    top: calc(50% + 1px);
-    content: '';
     position: absolute;
-    background: currentColor;
-
-    height: 1px;
+    top: calc(50% + 1px);
     left: calc(50% - 1px);
+    width: .4em;
+    height: 1px;
+    background: currentColor;
+    content: "";
   }
 }
 
@@ -681,8 +658,8 @@
 }
 
 .-right-bottom- .datepicker--pointer {
-  bottom: 10px;
   right: calc(100% - 4px);
+  bottom: 10px;
   transform: rotate(225deg);
 }
 
@@ -717,8 +694,8 @@
 }
 
 .-left-bottom- .datepicker--pointer {
-  left: calc(100% - 4px);
   bottom: 10px;
+  left: calc(100% - 4px);
   transform: rotate(45deg);
 }
 
@@ -730,20 +707,20 @@
   right: 6px;
   width: 44px;
   height: 44px;
-  transition: all .2s ease-in-out;
-  border-radius: 2px;
-  background-color: var-color("neutral", "normal");
   color: var-color("neutral", "dark");
   font-size: 12px;
+  background-color: var-color("neutral", "normal");
+  border-radius: 2px;
+  transition: all .2s ease-in-out;
   pointer-events: none;
 
   &:before {
-    content: "\f073";
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     font-family: FontAwesome;
+    transform: translate(-50%, -50%);
+    content: "\f073";
   }
 }
 

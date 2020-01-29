@@ -6,22 +6,22 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-navdrawer {
-  display: flex;
   position: relative;
+  display: flex;
   flex-direction: column;
-  height: 100%;
   width: 260px;
-  transition: width $default-transition;
+  height: 100%;
+  color: var-color("neutral", "inverted");
   background: var-color("neutral", "contrast");
   box-shadow: $z2-shadow--center;
-  color: var-color("neutral", "inverted");
+  transition: width $default-transition;
 
 
   .ac-navdrawer__header {
     display: flex;
-    box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
     width: 100%;
     min-height: 64px;
     padding: 0;
@@ -31,8 +31,8 @@ ac-navdrawer {
     .ac-navdrawer__title {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       width: 100%;
       margin: $spacer-small $spacer-medium 0;
       .ac-navdrawer__title-content {
@@ -43,10 +43,10 @@ ac-navdrawer {
         width: 32px;
         height: 32px;
         .ac-button__native {
-          min-height: 100%;
+          width: 100%;
           min-width: 100%;
           height: 100%;
-          width: 100%;
+          min-height: 100%;
         }
       }
     }
@@ -54,8 +54,8 @@ ac-navdrawer {
 
   .ac-navdrawer__content {
     display: flex;
-    box-sizing: border-box;
     justify-content: center;
+    box-sizing: border-box;
     height: 100%;
     max-height: 100%;
     overflow-x: hidden;
@@ -64,11 +64,11 @@ ac-navdrawer {
 
   // Brand Button
   .ac-navdrawer__toggle-button {
-    display: flex;
     position: absolute;
-    z-index: $z-fab;
     top: 28px;
     left: calc(100% + 2px);
+    z-index: $z-fab;
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -116,7 +116,7 @@ ac-navdrawer {
     }
   }
 
-  
+
   &.transition--before-enter,
   &.transition--before-leave {
     transform: translate(300px);

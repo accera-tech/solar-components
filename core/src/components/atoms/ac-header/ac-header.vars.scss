@@ -17,8 +17,8 @@ $ac-header__width: 100%;
   ac-header.ac-header--#{$color-name}{
     @include down-md {
       @include define-theme-colors("primary");
-      background: var-color($color-name, "normal");
       color: var-color($color-name, "contrast");
+      background: var-color($color-name, "normal");
     }
   }
 }

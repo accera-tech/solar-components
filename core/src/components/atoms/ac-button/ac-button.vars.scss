@@ -20,9 +20,9 @@ $ac-button--small__height: 36px;
 
   ac-button.ac-button--#{$color-name} {
     .ac-button__native {
+      color: var-color($color-name, "contrast");
       background-color: var-color($color-name, "normal");
       fill: var-color($color-name, "contrast");
-      color: var-color($color-name, "contrast");
       &:hover {
         background-color: var-color($color-name, "dark");
       }
@@ -43,9 +43,9 @@ $ac-button--small__height: 36px;
 
   ac-button.ac-button--#{$color-name}.ac-button--clear {
     .ac-button__native {
+      color: var-color($color-name, "normal");
       background: transparent;
       fill: var-color($color-name, "normal");
-      color: var-color($color-name, "normal");
       &:hover, &:focus {
         background-color: var-color($color-name, "normal", 0.2);
       }

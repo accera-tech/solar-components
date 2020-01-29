@@ -1,5 +1,5 @@
 @import "../../../theme/variables";
-@import 'node_modules/dragula/dist/dragula';
+@import "node_modules/dragula/dist/dragula";
 
 ac-pick-list {
   display: flex;
@@ -9,8 +9,8 @@ ac-pick-list {
 
   .ac-pick-list__column {
     display: flex;
-    height: 100%;
     min-width: 232px;
+    height: 100%;
   }
 
   .ac-pick-list__action-panel {

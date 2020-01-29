@@ -5,39 +5,39 @@
 // Branding
 // --------------------------------------------------
 
-$brand__dark-blue: #00466F;
-$brand__red: #F0000A;
-$brand__orange: #EF773F;
-$brand__lemon: #C9D759;
-$brand__lazuli: #2C65AF;
-$brand__lilac: #A064FF;
-$brand__purple: #6A2568;
-$brand__desire: #E64451;
+$brand__dark-blue: #00466f;
+$brand__red: #f0000a;
+$brand__orange: #ef773f;
+$brand__lemon: #c9d759;
+$brand__lazuli: #2c65af;
+$brand__lilac: #a064ff;
+$brand__purple: #6a2568;
+$brand__desire: #e64451;
 
 
 // Functional
 // --------------------------------------------------
 
-$functional__info: #00B4F0;
-$functional__success: #14C86E;
+$functional__info: #00b4f0;
+$functional__success: #14c86e;
 $functional__warning: #f9c05d;
-$functional__alert: #F0000A;
+$functional__alert: #f0000a;
 
 
 // Neutral
 // --------------------------------------------------
 
-$neutral__gray: #C8C8C8;
-$neutral__white: #FFFFFF;
-$neutral__black: #111111;
+$neutral__gray: #c8c8c8;
+$neutral__white: #fff;
+$neutral__black: #111;
 
 
 // Shadows
 // --------------------------------------------------
 
-$z1-shadow: 0 4px 8px rgba(0,0,0, 0.08);
+$z1-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 $z2-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 $z2-shadow--center: 0 0 16px rgba(0, 0, 0, 0.08);
-$z3-shadow: 0 16px 32px rgba(0,0,0, 0.08);
-$z3-shadow--left: 16px 0px 32px rgba(0,0,0, 0.08);
-$z3-shadow--right: -16px 0px 32px rgba(0,0,0, 0.08);
+$z3-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+$z3-shadow--left: 16px 0 32px rgba(0, 0, 0, 0.08);
+$z3-shadow--right: -16px 0 32px rgba(0, 0, 0, 0.08);

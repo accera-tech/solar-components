@@ -1,4 +1,5 @@
 import { Component, Element, h } from '@stencil/core';
+
 import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
 
 /**

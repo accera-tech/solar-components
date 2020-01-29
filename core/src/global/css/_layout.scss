@@ -9,9 +9,9 @@
 
 .ac-list {
   display: flex;
+  flex: 1;
   flex-direction: column;
   width: 100%;
-  flex: 1;
   margin: 0;
   padding: $spacer-tiny 0;
   overflow-x: hidden;
@@ -25,35 +25,35 @@
 
   .ac-list__item {
     display: flex;
-    align-items: center;
     flex: 0 0 27px;
+    align-items: center;
     min-height: 27px;
     padding: $spacer-tiny/2 $spacer-small;
     color: var-color("neutral", "darker");
     font-size: $font-small;
+    white-space: nowrap;
     cursor: pointer;
     user-select: none;
-    white-space: nowrap;
 
     &.ac-list__item--selected {
-      background-color: var-color("primary", "normal", 0.08);
       color: var-color("primary", "normal");
+      background-color: var-color("primary", "normal", 0.08);
     }
 
     &:hover {
-      background-color: var-color("primary", "normal", 0.04);
       color: var-color("primary", "normal");
+      background-color: var-color("primary", "normal", 0.04);
     }
   }
 
 
   .ac-list__separator {
     display: flex;
-    align-items: center;
     flex: 0 0 27px;
+    align-items: center;
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
     cursor: default;
     user-select: none;
 
@@ -61,17 +61,17 @@
       display: flex;
       flex: 1;
       height: .4px;
-      background-color: var-color("neutral", "normal");
       margin: 0 $spacer-small 0;
+      background-color: var-color("neutral", "normal");
     }
 
     .ac-list__separator-title {
       display: inline-block;
       padding: 0 $spacer-tiny 0 $spacer-small;
-      background-color: var-color("neutral", "contrast");
       color: var-color("neutral", "normal");
       font-size: $font-xtiny;
       text-transform: uppercase;
+      background-color: var-color("neutral", "contrast");
     }
   }
 }

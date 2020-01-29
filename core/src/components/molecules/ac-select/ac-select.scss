@@ -5,8 +5,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-select {
-  display: flex;
   position: relative;
+  display: flex;
   flex-direction: column;
 
   & > [slot="item-top"], & > [slot="item-bottom"] {

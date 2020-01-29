@@ -1,5 +1,6 @@
 import { Component, Element, Prop, h } from '@stencil/core';
-import {AcNeogridShape} from "../../utils/ac-neogrid-shape";
+
+import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
 
 /**
  * Accera's Login Page webcomponent.

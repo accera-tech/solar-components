@@ -1,6 +1,6 @@
+import { h } from '@stencil/core';
 import { FunctionalComponent } from '@stencil/core/dist/client/declarations/stencil.core';
 import { VNode } from '@stencil/core/dist/declarations';
-import { h } from '@stencil/core';
 
 /**
  * Used to render hyperscript in a domPortal component.

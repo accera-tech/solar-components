@@ -1,74 +1,70 @@
 @import "./colors";
-                                                            // CSS Variables:
+// CSS Variables:
 $theme: (
   primary: (
-    normal:           $brand__dark-blue,                    // --color-primary-normal
-    contrast:         $neutral__white,                      // --color-primary-contrast
-    dark:             darken($brand__dark-blue, 10%),       // --color-primary-dark
-    darker:           darken($brand__dark-blue, 20%),       // --color-primary-darker
-    light:            lighten($brand__dark-blue, 10%),      // --color-primary-light
-    lighter:          lighten($brand__dark-blue, 20%)       // --color-primary-lighter
+    normal:           $brand__dark-blue,
+    contrast:         $neutral__white,
+    dark:             darken($brand__dark-blue, 10%),
+    darker:           darken($brand__dark-blue, 20%),
+    light:            lighten($brand__dark-blue, 10%),
+    lighter:          lighten($brand__dark-blue, 20%)
   ),
   secondary: (
-    normal:           $brand__red,                          // --color-secondary-normal
-    contrast:         $neutral__white,                      // --color-secondary-contrast
-    dark:             darken($brand__red, 10%),             // --color-secondary-dark
-    darker:           darken($brand__red, 20%),             // --color-secondary-darker
-    light:            lighten($brand__red, 10%),            // --color-secondary-light
-    lighter:          lighten($brand__red, 20%)             // --color-secondary-lighter
+    normal:           $brand__red,
+    contrast:         $neutral__white,
+    dark:             darken($brand__red, 10%),
+    darker:           darken($brand__red, 20%),
+    light:            lighten($brand__red, 10%),
+    lighter:          lighten($brand__red, 20%)
   ),
   info: (
-    normal:           $functional__info,                    // --color-info-normal
-    contrast:         $neutral__white,                      // --color-info-contrast
-    dark:             darken($functional__info, 10%),       // --color-info-dark
-    darker:           darken($functional__info, 20%),       // --color-info-darker
-    light:            lighten($functional__info, 10%),      // --color-info-light
-    lighter:          lighten($functional__info, 20%),      // --color-info-lighter
+    normal:           $functional__info,
+    contrast:         $neutral__white,
+    dark:             darken($functional__info, 10%),
+    darker:           darken($functional__info, 20%),
+    light:            lighten($functional__info, 10%),
+    lighter:          lighten($functional__info, 20%),
   ),
   success: (
-    normal:           $functional__success,                 // --color-success-normal
-    contrast:         $neutral__white,                      // --color-success-contrast
-    dark:             darken($functional__success, 10%),    // --color-success-dark
-    darker:           darken($functional__success, 20%),    // --color-success-darker
-    light:            lighten($functional__success, 10%),   // --color-success-light
-    lighter:          lighten($functional__success, 20%)    // --color-success-lighter
+    normal:           $functional__success,
+    contrast:         $neutral__white,
+    dark:             darken($functional__success, 10%),
+    darker:           darken($functional__success, 20%),
+    light:            lighten($functional__success, 10%),
+    lighter:          lighten($functional__success, 20%)
   ),
   warning: (
-    normal:           $functional__warning,                 // --color-warning-normal
-    contrast:         $neutral__white,                      // --color-warning-contrast
-    dark:             darken($functional__warning, 10%),    // --color-warning-dark
-    darker:           darken($functional__warning, 20%),    // --color-warning-darker
-    light:            lighten($functional__warning, 10%),   // --color-warning-light
-    lighter:          lighten($functional__warning, 20%)    // --color-warning-lighter
+    normal:           $functional__warning,
+    contrast:         $neutral__white,
+    dark:             darken($functional__warning, 10%),
+    darker:           darken($functional__warning, 20%),
+    light:            lighten($functional__warning, 10%),
+    lighter:          lighten($functional__warning, 20%)
   ),
   alert: (
-    normal:           $functional__alert,                   // --color-alert-normal
-    contrast:         $neutral__white,                      // --color-alert-contrast
-    dark:             darken($functional__alert, 10%),      // --color-alert-dark
-    darker:           darken($functional__alert, 20%),      // --color-alert-darker
-    light:            lighten($functional__alert, 10%),     // --color-alert-light
-    lighter:          lighten($functional__alert, 20%)      // --color-alert-lighter
+    normal:           $functional__alert,
+    contrast:         $neutral__white,
+    dark:             darken($functional__alert, 10%),
+    darker:           darken($functional__alert, 20%),
+    light:            lighten($functional__alert, 10%),
+    lighter:          lighten($functional__alert, 20%)
   ),
-
-  // Used to toggle between the dark and the light mode
   neutral: (
-    normal:           $neutral__gray,                       // --color-neutral-normal
-    contrast:         $neutral__white,                      // --color-neutral-contrast
-    inverted:         $neutral__black,                      // --color-neutral-inverted
-    dark:             #A0A0A0,                              // --color-neutral-dark
-    darker:           #646464,                              // --color-neutral-darker
-    light:            #E6E6E6,                              // --color-neutral-light
-    lighter:          #F5F5F5                               // --color-neutral-lighter
+    normal:           $neutral__gray,
+    contrast:         $neutral__white,
+    inverted:         $neutral__black,
+    dark:             #a0a0a0,
+    darker:           #646464,
+    light:            #e6e6e6,
+    lighter:          #f5f5f5
   ),
-
-  // Root component current-color.
   theme: (
-    normal:           $neutral__white,                      // --color-theme-normal
-    contrast:         $neutral__black,                      // --color-theme-contrast
-    inverted:         $neutral__white,                      // --color-theme-inverted
-    dark:             #A0A0A0,                              // --color-theme-dark
-    darker:           #646464,                              // --color-theme-darker
-    light:            #E6E6E6,                              // --color-theme-light
-    lighter:          #F5F5F5                               // --color-theme-lighter
+    normal:           $neutral__white,
+    contrast:         $neutral__black,
+    inverted:         $neutral__white,
+    dark:             #a0a0a0,
+    darker:           #646464,
+    light:            #e6e6e6,
+    lighter:          #f5f5f5
   )
-);
+) #f5f5f5#e6e6e6#a0a0a0#f5f5f5#e6e6e6#a0a0a0;

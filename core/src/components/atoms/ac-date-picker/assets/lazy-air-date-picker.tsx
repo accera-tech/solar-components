@@ -1,9 +1,9 @@
 import DatePicker from './air-datepicker.js';
 export class LazyAirDatePicker {
-  private statusPicker: 'pendinng' | 'ready'; 
+  private statusPicker: 'pendinng' | 'ready';
   private commands: any[] = [];
   private _picker: any;
-  
+
   constructor(baseInput: HTMLAcInputBaseElement, config: any) {
     this.selectDate = this.wrapperCommand(this.selectDate);
     this.show = this.wrapperCommand(this.show);
@@ -24,9 +24,9 @@ export class LazyAirDatePicker {
       this._picker = $(await baseInput.getNativeInput())
         .datepicker(config)
         .data('datepicker');
-        this.commands
+      this.commands
           .forEach(command => command());
-        this.commands.length = 0;
+      this.commands.length = 0;
     });
   }
 
@@ -53,7 +53,7 @@ export class LazyAirDatePicker {
   prev() {
     this._picker.prev();
   }
-  
+
   removeDate(date: Date) {
     this._picker.removeDate(date);
   }
@@ -69,7 +69,7 @@ export class LazyAirDatePicker {
   setView(view: string) {
     this._picker.view = view;
   }
-  
+
   setDate(date: Date) {
     this._picker.date = date;
   }
@@ -131,7 +131,7 @@ export class LazyAirDatePicker {
       firstDay: 0
     };
   }
- 
+
   /**
    * I dynamically load jQuery into application if it's not yet defined inside global
    * scope. This eliminates an extra step if you don't have jQuery already and if you
@@ -140,10 +140,10 @@ export class LazyAirDatePicker {
   private loadjQuery(callback: () => void) {
     const jQuery = (window as any).jQuery;
     const wrapperCallback = () => {
-      this.statusPicker = "ready";
+      this.statusPicker = 'ready';
       callback();
     };
-    this.statusPicker = "pendinng";
+    this.statusPicker = 'pendinng';
     if (!jQuery) {
       const link = 'https://code.jquery.com/jquery-3.3.1.min.js';
 

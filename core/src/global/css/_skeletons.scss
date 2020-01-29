@@ -43,8 +43,8 @@
 
 .ac-skeleton .ac-skeleton--text--inline {
   @include cover-text-with-pseudo-skeleton();
-  display: inline-flex;
   position: relative;
+  display: inline-flex;
   width: calc(1em * 10);
 }
 
@@ -54,8 +54,8 @@
 
 .ac-skeleton .ac-skeleton--circle {
   @include skeleton-background(skeleton-background);
-  border-radius: 100%;
   color: transparent;
+  border-radius: 100%;
 
   * {
     display: none;

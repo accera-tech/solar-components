@@ -10,37 +10,37 @@ ac-input-base {
   min-height: $ac-input-base__min-height;
   max-height: $ac-input-base__min-height;
   overflow: hidden;
+  background-color: var-color("neutral", "contrast");
   border: 2px solid var-color("neutral", "light");
   border-radius: $border-radius-default;
-  background-color: var-color("neutral", "contrast");
 
   .ac-input__input-container {
-    display: flex;
     position: relative;
+    display: flex;
     width: 100%;
 
     .ac-input__label {
       position: absolute;
       top: 12px;
       left: $spacer-small;
-      transition: font-size $default-transition, top $default-transition;
       color: var-color("neutral", "darker");
       font-size: $font-small;
       line-height: 1;
       white-space: nowrap;
-      pointer-events: none;
+      transition: font-size $default-transition, top $default-transition;
       user-select: none;
+      pointer-events: none;
     }
 
     input.ac-input__native {
       box-sizing: border-box;
       width: 100%;
       padding: 20px $spacer-small $spacer-tiny;
-      border: none;
-      background-color: transparent;
       color: var-color("neutral", "inverted");
       font-size: $font-small;
       line-height: 1;
+      background-color: transparent;
+      border: none;
       &::placeholder {
         color: current-color("contrast", 0.6);
       }
@@ -122,8 +122,8 @@ ac-input-base.ac-input-base--small {
 // ---------------------------------------------------------
 
 ac-input-base.ac-input-base--error {
-  border-color: var-color("alert", "normal");
   background-color: white;
+  border-color: var-color("alert", "normal");
 
   .ac-input__label {
     color: var-color("alert", "normal");

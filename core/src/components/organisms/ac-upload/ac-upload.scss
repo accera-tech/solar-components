@@ -7,9 +7,9 @@ ac-upload {
   .ac-upload--drop-area {
     display: block;
     height: 100%;
+    background: #F5F5F5;
     border: 2px dashed #E6E6E6;
     border-radius: 4px;
-    background: #F5F5F5;
 
     .ac-upload--wrapper {
       display: flex;
@@ -19,12 +19,12 @@ ac-upload {
       height: 100%;
 
       .ac-upload--button {
-        padding: 16px 0px 16px;
+        padding: 16px 0 16px;
       }
 
       .ac-upload--content {
         width: 100%;
-        padding: 0px 16px 0px;
+        padding: 0 16px 0;
         text-align: center;
       }
     }
@@ -39,10 +39,10 @@ ac-upload {
 
 ac-upload.ac-upload--focus {
   .ac-upload--drop-area {
-    transition: border-color ease-in-out .2s,
-    background ease-in-out .2s;
-    border-color: var-color("primary", "normal");
     background: var-color("primary", "normal", 0.1);
+    border-color: var-color("primary", "normal");
+    transition: border-color ease-in-out .2s,
+                background ease-in-out .2s;
   }
 }
 
@@ -60,5 +60,3 @@ ac-upload.ac-upload--disabled {
     pointer-events: none;
   }
 }
-
-

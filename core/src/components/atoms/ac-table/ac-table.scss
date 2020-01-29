@@ -14,9 +14,9 @@ ac-table {
   thead {
     th {
       padding-bottom: 11px;
-      border-bottom: 2px solid var-color("neutral", "lighter");
-      text-align: start;
       white-space: nowrap;
+      text-align: start;
+      border-bottom: 2px solid var-color("neutral", "lighter");
 
       strong {
         padding-right: $spacer-tiny;
@@ -39,8 +39,8 @@ ac-table {
       }
 
       .order {
-        display: inline-flex;
         position: relative;
+        display: inline-flex;
         align-items: flex-start;
         justify-content: flex-start;
         pointer-events: none;
@@ -81,8 +81,8 @@ ac-table {
   }
   tbody {
     .table--loading {
-      display: flex;
       position: absolute;
+      display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;

@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop, Watch, h, Method } from '@stencil/core';
+import { Component, Event, EventEmitter, Method, Prop, Watch, h } from '@stencil/core';
 
 import { sortArray } from '../../../utils/collections/sort-array';
 import { Bind } from '../../../utils/lang/bind';

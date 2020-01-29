@@ -2,6 +2,7 @@
  * Represents a validator function that will be consumed by the `formFieldBehavior.validate` method.
  */
 import { FormBehavior, FormFieldBehavior } from '../../behaviors/form-behavior';
+import { Writeable } from '../lang/types';
 
 export type ValidatorFn = (value, field: FormFieldBehavior, form: FormBehavior) =>
   CustomValidityState | Promise<CustomValidityState | null> | null;
@@ -10,7 +11,7 @@ export type ValidatorFn = (value, field: FormFieldBehavior, form: FormBehavior) 
  * Represents a validation error returned by a validation check.
  */
 export type CustomValidityState = {
-  [key in keyof ValidityState | string]: { message?: string } | boolean;
+  [key in keyof Writeable<ValidityState, string> | string]: { message?: string } | boolean;
 }
 
 export interface ValidationMessagesConfig {

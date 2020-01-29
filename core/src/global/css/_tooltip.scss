@@ -10,31 +10,31 @@
 
   &:before,
   &:after {
-    display: block;
-    visibility: hidden;
     position: absolute;
     left: 50%;
     z-index: 1;
+    display: block;
     transform: translateX(-50%);
-    transition: $default-transition;
+    visibility: hidden;
     opacity: 0;
+    transition: $default-transition;
   }
 
   &:before {
     max-width: 300px;
     padding: $spacer-tiny;
-    border-radius: $border-radius-default;
-    background-color: var-color("neutral", "inverted");
     color: var-color("neutral", "contrast");
     white-space: nowrap;
+    background-color: var-color("neutral", "inverted");
+    border-radius: $border-radius-default;
   }
 
   &:after {
-    content: "";
     width: $spacer-tiny;
     height: $spacer-tiny;
-    border-radius: 50%;
     background-color: var-color("neutral", "inverted");
+    border-radius: 50%;
+    content: "";
   }
 
   &:hover {
@@ -48,8 +48,8 @@
 
 [tooltip] {
   &:before {
-    content: attr(tooltip);
     bottom: 120%;
+    content: attr(tooltip);
   }
   &:after {
     top: -14px;
@@ -58,8 +58,8 @@
 
 [tooltip-bottom] {
   &:before {
-    content: attr(tooltip-bottom);
     bottom: -100%;
+    content: attr(tooltip-bottom);
   }
   &:after {
     bottom: -14px;

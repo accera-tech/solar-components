@@ -1,10 +1,10 @@
 import { faChevronLeft, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Component, Element, Host, Prop, Watch, h, Event, EventEmitter } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
+import { TransitionBehavior, TransitionComponent } from '../../../behaviors/transition-behavior';
 import { Bind } from '../../../utils/lang/bind';
 import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { AcNeogridShape } from '../../utils/ac-neogrid-shape';
-import { TransitionComponent, TransitionBehavior } from '../../../behaviors/transition-behavior';
 
 /**
  * Accera's Sidebar webcomponent.
@@ -14,31 +14,6 @@ import { TransitionComponent, TransitionBehavior } from '../../../behaviors/tran
   styleUrl: 'ac-navdrawer.scss',
 })
 export class AcNavdrawer implements TransitionComponent {
-  childMenus: HTMLAcMenuElement[];
-  /**
-   * The instance of the transition behavior used to animate this component.
-   */
-  transitionBehavior = new TransitionBehavior(this);
-  @Element() host: HTMLAcNavdrawerElement;
-
-  /**
-   * Show or hide toggle button
-   */
-  @Prop() showToggle: boolean = true;
-
-  /**
-   * Show title in the navdrawer and toggle header
-   */
-  @Prop() title: string;
-  /**
-   * The color theme.
-   */
-  @Prop() theme: string;
-
-  /**
-   * Compact mode.
-   */
-  @Prop({ mutable: true }) compact: boolean;
 
   @Watch('compact')
   compactDidUpdate() {
@@ -51,28 +26,10 @@ export class AcNavdrawer implements TransitionComponent {
     this.loadItemsFromHTML();
   }
 
-
   componentWillLoad() {}
   componentDidUnload() {
     this.closeEv.emit();
   }
-
-  private loadItemsFromHTML() {
-    this.childMenus = Array.from(this.host.querySelectorAll('ac-menu'));
-  }
-
-  @Bind
-  private toggleMode() {
-    this.compact = !this.compact;
-  }
-
-  @Bind
-  private close() {
-    this.host.remove();
-  }
-
-  @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
-
 
   render() {
     return (
@@ -87,8 +44,15 @@ export class AcNavdrawer implements TransitionComponent {
         {this.title
           ? <div class="ac-navdrawer__title">
               <span class="ac-navdrawer__title-content">{this.title}</span>
-              <ac-button class="ac-navdrawer__close-button" fill="clear" theme="primary" shape="round" icon-only onClick={this.close}>
-                <AcFaIcon icon={faTimes}  size={14} />
+              <ac-button
+                class="ac-navdrawer__close-button"
+                fill="clear"
+                theme="primary"
+                shape="round"
+                onClick={this.close}
+                icon-only
+              >
+                <AcFaIcon icon={faTimes} size={14} />
               </ac-button>
             </div>
           : <slot name="header"/>}
@@ -106,5 +70,46 @@ export class AcNavdrawer implements TransitionComponent {
         </div>}
       </Host>
     );
+  }
+  childMenus: HTMLAcMenuElement[];
+  /**
+   * The instance of the transition behavior used to animate this component.
+   */
+  transitionBehavior = new TransitionBehavior(this);
+  @Element() host: HTMLAcNavdrawerElement;
+
+  /**
+   * Show or hide toggle button
+   */
+  @Prop() showToggle = true;
+
+  /**
+   * Show title in the navdrawer and toggle header
+   */
+  @Prop() title: string;
+  /**
+   * The color theme.
+   */
+  @Prop() theme: string;
+
+  /**
+   * Compact mode.
+   */
+  @Prop({ mutable: true }) compact: boolean;
+
+  @Event({ eventName: 'close' }) closeEv: EventEmitter<void>;
+
+  private loadItemsFromHTML() {
+    this.childMenus = Array.from(this.host.querySelectorAll('ac-menu'));
+  }
+
+  @Bind
+  private toggleMode() {
+    this.compact = !this.compact;
+  }
+
+  @Bind
+  private close() {
+    this.host.remove();
   }
 }

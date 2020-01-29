@@ -27,26 +27,26 @@ ac-toggle {
   }
 
   .ac-toggle__custom {
-    display: flex;
     position: relative;
+    display: flex;
     align-items: center;
     min-width: 40px;
     max-width: 40px;
     height: 20px;
-    transition: $fast-transition;
-    border-radius: 10px;
     background-color: var-color("neutral", "light");
+    border-radius: 10px;
     cursor: pointer;
+    transition: $fast-transition;
 
     &:before {
-      content: "";
       position: absolute;
       width: 12px;
       height: 12px;
       margin: 0 $spacer-tiny / 2;
-      transition: $fast-transition;
-      border-radius: 100%;
       background-color: var-color("neutral", "contrast");
+      border-radius: 100%;
+      transition: $fast-transition;
+      content: "";
     }
   }
 }
@@ -92,14 +92,14 @@ ac-toggle.ac-toggle--disabled {
   }
 
   .ac-toggle__custom {
-    border-color: var-color("neutral", "light");
     background: var-color("neutral", "lighter");
+    border-color: var-color("neutral", "light");
   }
 
   .ac-toggle__native:checked {
     + .ac-toggle__custom {
-      border-color: var-color("neutral", "normal");
       background: var-color("neutral", "normal");
+      border-color: var-color("neutral", "normal");
 
       + .ac-toggle__label {
         color: var-color("neutral", "dark");

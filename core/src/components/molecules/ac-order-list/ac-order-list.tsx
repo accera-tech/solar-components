@@ -1,8 +1,9 @@
-import { Component, Prop, Method, Element, h, EventEmitter, Event, Watch } from '@stencil/core';
-import { AcFaIcon } from '../../utils/ac-fa-icon';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Component, Element, Event, EventEmitter, Method, Prop, Watch, h } from '@stencil/core';
 import { isEmpty } from 'ramda';
+
 import { AcOption } from '../../../utils/types/ac-option';
+import { AcFaIcon } from '../../utils/ac-fa-icon';
 
 @Component({
   tag: 'ac-order-list',
@@ -34,14 +35,12 @@ export class AcOrderList {
   /**
    * If true, the component will handle multiple selected items.
    */
-  @Prop({ reflectToAttr: true }) multiple: boolean = false;
+  @Prop({ reflectToAttr: true }) multiple = false;
 
   /**
    * Event trigger on state change
-   * @param {AcList} acList - Component.
    */
   @Event() listChange: EventEmitter<AcOrderList>;
-
 
   @Watch('options')
   handleOptionsChange() {
@@ -129,13 +128,14 @@ export class AcOrderList {
               fill="clear"
               icon-only
             >
-              <AcFaIcon icon={faSearch} class="ac-list__search-bar-icon" size={12}  />
+              <AcFaIcon icon={faSearch} class="ac-list__search-bar-icon" size={12} />
             </ac-button>
           </ac-input-base>
           <ol class="ac-list">
             {listItems.length > 0
               ? listItems
-              : !isEmpty(this.filterText) && <li class="ac-list__item ac-list__list-item--empty">{this.noResultsLabel}</li>
+              : !isEmpty(this.filterText) &&
+                <li class="ac-list__item ac-list__list-item--empty">{this.noResultsLabel}</li>
             }
           </ol>
         </section>
@@ -156,7 +156,7 @@ export class AcOrderList {
                   state.set(option.group, [(
                     <li class="ac-list__separator">
                       <span class="ac-list__separator-title">{option.group}</span>
-                      <span class="ac-list__separator-line"></span>
+                      <span class="ac-list__separator-line" />
                     </li>
                   )]);
                 }
@@ -164,15 +164,22 @@ export class AcOrderList {
                   ? state.get(option.group)
                   : [];
                 elements.push((
-                  <li value={option.value}
-                      key={option.value}
-                      class={{
-                        "ac-list__item": true,
-                        "ac-list__item--selected": option.selected
-                      }}
-                      onClick={(e) => this.handleSelect(e, option)}>
-                    {this.multiple && <ac-check class="ac-order-list__checkbox"
-                      checked={option.selected} onClick={(e) => this.handleChecked(e, option)}></ac-check>}
+                  <li
+                    value={option.value}
+                    key={option.value}
+                    class={{
+                      'ac-list__item': true,
+                      'ac-list__item--selected': option.selected
+                    }}
+                    onClick={e => this.handleSelect(e, option)}
+                  >
+                    {this.multiple &&
+                      <ac-check
+                        class="ac-order-list__checkbox"
+                        checked={option.selected}
+                        onClick={e => this.handleChecked(e, option)}
+                      />
+                    }
                     {option.title}
                   </li>
                 ));

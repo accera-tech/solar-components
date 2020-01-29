@@ -5,30 +5,30 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 ac-modal {
-  display: flex;
   position: relative;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
   min-width: 240px;
   min-height: 240px;
+  background-color: var-color("neutral", "contrast");
+  border-radius: 4px;
+  box-shadow: $z3-shadow;
   transition: transform $default-transition,
               opacity $default-transition;
-  border-radius: 4px;
-  background-color: var-color("neutral", "contrast");
-  box-shadow: $z3-shadow;
 
   .ac-modal__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: $spacer-small 20px;
-    border-bottom: 1px solid var-color("neutral", "light");
     color: var-color("neutral", "inverted");
+    border-bottom: 1px solid var-color("neutral", "light");
 
     .ac-modal__title {
-      font-size: 20px;
       font-weight: bold;
+      font-size: 20px;
     }
   }
 
