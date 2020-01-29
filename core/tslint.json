@@ -20,7 +20,6 @@
     "trailing-comma": false,
     "no-null-keyword": false,
     "no-console": false,
-    "no-unbound-method": true,
     "no-floating-promises": false,
     "no-invalid-template-strings": true,
     "ban-export-const-enum": true,
@@ -53,6 +52,19 @@
         "private-instance-method",
         "protected-instance-method"
       ]
-    }]
+    }],
+
+    "no-unbound-method": {
+      "severity": "warning"
+    },
+    "strict-boolean-expressions": {
+      "severity": "warning"
+    },
+    "strict-boolean-conditions": {
+      "severity": "warning"
+    },
+    "await-promise": {
+      "severity": "warning"
+    }
   }
 }

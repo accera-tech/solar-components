@@ -149,7 +149,7 @@ export class AcOrderList {
         : this.options;
       let hasGroup = false;
       const a = options
-              .sort((a, b) => a.order > b.order ? 1 : -1)
+              .sort((b, c) => b.order > c.order ? 1 : -1)
               .reduce((state, option) => {
                 if (!(state.has(option.group))) {
                   hasGroup = hasGroup === false && !isEmpty(option.group) ? true : hasGroup;

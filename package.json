@@ -5,8 +5,7 @@
     "publish-latest": "lerna publish -y --force-publish=* --conventional-commits --create-release github",
     "publish-alpha": "lerna publish -y --force-publish=* --canary",
     "postinstall": "lerna bootstrap",
-    "start": "npm start --prefix core",
-    "pre-commit": "npm run lint.fix --prefix core && npm run lint --prefix core"
+    "start": "npm start --prefix core"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
