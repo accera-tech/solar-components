@@ -38,6 +38,8 @@
     "babel-loader": "^8.0.6",
     "jest": "^24.7.1",
     "stylelint": "^10.0.1",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended": "^3.0.0",
     "stylelint-order": "^3.0.0",
     "tslint": "^5.16.0",
     "tslint-ionic-rules": "0.0.21",
