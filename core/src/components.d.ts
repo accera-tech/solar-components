@@ -21,6 +21,9 @@ import {
   FormFieldBehavior,
 } from './behaviors/form-behavior';
 import {
+  AcDropOption,
+} from './components/molecules/ac-drop-down-menu/ac-drop-option';
+import {
   ControllerComponentOptions,
 } from './behaviors/controller-behavior/controller-behavior';
 import {
@@ -229,6 +232,9 @@ export namespace Components {
     */
     'value': string;
   }
+  interface AcCollapse {
+    'expanded': boolean;
+  }
   interface AcDatePicker {
     'altField': string;
     'altFieldDateFormat': string;
@@ -315,6 +321,42 @@ export namespace Components {
     'value': Date | Date[];
     'view': string;
     'weekends': number[];
+  }
+  interface AcDropDownMenu {
+    /**
+    * Compact mode.
+    */
+    'compact': boolean;
+    /**
+    * List of all options.
+    */
+    'options': AcDropOption[];
+    /**
+    * Value of selected option.
+    */
+    'value': any;
+  }
+  interface AcDropOption {
+    /**
+    * Image to be display in the left.
+    */
+    'image': string;
+    /**
+    * (Optional) Image description.
+    */
+    'imageDescription': string;
+    /**
+    * Label to be display.
+    */
+    'label': string;
+    /**
+    * Flag that mark the selected option.
+    */
+    'selected': boolean;
+    /**
+    * Value of the option.
+    */
+    'value': string;
   }
   interface AcGauge {
     'percent': number;
@@ -569,6 +611,14 @@ export namespace Components {
     * Compact mode.
     */
     'compact': boolean;
+    /**
+    * Control the mode of the navedrawer.
+    */
+    'mode': 'push' | 'over';
+    /**
+    * List of option to be show on the header.
+    */
+    'options': AcDropOption[];
     /**
     * Show or hide toggle button
     */
@@ -997,10 +1047,28 @@ declare global {
     new (): HTMLAcCheckElement;
   };
 
+  interface HTMLAcCollapseElement extends Components.AcCollapse, HTMLStencilElement {}
+  var HTMLAcCollapseElement: {
+    prototype: HTMLAcCollapseElement;
+    new (): HTMLAcCollapseElement;
+  };
+
   interface HTMLAcDatePickerElement extends Components.AcDatePicker, HTMLStencilElement {}
   var HTMLAcDatePickerElement: {
     prototype: HTMLAcDatePickerElement;
     new (): HTMLAcDatePickerElement;
+  };
+
+  interface HTMLAcDropDownMenuElement extends Components.AcDropDownMenu, HTMLStencilElement {}
+  var HTMLAcDropDownMenuElement: {
+    prototype: HTMLAcDropDownMenuElement;
+    new (): HTMLAcDropDownMenuElement;
+  };
+
+  interface HTMLAcDropOptionElement extends Components.AcDropOption, HTMLStencilElement {}
+  var HTMLAcDropOptionElement: {
+    prototype: HTMLAcDropOptionElement;
+    new (): HTMLAcDropOptionElement;
   };
 
   interface HTMLAcGaugeElement extends Components.AcGauge, HTMLStencilElement {}
@@ -1195,7 +1263,10 @@ declare global {
     'ac-button': HTMLAcButtonElement;
     'ac-card': HTMLAcCardElement;
     'ac-check': HTMLAcCheckElement;
+    'ac-collapse': HTMLAcCollapseElement;
     'ac-date-picker': HTMLAcDatePickerElement;
+    'ac-drop-down-menu': HTMLAcDropDownMenuElement;
+    'ac-drop-option': HTMLAcDropOptionElement;
     'ac-gauge': HTMLAcGaugeElement;
     'ac-header': HTMLAcHeaderElement;
     'ac-input': HTMLAcInputElement;
@@ -1405,6 +1476,10 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
+  interface AcCollapse {
+    'expanded'?: boolean;
+    'onToggle'?: (event: CustomEvent<{ expanded: boolean }>) => void;
+  }
   interface AcDatePicker {
     'altField'?: string;
     'altFieldDateFormat'?: string;
@@ -1483,6 +1558,46 @@ declare namespace LocalJSX {
     'value'?: Date | Date[];
     'view'?: string;
     'weekends'?: number[];
+  }
+  interface AcDropDownMenu {
+    /**
+    * Compact mode.
+    */
+    'compact'?: boolean;
+    /**
+    * Event call on option change.
+    */
+    'onSelectChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * List of all options.
+    */
+    'options'?: AcDropOption[];
+    /**
+    * Value of selected option.
+    */
+    'value'?: any;
+  }
+  interface AcDropOption {
+    /**
+    * Image to be display in the left.
+    */
+    'image'?: string;
+    /**
+    * (Optional) Image description.
+    */
+    'imageDescription'?: string;
+    /**
+    * Label to be display.
+    */
+    'label'?: string;
+    /**
+    * Flag that mark the selected option.
+    */
+    'selected'?: boolean;
+    /**
+    * Value of the option.
+    */
+    'value'?: string;
   }
   interface AcGauge {
     'percent'?: number;
@@ -1713,7 +1828,15 @@ declare namespace LocalJSX {
     * Compact mode.
     */
     'compact'?: boolean;
+    /**
+    * Control the mode of the navedrawer.
+    */
+    'mode'?: 'push' | 'over';
     'onClose'?: (event: CustomEvent<void>) => void;
+    /**
+    * List of option to be show on the header.
+    */
+    'options'?: AcDropOption[];
     /**
     * Show or hide toggle button
     */
@@ -2086,7 +2209,10 @@ declare namespace LocalJSX {
     'ac-button': AcButton;
     'ac-card': AcCard;
     'ac-check': AcCheck;
+    'ac-collapse': AcCollapse;
     'ac-date-picker': AcDatePicker;
+    'ac-drop-down-menu': AcDropDownMenu;
+    'ac-drop-option': AcDropOption;
     'ac-gauge': AcGauge;
     'ac-header': AcHeader;
     'ac-input': AcInput;
@@ -2133,7 +2259,10 @@ declare module "@stencil/core" {
       'ac-button': LocalJSX.AcButton & JSXBase.HTMLAttributes<HTMLAcButtonElement>;
       'ac-card': LocalJSX.AcCard & JSXBase.HTMLAttributes<HTMLAcCardElement>;
       'ac-check': LocalJSX.AcCheck & JSXBase.HTMLAttributes<HTMLAcCheckElement>;
+      'ac-collapse': LocalJSX.AcCollapse & JSXBase.HTMLAttributes<HTMLAcCollapseElement>;
       'ac-date-picker': LocalJSX.AcDatePicker & JSXBase.HTMLAttributes<HTMLAcDatePickerElement>;
+      'ac-drop-down-menu': LocalJSX.AcDropDownMenu & JSXBase.HTMLAttributes<HTMLAcDropDownMenuElement>;
+      'ac-drop-option': LocalJSX.AcDropOption & JSXBase.HTMLAttributes<HTMLAcDropOptionElement>;
       'ac-gauge': LocalJSX.AcGauge & JSXBase.HTMLAttributes<HTMLAcGaugeElement>;
       'ac-header': LocalJSX.AcHeader & JSXBase.HTMLAttributes<HTMLAcHeaderElement>;
       'ac-input': LocalJSX.AcInput & JSXBase.HTMLAttributes<HTMLAcInputElement>;

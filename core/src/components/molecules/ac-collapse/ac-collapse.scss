@@ -1,0 +1,23 @@
+@import "../../../theme/variables";
+
+ac-collapse {
+  .ac-collapse__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+
+    .ac-collapse__header-wrapper {
+      padding: 0 $spacer-medium;
+    }
+
+    .ac-collapse__toggle-button {
+      margin: $spacer-tiny/2;
+    }
+  }
+
+  .ac-collapse__content {
+    overflow: hidden;
+    transition: height $slow-transition;
+  }
+}
