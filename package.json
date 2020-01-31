@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "publish-latest": "lerna publish -y --force-publish=* --conventional-commits --create-release github",
-    "publish-alpha": "lerna publish prerelease -y --force-publish=* --no-push --no-git-tag-version",
+    "publish-alpha": "lerna publish prerelease -y --force-publish=* --no-push --no-git-tag-version --dist-tag alpha",
     "postinstall": "lerna bootstrap",
     "start": "npm start --prefix core"
   },
