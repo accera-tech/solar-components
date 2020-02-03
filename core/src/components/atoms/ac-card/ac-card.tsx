@@ -26,6 +26,7 @@ export class AcCard {
           <slot name="image" />
           <slot name="content" />
           <slot name="actions" />
+          <slot />
         </div>
       </Host>
     );
