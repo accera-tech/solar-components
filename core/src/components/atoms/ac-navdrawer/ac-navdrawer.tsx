@@ -131,7 +131,7 @@ export class AcNavdrawer implements TransitionComponent {
           <AcFaIcon
             class="ac-navdrawer__toggle-button-icon"
             icon={this.compact ? faChevronRight : faChevronLeft}
-            size={11}
+            size={12}
           />
         </div>}
       </Host>

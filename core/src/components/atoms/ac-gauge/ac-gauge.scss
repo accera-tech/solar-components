@@ -40,6 +40,10 @@ ac-gauge {
 
 }
 
+
+// Browser is IE
+// ---------------------------------------------------------
+
 @include browser-ie {
   ac-gauge {
     display: flex;

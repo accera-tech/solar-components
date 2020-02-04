@@ -87,6 +87,14 @@ ac-menu-item {
   }
 }
 
+@include browser-ie {
+  ac-menu-item {
+    .ac-menu-item__native {
+      fill: currentColor !important;
+      color: inherit !important;
+    }
+  }
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // State Modifiers

@@ -28,16 +28,27 @@ ac-avatar {
       white-space: nowrap;
 
       .ac-avatar__title {
-        color: current-color("contrast") !important;
+        color: current-color("contrast");
         font-size: $font-small;
         font-weight: bold;
         text-transform: capitalize;
       }
 
       .ac-avatar__subtitle {
-        color: current-color("contrast", 0.6) !important;
+        color: current-color("contrast", 0.6);
         font-size: $font-tiny;
       }
+    }
+  }
+}
+
+@include browser-ie {
+  ac-avatar {
+    .ac-avatar__title {
+      color: inherit;
+    }
+    .ac-avatar__subtitle {
+      color: inherit;
     }
   }
 }
