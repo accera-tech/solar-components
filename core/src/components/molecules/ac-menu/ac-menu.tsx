@@ -39,9 +39,7 @@ export class AcMenu {
   iconOnlyDidUpdate() {
     this.filteredItems = null;
     this.searchFilter = null;
-    for (const menuItem of this.childItems) {
-      menuItem.iconOnly = this.iconOnly;
-    }
+    this.updateChildItems();
   }
 
   @Watch('searchFilter')
@@ -71,6 +69,12 @@ export class AcMenu {
     this.loadItemsFromHTML();
   }
 
+  private updateChildItems() {
+    for (const menuItem of this.childItems) {
+      menuItem.iconOnly = this.iconOnly;
+    }
+  }
+
   private loadItemsFromHTML() {
     this.childItems = Array.from(this.menuContentElt.children)
       .filter(elt => elt.tagName === 'AC-MENU-ITEM') as HTMLAcMenuItemElement[];
@@ -94,6 +98,7 @@ export class AcMenu {
     if (initialItem) {
       this.select(initialItem);
     }
+    this.updateChildItems();
   }
 
   @Watch('selected')
