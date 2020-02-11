@@ -53,6 +53,10 @@ ac-toast {
   }
 }
 
+
+// Browser is IE
+// ---------------------------------------------------------
+
 @include browser-ie {
   ac-toast {
     &.transition--before-enter {

@@ -6,7 +6,8 @@
 
 @mixin navdrawer-variations($color-name) {
   ac-navdrawer.ac-navdrawer--#{$color-name} {
-    @include define-theme-colors($color-name);
+    @include define-theme-color("contrast", $color-name, "contrast");
+
     background: var-color($color-name, "dark");
     color: var-color($color-name, "contrast");
     .ac-navdrawer__toggle-button {

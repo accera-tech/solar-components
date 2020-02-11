@@ -16,7 +16,8 @@ $ac-header__width: 100%;
 @mixin header-variations($color-name) {
   ac-header.ac-header--#{$color-name}{
     @include down-md {
-      @include define-theme-colors("primary");
+      @include define-theme-color("contrast", $color-name, "contrast");
+
       background: var-color($color-name, "normal");
       color: var-color($color-name, "contrast");
     }

@@ -30,40 +30,26 @@
 }
 
 // Define colors variables used to share the theme used in a component to a child.
-// @deprecated Use define-theme-color instead.
-// --------------------------------------------------------------------------------------------
-@mixin define-theme-colors($name) {
-  $values: map-get($theme, $name);
-
-  @each $variation in map-keys(map-get($theme, $name)) {
-    $value: map-get($values, $variation);
-
-    --color-theme-#{$variation}: #{var-color($name, $variation)};
-    --color-theme-#{$variation}-rgb: var(--color-#{$name}-#{$variation}-rgb, #{color-to-rgb-list($value)});
-  }
-}
-
-// Define colors variables used to share the theme used in a component to a child.
 // --------------------------------------------------------------------------------------------
 @mixin define-theme-color($target-name, $palette-name, $palette-variation) {
   $palette-colors: map-get($theme, $palette-name);
-  $value: map-get($palette-colors, $palette-variation);
+  $default-value: map-get($palette-colors, $palette-variation);
 
   --color-theme-#{$target-name}: #{var-color($palette-name, $palette-variation)};
   --color-theme-#{$target-name}-rgb:
     var(--color-#{$palette-name}-#{$palette-variation}-rgb,
-    #{color-to-rgb-list($value)});
+    #{color-to-rgb-list($default-value)});
 }
 
 // Get a color defined by the context theme. If it isn't defined, use the black color.
 // --------------------------------------------------------------------------------------------
 @function current-color($variation, $alpha: null) {
-  @if ($alpha) {
-    $values: map-get($theme, "theme");
-    $value: map-get($values, $variation);
+  $values: map-get($theme, "theme");
+  $default-value: map-get($values, $variation);
 
-    @return rgba(var(--color-theme-#{$variation}-rgb, color-to-rgb-list($value)), $alpha);
+  @if ($alpha) {
+    @return rgba(var(--color-theme-#{$variation}-rgb, color-to-rgb-list($default-value)), $alpha);
   }
 
-  @return var(--color-theme-#{$variation}, var-color("theme", $variation));
+  @return var(--color-theme-#{$variation}, $default-value);
 }

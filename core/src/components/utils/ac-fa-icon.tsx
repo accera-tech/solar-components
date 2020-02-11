@@ -19,6 +19,7 @@ export const AcFaIcon: FunctionalComponent<AcFaIconProps> = props => {
     ...restProps
   } = props;
 
+  const fixedSize = size || 16;
   const parentClasses = anim ? `icon--anim-${anim} ` + classList : classList;
 
   return (
@@ -27,8 +28,8 @@ export const AcFaIcon: FunctionalComponent<AcFaIconProps> = props => {
       {...restProps}
       class={parentClasses}
       viewBox={`0 0 ${icon.icon[0]} ${icon.icon[1]}`}
-      height={size || 16}
-      style={style}
+      height={fixedSize}
+      style={{ ...style, width: fixedSize + 'px' }}
     >
       <path d={icon.icon[4] as any} />
     </svg>

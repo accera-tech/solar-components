@@ -73,7 +73,7 @@ ac-navdrawer {
     position: absolute;
     z-index: $z-fab;
     top: 28px;
-    left: calc(100% + 2px);
+    left: calc(100% - 4px);
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -97,23 +97,6 @@ ac-navdrawer {
     }
   }
 
-  @include browser-ie {
-    .ac-navdrawer__toggle-button {
-      left: calc(100% - 15px);
-    }
-    .ac-navdrawer__toggle-button-icon {
-      position: absolute;
-      top: 8px;
-      width: 33px;
-      height: 14px;
-    }
-    &.transition--before-enter,
-    &.transition--before-leave {
-      transform: none !important;
-    }
-  }
-
-
   &.ac-navdrawer--over {
     transition: transform $default-transition;
     .ac-navdrawer__header {
@@ -125,13 +108,35 @@ ac-navdrawer {
     }
   }
 
-
   &.transition--before-enter,
   &.transition--before-leave {
     transform: translate(300px);
   }
 }
 
+
+// Browser is IE
+// ---------------------------------------------------------
+
+@include browser-ie {
+  ac-navdrawer {
+    .ac-navdrawer__toggle-button {
+      left: calc(100% - 10px);
+    }
+
+    .ac-navdrawer__toggle-button-icon {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      height: 12px;
+    }
+
+    &.transition--before-enter,
+    &.transition--before-leave {
+      transform: none !important;
+    }
+  }
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Mode Property
@@ -151,6 +156,7 @@ ac-navdrawer.ac-navdrawer--compact {
 
 @include navdrawer-variations("primary");
 @include navdrawer-variations("secondary");
+
 
 // Layout Content's Scrollbar theming
 // ---------------------------------------------------------

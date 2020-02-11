@@ -29,11 +29,16 @@ ac-panel {
 
 }
 
-ac-panel {
-  @include browser-ie {
+
+// Browser is IE
+// ---------------------------------------------------------
+
+@include browser-ie {
+  ac-panel {
     &.transition--before-enter {
       transform: none;
       opacity: 1;
     }
   }
 }
+
