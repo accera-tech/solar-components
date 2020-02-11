@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.3.9 (2020-02-11)
+
+**Note:** Version bump only for package @accera/solar-components.core
+
+
+
+
+
 ## [1.3.8](https://github.com/accera-tech/solar-components/compare/v1.3.7...v1.3.8) (2020-02-11)
 
 
@@ -43,6 +56,3 @@
 ### Features
 
 * merge master ([f023400](https://github.com/accera-tech/solar-components/commit/f023400cc4ed9c6eccc039ac5d1691ee43a5ad69))
-
-
-

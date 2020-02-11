@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.3.9 (2020-02-11)
+
+**Note:** Version bump only for package root
+
+
+
+
+
 # [](https://github.com/accera-tech/solar-components/compare/v1.3.8...v) (2020-02-11)
 
 
@@ -395,6 +408,3 @@
 * Form validation logic for AcInput ([b90bf91](https://github.com/accera-tech/solar-components/commit/b90bf911b9e6bc222c1f23ae89bc657042c0548b))
 * Outputs the SCSS variables to reuse ([a4b4ad2](https://github.com/accera-tech/solar-components/commit/a4b4ad21c77960b71f5f60bab05b10dbbdce2a74))
 * **tooltip:** CSS tooltip ([be20a39](https://github.com/accera-tech/solar-components/commit/be20a39af58cc824aa7466f1d44ce1c919c053e9))
-
-
-
