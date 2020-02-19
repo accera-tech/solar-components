@@ -1,5 +1,17 @@
-# ac-avatar
+---
+name: Avatar
+menu: Componentes
+---
 
+# Avatar
+
+````html
+<ac-avatar
+    image="https://avatars2.githubusercontent.com/u/9124212?s=50"
+    title="Alison machado"
+    subtitle="Desenvolvedor Backend">
+</ac-avatar>
+````
 
 
 <!-- Auto Generated Below -->

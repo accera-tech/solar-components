@@ -12,8 +12,7 @@
   "scripts": {
     "build": "stencil build",
     "prepublishOnly": "npm run build",
-    "start": "stencil build --docs --dev --watch --serve",
-    "start.ie": "stencil build --docs --watch --serve",
+    "start": "stencil build --docs --watch",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "lint": "npm run lint.ts && npm run lint.sass",
