@@ -16,16 +16,17 @@ defineCustomElements(window);
 
 /**
  * Copy all mdx files to docs package.
+ * @param glob The glob rule to run.
  * @returns {*}
  */
-function docsCopy() {
-  return src(mdxSrcGlob)
+function docsCopy(glob) {
+  return src(glob)
     .pipe(replace(
       /^````html(.+?(?=````))````$/gms,
       '<Playground>$1</Playground>',
       { logs: { enabled: false } })
     )
-    .pipe(inject.after('\n---\n\n', mdxLoader))
+    .pipe(inject.after('\n---\n', mdxLoader))
     .pipe(flatten({ includeParents: -1 }))
     .pipe(rename(path => {
       path.basename = 'code';
@@ -40,6 +41,13 @@ function docsPublish() {
   });
 }
 
-exports.docsCopy = docsCopy;
+exports.docsCopy = () => docsCopy(mdxSrcGlob);
 exports.docsPublish = docsPublish;
-exports.docsWatch = () => watch(mdxSrcGlob, docsCopy);
+exports.docsWatch = () => {
+  const watcher = watch(mdxSrcGlob);
+
+  watcher.on('change', path => docsCopy(path));
+  watcher.on('add', path => docsCopy(path));
+
+  return watcher;
+};
