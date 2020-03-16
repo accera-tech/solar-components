@@ -1,5 +1,4 @@
-import { h } from '@stencil/core';
-import { FunctionalComponent, VNode } from '@stencil/core/dist/declarations/vdom';
+import { FunctionalComponent, VNode, h } from '@stencil/core';
 
 import { ControlledElementFields, ControllerComponentOptions } from './controller-behavior';
 

@@ -1,4 +1,4 @@
-import { VNode } from '@stencil/core/dist/declarations';
+import { VNode } from '@stencil/core';
 
 import { extendMethod } from '../utils/lang/extend-method';
 import { ComponentBase, ComponentBehavior } from '../utils/stencil/component-behavior';

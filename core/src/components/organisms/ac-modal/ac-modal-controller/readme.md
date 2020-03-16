@@ -24,13 +24,13 @@ Type: `Promise<any>`
 
 
 
-### `dismiss(data: any) => Promise<any>`
+### `dismiss(data: any) => Promise<void>`
 
 Clear all modals that are displayed.
 
 #### Returns
 
-Type: `Promise<any>`
+Type: `Promise<void>`
 
 
 
