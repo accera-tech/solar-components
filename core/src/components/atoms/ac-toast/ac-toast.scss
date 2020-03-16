@@ -14,7 +14,7 @@ ac-toast {
   transition: transform $default-transition;
   border-radius: $border-radius-default;
   box-shadow: $z3-shadow;
-  color: white;
+  color: var-color("neutral", "contrast");
 
   &.transition--before-enter {
     transform: scale(0.7);
@@ -36,6 +36,10 @@ ac-toast {
     height: 28px;
     padding-left: $spacer-small;
     overflow: hidden;
+
+    .ac-toast_header-title {
+      color: var-color("neutral", "contrast");
+    }
   }
 
   .ac-toast__header-bg {

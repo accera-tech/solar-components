@@ -44,7 +44,7 @@ export class AcToast implements TransitionComponent {
         }}
       >
       <header class="ac-toast__header">
-        <h3>{this.title}</h3>
+        <h3 class="ac-toast_header-title">{this.title}</h3>
         <AcFaIcon
           class="ac-toast__header-icon"
           icon={faTimes}
