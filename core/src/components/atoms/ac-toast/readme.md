@@ -1,4 +1,15 @@
+---
+name: Toast
+menu: Componentes
+---
+
+
 # ac-toast
+
+````html
+<ac-toast theme="alert" title="teste" message="Teste"></ac-toast>
+<ac-toast-controller></ac-toast-controller>
+````
 
 
 
