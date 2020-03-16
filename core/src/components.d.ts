@@ -604,7 +604,7 @@ export namespace Components {
     /**
     * Clear all modals that are displayed.
     */
-    'dismiss': (data: any) => Promise<any>;
+    'dismiss': (data: any) => Promise<void>;
   }
   interface AcNavdrawer {
     /**
@@ -720,7 +720,7 @@ export namespace Components {
     /**
     * Clear all modals that are displayed.
     */
-    'dismiss': (elt?: any) => Promise<any>;
+    'dismiss': (elt?: HTMLAcPanelElement) => Promise<void>;
   }
   interface AcPickList {
     /**
@@ -922,6 +922,40 @@ export namespace Components {
     */
     'theme': string;
   }
+  interface AcTextEditor {
+    /**
+    * The disabled mode.
+    */
+    'disabled': boolean;
+    /**
+    * The HTML input field's name.
+    */
+    'name': string;
+    /**
+    * The placeholder of text editor.
+    */
+    'placeholder': string;
+    /**
+    * The native HTMLInputElement required attribute.
+    */
+    'required': boolean;
+    /**
+    * Use prop text to set value.
+    */
+    'text': string;
+    /**
+    * The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present.
+    */
+    'validator': ValidatorFn | ValidatorFn[];
+    /**
+    * Get the last validity state from the checkValidity.
+    */
+    'validity': CustomValidityState;
+    /**
+    * The value of the internal text editor.
+    */
+    'value': string;
+  }
   interface AcToast {
     'close': () => Promise<void>;
     'message': string;
@@ -940,7 +974,7 @@ export namespace Components {
     /**
     * Clear properties of the managed component.
     */
-    'dismiss': (data: any) => Promise<any>;
+    'dismiss': (data: any) => Promise<void>;
   }
   interface AcToggle {
     /**
@@ -1233,6 +1267,12 @@ declare global {
     new (): HTMLAcTabsElement;
   };
 
+  interface HTMLAcTextEditorElement extends Components.AcTextEditor, HTMLStencilElement {}
+  var HTMLAcTextEditorElement: {
+    prototype: HTMLAcTextEditorElement;
+    new (): HTMLAcTextEditorElement;
+  };
+
   interface HTMLAcToastElement extends Components.AcToast, HTMLStencilElement {}
   var HTMLAcToastElement: {
     prototype: HTMLAcToastElement;
@@ -1294,6 +1334,7 @@ declare global {
     'ac-tab': HTMLAcTabElement;
     'ac-table': HTMLAcTableElement;
     'ac-tabs': HTMLAcTabsElement;
+    'ac-text-editor': HTMLAcTextEditorElement;
     'ac-toast': HTMLAcToastElement;
     'ac-toast-controller': HTMLAcToastControllerElement;
     'ac-toggle': HTMLAcToggleElement;
@@ -2127,6 +2168,40 @@ declare namespace LocalJSX {
     */
     'theme'?: string;
   }
+  interface AcTextEditor {
+    /**
+    * The disabled mode.
+    */
+    'disabled'?: boolean;
+    /**
+    * The HTML input field's name.
+    */
+    'name'?: string;
+    /**
+    * The placeholder of text editor.
+    */
+    'placeholder'?: string;
+    /**
+    * The native HTMLInputElement required attribute.
+    */
+    'required'?: boolean;
+    /**
+    * Use prop text to set value.
+    */
+    'text'?: string;
+    /**
+    * The validations that this field need. This validations are checked on: - Blur event - Form submit event - Each keyUp event ONLY IF the validateOnKeyup property is present.
+    */
+    'validator'?: ValidatorFn | ValidatorFn[];
+    /**
+    * Get the last validity state from the checkValidity.
+    */
+    'validity'?: CustomValidityState;
+    /**
+    * The value of the internal text editor.
+    */
+    'value'?: string;
+  }
   interface AcToast {
     'message'?: string;
     'onClose'?: (event: CustomEvent<void>) => void;
@@ -2240,6 +2315,7 @@ declare namespace LocalJSX {
     'ac-tab': AcTab;
     'ac-table': AcTable;
     'ac-tabs': AcTabs;
+    'ac-text-editor': AcTextEditor;
     'ac-toast': AcToast;
     'ac-toast-controller': AcToastController;
     'ac-toggle': AcToggle;
@@ -2290,6 +2366,7 @@ declare module "@stencil/core" {
       'ac-tab': LocalJSX.AcTab & JSXBase.HTMLAttributes<HTMLAcTabElement>;
       'ac-table': LocalJSX.AcTable & JSXBase.HTMLAttributes<HTMLAcTableElement>;
       'ac-tabs': LocalJSX.AcTabs & JSXBase.HTMLAttributes<HTMLAcTabsElement>;
+      'ac-text-editor': LocalJSX.AcTextEditor & JSXBase.HTMLAttributes<HTMLAcTextEditorElement>;
       'ac-toast': LocalJSX.AcToast & JSXBase.HTMLAttributes<HTMLAcToastElement>;
       'ac-toast-controller': LocalJSX.AcToastController & JSXBase.HTMLAttributes<HTMLAcToastControllerElement>;
       'ac-toggle': LocalJSX.AcToggle & JSXBase.HTMLAttributes<HTMLAcToggleElement>;

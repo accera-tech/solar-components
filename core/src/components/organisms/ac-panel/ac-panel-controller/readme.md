@@ -24,13 +24,13 @@ Type: `Promise<any>`
 
 
 
-### `dismiss(elt?: any) => Promise<any>`
+### `dismiss(elt?: HTMLAcPanelElement) => Promise<void>`
 
 Clear all modals that are displayed.
 
 #### Returns
 
-Type: `Promise<any>`
+Type: `Promise<void>`
 
 
 

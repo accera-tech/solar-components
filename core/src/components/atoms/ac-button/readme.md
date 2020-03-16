@@ -24,6 +24,7 @@
 
 ### Used by
 
+ - [ac-collapse](../../molecules/ac-collapse)
  - [ac-date-picker](../ac-date-picker)
  - [ac-drop-down-menu](../../molecules/ac-drop-down-menu)
  - [ac-header](../ac-header)
@@ -38,6 +39,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  ac-collapse --> ac-button
   ac-date-picker --> ac-button
   ac-drop-down-menu --> ac-button
   ac-header --> ac-button

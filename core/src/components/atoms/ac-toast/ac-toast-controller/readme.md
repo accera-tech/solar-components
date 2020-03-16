@@ -24,13 +24,13 @@ Type: `Promise<any>`
 
 
 
-### `dismiss(data: any) => Promise<any>`
+### `dismiss(data: any) => Promise<void>`
 
 Clear properties of the managed component.
 
 #### Returns
 
-Type: `Promise<any>`
+Type: `Promise<void>`
 
 
 

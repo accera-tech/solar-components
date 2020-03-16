@@ -1,4 +1,4 @@
-import { VNode } from '@stencil/core/dist/declarations/vdom';
+import { VNode } from '@stencil/core';
 import { HTMLStencilElement } from '@stencil/core/internal';
 
 import { FieldsOf } from '../../utils/lang/types';
@@ -31,6 +31,7 @@ export class ControllerBehavior<C, E extends HTMLStencilElement> extends Compone
    * Clear the controller before unload.
    */
   detach(): Promise<any> | void {
+    // @ts-ignore
     return this.component.dismissAll ? this.component.dismissAll() : null;
   }
 

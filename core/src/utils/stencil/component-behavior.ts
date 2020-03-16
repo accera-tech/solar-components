@@ -1,4 +1,4 @@
-import { ComponentInterface } from '@stencil/core/dist/declarations/component-interfaces';
+import { ComponentInterface } from '@stencil/core';
 
 import { extendMethod } from '../lang/extend-method';
 
