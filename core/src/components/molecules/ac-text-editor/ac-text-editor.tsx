@@ -1,4 +1,4 @@
-import { Component, Element, Host, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 
 import { FormFieldBehavior, FormFieldComponent } from '../../../behaviors/form-behavior';
 import { Bind } from '../../../utils/lang/bind';
@@ -53,17 +53,12 @@ export class AcTextEditor implements FormFieldComponent {
   /**
    * The value of the internal text editor.
    */
-  @Prop() value: string;
+  @Prop({ mutable: true }) value = '';
 
   /**
    * The placeholder of text editor.
    */
   @Prop() placeholder = '';
-
-  /**
-   * Use prop text to set value.
-   */
-  @Prop() text: string;
 
   @State() hasFocus: boolean;
 
@@ -85,7 +80,9 @@ export class AcTextEditor implements FormFieldComponent {
       this.mediumEditor.subscribe('editableInput', () => {
         this.handleChange();
       });
-    })
+    });
+
+    this.mediumRef.innerHTML = this.value;
   }
 
   componentDidUnload() {
@@ -95,17 +92,11 @@ export class AcTextEditor implements FormFieldComponent {
     return new Promise(res => {
       const element = document.createElement('script');
       element.setAttribute('type', 'text/javascript');
-      element.setAttribute('src', MEDIUM_EDITOR_CDN );
+      element.setAttribute('src', MEDIUM_EDITOR_CDN);
       element.onload = () => res((window as any).MediumEditor);
       (element as any).onreadystatechange = () => res((window as any).MediumEditor);
       document.head.appendChild(element);
     });
-  }
-
-  @Watch('text')
-  onChangeText() {
-    this.mediumRef.innerHTML = this.text;
-    this.value = this.text
   }
 
   @Bind
