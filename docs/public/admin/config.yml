@@ -1,0 +1,25 @@
+backend:
+  name: github
+  repo: accera-tech/solar-components
+  branch: master
+  site_domain: condescending-bartik-296ab9.netlify.app
+
+media_folder: "docs/public/images/uploads"
+public_folder: "/public/images/uploads"
+locale: 'pt'
+
+collections:
+  - name: "solar-components-docs" # Used in routes, e.g., /admin/collections/blog
+    label: "Solar Design System Docs" # Used in the UI
+    label_singular: "Página"
+    folder: "docs/src/pages" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    extension: ".mdx"
+    format: "frontmatter"
+    identifier_field: "route"
+    slug: "{{menu}}{{name}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Título", name: "name", widget: "string"}
+      - {label: "Menu", name: "menu", widget: "string", required: false}
+      - {label: "Rota", name: "route", widget: "string"}
+      - {label: "Corpo", name: "body", widget: "markdown"}

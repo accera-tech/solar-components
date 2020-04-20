@@ -1,5 +1,4 @@
 import { config } from "./theme-config.doczrc";
-import path from "path";
 
 export default {
   base: '/solar-components/',
@@ -7,5 +6,15 @@ export default {
   typescript: true,
   codeSandbox: false,
   themeConfig: config,
-  indexHtml: './src/index.html'
+  public: '/public',
+  indexHtml: './src/index.html',
+  // theme: 'src/theme/index',
+  // modifyBundlerConfig: (config) => {
+  //   config.module.rules.push({
+  //     test: /\.css$/i,
+  //     use: ['style-loader', 'css-loader']
+  //   });
+  //
+  //   return config
+  // },
 }
