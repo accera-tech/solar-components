@@ -11,7 +11,7 @@
   <link href="{{ publicUrl }}/admin/config.yml" type="text/yaml" rel="cms-config-url">
   <style>
     .app__fab-button {
-      position: fixed;
+      position: absolute;
       right: 0;
       bottom: 0;
       margin: 32px;
@@ -35,49 +35,25 @@
 </a>
 <div id="nc-root" style="display: none"></div>
 {{ footer }}
-<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 <script>
-  const previewStyles = `
-      html,
-      body {
-        color: #444;
-        font-size: 14px;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      }
-
-      body {
-        padding: 20px;
-      }
-
-      h1 {
-        margin-top: 20px;
-        color: #666;
-        font-weight: bold;
-        font-size: 32px;
-      }
-
-      img {
-        max-width: 100%;
-      }
-    `;
-  window.CMS.registerPreviewStyle(previewStyles, { raw: true });
   const toggleEditIcon = document.getElementById('toggleEditIcon');
   const docRoot = document.getElementById('root');
   const ncRoot = document.getElementById('nc-root');
   let mode = 'VIEW';
   function toggleEditorMode() {
     if (mode === 'VIEW') {
-      toggleEditIcon.classList.replace('fa-edit', 'fa-eye');
+      toggleEditIcon.classList.replace('fa-edit', 'fa-view');
       mode = 'EDIT';
       docRoot.style.display = 'none';
       ncRoot.style.display = '';
     } else {
-      toggleEditIcon.classList.replace('fa-eye', 'fa-edit');
+      toggleEditIcon.classList.replace('fa-view', 'fa-edit');
       mode = 'VIEW';
-      docRoot.style.display = '';
-      ncRoot.style.display = 'none';
+      docRoot.style.display = 'none';
+      ncRoot.style.display = '';
     }
   }
 </script>
+<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html>
