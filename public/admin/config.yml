@@ -1,0 +1,57 @@
+backend:
+  name: github
+  repo: accera-tech/solar-components
+  branch: master
+  site_domain: condescending-bartik-296ab9.netlify.app
+#  preview_context: deploy-preview
+  commit_messages:
+    create: "docs: create {{slug}}"
+    update: "docs: update {{slug}}"
+    delete: "docs: delete {{slug}}"
+    uploadMedia: "docs: upload {{path}}"
+    deleteMedia: "docs: delete {{path}}"
+    openAuthoring: "docs: {{author-name}} {{message}}"
+#locale: 'pt'
+media_folder: "docs/public/images/uploads"
+public_folder: "/public/images/uploads"
+site_url: "https://accera-tech.github.io/solar-components/"
+#publish_mode: editorial_workflow
+
+collections:
+  - name: "components" # Used in routes, e.g., /admin/collections/blog
+    label: "Componentes" # Used in the UI
+    label_singular: "Página"
+    preview_path: "components/{{compid}}/{{doctype}}"
+    path: "{{compid}}/{{doctype}}"
+    folder: "docs/src/pages/components" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    extension: ".mdx"
+    format: "frontmatter"
+    identifier_field: "name"
+    slug: "{{compid}}-{{doctype}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Título", name: "name", widget: "string"}
+      - {label: "Id Component", name: "compid", widget: "string"}
+      - {label: "Tipo do Documento", name: "doctype", widget: "select", options: ["code", "usage", "accessibility"], default: "usage"}
+      - {label: "Capa", name: "cover", widget: "image", required: false}
+      - {label: "Rota", name: "route", widget: "string", required: false}
+      - {label: "Menu", name: "menu", widget: "hidden", default: "Componentes"}
+      - {label: "Corpo", name: "body", widget: "markdown"}
+
+  - name: "general-docs" # Used in routes, e.g., /admin/collections/blog
+    label: "Documentação" # Used in the UI
+    label_singular: "Página"
+    preview_path: "{{foldername}}/{{name}}"
+    path: "{{foldername}}/{{name}}"
+    folder: "docs/src/pages" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    extension: ".mdx"
+    format: "frontmatter"
+    identifier_field: "name"
+    slug: "{{name}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Título", name: "name", widget: "string"}
+      - {label: "Capa", name: "cover", widget: "image", required: false}
+      - {label: "Menu", name: "menu", widget: "string", required: false}
+      - {label: "Rota", name: "route", widget: "string", required: false}
+      - {label: "Corpo", name: "body", widget: "markdown"}
