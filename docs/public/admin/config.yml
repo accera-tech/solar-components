@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: accera-tech/solar-components
-  branch: master
+  branch: design-docs
   site_domain: condescending-bartik-296ab9.netlify.app
 #  preview_context: deploy-preview
   commit_messages:
