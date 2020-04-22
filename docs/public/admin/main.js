@@ -73,15 +73,15 @@ function registerImportsComponent(CMS) {
     id: 'imports',
     label: 'Imports',
     fields: [{name: 'code', label: 'Import Code', widget: 'text', default: `
-      import { Playground } from 'docz';
-      import { JSCodeBlock } from '@components/JSCodeBlock';
-      import { AdobeXDPreview } from '@components/AdobeXDPreview';
-      import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
-      defineCustomElements(window);
-    `}],
-    pattern: /^<!-- JSXIMPORTS -->(.+)<!-- \/JSXIMPORTS -->$/gms,
+import { Playground } from 'docz';
+import { JSCodeBlock } from '@components/JSCodeBlock';
+import { AdobeXDPreview } from '@components/AdobeXDPreview';
+import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
+defineCustomElements(window);
+`}],
+    pattern: /\/\/ JSXIMPORTS(.+)\/\/ END JSXIMPORTS/gms,
     fromBlock: match => ({ url: match[1] }),
-    toBlock: obj => `<!-- JSXIMPORTS -->${obj.code}<!-- /JSXIMPORTS -->`,
+    toBlock: obj => `// JSXIMPORTS${obj.code}// END JSXIMPORTS`,
     toPreview: obj => '',
   });
 }
