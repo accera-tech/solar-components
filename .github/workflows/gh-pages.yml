@@ -1,4 +1,4 @@
-name: Publish Docs to Github Pages
+name: Publish GH Pages
 on:
   push:
     branches:
