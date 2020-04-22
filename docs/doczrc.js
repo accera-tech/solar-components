@@ -3,6 +3,7 @@ import { config } from './theme-config.doczrc';
 export default {
   // Comment this line when using docz serve!!!
   base: '/solar-components/',
+  hashRouter: true,
   propsParser: false,
   typescript: true,
   codeSandbox: false,
