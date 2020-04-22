@@ -2,6 +2,7 @@ const { watch, src, dest, series } = require('gulp');
 const inject = require('gulp-inject-string');
 const flatten = require('gulp-flatten');
 const rename = require('gulp-rename');
+const replace = require('gulp-replace');
 const ghpages = require('gh-pages');
 
 const docsDest = 'docs/src/pages/components';
