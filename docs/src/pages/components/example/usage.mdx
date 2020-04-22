@@ -1,0 +1,17 @@
+---
+name: Exemplo
+compid: example
+doctype: usage
+menu: Componentes
+---
+// JSXIMPORTS
+import { Playground } from 'docz';
+import { JSCodeBlock } from '@components/JSCodeBlock';
+import { AdobeXDPreview } from '@components/AdobeXDPreview';
+import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
+defineCustomElements(window);
+// END JSXIMPORTS
+
+# Exemplo de Doc
+
+<AdobeXDPreview url={"https://xd.adobe.com/view/fe649bf4-f314-4a56-52ee-6327a843f3c7-8855/screen/b63688db-156f-4703-a994-6bd7c1a97f5c/Prancheta-teste"} />
