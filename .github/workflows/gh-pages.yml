@@ -26,6 +26,4 @@ jobs:
         run: npm run build-docs
       
       - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v1.4.0
-        with:
-          build_dir: "docs/.docz/dist"
+        run: npm run publish-docs
