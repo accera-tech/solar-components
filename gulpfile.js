@@ -3,7 +3,6 @@ const inject = require('gulp-inject-string');
 const flatten = require('gulp-flatten');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
-const ghpages = require('gh-pages');
 
 const docsDest = 'docs/src/pages/components';
 const mdxSrcGlob = 'core/src/**/*.{md,mdx}';
@@ -42,12 +41,6 @@ function docsCopy(glob, customDest) {
     .pipe(dest(customDest || docsDest));
 }
 
-function docsPublish() {
-  return new Promise(res => {
-    ghpages.publish('docs/.docz/dist', res);
-  });
-}
-
 function docsWatch() {
   const watcher = watch(mdxSrcGlob);
 
@@ -67,5 +60,4 @@ function docsCopyFromPath(path) {
 }
 
 exports.docsCopy = docsCopyAll;
-exports.docsPublish = docsPublish;
 exports.docsWatch = series(docsCopyAll, docsWatch);
