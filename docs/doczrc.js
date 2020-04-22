@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { dirname } from 'path';
 import { createPlugin } from 'docz-core';
 import glob from 'glob';
 import { config } from './theme-config.doczrc';
@@ -29,9 +30,6 @@ export default {
   plugins: [
     createPlugin({
       modifyFiles: doczFiles => {
-        if (!fs.existsSync('.docz/pages')) {
-          fs.mkdirSync('.docz/pages', { recursive: true } );
-        }
         const files = glob.sync('src/pages/**/*.{md,mdx}');
         files.forEach(file => {
           const mdContent = fs
@@ -54,6 +52,10 @@ export default {
           mdContentString.replace(/^````js(.+?(?=````))````$/gms, '<JSCodeBlock>$1</JSCodeBlock>');
           mdContentString.replace(/^\[View in AdobeXD]\((.)\)$/gms, '<AdobeXDPreview url={"$1"}/>');
 
+          const destPath = file.replace('src', '.docz');
+          if (!fs.existsSync(dirname(destPath))) {
+            fs.mkdirSync(dirname(destPath), { recursive: true } );
+          }
           fs.writeFileSync(file.replace('src', '.docz'), mdContentString);
         });
         return doczFiles;
