@@ -14,11 +14,11 @@ class NetlifyCMS {
       font-weight: bold;
       font-size: 32px;
     }
-    img, iframe {
+    img {
       max-width: 100%;
     }
     iframe {
-      width: 100%
+      min-width: 100%;
       height: 500px;
       border: 1px solid #E6E6E6;
       background: #FFFFFF;
