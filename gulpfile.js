@@ -1,10 +1,18 @@
 const { watch, src, dest, series } = require('gulp');
+const inject = require('gulp-inject-string');
 const flatten = require('gulp-flatten');
 const rename = require('gulp-rename');
 const ghpages = require('gh-pages');
 
 const docsDest = 'docs/src/pages/components';
 const mdxSrcGlob = 'core/src/**/*.{md,mdx}';
+const mdxLoader =
+  `import { Playground } from 'docz';
+import { JSCodeBlock } from '@components/JSCodeBlock';
+import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
+defineCustomElements(window);
+
+`;
 
 /**
  * Copy all mdx files to docs package.
@@ -14,6 +22,17 @@ const mdxSrcGlob = 'core/src/**/*.{md,mdx}';
  */
 function docsCopy(glob, customDest) {
   return src(glob)
+    .pipe(replace(
+      /^````html(.+?(?=````))````$/gms,
+      '<Playground>$1</Playground>',
+      { logs: { enabled: false } })
+    )
+    .pipe(replace(
+      /^````js(.+?(?=````))````$/gms,
+      '<JSXCodeBlock>{`$1`}</JSXCodeBlock>',
+      { logs: { enabled: false } })
+    )
+    .pipe(inject.after('\n---\n', mdxLoader))
     .pipe(flatten({ includeParents: -1 }))
     .pipe(rename(path => {
       path.basename = 'code';

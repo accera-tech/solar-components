@@ -13,5 +13,3 @@ export function AdobeXDPreview(props) {
     <StyledIFrame src={props.url.replace('view', 'embed')} />
   );
 }
-
-window.AdobeXDPreview = AdobeXDPreview;

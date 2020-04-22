@@ -18,6 +18,7 @@ class NetlifyCMS {
       max-width: 100%;
     }
     iframe {
+      width: 100%
       height: 500px;
       border: 1px solid #E6E6E6;
       background: #FFFFFF;
@@ -46,6 +47,7 @@ class NetlifyCMS {
 
     window.CMS.registerPreviewStyle(this.PREVIEW_STYLES, { raw: true });
     registerAdobeXDComponent(window.CMS);
+    registerImportsComponent(window.CMS);
     this.toggleEditButton.addEventListener('click', this.toggleEdit.bind(this));
   }
 
@@ -59,10 +61,28 @@ function registerAdobeXDComponent(CMS) {
     id: 'adobexd',
     label: 'AdobeXD',
     fields: [{name: 'url', label: 'AdobeXD Preview URL', widget: 'string'}],
-    pattern: /^\[View in AdobeXD]\((.)\)$/,
+    pattern: /^<AdobeXDPreview url={"(.+)"} \/>$/,
     fromBlock: match => ({ url: match[1] }),
-    toBlock: obj => `[View in AdobeXD](${obj.url})`,
-    toPreview: obj => AdobeXDPreview(obj),
+    toBlock: obj => `<AdobeXDPreview url={"${obj.url}"} />`,
+    toPreview: obj => `<iframe src="${obj.url.replace('view', 'embed')}"></iframe>"`,
+  });
+}
+
+function registerImportsComponent(CMS) {
+  CMS.registerEditorComponent({
+    id: 'imports',
+    label: 'Imports',
+    fields: [{name: 'code', label: 'Import Code', widget: 'text', default: `
+      import { Playground } from 'docz';
+      import { JSCodeBlock } from '@components/JSCodeBlock';
+      import { AdobeXDPreview } from '@components/AdobeXDPreview';
+      import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
+      defineCustomElements(window);
+    `}],
+    pattern: /^<!-- JSXIMPORTS -->(.+)<!-- \/JSXIMPORTS -->$/gms,
+    fromBlock: match => ({ url: match[1] }),
+    toBlock: obj => `<!-- JSXIMPORTS -->${obj.code}<!-- /JSXIMPORTS -->`,
+    toPreview: obj => '',
   });
 }
 
