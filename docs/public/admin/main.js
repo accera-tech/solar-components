@@ -79,10 +79,10 @@ import { AdobeXDPreview } from '@components/AdobeXDPreview';
 import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
 defineCustomElements(window);
 `}],
-    pattern: /\/\/ JSXIMPORTS(.+)\/\/ END JSXIMPORTS/gms,
+    pattern: /\/\/ JSXIMPORTS\n(.+)\n\/\/ END JSXIMPORTS/gms,
     fromBlock: match => ({ code: match[1] }),
-    toBlock: obj => `// JSXIMPORTS${obj.code}// END JSXIMPORTS`,
-    toPreview: obj => '',
+    toBlock: obj => `// JSXIMPORTS\n${obj.code}\n// END JSXIMPORTS`,
+    toPreview: obj => `<div style="display: none;">${obj.code}</div>`,
   });
 }
 
