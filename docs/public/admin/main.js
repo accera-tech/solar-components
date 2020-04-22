@@ -80,7 +80,7 @@ import { defineCustomElements } from '@accera/solar-components.core/dist/loader'
 defineCustomElements(window);
 `}],
     pattern: /\/\/ JSXIMPORTS(.+)\/\/ END JSXIMPORTS/gms,
-    fromBlock: match => ({ url: match[1] }),
+    fromBlock: match => ({ code: match[1] }),
     toBlock: obj => `// JSXIMPORTS${obj.code}// END JSXIMPORTS`,
     toPreview: obj => '',
   });
