@@ -1,6 +1,6 @@
 {
   "name": "@accera/solar-components.core",
-  "version": "1.3.44",
+  "version": "1.3.45",
   "description": "Web Components implementation of Solar Design System",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
