@@ -3,7 +3,7 @@ backend:
   repo: accera-tech/solar-components
   branch: design-docs
   site_domain: condescending-bartik-296ab9.netlify.app
-#  preview_context: deploy-preview
+  preview_context: "Publish GH Pages / build (push)"
   commit_messages:
     create: "docs: create {{slug}}"
     update: "docs: update {{slug}}"
@@ -21,7 +21,7 @@ collections:
   - name: "components" # Used in routes, e.g., /admin/collections/blog
     label: "Componentes" # Used in the UI
     label_singular: "Página"
-    preview_path: "components/{{compid}}/{{doctype}}"
+    preview_path: "src-pages-components-{{compid}}-{{doctype}}"
     path: "{{compid}}/{{doctype}}"
     folder: "docs/src/pages/components" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
@@ -41,7 +41,7 @@ collections:
   - name: "general-docs" # Used in routes, e.g., /admin/collections/blog
     label: "Documentação" # Used in the UI
     label_singular: "Página"
-    preview_path: "{{foldername}}/{{name}}"
+    preview_path: "src-pages-{{foldername}}-{{name}}"
     path: "{{foldername}}/{{name}}"
     folder: "docs/src/pages" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
