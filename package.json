@@ -4,17 +4,15 @@
   "scripts": {
     "publish-latest": "lerna publish -y --force-publish=* --conventional-commits --create-release github",
     "publish-alpha": "lerna publish prerelease -y --force-publish=* --no-push --no-git-tag-version --dist-tag alpha",
-    "postinstall": "lerna bootstrap --force-local",
+    "postinstall": "lerna bootstrap --force-local --no-ci",
     "start": "concurrently -n gulp,stencil,docz \"npx gulp docsWatch\" \"npm start --prefix core\" \"npm start --prefix docs\"",
-    "build-docs": "npm run build --prefix core && npx gulp docsCopy && npm run build --prefix docs",
-    "publish-docs": "npx gulp docsPublish"
+    "build-docs": "npm run build --prefix core && npx gulp docsCopy && npm run build --prefix docs"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "concurrently": "^5.0.2",
     "conventional-changelog": "^3.1.3",
-    "gh-pages": "^2.2.0",
     "gulp": "^4.0.2",
     "gulp-flatten": "^0.4.0",
     "gulp-inject-string": "^1.1.2",

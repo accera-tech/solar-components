@@ -192,6 +192,7 @@ export class AcSelect implements
   @Watch('value')
   valueDidUpdate(newValue: (number | string)[] | number | string,
                  oldValue: (number | string)[] | number | string) {
+    this.clearFormatSelectedText();
     if (!equals(newValue, []) && !equals(newValue, oldValue)) {
       // Build the formatted text when the value change.
       this.formatSelectedText();
@@ -355,7 +356,12 @@ export class AcSelect implements
     }
     return options;
   }
-
+  /**
+   * Clear selectedText
+   */
+  private clearFormatSelectedText() {
+    this.selectedText = null;
+  }
   /**
    * Generate the selectedText based on the selected options.
    */

@@ -8,10 +8,18 @@
   <title>{{ title }}</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link href="{{ publicUrl }}/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <link rel="stylesheet" href="{{ publicUrl }}/admin/style.css">
   {{ head }}
 </head>
 <body>
 <div id="root"></div>
+<a class="app__fab-button" id="toggleEditButton">
+  <i id="toggleEditIcon" class="fas fa-edit"></i>
+</a>
+<div id="nc-root" style="display: none"></div>
 {{ footer }}
+<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+<script src="{{ publicUrl }}/admin/main.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-docs/src/pages/components/**/code.mdx
+docs/src/pages/components/*/code.mdx
 dist/
 www/
 

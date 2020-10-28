@@ -57,7 +57,8 @@ export class ControllerBehavior<C, E extends HTMLStencilElement> extends Compone
     } else {
       // Using delegate
       const element =
-        await delegate.createComponent<E & HTMLStencilControlledElement<C, E>>(this.component.target, props);
+        await delegate
+        .createComponent(this.component.target, props) as E & HTMLStencilControlledElement<C, E>;
 
       element.controller = this.component;
       element._resolveDismiss = null;

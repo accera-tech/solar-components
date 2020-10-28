@@ -1,4 +1,4 @@
-name: Publish Latest
+name: Publish NPM Latest
 on:
   push:
     branches:

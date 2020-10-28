@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="{{ description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link href="{{ publicUrl }}/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <style>
+    .app__fab-button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      margin: 32px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      background: #00273c;
+      color: white;
+      box-shadow: 0 10px 10px 0 rgba(0,0,0,.25);
+    }
+  </style>
+  {{ head }}
+</head>
+<body>
+<div id="root"></div>
+<a class="app__fab-button" onclick="toggleEditorMode()">
+  <i id="toggleEditIcon" class="fas fa-edit"></i>
+</a>
+<div id="nc-root" style="display: none"></div>
+{{ footer }}
+<script>
+  const toggleEditIcon = document.getElementById('toggleEditIcon');
+  const docRoot = document.getElementById('root');
+  const ncRoot = document.getElementById('nc-root');
+  let mode = 'VIEW';
+  function toggleEditorMode() {
+    if (mode === 'VIEW') {
+      toggleEditIcon.classList.replace('fa-edit', 'fa-view');
+      mode = 'EDIT';
+      docRoot.style.display = 'none';
+      ncRoot.style.display = '';
+    } else {
+      toggleEditIcon.classList.replace('fa-view', 'fa-edit');
+      mode = 'VIEW';
+      docRoot.style.display = 'none';
+      ncRoot.style.display = '';
+    }
+  }
+</script>
+<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+</body>
+</html>

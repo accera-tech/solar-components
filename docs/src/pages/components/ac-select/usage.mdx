@@ -1,0 +1,17 @@
+---
+name: Example
+compid: example
+doctype: usage
+menu: Componentes
+---
+<!-- JSXIMPORTS -->
+      import { Playground } from 'docz';
+      import { JSCodeBlock } from '@components/JSCodeBlock';
+      import { AdobeXDPreview } from '@components/AdobeXDPreview';
+      import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
+      defineCustomElements(window);
+    <!-- /JSXIMPORTS -->
+
+# Example with Adobe XD
+
+<AdobeXDPreview url={"https://xd.adobe.com/view/fe649bf4-f314-4a56-52ee-6327a843f3c7-8855/screen/3c8cb1d8-289f-4ce4-806f-e69ba640eedb/Select-1/"} />

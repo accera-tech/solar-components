@@ -1,14 +1,14 @@
-const { watch, src, dest } = require('gulp');
+const { watch, src, dest, series } = require('gulp');
 const inject = require('gulp-inject-string');
 const flatten = require('gulp-flatten');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
-const ghpages = require('gh-pages');
 
 const docsDest = 'docs/src/pages/components';
 const mdxSrcGlob = 'core/src/**/*.{md,mdx}';
 const mdxLoader =
-`import { Playground } from 'docz';
+  `import { Playground } from 'docz';
+import { JSCodeBlock } from '@components/JSCodeBlock';
 import { defineCustomElements } from '@accera/solar-components.core/dist/loader';
 defineCustomElements(window);
 
@@ -17,13 +17,19 @@ defineCustomElements(window);
 /**
  * Copy all mdx files to docs package.
  * @param glob The glob rule to run.
+ * @param [customDest] The dest path.
  * @returns {*}
  */
-function docsCopy(glob) {
+function docsCopy(glob, customDest) {
   return src(glob)
     .pipe(replace(
       /^````html(.+?(?=````))````$/gms,
       '<Playground>$1</Playground>',
+      { logs: { enabled: false } })
+    )
+    .pipe(replace(
+      /^````js(.+?(?=````))````$/gms,
+      '<JSXCodeBlock>{`$1`}</JSXCodeBlock>',
       { logs: { enabled: false } })
     )
     .pipe(inject.after('\n---\n', mdxLoader))
@@ -32,22 +38,26 @@ function docsCopy(glob) {
       path.basename = 'code';
       path.extname = '.mdx'
     }))
-    .pipe(dest(docsDest));
+    .pipe(dest(customDest || docsDest));
 }
 
-function docsPublish() {
-  return new Promise(res => {
-    ghpages.publish('docs/.docz/dist', res);
-  });
-}
-
-exports.docsCopy = () => docsCopy(mdxSrcGlob);
-exports.docsPublish = docsPublish;
-exports.docsWatch = () => {
+function docsWatch() {
   const watcher = watch(mdxSrcGlob);
 
-  watcher.on('change', path => docsCopy(path));
-  watcher.on('add', path => docsCopy(path));
+  watcher.on('change', docsCopyFromPath);
+  watcher.on('add', docsCopyFromPath);
 
   return watcher;
-};
+}
+
+function docsCopyAll() {
+  return docsCopy(mdxSrcGlob);
+}
+
+function docsCopyFromPath(path) {
+  const splittedPath = path.split('/');
+  return docsCopy(path, docsDest + '/', splittedPath[splittedPath.length - 2])
+}
+
+exports.docsCopy = docsCopyAll;
+exports.docsWatch = series(docsCopyAll, docsWatch);
