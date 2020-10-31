@@ -24,6 +24,8 @@ export class AcMenu {
 
   @Prop() href: string;
 
+  @Prop() target: string;
+
   @Bind
   handleClick() {
     if (this.submenu) {
@@ -41,7 +43,7 @@ export class AcMenu {
           'ac-menu-item--hidden': this.hidden,
         }}
       >
-        <a class="ac-menu-item__native" href={this.href} onClick={this.handleClick}>
+        <a class="ac-menu-item__native" target={​ this.target ? this.target : "_self" }​ href={​this.href}​ onClick={​this.handleClick}​ >
         <span class="ac-menu-item__icon-start">
           <slot name="icon-start"/>
         </span>
